@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>鹈鹕骑自行车</title><style>*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#dceffa;color:#183c50;font-family:system-ui,-apple-system,"Microsoft YaHei",sans-serif}body{min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;gap:16px}svg{display:block;width:100%;max-width:1100px;max-height:calc(100dvh - 118px);height:auto;border-radius:24px;box-shadow:0 16px 50px #24577718}.controls{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;background:#ffffffd9;padding:10px 14px;border:1px solid #fff;border-radius:20px;box-shadow:0 5px 24px #24577712}button,select{font:inherit;font-size:16px;min-height:44px;border-radius:12px;cursor:pointer}button{border:0;padding:10px 22px;background:#145b7a;color:white;min-width:120px}button:hover{background:#0c4763}button:focus-visible,select:focus-visible{outline:3px solid #239ddd;outline-offset:3px}label{font-size:16px}select{border:1px solid #bed6e3;background:#f1f8fc;color:#183c50;padding:8px 12px}@media(max-width:480px){body{padding:10px;gap:12px}svg{border-radius:16px}.controls{gap:8px;padding:8px 10px}button{padding:10px 16px;min-width:104px}}</style></head><body><svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>鹈鹕骑自行车</title><style>*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#dceffa;color:#183c50;font-family:system-ui,-apple-system,"Microsoft YaHei",sans-serif}body{min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;gap:16px}svg{display:block;width:100%;max-width:1100px;max-height:calc(100dvh - 118px);height:auto;border-radius:24px;box-shadow:0 16px 50px #24577718}.controls{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;background:#ffffffd9;padding:10px 14px;border:1px solid #fff;border-radius:20px;box-shadow:0 5px 24px #24577712}button{font:inherit;font-size:16px;min-height:44px;border-radius:12px;cursor:pointer}button{border:0;padding:10px 22px;background:#145b7a;color:white;min-width:120px}button:hover{background:#0c4763}button:focus-visible{outline:3px solid #239ddd;outline-offset:3px}.speed-options{display:flex;gap:6px}.speed-button{min-width:48px;padding:10px 12px;background:#edf6fb;color:#183c50;border:1px solid #bed6e3}.speed-button:hover{background:#d6ebf7}.speed-button[aria-pressed="true"]{background:#145b7a;color:#fff;border-color:#145b7a}@media(max-width:480px){body{padding:10px;gap:12px}svg{border-radius:16px}.controls{gap:8px;padding:8px 10px}#play-toggle{padding:10px 16px;min-width:88px}.speed-button{padding:10px;min-width:44px}}</style></head><body><svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
 <title id="title">鹈鹕骑自行车动画</title><desc id="desc">A white pelican with an amber bill pedals a red bicycle beside the sea, rendered entirely as SVG vector shapes.</desc>
 <defs>
 <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#8fcff4"/><stop offset="1" stop-color="#effbff"/></linearGradient>
@@ -91,7 +91,10 @@
 <circle cx="330" cy="612" r="8" fill="#b78349" stroke-width="3"/>
 <circle cx="860" cy="612" r="8" fill="#b78349" stroke-width="3"/>
 <!-- Tail and body -->
+<g id="pelican-body">
+<g id="tail-feathers">
 <path d="M407 363 Q321 372 290 324 L342 331 L311 300 Q361 303 400 327Z" fill="#fbf9ea" stroke-width="4"/>
+</g>
 <path d="M396 293 C447 266 527 280 551 309 C583 313 587 277 582 241 C577 199 592 152 638 143 C685 135 714 164 709 197 C706 217 686 232 670 242 C655 256 665 289 652 329 C638 380 593 408 526 407 C472 433 398 406 378 368 C361 336 373 309 396 293Z" fill="#fffced" stroke-width="5"/>
 <path d="M603 239 Q622 253 641 247 Q628 290 639 312 Q623 360 583 365" fill="#e0e5d0" stroke="none"/>
 <!-- Wing reaches the handlebar -->
@@ -102,15 +105,16 @@
 <path d="M702 226 Q775 271 866 248 Q823 280 758 257 Q719 246 702 226" fill="#cf9146" stroke="none"/>
 <path d="M688 191 Q791 180 958 196 Q976 200 969 211 L696 213Z" fill="#f3ca73" stroke-width="4"/>
 <path d="M953 195q21 1 16 16l-18-2" fill="#ce6b49" stroke-width="2"/>
-<ellipse cx="670" cy="177" rx="12" ry="15" fill="#e8e7ce" stroke="none"/>
+<g id="pelican-eye"><ellipse cx="670" cy="177" rx="12" ry="15" fill="#e8e7ce" stroke="none"/>
 <ellipse cx="674" cy="178" rx="5" ry="8" fill="#29463f" stroke="none"/>
 <circle cx="676" cy="175" r="2" fill="white" stroke="none"/>
-<path d="M652 155q13-7 24-1" fill="none" stroke-width="3"/>
+</g><path d="M652 155q13-7 24-1" fill="none" stroke-width="3"/>
 <path d="M601 158l-6-13 18 7-1-14 17 8" fill="#fffced" stroke-width="3"/>
+</g>
 <g id="near-leg"><path id="near-outline" fill="none" stroke-width="19"/><path id="near-bone" fill="none" stroke="#d7a34b" stroke-width="12"/><path id="near-crank" fill="none" stroke="#50665a" stroke-width="9"/><path id="near-pedal" stroke-width="8"/><path id="near-foot" fill="#e4b35b" stroke-width="3"/></g>
 <circle cx="570" cy="612" r="7" fill="#bf5946" stroke-width="3"/>
 </g>
-</svg><div class="controls" role="group" aria-label="动画控制"><button id="play-toggle" type="button" aria-pressed="false">暂停</button><label for="speed">速度</label><select id="speed" aria-label="播放速度"><option value="1" selected>1×</option><option value="3">3×</option><option value="5">5×</option></select></div><script>"use strict";
+</svg><div class="controls" role="group" aria-label="动画控制"><button id="play-toggle" type="button" aria-pressed="false">暂停</button><div class="speed-options" role="group" aria-label="播放速度"><button class="speed-button" type="button" data-speed="1" aria-pressed="true" aria-label="1倍速">1×</button><button class="speed-button" type="button" data-speed="3" aria-pressed="false" aria-label="3倍速">3×</button><button class="speed-button" type="button" data-speed="5" aria-pressed="false" aria-label="5倍速">5×</button></div></div><script>"use strict";
 const get=id=>document.getElementById(id);
 const tau=Math.PI*2;
 function leg(side,angle,hx,hy){
@@ -129,8 +133,14 @@ function leg(side,angle,hx,hy){
 }
 function draw(ms){
  const angle=ms/1000*tau/2.4;
- leg('far',angle+Math.PI,530,402);
- leg('near',angle,516,400);
+ const bob=2.5*Math.sin(angle*2);
+ get('pelican-body').setAttribute('transform',`translate(0 ${bob})`);
+ get('tail-feathers').setAttribute('transform',`rotate(${3*Math.sin(angle*1.3)} 396 343)`);
+ const blinkPhase=ms%4700;
+ const eyeScale=blinkPhase<180?Math.max(.08,Math.abs(blinkPhase-90)/90):1;
+ get('pelican-eye').setAttribute('transform',`translate(0 178) scale(1 ${eyeScale}) translate(0 -178)`);
+ leg('far',angle+Math.PI,530,402+bob);
+ leg('near',angle,516,400+bob);
  const degrees=angle*180/Math.PI*2.4;
  const seconds=ms/1000;
  for(const [id,rate] of [['cloud-scroll',14],['mountain-scroll',32],['water-scroll',75]]){
@@ -152,8 +162,10 @@ get('play-toggle').addEventListener('click',()=>{
  get('play-toggle').textContent=paused?'继续':'暂停';
  get('play-toggle').setAttribute('aria-pressed',String(paused));
 });
-get('speed').addEventListener('change',()=>{
- advance(performance.now());speed=Number(get('speed').value);
+const speedButtons=Array.from(document.querySelectorAll('[data-speed]'));
+for(const button of speedButtons)button.addEventListener('click',()=>{
+ advance(performance.now());speed=Number(button.dataset.speed);
+ for(const option of speedButtons)option.setAttribute('aria-pressed',String(option===button));
 });
 document.addEventListener('visibilitychange',()=>{last=null;});
 draw(0);requestAnimationFrame(frame);
