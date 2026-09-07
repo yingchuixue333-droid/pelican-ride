@@ -29,6 +29,7 @@
 <ellipse cx="605" cy="785" rx="420" ry="24" fill="#476d7c" opacity=".16"/>
 <g stroke="#29463f" stroke-linejoin="round" stroke-linecap="round">
 <circle cx="330" cy="612" r="164" fill="none" stroke-width="12"/><circle cx="330" cy="612" r="150" fill="none" stroke="#b3bca7" stroke-width="3"/>
+<circle id="wheel-blur-330" cx="330" cy="612" r="100" fill="none" stroke="#a8b4a3" stroke-width="96" opacity="0"/>
 <g id="spokes-330"><path d="M330 612 L478.00 612.00" stroke="#a8b4a3" stroke-width="1.7"/>
 <path d="M330 612 L472.96 650.31" stroke="#a8b4a3" stroke-width="1.7"/>
 <path d="M330 612 L458.17 686.00" stroke="#a8b4a3" stroke-width="1.7"/>
@@ -54,6 +55,7 @@
 <path d="M330 612 L458.17 538.00" stroke="#a8b4a3" stroke-width="1.7"/>
 <path d="M330 612 L472.96 573.69" stroke="#a8b4a3" stroke-width="1.7"/>
 </g><circle cx="860" cy="612" r="164" fill="none" stroke-width="12"/><circle cx="860" cy="612" r="150" fill="none" stroke="#b3bca7" stroke-width="3"/>
+<circle id="wheel-blur-860" cx="860" cy="612" r="100" fill="none" stroke="#a8b4a3" stroke-width="96" opacity="0"/>
 <g id="spokes-860"><path d="M860 612 L1008.00 612.00" stroke="#a8b4a3" stroke-width="1.7"/>
 <path d="M860 612 L1002.96 650.31" stroke="#a8b4a3" stroke-width="1.7"/>
 <path d="M860 612 L988.17 686.00" stroke="#a8b4a3" stroke-width="1.7"/>
@@ -150,7 +152,14 @@ function draw(ms){
  const travel=seconds*164*tau*.38;
  get('fence-scroll').setAttribute('transform',`translate(${-(travel%260)} 0)`);
  get('road-stripes').setAttribute('stroke-dashoffset',String(travel%260));
- for(const cx of [330,860])get('spokes-'+cx).setAttribute('transform',`rotate(${degrees} ${cx} 612)`);
+ // Repeated sharp spokes alias at high playback speeds (wagon-wheel effect).
+ // Use a rotationally averaged spoke band while moving fast; restore detail on pause.
+ for(const cx of [330,860]){
+  get('spokes-'+cx).setAttribute('transform',`rotate(${degrees} ${cx} 612)`);
+  const fast=!paused&&speed>=3;
+  get('spokes-'+cx).setAttribute('opacity',fast?'0':'1');
+  get('wheel-blur-'+cx).setAttribute('opacity',fast?'.12':'0');
+ }
 }
 let elapsed=0,last=null,paused=false,speed=1;
 function advance(now){
@@ -162,11 +171,13 @@ get('play-toggle').addEventListener('click',()=>{
  advance(performance.now());paused=!paused;
  get('play-toggle').textContent=paused?'继续':'暂停';
  get('play-toggle').setAttribute('aria-pressed',String(paused));
+ draw(elapsed);
 });
 const speedButtons=Array.from(document.querySelectorAll('[data-speed]'));
 for(const button of speedButtons)button.addEventListener('click',()=>{
  advance(performance.now());speed=Number(button.dataset.speed);
  for(const option of speedButtons)option.setAttribute('aria-pressed',String(option===button));
+ draw(elapsed);
 });
 document.addEventListener('visibilitychange',()=>{last=null;});
 draw(0);requestAnimationFrame(frame);
