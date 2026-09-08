@@ -1,36 +1,14 @@
-<!doctype html>
-<html lang="zh-CN" data-scene="sakura" data-time="sunset"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>鹈鹕骑自行车</title><style>*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#dceffa;color:#183c50;font-family:system-ui,-apple-system,"Microsoft YaHei",sans-serif}body{min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;gap:16px}svg{display:block;width:100%;max-width:1100px;max-height:calc(100dvh - 118px);height:auto;border-radius:24px;box-shadow:0 16px 50px #24577718}.controls{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;background:#ffffffd9;padding:10px 14px;border:1px solid #fff;border-radius:20px;box-shadow:0 5px 24px #24577712}button{font:inherit;font-size:16px;min-height:44px;border-radius:12px;cursor:pointer}button{border:0;padding:10px 22px;background:#145b7a;color:white;min-width:120px}button:hover{background:#0c4763}button:focus-visible{outline:3px solid #239ddd;outline-offset:3px}.speed-options{display:flex;gap:6px}.speed-button{min-width:48px;padding:10px 12px;background:#edf6fb;color:#183c50;border:1px solid #bed6e3}.speed-button:hover{background:#d6ebf7}.speed-button[aria-pressed="true"]{background:#145b7a;color:#fff;border-color:#145b7a}@media(max-width:480px){body{padding:10px;gap:12px}svg{border-radius:16px}.controls{gap:8px;padding:8px 10px}#play-toggle{padding:10px 16px;min-width:88px}.speed-button{padding:10px;min-width:44px}}@media(orientation:landscape) and (max-height:600px){body{height:100dvh;min-height:0;padding:0;gap:0;overflow:hidden}svg{flex:none;width:100%;height:100dvh;max-width:none;max-height:none;border-radius:0;box-shadow:none}.controls{position:fixed;z-index:1;top:max(8px,env(safe-area-inset-top));right:max(8px,env(safe-area-inset-right));gap:6px;padding:6px 8px;border-radius:16px;background:#ffffffdf}#play-toggle{min-width:72px;padding:10px 12px}.speed-button{min-width:44px;padding:10px}.speed-options{gap:4px}} 
-:root{--sky1:#8fcff4;--sky2:#effbff;--water1:#61bada;--water2:#2396b2;--hill:#4c8d8c;--grass:#79b49f;--road:#dce5e9;--leaf:#478b65;--leaf2:#76af78;--bloom:#f3b9d1;--bloom2:#ffe0ec;--trunk:#795e50;--mount:#78abc0;--cloud:#fff;--page:#dceffa}
-:root[data-time="sunset"]{--sky1:#bd9bbe;--sky2:#ffd9b2;--water1:#bb9fba;--water2:#8d93af;--hill:#827d8d;--grass:#b5a38c;--road:#e2ccc1;--leaf:#797d58;--leaf2:#b49c6b;--bloom:#eaa6b8;--bloom2:#ffd1c7;--trunk:#80615e;--mount:#9f8fa7;--cloud:#ffe8d8;--page:#e6c5c3}
-:root[data-time="night"]{--sky1:#14233e;--sky2:#466180;--water1:#3e6b89;--water2:#254e6a;--hill:#35576a;--grass:#486574;--road:#748596;--leaf:#365866;--leaf2:#567b7b;--bloom:#9e87b0;--bloom2:#c1b0d0;--trunk:#616070;--mount:#435b76;--cloud:#a2b3ca;--page:#263c53}
-html,body{background:var(--page)}
-.scene-layer,.night-only{display:none}
-[data-scene="sea"] .scene-sea,[data-scene="forest"] .scene-forest,[data-scene="sakura"] .scene-sakura,[data-time="night"] .night-only{display:inline}
-[data-time="night"] .sun{display:none}[data-time="night"] #cloud-scroll{opacity:.28}
-[data-time="sunset"] .sun{fill:#ffbe88;transform:translate(-25px,130px)}
-.setting{display:flex;align-items:center;gap:6px;font-size:14px}.setting select{font:inherit;min-height:44px;border:1px solid #bed6e3;border-radius:10px;padding:6px;background:#f1f8fc;color:#183c50;max-width:110px}.setting select:focus-visible{outline:3px solid #239ddd;outline-offset:2px}.settings{display:flex;gap:12px}.controls{max-width:100%}
-@media(max-width:600px){.settings{width:100%;justify-content:center}.controls{max-width:340px;gap:8px}}
-@media(orientation:landscape) and (max-height:600px){.controls{max-width:294px;gap:5px}.settings{width:100%;justify-content:center;gap:8px}.setting select{min-height:36px}.setting{font-size:13px}}
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>鹈鹕逐雪 · 云路冒险</title><style>*{box-sizing:border-box}html,body{margin:0;background:#c4e3ee}button{font:inherit;min-height:44px;border:0;border-radius:12px;cursor:pointer;color:white}button:focus-visible{outline:3px solid #66c4ed}[hidden]{display:none!important}body[data-mode="ski"]{padding:0;display:block;overflow:hidden;background:#c4e3ee}
 
-[hidden]{display:none!important}.night-only,[data-time="night"] .night-only{display:inline;opacity:var(--night-opacity,0)}
-.sun,[data-time="night"] .sun,[data-time="sunset"] .sun{display:inline;opacity:var(--sun-opacity,1);fill:var(--sun-color,#ffbe88);transform:translate(var(--sun-x,-25px),var(--sun-y,130px))}
-#cloud-scroll,[data-time="night"] #cloud-scroll{opacity:var(--cloud-opacity,.85)}
 
-.extra-controls{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;width:100%}.extra-controls button,#open-controls{min-width:64px;padding:8px 12px;font-size:14px}.extra-controls button{background:#e4eff5;color:#183c50}.extra-controls button[aria-pressed="true"]{background:#145b7a;color:white}
-.controls{max-width:620px}#open-controls{position:fixed;right:max(10px,env(safe-area-inset-right));top:max(10px,env(safe-area-inset-top));z-index:2}
-@media(max-width:600px){.controls{max-width:340px}svg{max-height:calc(100dvh - 210px)}}
-@media(orientation:landscape) and (max-height:600px){.controls{max-width:294px;max-height:calc(100dvh - 16px);overflow:auto}svg{max-height:none}.extra-controls button{padding:6px 9px;min-height:36px}}
-body[data-mode="ski"]{padding:0;display:block;overflow:hidden;background:#c4e3ee}
-body[data-mode="ski"]>svg,body[data-mode="ski"]>#controls-panel,body[data-mode="ski"]>#open-controls{display:none!important}
-body[data-mode="watch"] #ski-app{display:none}
 #ski-app{position:fixed;inset:0;overflow:hidden;font-family:system-ui,-apple-system,"Microsoft YaHei",sans-serif;color:#234657;user-select:none;-webkit-user-select:none}
 #ski-canvas{display:block;width:100%;height:100%;touch-action:none;outline:none}
 .ski-top{position:absolute;top:max(14px,env(safe-area-inset-top));left:max(18px,env(safe-area-inset-left));right:max(18px,env(safe-area-inset-right));display:flex;align-items:flex-start;justify-content:space-between;gap:12px;pointer-events:none}
-.ski-stats{display:flex;gap:24px;text-shadow:0 1px 0 #fff8}.ski-stats strong{font-size:30px;display:block;line-height:1.1;font-variant-numeric:tabular-nums}.ski-stats span{font-size:12px;letter-spacing:1px}.ski-actions{display:flex;gap:8px;pointer-events:auto}.ski-actions button,#enter-ski{min-width:0;font-size:14px;padding:9px 14px;background:#fffC;color:#234657;box-shadow:0 3px 12px #31536d0d}
+.ski-stats{display:flex;gap:24px;text-shadow:0 1px 0 #fff8}.ski-stats strong{font-size:30px;display:block;line-height:1.1;font-variant-numeric:tabular-nums}.ski-stats span{font-size:12px;letter-spacing:1px}.ski-actions{display:flex;gap:8px;pointer-events:auto}.ski-actions button,
 .ski-bottom{position:absolute;bottom:max(18px,env(safe-area-inset-bottom));left:24px;right:24px;display:flex;justify-content:space-between;align-items:end;pointer-events:none;font-size:13px}.avalanche{width:170px}.avalanche span{display:block;margin-bottom:6px}.avalanche-track{height:6px;background:#31536d25;border-radius:8px;overflow:hidden}#snow-margin{height:100%;width:100%;background:#327f87;transition:width .1s linear}#ski-tip{max-width:55%;text-align:right;color:#315768}
 #ski-message{position:absolute;top:22%;left:50%;transform:translateX(-50%);font-size:20px;font-weight:700;color:#245e68;text-align:center;pointer-events:none;text-shadow:0 1px 4px white}
 .ski-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#e6f3fa22;padding:22px;pointer-events:none}.ski-card{pointer-events:auto;width:min(390px,100%);padding:30px;border-radius:24px;background:#fffffff0;box-shadow:0 18px 60px #284d661c;text-align:center;backdrop-filter:blur(10px)}.ski-card small{letter-spacing:3px;color:#668b96;font-size:11px}.ski-card h1{margin:12px 0 10px;font-size:34px;letter-spacing:2px;color:#204957}.ski-card p{font-size:14px;line-height:1.8;margin:10px 0 20px;color:#527580}.ski-card button{background:#236c73;width:100%;border-radius:14px}.ski-card .subtle{margin-top:8px;background:transparent;color:#527580;box-shadow:none;font-size:14px}.ski-card .results{font-size:17px;color:#234657}
-#enter-ski{position:fixed;top:max(10px,env(safe-area-inset-top));left:max(10px,env(safe-area-inset-left));z-index:3;background:#236c73;color:white}body[data-mode="ski"] #enter-ski{display:none}
+
 @media(orientation:portrait){.ski-top{left:14px;right:14px}.ski-stats{gap:12px}.ski-stats strong{font-size:23px}.ski-stats span{font-size:10px}.ski-actions button{padding:8px 10px}.ski-bottom{left:16px;right:16px;gap:12px}.avalanche{width:125px}.ski-card h1{font-size:30px}#ski-message{top:27%}}
 @media(max-height:450px){.ski-card{padding:18px 25px;width:370px}.ski-card h1{font-size:28px;margin:6px 0}.ski-card p{margin:5px 0 12px;font-size:13px}.ski-top{top:10px}.ski-bottom{bottom:10px}.ski-card .subtle{min-height:34px;padding:5px}}
 
@@ -55,209 +33,12 @@ body[data-mode="ski"]{overscroll-behavior:none;touch-action:none}
 #ski-feedback{position:absolute;left:30%;top:40%;transform:translate(-35%,-100%);font-size:14px;line-height:1.4;font-weight:750;color:#176f81;text-shadow:0 1px 4px #fff;pointer-events:none;white-space:nowrap}
 #ski-app .ski-card{max-height:90dvh;overflow:auto;padding:22px}#ski-app .ski-card p{font-size:13px}
 @media(max-width:360px){#ski-app .ski-stats strong{font-size:19px}#ski-app .ski-actions{max-width:148px}#ski-app .ski-actions button{font-size:10px}#ski-app .ski-bottom-right{max-width:38%}}
-</style></head><body data-mode="ski"><svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="group" aria-labelledby="title desc">
-<title id="title">鹈鹕骑自行车动画</title><desc id="desc">A white pelican with an amber bill pedals a red bicycle beside the sea, rendered entirely as SVG vector shapes.</desc>
-<defs>
-<linearGradient id="sky" x2="0" y2="1"><stop stop-color="var(--sky1)"/><stop offset="1" stop-color="var(--sky2)"/></linearGradient>
-<linearGradient id="sea" x2="0" y2="1"><stop stop-color="var(--water1)"/><stop offset="1" stop-color="var(--water2)"/></linearGradient>
-<radialGradient id="lamp-glow"><stop stop-color="#ffe9b5" stop-opacity=".5"/><stop offset="1" stop-color="#ffe9b5" stop-opacity="0"/></radialGradient>
-<g id="pine"><path d="M-7 330V90H7V330" fill="var(--trunk)"/><path d="M0 0L-75 145H-47L-98 245H98L47 145H75Z" fill="var(--leaf)"/><path d="M0 0L0 245H98L47 145H75Z" fill="var(--leaf2)" opacity=".65"/></g>
-<g id="cherry"><path d="M-9 330L-5 130L-70 75M5 185L72 95M0 150L30 40" fill="none" stroke="var(--trunk)" stroke-width="15" stroke-linecap="round"/><g fill="var(--bloom)"><circle cx="-65" cy="85" r="64"/><circle cx="0" cy="40" r="72"/><circle cx="65" cy="85" r="70"/><circle cy="110" r="78"/></g><g fill="var(--bloom2)"><circle cx="-67" cy="62" r="39"/><circle cx="0" cy="17" r="45"/><circle cx="62" cy="64" r="42"/></g><g fill="var(--bloom2)" opacity=".8"><circle cx="-32" cy="113" r="9"/><circle cx="37" cy="123" r="7"/><circle cx="87" cy="97" r="8"/></g></g>
-</defs><rect width="1200" height="900" fill="url(#sky)"/>
-<circle class="sun" cx="1010" cy="142" r="59" fill="#fff8de"/>
-<g class="night-only"><g fill="#fff7db"><circle cx="45" cy="35" r="1"/><circle cx="218" cy="102" r="2"/><circle cx="391" cy="169" r="3"/><circle cx="564" cy="236" r="1"/><circle cx="737" cy="303" r="2"/><circle cx="910" cy="60" r="3"/><circle cx="1083" cy="127" r="1"/><circle cx="76" cy="194" r="2"/><circle cx="249" cy="261" r="3"/><circle cx="422" cy="18" r="1"/><circle cx="595" cy="85" r="2"/><circle cx="768" cy="152" r="3"/><circle cx="941" cy="219" r="1"/><circle cx="1114" cy="286" r="2"/><circle cx="107" cy="43" r="3"/><circle cx="280" cy="110" r="1"/><circle cx="453" cy="177" r="2"/><circle cx="626" cy="244" r="3"/><circle cx="799" cy="1" r="1"/><circle cx="972" cy="68" r="2"/><circle cx="1145" cy="135" r="3"/><circle cx="138" cy="202" r="1"/><circle cx="311" cy="269" r="2"/><circle cx="484" cy="26" r="3"/><circle cx="657" cy="93" r="1"/></g><path d="M1033 84a59 59 0 1 0 23 101a49 49 0 0 1-23-101" fill="#fff5cf"/></g>
-<g id="cloud-scroll" fill="var(--cloud)" opacity=".85"><g><path d="M62 158q-12-32 25-41q12-41 49-28q28-29 56-1q36-3 42 30q43-5 47 40Z"/><path d="M750 95q-3-24 24-28q9-24 34-18q23-24 46 0q37-3 37 25q24-4 30 21Z"/></g><g transform="translate(1200 0)"><path d="M62 158q-12-32 25-41q12-41 49-28q28-29 56-1q36-3 42 30q43-5 47 40Z"/><path d="M750 95q-3-24 24-28q9-24 34-18q23-24 46 0q37-3 37 25q24-4 30 21Z"/></g></g>
-<g id="mountain-scroll" fill="var(--mount)"><g><path d="M0 470L140 365L277 283L430 430L580 470L800 380L910 425L1040 336L1200 470V530H0Z"/><path d="M220 340L277 283L339 360L291 340L271 319Z" fill="var(--cloud)" opacity=".6"/></g><g transform="translate(1200 0)"><path d="M0 470L140 365L277 283L430 430L580 470L800 380L910 425L1040 336L1200 470V530H0Z"/><path d="M220 340L277 283L339 360L291 340L271 319Z" fill="var(--cloud)" opacity=".6"/></g></g>
-<path d="M0 472Q157 417 282 461T559 469T855 464T1200 454V780H0Z" fill="var(--hill)"/>
-<g class="scene-layer scene-sea"><path d="M0 493Q190 468 390 493T795 495T1200 486V723H0Z" fill="url(#sea)"/>
-<g id="water-scroll" fill="none" stroke="var(--cloud)" stroke-width="3" opacity=".6"><g><path d="M40 529h94m58 24h58m-180 40h126m839-64h95m-22 42h60M42 657h92m857-16h114m-179-38h59"/><path d="M0 710Q180 693 360 711T730 707T1200 711" stroke-width="7"/></g><g transform="translate(1200 0)"><path d="M40 529h94m58 24h58m-180 40h126m839-64h95m-22 42h60M42 657h92m857-16h114m-179-38h59"/><path d="M0 710Q180 693 360 711T730 707T1200 711" stroke-width="7"/></g></g></g>
-<g id="trees-far" opacity=".7"><g class="scene-layer scene-forest"><g><use href="#pine" transform="translate(0 270) scale(0.75)"/><use href="#pine" transform="translate(250 300) scale(0.65)"/><use href="#pine" transform="translate(520 255) scale(0.8)"/><use href="#pine" transform="translate(840 285) scale(0.72)"/><use href="#pine" transform="translate(1100 290) scale(0.7)"/></g><g transform="translate(1200 0)"><use href="#pine" transform="translate(0 270) scale(0.75)"/><use href="#pine" transform="translate(250 300) scale(0.65)"/><use href="#pine" transform="translate(520 255) scale(0.8)"/><use href="#pine" transform="translate(840 285) scale(0.72)"/><use href="#pine" transform="translate(1100 290) scale(0.7)"/></g></g><g class="scene-layer scene-sakura"><g><use href="#cherry" transform="translate(0 270) scale(0.75)"/><use href="#cherry" transform="translate(250 300) scale(0.65)"/><use href="#cherry" transform="translate(520 255) scale(0.8)"/><use href="#cherry" transform="translate(840 285) scale(0.72)"/><use href="#cherry" transform="translate(1100 290) scale(0.7)"/></g><g transform="translate(1200 0)"><use href="#cherry" transform="translate(0 270) scale(0.75)"/><use href="#cherry" transform="translate(250 300) scale(0.65)"/><use href="#cherry" transform="translate(520 255) scale(0.8)"/><use href="#cherry" transform="translate(840 285) scale(0.72)"/><use href="#cherry" transform="translate(1100 290) scale(0.7)"/></g></g></g>
-<path d="M0 733Q190 701 371 728T760 733T1200 721V900H0Z" fill="var(--grass)"/>
-<g id="trees-near"><g class="scene-layer scene-forest"><g><use href="#pine" transform="translate(50 250) scale(1.25)"/><use href="#pine" transform="translate(460 230) scale(1.3)"/><use href="#pine" transform="translate(940 260) scale(1.2)"/></g><g transform="translate(1200 0)"><use href="#pine" transform="translate(50 250) scale(1.25)"/><use href="#pine" transform="translate(460 230) scale(1.3)"/><use href="#pine" transform="translate(940 260) scale(1.2)"/></g></g><g class="scene-layer scene-sakura"><g><use href="#cherry" transform="translate(50 250) scale(1.25)"/><use href="#cherry" transform="translate(460 230) scale(1.3)"/><use href="#cherry" transform="translate(940 260) scale(1.2)"/></g><g transform="translate(1200 0)"><use href="#cherry" transform="translate(50 250) scale(1.25)"/><use href="#cherry" transform="translate(460 230) scale(1.3)"/><use href="#cherry" transform="translate(940 260) scale(1.2)"/></g></g></g>
-<path d="M0 771Q400 755 1200 769V900H0Z" fill="var(--road)"/>
-<path id="road-stripes" d="M0 845H1200" stroke="#fff" stroke-width="5" stroke-dasharray="130 130" opacity=".65"/>
-<g stroke="var(--cloud)" stroke-width="8" fill="none" opacity=".8"><path d="M0 699H1200M0 736H1200"/><g id="fence-scroll"><path d="M0 680v83"/><path d="M260 680v83"/><path d="M520 680v83"/><path d="M780 680v83"/><path d="M1040 680v83"/><path d="M1300 680v83"/></g></g>
-<g class="night-only"><g id="lamps-scroll"><g><g transform="translate(90 0)"><circle cy="490" r="100" fill="url(#lamp-glow)"/><path d="M0 750V485" stroke="#526575" stroke-width="9"/><path d="M-23 469H23L16 501H-16Z" fill="#ffe9b5" stroke="#526575" stroke-width="5"/><path d="M-27 467L0 446L27 467Z" fill="#526575"/></g><g transform="translate(690 0)"><circle cy="490" r="100" fill="url(#lamp-glow)"/><path d="M0 750V485" stroke="#526575" stroke-width="9"/><path d="M-23 469H23L16 501H-16Z" fill="#ffe9b5" stroke="#526575" stroke-width="5"/><path d="M-27 467L0 446L27 467Z" fill="#526575"/></g></g><g transform="translate(1200 0)"><g transform="translate(90 0)"><circle cy="490" r="100" fill="url(#lamp-glow)"/><path d="M0 750V485" stroke="#526575" stroke-width="9"/><path d="M-23 469H23L16 501H-16Z" fill="#ffe9b5" stroke="#526575" stroke-width="5"/><path d="M-27 467L0 446L27 467Z" fill="#526575"/></g><g transform="translate(690 0)"><circle cy="490" r="100" fill="url(#lamp-glow)"/><path d="M0 750V485" stroke="#526575" stroke-width="9"/><path d="M-23 469H23L16 501H-16Z" fill="#ffe9b5" stroke="#526575" stroke-width="5"/><path d="M-27 467L0 446L27 467Z" fill="#526575"/></g></g></g></g>
-<ellipse cx="605" cy="785" rx="420" ry="24" fill="#476d7c" opacity=".16"/>
-<g stroke="#29463f" stroke-linejoin="round" stroke-linecap="round">
-<circle cx="330" cy="612" r="164" fill="none" stroke-width="12"/><circle cx="330" cy="612" r="150" fill="none" stroke="#b3bca7" stroke-width="3"/>
-<g id="spokes-330"><path d="M330 612 L478.00 612.00" stroke="#a8b4a3" stroke-width="3"/>
-<path d="M330 612 L472.96 650.31" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M330 612 L458.17 686.00" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M330 612 L434.65 716.65" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M330 612 L404.00 740.17" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M330 612 L368.31 754.96" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M330 612 L330.00 760.00" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M330 612 L291.69 754.96" stroke="#a8b4a3" stroke-width="3"/>
-<path d="M330 612 L256.00 740.17" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M330 612 L225.35 716.65" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M330 612 L201.83 686.00" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M330 612 L187.04 650.31" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M330 612 L182.00 612.00" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M330 612 L187.04 573.69" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M330 612 L201.83 538.00" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M330 612 L225.35 507.35" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M330 612 L256.00 483.83" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M330 612 L291.69 469.04" stroke="#a8b4a3" stroke-width="3"/>
-<path d="M330 612 L330.00 464.00" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M330 612 L368.31 469.04" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M330 612 L404.00 483.83" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M330 612 L434.65 507.35" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M330 612 L458.17 538.00" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M330 612 L472.96 573.69" stroke="#a8b4a3" stroke-width="1.7"/>
-</g><circle cx="860" cy="612" r="164" fill="none" stroke-width="12"/><circle cx="860" cy="612" r="150" fill="none" stroke="#b3bca7" stroke-width="3"/>
-<g id="spokes-860"><path d="M860 612 L1008.00 612.00" stroke="#a8b4a3" stroke-width="3"/>
-<path d="M860 612 L1002.96 650.31" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M860 612 L988.17 686.00" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M860 612 L964.65 716.65" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M860 612 L934.00 740.17" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M860 612 L898.31 754.96" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M860 612 L860.00 760.00" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M860 612 L821.69 754.96" stroke="#a8b4a3" stroke-width="3"/>
-<path d="M860 612 L786.00 740.17" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M860 612 L755.35 716.65" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M860 612 L731.83 686.00" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M860 612 L717.04 650.31" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M860 612 L712.00 612.00" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M860 612 L717.04 573.69" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M860 612 L731.83 538.00" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M860 612 L755.35 507.35" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M860 612 L786.00 483.83" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M860 612 L821.69 469.04" stroke="#a8b4a3" stroke-width="3"/>
-<path d="M860 612 L860.00 464.00" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M860 612 L898.31 469.04" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M860 612 L934.00 483.83" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M860 612 L964.65 507.35" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M860 612 L988.17 538.00" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M860 612 L1002.96 573.69" stroke="#a8b4a3" stroke-width="1.7"/>
-</g><g id="far-leg"><path id="far-bone" fill="none" stroke="#b78739" stroke-width="15"/><path id="far-crank" fill="none" stroke="#718176" stroke-width="8"/><path id="far-pedal" stroke-width="8"/><path id="far-foot" fill="#bf923e" stroke-width="3"/></g>
-<!-- Diamond frame -->
-<path d="M330 612 L491 425 L570 612 Z M491 425 L785 419 L570 612 M785 419 L860 612" fill="none" stroke-width="16"/>
-<path d="M330 612 L491 425 L570 612 Z M491 425 L785 419 L570 612 M785 419 L860 612" fill="none" stroke="#bf5946" stroke-width="10"/>
-<path d="M491 425l-15-47M785 419l-18-67q-3-16 17-21l33-7" fill="none" stroke-width="10"/>
-<path d="M807 324h34q23 2 21 23q0 17-17 23" fill="none" stroke="#b78349" stroke-width="12"/>
-<path d="M430 376 Q470 359 510 372 Q519 382 503 386 H437 Q424 385 430 376" fill="#3a4d43" stroke-width="3"/>
-<path d="M821 342 Q788 391 824 471" fill="none" stroke-width="2"/>
-<path d="M330 605 L567 584 Q608 584 607 613 Q606 643 570 640 L330 624Z" fill="#dae0c9" stroke-width="3"/>
-<circle cx="570" cy="612" r="27" fill="#f6efd9" stroke-width="5"/>
-<circle cx="330" cy="612" r="8" fill="#b78349" stroke-width="3"/>
-<circle cx="860" cy="612" r="8" fill="#b78349" stroke-width="3"/>
-<!-- Tail and body -->
-<g id="pelican-body">
-<g id="tail-feathers">
-<path d="M407 363 Q321 372 290 324 L342 331 L311 300 Q361 303 400 327Z" fill="#fbf9ea" stroke-width="4"/>
-</g>
-<path d="M396 293 C447 266 527 280 551 309 C583 313 587 277 582 241 C577 199 592 152 638 143 C685 135 714 164 709 197 C706 217 686 232 670 242 C655 256 665 289 652 329 C638 380 593 408 526 407 C472 433 398 406 378 368 C361 336 373 309 396 293Z" fill="#fffced" stroke-width="5"/>
-<path d="M603 239 Q622 253 641 247 Q628 290 639 312 Q623 360 583 365" fill="#e0e5d0" stroke="none"/>
-<!-- Wing reaches the handlebar -->
-<path d="M423 316 C462 295 490 327 537 339 C618 361 679 350 751 333 Q776 325 795 332 Q777 354 748 359 C656 384 566 394 482 368 C450 358 426 341 423 316Z" fill="#ecedd9" stroke-width="4"/>
-<path d="M442 327q44 34 107 40m-103-25q25 20 59 25m-50-8 24 11" fill="none" stroke="#bac5ae" stroke-width="3"/>
-<!-- Long bill and expandable throat pouch -->
-<path d="M692 199 L959 205 Q932 249 864 266 Q749 282 700 227Z" fill="#e6b25b" stroke-width="4"/>
-<path d="M702 226 Q775 271 866 248 Q823 280 758 257 Q719 246 702 226" fill="#cf9146" stroke="none"/>
-<path d="M688 191 Q791 180 958 196 Q976 200 969 211 L696 213Z" fill="#f3ca73" stroke-width="4"/>
-<path d="M953 195q21 1 16 16l-18-2" fill="#ce6b49" stroke-width="2"/>
-<g id="pelican-eye"><ellipse cx="670" cy="177" rx="12" ry="15" fill="#e8e7ce" stroke="none"/>
-<ellipse cx="674" cy="178" rx="5" ry="8" fill="#29463f" stroke="none"/>
-<circle cx="676" cy="175" r="2" fill="white" stroke="none"/>
-</g><path d="M652 155q13-7 24-1" fill="none" stroke-width="3"/>
-<path d="M601 158l-6-13 18 7-1-14 17 8" fill="#fffced" stroke-width="3"/>
-</g>
-<g id="near-leg"><path id="near-outline" fill="none" stroke-width="19"/><path id="near-bone" fill="none" stroke="#d7a34b" stroke-width="12"/><path id="near-crank" fill="none" stroke="#50665a" stroke-width="9"/><path id="near-pedal" stroke-width="8"/><path id="near-foot" fill="#e4b35b" stroke-width="3"/></g>
-<circle cx="570" cy="612" r="7" fill="#bf5946" stroke-width="3"/>
-</g>
-<g class="scene-layer scene-sakura" fill="var(--bloom2)" stroke="var(--bloom)" stroke-width="1"><path id="petal-0" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-1" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-2" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-3" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-4" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-5" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-6" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-7" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-8" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-9" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-10" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-11" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-12" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-13" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/></g></svg><button id="open-controls" type="button" aria-controls="controls-panel" aria-expanded="false" hidden>设置</button><div id="controls-panel" class="controls" role="group" aria-label="动画控制"><button id="play-toggle" type="button" aria-pressed="false">暂停</button><div class="speed-options" role="group" aria-label="播放速度"><button class="speed-button" type="button" data-speed="1" aria-pressed="true" aria-label="1倍速">1×</button><button class="speed-button" type="button" data-speed="3" aria-pressed="false" aria-label="3倍速">3×</button><button class="speed-button" type="button" data-speed="5" aria-pressed="false" aria-label="5倍速">5×</button></div><div class="settings"><label class="setting">风景<select id="scene-choice" aria-label="风景"><option value="sea">海边</option><option value="forest">森林</option><option value="sakura">樱花道</option></select></label><label class="setting">时段<select id="time-choice" aria-label="时段"><option value="day">白天</option><option value="sunset">夕阳</option><option value="night">夜晚</option></select></label></div><div class="extra-controls"><button id="hide-controls" type="button" aria-controls="controls-panel" aria-expanded="true">收起</button></div></div><script>"use strict";
-const get=id=>document.getElementById(id);
-const tau=Math.PI*2;
-function leg(side,angle,hx,hy){
- const x=570+64*Math.cos(angle),y=612+64*Math.sin(angle);
- // Two-segment inverse kinematics keeps each foot on its pedal.
- const dx=x-hx,dy=y-10-hy,d=Math.hypot(dx,dy),upper=140,lower=155;
- const a=(upper*upper-lower*lower+d*d)/(2*d);
- const h=Math.sqrt(Math.max(0,upper*upper-a*a));
- const kx=hx+a*dx/d-h*dy/d,ky=hy+a*dy/d+h*dx/d;
- const bone=`M${hx} ${hy} L${kx} ${ky} L${x} ${y-10}`;
- get(side+'-bone').setAttribute('d',bone);
- if(side==='near')get('near-outline').setAttribute('d',bone);
- get(side+'-crank').setAttribute('d',`M570 612 L${x} ${y}`);
- get(side+'-pedal').setAttribute('d',`M${x-24} ${y+2} H${x+26}`);
- get(side+'-foot').setAttribute('d',`M${x-8} ${y-15} Q${x+2} ${y-17} ${x+11} ${y-8} L${x+25} ${y-3} Q${x+32} ${y+2} ${x+23} ${y+2} H${x-16} Q${x-22} ${y} ${x-17} ${y-7}Z`);
-}
-function draw(ms){
- const angle=ms/1000*tau/2.4;
- const bob=2.5*Math.sin(angle*2);
- get('pelican-body').setAttribute('transform',`translate(0 ${bob})`);
- get('tail-feathers').setAttribute('transform',`rotate(${3*Math.sin(angle*1.3)} 396 343)`);
- const blinkPhase=ms%4700;
- const eyeScale=blinkPhase<180?Math.max(.08,Math.abs(blinkPhase-90)/90):1;
- get('pelican-eye').setAttribute('transform',`translate(0 178) scale(1 ${eyeScale}) translate(0 -178)`);
- leg('far',angle+Math.PI,530,402+bob);
- leg('near',angle,516,400+bob);
- const degrees=angle*180/Math.PI*2.4;
- const seconds=ms/1000;
- for(const [id,rate] of [['trees-far',40],['trees-near',115],['lamps-scroll',180]])get(id).setAttribute('transform',`translate(${-((seconds*rate)%1200)} 0)`);
- if(scene==='sakura')for(let i=0;i<14;i++){
-  const x=((i*193-seconds*(26+i%4*5))%1260+1260)%1260-30;
-  const y=(i*71+seconds*(20+i%3*4))%850;
-  get('petal-'+i).setAttribute('transform',`translate(${x+18*Math.sin(seconds+i)} ${y}) rotate(${seconds*25+i*31})`);
- }
- for(const [id,rate] of [['cloud-scroll',14],['mountain-scroll',32],['water-scroll',75]]){
-  get(id).setAttribute('transform',`translate(${-((seconds*rate)%1200)} 0)`);
- }
- // A gentler foreground rate reduces rapid repeated stripes at high playback speeds.
- const travel=seconds*164*tau*.38;
- get('fence-scroll').setAttribute('transform',`translate(${-(travel%260)} 0)`);
- get('road-stripes').setAttribute('stroke-dashoffset',String(travel%260));
- // Keep spokes crisp at every speed; asymmetric accents and a rim reflector aid tracking.
- for(const cx of [330,860]){
-  get('spokes-'+cx).setAttribute('transform',`rotate(${degrees} ${cx} 612)`);
- }
-}
-let elapsed=0,last=null,paused=false,speed=1,scene='sakura',time='sunset';
-
-const palettes={"day": {"sky1": "#8fcff4", "sky2": "#effbff", "water1": "#61bada", "water2": "#2396b2", "hill": "#4c8d8c", "grass": "#79b49f", "road": "#dce5e9", "leaf": "#478b65", "leaf2": "#76af78", "bloom": "#f3b9d1", "bloom2": "#ffe0ec", "trunk": "#795e50", "mount": "#78abc0", "cloud": "#fff", "page": "#dceffa"}, "sunset": {"sky1": "#bd9bbe", "sky2": "#ffd9b2", "water1": "#bb9fba", "water2": "#8d93af", "hill": "#827d8d", "grass": "#b5a38c", "road": "#e2ccc1", "leaf": "#797d58", "leaf2": "#b49c6b", "bloom": "#eaa6b8", "bloom2": "#ffd1c7", "trunk": "#80615e", "mount": "#9f8fa7", "cloud": "#ffe8d8", "page": "#e6c5c3"}, "night": {"sky1": "#14233e", "sky2": "#466180", "water1": "#3e6b89", "water2": "#254e6a", "hill": "#35576a", "grass": "#486574", "road": "#748596", "leaf": "#365866", "leaf2": "#567b7b", "bloom": "#9e87b0", "bloom2": "#c1b0d0", "trunk": "#616070", "mount": "#435b76", "cloud": "#a2b3ca", "page": "#263c53"}};
-const phases=['day','sunset','night'];
-const sunPositions={day:[0,0],sunset:[-25,130],night:[-25,130]};
-function mixColor(a,b,p){const c=x=>(x.length===3?x.split('').map(v=>v+v).join(''):x).match(/.{2}/g).map(v=>parseInt(v,16));const x=c(a.slice(1)),y=c(b.slice(1));return '#'+x.map((v,i)=>Math.round(v+(y[i]-v)*p).toString(16).padStart(2,'0')).join('');}
-function paintTime(from,to=from,p=0){
- const style=document.documentElement.style;
- for(const key of Object.keys(palettes[from]))style.setProperty('--'+key,mixColor(palettes[from][key],palettes[to][key],p));
- const night=(from==='night'?1:0)*(1-p)+(to==='night'?1:0)*p;
- style.setProperty('--night-opacity',night);style.setProperty('--sun-opacity',1-night);style.setProperty('--cloud-opacity',.85-.57*night);
- style.setProperty('--sun-color',mixColor(from==='day'?'#fff8de':'#ffbe88',to==='day'?'#fff8de':'#ffbe88',p));
- for(const [i,axis] of ['x','y'].entries())style.setProperty('--sun-'+axis,(sunPositions[from][i]*(1-p)+sunPositions[to][i]*p)+'px');
-}
-function applyScenery(){
- document.documentElement.dataset.scene=scene;document.documentElement.dataset.time=time;
- get('scene-choice').value=scene;get('time-choice').value=time;
- const names={sea:'海边',forest:'森林',sakura:'樱花道',day:'白天',sunset:'夕阳',night:'夜晚'};
- get('title').textContent=`鹈鹕骑行 · ${names[scene]} · ${names[time]}`;
- get('desc').textContent='鹈鹕骑着红色自行车。可暂停、调速、选择风景和时段。';
-}
-function advance(now){
- if(last!==null&&!document.hidden){const dt=Math.max(0,now-last);if(!paused){elapsed+=dt*speed;}}
- last=now;
-}
-function frame(now){if(document.body.dataset.mode==='watch'){advance(now);draw(elapsed);}else last=null;requestAnimationFrame(frame);}
-function syncPlay(){get('play-toggle').textContent=paused?'继续':'暂停';get('play-toggle').setAttribute('aria-pressed',String(paused));}
-get('play-toggle').addEventListener('click',()=>{advance(performance.now());paused=!paused;syncPlay();draw(elapsed);});
-const speedButtons=Array.from(document.querySelectorAll('[data-speed]'));
-function syncSpeed(){for(const b of speedButtons)b.setAttribute('aria-pressed',String(Number(b.dataset.speed)===speed));}
-for(const button of speedButtons)button.addEventListener('click',()=>{advance(performance.now());speed=Number(button.dataset.speed);syncSpeed();draw(elapsed);});
-get('scene-choice').addEventListener('change',()=>{advance(performance.now());scene=get('scene-choice').value;applyScenery();draw(elapsed);});
-get('time-choice').addEventListener('change',()=>{advance(performance.now());time=get('time-choice').value;paintTime(time);applyScenery();draw(elapsed);});
-function collapse(value){get('controls-panel').hidden=value;get('open-controls').hidden=!value;get('open-controls').setAttribute('aria-expanded',String(!value));get('hide-controls').setAttribute('aria-expanded',String(!value));}
-get('hide-controls').addEventListener('click',()=>{collapse(true);get('open-controls').focus();});
-get('open-controls').addEventListener('click',()=>{collapse(false);get('hide-controls').focus();});
-document.addEventListener('visibilitychange',()=>{last=null;});
-applyScenery();paintTime(time);syncSpeed();collapse(false);draw(0);requestAnimationFrame(frame);
-</script><button id="enter-ski" type="button">滑雪模式</button>
-<section id="ski-app" aria-label="鹈鹕滑雪冒险">
+</style></head><body data-mode="ski"><section id="ski-app" aria-label="鹈鹕滑雪冒险">
 <canvas id="ski-canvas" tabindex="0" role="application" aria-label="滑雪赛道。点击或空格跳跃，空中再点可以二段跳，按住后空翻，松手辅助扶正。"></canvas>
-<div class="ski-top"><div class="ski-stats"><div><strong id="ski-distance">0</strong><span>滑行 / 米</span></div><div><strong id="ski-score">0</strong><span>得分</span></div></div><div class="ski-actions"><button id="ski-music" type="button" aria-pressed="true">音乐：开</button><button id="ski-fx" type="button" aria-pressed="true">音效：开</button><button id="ski-watch" type="button">观赏模式</button><button id="ski-pause" type="button" hidden>暂停</button></div></div>
+<div class="ski-top"><div class="ski-stats"><div><strong id="ski-distance">0</strong><span>滑行 / 米</span></div><div><strong id="ski-score">0</strong><span>得分</span></div></div><div class="ski-actions"><button id="ski-music" type="button" aria-pressed="true">音乐：开</button><button id="ski-fx" type="button" aria-pressed="true">音效：开</button><button id="ski-pause" type="button" hidden>暂停</button></div></div>
 <div class="ski-progress"><span id="ski-combo">1× 连击</span><span id="ski-mission">基础目标：收集小鱼</span><span id="ski-mission-trick">技巧目标：完成空翻</span></div><div id="ski-feedback" aria-hidden="true"></div><div id="ski-message" role="status" aria-live="polite"></div>
 <div class="ski-bottom"><div class="avalanche"><span id="snow-label">雪崩距离 · 安全</span><div class="avalanche-track"><div id="snow-margin"></div></div></div><div class="ski-bottom-right"><span id="jump-status">空中补跳：2</span><div id="ski-tip">点按跳跃 · 长按空翻</div></div><button id="ski-emergency" type="button" disabled>应急冲刺 0/2</button></div>
-<div id="ski-overlay" class="ski-overlay"><div class="ski-card"><small>PELICAN · SNOWBOUND</small><h1 id="ski-title">鹈鹕逐雪</h1><p id="ski-description">点按跳跃，再点二段跳；按住后空翻<br>松手辅助扶正，坡顶自然腾空<br>大跳台可连翻，崖边补跳可抢救<br>达到2.5倍可撞碎倒木；空翻激活加速区<br>任务存冲刺，最多两次；摔倒自动起身</p><button id="ski-start" type="button">开始滑雪</button><button id="ski-restart" type="button" class="subtle" hidden>重新开始</button></div></div>
+<div id="ski-overlay" class="ski-overlay"><div class="ski-card"><small>PELICAN · SNOWBOUND</small><h1 id="ski-title">鹈鹕逐雪</h1><p id="ski-description">点按跳跃，再点二段跳；按住后空翻<br>空翻奖励2倍并可撞碎倒木<br>应急冲刺或超过3倍自动掠过断崖<br>起跳拾取风翼，接云或自由回落<br>补给挑战获得应急，普通目标只加分</p><button id="ski-start" type="button">开始滑雪</button><button id="ski-restart" type="button" class="subtle" hidden>重新开始</button></div></div>
 </section>
 <script>(()=>{'use strict';
 const el=id=>document.getElementById(id),canvas=el('ski-canvas'),ctx=canvas.getContext('2d');
@@ -275,14 +56,14 @@ const profiles=[
  [[0,0],[1000,190],[1900,440],[2700,630],[3200,760]],
  [[0,0],[900,330],[1800,480],[2500,580],[2900,620],[3200,760]]
 ];
-let segments=[];
+let segments=[],clouds=[];
 const hash=n=>((Math.imul((n+courseSeed)|0,1597334677)>>>0)/4294967296);
 function ensure(x){while(!segments.length||segments.at(-1).end<x){const n=segments.length,prev=segments.at(-1);let kind=n===0?0:Math.floor(hash(n*19)*10);if(prev&&(kind===prev.kind||prev.kind===8&&kind===8))kind=(kind+3)%10;if(prev?.kind===1)kind=9;const type=[4,1,2,3,0,4,2,3,5,4][kind],length=n===0?3300:kind===1?5000+hash(n+7)*800:2200+hash(n+31)*1800,drop=length*(.16+hash(n+71)*.12),start=prev?.end||0;
-const seg={id:n,kind,type,start,end:start+length,length,drop,y:prev?prev.y+prev.drop:380};seg.ramps=kind===1?[start+length*.32]:[];seg.gap=kind===8&&n>2?{start:start+length*.48,end:start+length*.48+(340+hash(n+80)*60)*.7}:null;segments.push(seg);}}
+const seg={id:n,kind,type,start,end:start+length,length,drop,y:prev?prev.y+prev.drop:380};seg.ramps=kind===1?[start+length*.32]:[];seg.wind=kind===6&&n>1;seg.biome=kind===8?'ice':kind===2||kind===6?'forest':'ridge';seg.gap=kind===8&&n>2?{start:start+length*.48,end:start+length*.48+(340+hash(n+80)*60)*.7}:null;segments.push(seg);}}
 function segmentAt(x){ensure(Math.max(0,x)+1);let a=0,b=segments.length-1;while(a<b){const m=(a+b)>>1;if(segments[m].end<=x)a=m+1;else b=m;}return segments[a];}
 const routeType=n=>{ensure((n+1)*5800);return segments[n]?.type||4;};
 const route=x=>segmentAt(x).type;
-const ground=x=>{if(x<0)return 380+x*.18;const q=segmentAt(x),t=(x-q.start)/q.length*3200,keys=profiles[q.type];for(let i=1;i<keys.length;i++){const [a,y]=keys[i-1],[b,z]=keys[i];if(t<=b){const u=(t-a)/(b-a);return q.y+(y+(z-y)*u*u*(3-2*u))/760*q.drop;}}return q.y+q.drop;};
+const ground=x=>{if(x<0)return 380+x*.18;const q=segmentAt(x),t=(x-q.start)/q.length*3200,keys=profiles[q.type];for(let i=1;i<keys.length;i++){const [a,y]=keys[i-1],[b,z]=keys[i];if(t<=b){const u=(t-a)/(b-a);const base=q.y+(y+(z-y)*u*u*(3-2*u))/760*q.drop;const crest=q.ramps[0],dist=crest===undefined?9999:x-crest;return base-(Math.abs(dist)<180?75*(1-Math.abs(dist)/180)**2:0);}}return q.y+q.drop;};
 const bigRamp=x=>segmentAt(x).kind===1;
 const slope=x=>Math.atan((ground(x+1)-ground(x-1))/2);
 const gapAt=x=>{const g=segmentAt(x).gap;return g&&x>=g.start&&x<=g.end?g:null;};
@@ -297,40 +78,48 @@ const sound=(()=>{let ac,musicBus,fxBus,master,wind,windGain,rumbleGain,noiseBuf
  function buses(){if(!ac)return;musicBus.gain.setTargetAtTime(running&&music?.35:0,ac.currentTime,.05);fxBus.gain.setTargetAtTime(running&&fx?.65:0,ac.currentTime,.035);}
  function setRunning(on){running=on;if(on){init();if(ac)nextBeat=ac.currentTime+.03;}buses();}
  function effect(kind,level=1){if(!ac||!fx||!running)return;const t=ac.currentTime;if(kind==='boost'){const o=ac.createOscillator(),g=ac.createGain();o.type='sawtooth';o.frequency.setValueAtTime(100,t);o.frequency.exponentialRampToValueAtTime(750,t+.35);g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(.10,t+.04);g.gain.exponentialRampToValueAtTime(.0001,t+.55);o.connect(g);g.connect(fxBus);o.start(t);o.stop(t+.56);o.onended=()=>{o.disconnect();g.disconnect()};}const notes={escape:[72,79,84,88],jump:[67,74],double:[74,81],fish:[84],land:[60,67,72],flip:[72,76,79,84],boost:[60,67,72,79],shield:[76,81,88],crash:[43,38]};(notes[kind]||[72]).forEach((n,i)=>tone(n+Math.min(level-1,2)*2,t+i*.045,.14,.11,fxBus,kind==='crash'?'triangle':'sine'));}
- function tick(){if(!ac||!running)return;const now=ac.currentTime;if(nextBeat<now-.2)nextBeat=now+.02;while(nextBeat<now+.1){if(music){const note=melody[beat%melody.length];if(note)tone(note,nextBeat,.19,.17,musicBus);if(beat%4===0)tone([48,53,55,48][Math.floor(beat/8)%4],nextBeat,.40,.2,musicBus);const intensity=clamp((600-player.lead)/600,0,1);if(beat%2===0)tone(32,nextBeat,.10,player.boost>0?.25:.10,musicBus,'sine');if(player.boost>0){tone(88,nextBeat,.035,.025,musicBus,'triangle');if(beat%4===2)tone(45,nextBeat,.06,.12,musicBus,'triangle');}if(intensity>0&&beat%2===0)tone(40,nextBeat,.13,.18*intensity,musicBus,'triangle');}beat++;nextBeat+=.205;}rumbleGain.gain.setTargetAtTime(fx?clamp((550-player.lead)/550,0,1)*1.3:0,now,.15);windGain.gain.setTargetAtTime(fx?(player.grounded?.018:.003)+(player.boost>0?.20:0)+(player.lead<300?.02:0):0,now,.12);}
+ function tick(){if(!ac||!running)return;const now=ac.currentTime;if(nextBeat<now-.2)nextBeat=now+.02;while(nextBeat<now+.1){if(music){const airborne=player.windReturn;const note=melody[beat%melody.length];if(note)tone(note+(airborne?12:0),nextBeat,airborne?.4:.19,airborne?.10:.17,musicBus);if(beat%4===0)tone([48,53,55,48][Math.floor(beat/8)%4],nextBeat,.40,.2,musicBus);const intensity=clamp((600-player.lead)/600,0,1);if(!airborne&&beat%2===0)tone(32,nextBeat,.10,player.boost>0?.25:.10,musicBus,'sine');if(player.boost>0&&!airborne){tone(88,nextBeat,.035,.025,musicBus,'triangle');if(beat%4===2)tone(45,nextBeat,.06,.12,musicBus,'triangle');}if(intensity>0&&beat%2===0)tone(40,nextBeat,.13,.18*intensity,musicBus,'triangle');}beat++;nextBeat+=.205;}rumbleGain.gain.setTargetAtTime(fx?clamp((550-player.lead)/550,0,1)*1.3:0,now,.15);windGain.gain.setTargetAtTime(fx?(player.grounded?.018:.003)+(player.boost>0?.20:0)+(player.lead<300?.02:0):0,now,.12);}
  function toggle(which){if(which==='music')music=!music;else fx=!fx;if(running)init();buses();sync();}
  function sync(){el('ski-music').textContent='音乐'+(music?'：开':'：关');el('ski-music').setAttribute('aria-pressed',String(music));el('ski-fx').textContent='音效'+(fx?'：开':'：关');el('ski-fx').setAttribute('aria-pressed',String(fx));}
  return{setRunning,effect,tick,toggle,sync};})();
 function say(text,seconds=2,priority=1){if(text&&clock<toastUntil&&priority<toastPriority)return;toastPriority=priority;toast=text;toastUntil=clock+seconds;el('ski-message').textContent=text;}
 function feedback(text){player.feedback=text;player.feedbackUntil=clock+1.6;el('ski-feedback').textContent=text;}
 function generate(){ensure(player.x+W+6000);while(nextChunk<player.x+W+4500){const q=segmentAt(nextChunk+1);nextChunk=q.end;const base=q.start;
-const patterns=[[.35,.78],[],[.22,.66],[.28,.74],[.3,.7],[.35],[.2,.72],[.25,.8],[],[]];
+const patterns=[[.35,.78],[],[.22,.66],[.28,.74],[.3,.7],[.35],[],[.25,.8],[],[]];if(q.wind)items.push({kind:'wind',x:base+q.length*.35,y:ground(base+q.length*.35)-230,taken:false,route:q.id});
 for(const [j,f] of patterns[q.kind].entries()){const x=base+q.length*f;obstacles.push({x,kind:q.kind===0&&j===0?'rock':q.kind===4?'rock':'log',hit:false});}
 for(let j=0;j<5;j++){const x=base+q.length*.10+j*65;if(!gapAt(x))items.push({kind:'fish',x,y:ground(x)-48,taken:false});}
 for(const o of obstacles.filter(o=>o.x>=base&&o.x<q.end)){for(let j=0;j<5;j++){const x=o.x-170+j*85;if(!gapAt(x))items.push({kind:'fish',x,y:ground(x)-100-Math.sin(j/4*Math.PI)*125,taken:false});}}
 if(q.kind===1){const crest=q.ramps[0];for(let j=1;j<=7;j++){const t=j*.24,x=crest+760*t,y=ground(crest)-45-1030*t+550*t*t;items.push({kind:'fish',x,y,taken:false});}pads.push({x:crest+1100,end:q.end-100,hit:false,active:false,challenge:q.id});}
 }obstacles=obstacles.filter(o=>o.x>player.x-500);items=items.filter(o=>o.x>player.x-500);pads=pads.filter(o=>o.end>player.x-500);}
-const taskPools=[[{label:'收集10条鱼',key:'fish',goal:10},{label:'滑行600米',key:'distance',goal:600}],[{label:'完成一次空翻',key:'flips',goal:1},{label:'连续3次平稳落地',key:'streak',goal:3}]];
+// Ordinary goals award score only. Supply goals use qualified action events.
+const taskPools=[[{label:'收集15条鱼',key:'fish',goal:15},{label:'滑行900米',key:'distance',goal:900},{label:'完成3次空翻',key:'flips',goal:3},{label:'连续4次平稳落地',key:'streak',goal:4}]];
 function metric(key){return key==='distance'?Math.floor(player.x/10):player[key];}
 function taskProgress(task){return Math.max(0,metric(task.spec.key)-task.start);}
-function initTasks(){tasks=taskPools.map(pool=>({index:0,spec:pool[0],start:metric(pool[0].key)}));}
-function checkMission(){let earned=0,full=0;for(let slot=0;slot<tasks.length;slot++){const task=tasks[slot];if(taskProgress(task)>=task.spec.goal){missionDone++;player.bonus+=150;if(player.charges<2){player.charges++;earned++;}else{full++;}task.index=(task.index+1)%taskPools[slot].length;task.spec=taskPools[slot][task.index];task.start=metric(task.spec.key);}}if(earned||full){feedback(earned?'任务完成 · 冲刺 +'+earned:'任务完成');sound.effect('shield');updateHUD();}}
-function emergency(){if(state!=='playing'||player.charges<=0||player.emergencyLock>0)return;player.charges--;player.emergencyLock=3.2;player.stumble=0;player.logGuard=true;player.guardFade=0;boost(3.2,'应急冲刺！','emergency');updateHUD();}
-function reset(){courseSeed=Math.floor(Math.random()*2147483647);segments=[];player={x:0,y:ground(0),vy:0,angle:slope(0),grounded:true,speed:699.6025,boost:0,flipBoost:0,padBoost:0,emergencyBoost:0,peakTime:0,logGuard:false,guardFade:0,stumble:0,invuln:0,shield:0,lead:900,fish:0,flips:0,spin:0,score:0,bonus:0,streak:0,combo:1,jumps:0,buffer:0,airTime:0,gap:null,warnedGap:-1,feedback:"",feedbackUntil:0,catchTime:0,engulfed:false,escapeAnnounced:false,attempted:false,charges:0,emergencyLock:0,rescueUsed:false,rescueJump:false,rescueUntil:0,rescueGap:null,rescueFromX:0,rescueFromY:0,airStart:0,airChallenge:-1,spinCircles:0,bigAir:false,momentum:0,speedView:0,burst:0,warnedRamp:-1,warnedRock:-1};obstacles=[];items=[];pads=[];nextChunk=0;clock=0;held=false;heldFor=0;toast='';toastUntil=0;zoom=1;cameraLift=0;missionDone=0;fragments=[];accumulator=0;initTasks();previous={x:player.x,y:player.y,angle:player.angle};el('ski-message').textContent='';el('ski-feedback').textContent='';generate();updateHUD();}
-function multiplier(){return Math.min(5,1+(player.flipBoost>0?.8:0)+(player.padBoost>0?1.5:0)+(player.emergencyBoost>0?2.5:0));}
+function chooseSupply(){const upcoming=nearby(player.x,18000),options=[];if(upcoming.some(q=>q.wind&&q.start>player.x))options.push({label:'接住两片云台',key:'supplyClouds',goal:2});if(upcoming.filter(q=>q.ramps[0]>player.x).length>=2)options.push({label:'两个不同跳台各翻一圈',key:'supplyRamps',goal:2});if(obstacles.filter(o=>!o.hit&&o.kind==='log'&&o.x>player.x).length>=2)options.push({label:'主动跳过两根倒木并落稳',key:'supplyLogs',goal:2});options.push({label:'主动跳跃收集6条空中鱼',key:'supplyFish',goal:6});const spec=options.find(o=>o.key!==player.lastSupply)||options[0];player.lastSupply=spec.key;player.supplySites=[];return{index:0,spec,start:metric(spec.key)};}
+function initTasks(){const spec=taskPools[0][0];tasks=[{index:0,spec,start:metric(spec.key)},chooseSupply()];}
+function checkMission(){const task=tasks[0];if(taskProgress(task)>=task.spec.goal){missionDone++;player.bonus+=150;task.index=(task.index+1)%taskPools[0].length;task.spec=taskPools[0][task.index];task.start=metric(task.spec.key);feedback('目标完成 · +150分');}
+ if(!player.pendingSupply&&taskProgress(tasks[1])>=tasks[1].spec.goal){missionDone++;player.pendingSupply=true;feedback('补给挑战完成');}
+ if(player.pendingSupply&&clock>=player.nextSupplyAt&&player.emergencyBoost<=0){if(player.charges<2){player.charges++;player.nextSupplyAt=clock+20;sound.effect('shield');feedback('补给到账 · 应急 +1');}else{feedback('补给完成 · 次数已满');}player.pendingSupply=false;tasks[1]=chooseSupply();}
+}
+function safeAcross(gap,label){player.rescueGap=gap;player.rescueFromX=player.x;player.rescueFromY=player.y;player.rescueUntil=clock+.22;player.rescueUsed=true;player.vy=0;player.pendingLogs=0;player.cleanAir=false;held=false;feedback(label);}
+function takeWind(){if(player.windTime>0||player.windReturn)return;player.windTime=5.5;player.windReturn=true;player.windLaunchY=player.y;player.grounded=false;player.cloudRide=null;player.vy=-820;player.jumps=1;player.spin=0;player.attempted=false;player.cleanAir=player.emergencyBoost<=0;player.manualAir=true;const stride=clamp(player.speed,normalSpeed(),normalSpeed()*2);clouds=[0,1,2].map((i)=>({id:i,x:player.x+stride*(2.5+i*.8),end:player.x+stride*(3.0+i*.8),y:player.y-680+i*60,used:false}));feedback('风翼展开 · 接云或自由回落');sound.effect('double');}
+function emergency(){if(state!=='playing'||player.charges<=0||player.emergencyLock>0)return;player.charges--;player.emergencyLock=3.2;player.stumble=0;player.logGuard=true;player.cleanAir=false;player.pendingLogs=0;player.guardFade=0;boost(3.2,'应急冲刺！','emergency');updateHUD();}
+function reset(){courseSeed=Math.floor(Math.random()*2147483647);segments=[];clouds=[];player={x:0,y:ground(0),windTime:0,windReturn:false,windLaunchY:0,cloudRide:null,supplyLogs:0,supplyRamps:0,supplyClouds:0,supplyFish:0,pendingSupply:false,nextSupplyAt:0,lastSupply:null,supplySites:[],pendingLogs:0,manualAir:false,cleanAir:true,vy:0,angle:slope(0),grounded:true,speed:699.6025,boost:0,flipBoost:0,padBoost:0,emergencyBoost:0,peakTime:0,logGuard:false,guardFade:0,stumble:0,invuln:0,shield:0,lead:900,fish:0,flips:0,spin:0,score:0,bonus:0,streak:0,combo:1,jumps:0,buffer:0,airTime:0,gap:null,warnedGap:-1,feedback:"",feedbackUntil:0,catchTime:0,engulfed:false,escapeAnnounced:false,attempted:false,charges:0,emergencyLock:0,rescueUsed:false,rescueJump:false,rescueUntil:0,rescueGap:null,rescueFromX:0,rescueFromY:0,airStart:0,airChallenge:-1,spinCircles:0,bigAir:false,momentum:0,speedView:0,burst:0,warnedRamp:-1,warnedRock:-1};obstacles=[];items=[];pads=[];nextChunk=0;clock=0;held=false;heldFor=0;toast='';toastUntil=0;zoom=1;cameraLift=0;missionDone=0;fragments=[];accumulator=0;generate();initTasks();previous={x:player.x,y:player.y,angle:player.angle};el('ski-message').textContent='';el('ski-feedback').textContent='';generate();updateHUD();}
+function multiplier(){return Math.min(5,1+(player.flipBoost>0?1:0)+(player.padBoost>0?1.5:0)+(player.emergencyBoost>0?2.5:0));}
 function boost(seconds,label,kind='flip'){const key=kind+'Boost';player[key]=Math.min(kind==='emergency'?3.2:kind==='pad'?1.5:3,player[key]+seconds);player.boost=Math.max(player.flipBoost,player.padBoost,player.emergencyBoost);player.burst=.45;sound.effect('boost');if(label)feedback(label);}
-function protection(dt){const ratio=player.speed/normalSpeed();if(player.emergencyBoost>0||ratio>=2.5){player.logGuard=true;player.guardFade=0;}else if(player.logGuard&&ratio<2.3){if(!player.guardFade)player.guardFade=.4;else{player.guardFade=Math.max(0,player.guardFade-dt);if(player.guardFade===0)player.logGuard=false;}}else player.guardFade=0;}
+function protection(dt){const ratio=player.speed/normalSpeed();if(player.emergencyBoost>0||player.flipBoost>0||ratio>=2.5){player.logGuard=true;player.guardFade=0;}else if(player.logGuard&&ratio<2.3){if(!player.guardFade)player.guardFade=.4;else{player.guardFade=Math.max(0,player.guardFade-dt);if(player.guardFade===0)player.logGuard=false;}}else player.guardFade=0;}
 function normalSpeed(){return clamp(699.6025+Math.min(46.2875,clock*.1587),699.6025,745.89);}
-function updateHUD(){el('ski-distance').textContent=Math.floor(player.x/10);player.score=Math.floor(player.x/10)+player.bonus;el('ski-score').textContent=player.score;el('snow-margin').style.width=(player.engulfed?clamp(player.catchTime/1.5*100,0,100):clamp(player.lead/1000*100,0,100))+'%';el('snow-margin').style.background=player.lead<300?'#cd765c':'#327f87';el('snow-label').textContent=player.engulfed?'雪崩吞没 · '+Math.round(player.catchTime/1.5*100)+'%':clock<5?'雪崩距离 · 起步缓冲':'雪崩距离 · '+(player.lead<300?'小心':player.lead<550?'接近':'安全');el('ski-combo').textContent=`${Math.round(player.speed/10)} 速度 · ${player.combo}× 连击${player.boost>0?' · '+(player.speed/normalSpeed()).toFixed(1)+'倍 '+player.boost.toFixed(1)+'s':''}${player.logGuard?' · 可破倒木':''}${player.shield>0?' · 护盾':''}`;for(let i=0;i<tasks.length;i++){const t=tasks[i];el(i?'ski-mission-trick':'ski-mission').textContent=(i?'技巧：':'基础：')+t.spec.label+' '+Math.min(t.spec.goal,taskProgress(t))+'/'+t.spec.goal;}el('ski-emergency').textContent='应急冲刺 '+player.charges+'/2';el('ski-emergency').disabled=state!=='playing'||player.charges===0||player.emergencyLock>0;el('jump-status').textContent='空中补跳：'+(player.grounded?'起跳 + 补跳':Math.max(0,2-player.jumps));}
-function start(){activePointer=null;reset();state='playing';updateHUD();el('ski-overlay').hidden=true;el('ski-pause').hidden=false;el('ski-pause').textContent='暂停';el('ski-tip').textContent='点按跳跃 · 再点二段跳 · 按住空翻 / 摔倒自动起身';lastFrame=null;say('点按跳跃，长按空翻；任务存冲刺，危险时点右下角',4);sound.setRunning(true);canvas.focus();}
+function updateHUD(){el('ski-distance').textContent=Math.floor(player.x/10);player.score=Math.floor(player.x/10)+player.bonus;el('ski-score').textContent=player.score;el('snow-margin').style.width=(player.engulfed?clamp(player.catchTime/1.5*100,0,100):clamp(player.lead/1000*100,0,100))+'%';el('snow-margin').style.background=player.lead<300?'#cd765c':'#327f87';el('snow-label').textContent=player.engulfed?'雪崩吞没 · '+Math.round(player.catchTime/1.5*100)+'%':clock<5?'雪崩距离 · 起步缓冲':'雪崩距离 · '+(player.lead<300?'小心':player.lead<550?'接近':'安全');el('ski-combo').textContent=`${Math.round(player.speed/10)} 速度 · ${player.combo}× 连击${player.boost>0?' · '+(player.speed/normalSpeed()).toFixed(1)+'倍 '+player.boost.toFixed(1)+'s':''}${player.logGuard?' · 可破倒木':''}${player.shield>0?' · 护盾':''}`;for(let i=0;i<tasks.length;i++){const t=tasks[i];el(i?'ski-mission-trick':'ski-mission').textContent=i&&player.pendingSupply?'补给准备中 · '+Math.max(0,Math.ceil(player.nextSupplyAt-clock))+'秒':(i?'补给：':'目标：')+t.spec.label+' '+Math.min(t.spec.goal,taskProgress(t))+'/'+t.spec.goal;}el('ski-emergency').textContent='应急冲刺 '+player.charges+'/2';el('ski-emergency').disabled=state!=='playing'||player.charges===0||player.emergencyLock>0;el('jump-status').textContent=(player.windTime>0?'风翼 '+player.windTime.toFixed(1)+'秒 · ':player.windReturn?'回落中 · ':'')+'空中补跳：'+(player.grounded?'起跳 + 补跳':Math.max(0,2-player.jumps));}
+function start(){activePointer=null;reset();state='playing';updateHUD();el('ski-overlay').hidden=true;el('ski-pause').hidden=false;el('ski-pause').textContent='暂停';el('ski-tip').textContent='点按跳跃 · 再点二段跳 · 按住空翻 / 摔倒自动起身';lastFrame=null;say('点按跳跃，长按空翻；完成补给挑战存冲刺，危险时点右下角',4);sound.setRunning(true);canvas.focus();}
 function pause(){if(state!=='playing')return;state='paused';held=false;heldFor=0;accumulator=0;activePointer=null;updateHUD();sound.setRunning(false);el('ski-overlay').hidden=false;el('ski-title').textContent='歇一会儿';el('ski-description').textContent='雪坡、雪崩和声音都已暂停。';el('ski-start').textContent='继续滑雪';el('ski-restart').hidden=false;el('ski-pause').hidden=true;}
 function resume(){state='playing';updateHUD();accumulator=0;previous={x:player.x,y:player.y,angle:player.angle};lastFrame=null;el('ski-overlay').hidden=true;el('ski-pause').hidden=false;sound.setRunning(true);canvas.focus();}
 function finish(reason='被雪崩追上了'){state='over';held=false;sound.setRunning(false);updateHUD();el('ski-overlay').hidden=false;el('ski-title').textContent=reason;el('ski-description').textContent=`滑行 ${Math.floor(player.x/10)} 米 · 空翻 ${player.flips} 次 · 完成目标 ${missionDone} 个 · 得分 ${player.score}`;el('ski-start').textContent='再滑一次';el('ski-restart').hidden=true;el('ski-pause').hidden=true;say('');}
-function crash(reason,fall=false){if(fall){sound.effect('crash');finish('坠入悬崖');return;}if(player.invuln>0)return;if(reason==='碰到石头了'&&player.shield>0){player.shield=0;player.invuln=.6;say('护盾挡住了石头');return;}player.stumble=.9;player.invuln=cfg().invuln;player.boost=0;player.flipBoost=0;player.padBoost=0;player.emergencyBoost=0;player.logGuard=false;player.guardFade=0;player.speed=300;player.grounded=true;player.vy=0;player.angle=slope(player.x);player.jumps=0;player.streak=0;player.spin=0;for(const task of tasks)if(task.spec.key==='streak')task.start=0;player.combo=1;player.y=ground(player.x);sound.effect('crash');say(reason+' · 自动起身中',1.2,2);}
-function jump(){if(player.rescueUntil>clock)return false;if(player.stumble>0)return false;if(!player.grounded&&player.jumps>=2)return false;const first=player.grounded;player.jumps=first?1:player.jumps+1;if(first){player.spin=0;player.attempted=false;player.airTime=0;player.airStart=player.y;player.spinCircles=0;}player.grounded=false;const nearRamp=segmentAt(player.x).ramps.some(x=>Math.abs(x-player.x)<170);if(first)player.airChallenge=nearRamp?segmentAt(player.x).id:-1;if(first)player.bigAir=nearRamp;player.vy=first?(nearRamp?-1030:-590):(player.bigAir?-760:Math.max(-570,player.vy-450));if(!first&&player.gap){player.rescueJump=true;player.vy=-650;}player.vy=Math.max(player.vy,-1100);player.buffer=0;sound.effect(first?'jump':'double');return true;}
+function crash(reason,fall=false){if(fall){sound.effect('crash');finish('坠入悬崖');return;}if(player.invuln>0)return;if(reason==='碰到石头了'&&player.shield>0){player.shield=0;player.invuln=.6;say('护盾挡住了石头');return;}player.pendingLogs=0;player.cleanAir=false;player.stumble=.9;player.invuln=cfg().invuln;player.boost=0;player.flipBoost=0;player.padBoost=0;player.emergencyBoost=0;player.logGuard=false;player.guardFade=0;player.speed=300;player.grounded=true;player.vy=0;player.angle=slope(player.x);player.jumps=0;player.streak=0;player.spin=0;for(const task of tasks)if(task.spec.key==='streak')task.start=0;player.combo=1;player.y=ground(player.x);sound.effect('crash');say(reason+' · 自动起身中',1.2,2);}
+function jump(){if(player.rescueUntil>clock)return false;if(player.stumble>0)return false;if(!player.grounded&&player.jumps>=2)return false;const first=player.grounded;player.jumps=first?1:player.jumps+1;if(first){player.pendingLogs=0;player.cleanAir=player.emergencyBoost<=0;player.manualAir=true;player.spin=0;player.attempted=false;player.airTime=0;player.airStart=player.y;player.spinCircles=0;}player.grounded=false;player.cloudRide=null;const nearRamp=segmentAt(player.x).ramps.some(x=>Math.abs(x-player.x)<170);if(first)player.airChallenge=nearRamp?segmentAt(player.x).id:-1;if(first)player.bigAir=nearRamp;player.vy=first?(nearRamp?-1030:-590):(player.bigAir?-760:Math.max(-570,player.vy-450));if(!first&&player.gap){player.rescueJump=true;player.vy=-650;}if(player.windTime>0)player.vy=first?-320:-400;player.vy=Math.max(player.vy,-1100);player.buffer=0;sound.effect(first?'jump':'double');return true;}
 function press(){if(state!=='playing'||held||player.stumble>0||player.rescueUntil>clock)return;held=true;heldFor=0;if(!jump())player.buffer=.16;}
 function release(){held=false;heldFor=0;}
-function step(dt){if(state!=='playing')return;clock+=dt;if(held)heldFor+=dt;for(const f of fragments){f.life-=dt;f.x+=f.vx*dt;f.vy+=600*dt;f.y+=f.vy*dt;f.angle+=f.spin*dt;}fragments=fragments.filter(f=>f.life>0);player.buffer=Math.max(0,player.buffer-dt);for(const k of ['invuln','stumble','flipBoost','padBoost','emergencyBoost','shield','emergencyLock','burst'])player[k]=Math.max(0,player[k]-dt);
+function step(dt){if(state!=='playing')return;clock+=dt;if(held)heldFor+=dt;for(const f of fragments){f.life-=dt;f.x+=f.vx*dt;f.vy+=600*dt;f.y+=f.vy*dt;f.angle+=f.spin*dt;}fragments=fragments.filter(f=>f.life>0);player.buffer=Math.max(0,player.buffer-dt);for(const k of ['invuln','stumble','flipBoost','padBoost','emergencyBoost','shield','emergencyLock','burst','windTime'])player[k]=Math.max(0,player[k]-dt);
+ if(player.emergencyBoost>0)player.cleanAir=false;
  const cruise=normalSpeed();
  // Horizontal arcade momentum, not an unprojected along-slope force.
  if(player.grounded&&player.stumble<=0){const downhill=Math.max(0,Math.sin(slope(player.x)));player.momentum=clamp(player.momentum+dt*(downhill>.2?downhill*110:-24),0,cruise*.30);}else if(player.stumble>0)player.momentum=Math.max(0,player.momentum-dt*180);
@@ -345,27 +134,32 @@ function step(dt){if(state!=='playing')return;clock+=dt;if(held)heldFor+=dt;for(
  if(player.catchTime>=1.5){finish('被雪崩吞没了');return;}}
  }
  let g=ground(player.x),hole=gapAt(player.x);const segment=segmentAt(oldX),crest=segment.ramps.find(x=>oldX<x&&player.x>=x)??Infinity;
- if(player.grounded){if((oldX<crest&&player.x>=crest&&player.stumble<=0)||hole){player.grounded=false;player.vy=hole?Math.max(0,Math.tan(slope(oldX))*player.speed): (bigRamp(oldX)?-1030:-250);player.spin=0;player.jumps=1;player.airTime=0;player.attempted=false;player.bigAir=!hole&&bigRamp(oldX);player.airChallenge=player.bigAir?segment.id:-1;player.airStart=player.y;player.spinCircles=0;if(!hole)feedback(bigRamp(oldX)?'下落跳台 · 长按连翻':'顺坡轻跃');}else{player.y=g;player.angle=slope(player.x);}}
+ if(player.cloudRide){const c=player.cloudRide;if(player.windTime<=0||player.x>c.end){player.cloudRide=null;player.grounded=false;player.vy=30;}else{player.y=c.y;player.angle=0;}}
+ if(player.grounded&&!player.cloudRide){if((oldX<crest&&player.x>=crest&&player.stumble<=0)||hole){player.cleanAir=player.emergencyBoost<=0;player.manualAir=false;player.pendingLogs=0;player.grounded=false;player.vy=hole?Math.max(0,Math.tan(slope(oldX))*player.speed): (bigRamp(oldX)?-1030:-250);player.spin=0;player.jumps=1;player.airTime=0;player.attempted=false;player.bigAir=!hole&&bigRamp(oldX);player.airChallenge=player.bigAir?segment.id:-1;player.airStart=player.y;player.spinCircles=0;if(!hole)feedback(bigRamp(oldX)?'下落跳台 · 长按连翻':'顺坡轻跃');}else{player.y=g;player.angle=slope(player.x);}}
  if(hole&&(!player.gap||player.gap.start!==hole.start)){player.gap=hole;player.rescueJump=false;player.rescueUsed=false;}
  if(player.rescueUntil>clock){const u=clamp(1-(player.rescueUntil-clock)/.22,0,1),ease=u*u*(3-2*u);player.x=player.rescueFromX+(player.rescueGap.end+30-player.rescueFromX)*ease;player.y=player.rescueFromY+(ground(player.rescueGap.end+30)-player.rescueFromY)*ease;player.angle+=(slope(player.x)-player.angle)*Math.min(1,dt*12);updateHUD();return;}
- if(player.rescueGap){player.x=player.rescueGap.end+30;player.y=ground(player.x);player.grounded=true;player.vy=0;player.jumps=0;player.angle=slope(player.x);player.attempted=false;player.gap=null;player.rescueGap=null;player.invuln=Math.max(player.invuln,1);g=ground(player.x);hole=null;}
+ if(player.rescueGap){player.x=player.rescueGap.end+30;player.y=ground(player.x);player.grounded=true;player.vy=0;player.jumps=0;player.angle=slope(player.x);player.attempted=false;player.gap=null;player.rescueGap=null;player.invuln=Math.max(player.invuln,1);player.windReturn=false;player.windTime=0;player.cloudRide=null;g=ground(player.x);hole=null;}
+ if(player.gap&&(player.emergencyBoost>0||player.speed/normalSpeed()>3||player.windReturn)&&!player.rescueGap&&player.y>ground(player.gap.end)-80){safeAcross(player.gap,player.windReturn?'风翼护送 · 接回雪坡':'展翼掠过断崖');return;}
  if(player.gap){const gap=player.gap,rim=ground(gap.end),near=player.x>=gap.end-125&&player.x<=gap.end+90,below=player.y>rim-40;
  if(player.rescueJump&&!player.rescueUsed&&near&&below&&player.y<rim+240){player.rescueUsed=true;player.rescueGap=gap;player.rescueFromX=player.x;player.rescueFromY=player.y;player.rescueUntil=clock+.22;player.vy=0;held=false;feedback('险些掉落 · 扑翼救回！');sound.effect('double');return;}
  if(player.y>Math.max(ground(gap.start),rim)+430||player.x>gap.end+110&&player.y>rim+240){crash('坠入悬崖',true);return;}
  if(player.x>gap.end&&player.y<=rim+12){player.gap=null;}
  }
- if(!player.grounded){player.airTime+=dt;player.vy+=1100*dt;player.y+=player.vy*dt;
+ if(!player.grounded){player.airTime+=dt;const previousY=player.y;player.vy+=(player.windTime>0?430:player.windReturn?850:1100)*dt;player.y+=player.vy*dt;
  if(held&&heldFor>.24){const turn=TAU*1.22*dt;player.angle-=turn;player.spin+=turn;player.attempted=true;const circles=Math.floor(player.spin/TAU);if(circles>player.spinCircles){player.spinCircles=circles;feedback(circles+'圈 · 继续翻或松手落地');sound.effect('fish',circles);}}else if(!held&&player.vy>0){const err=angleDiff(slope(player.x)-player.angle);player.angle+=clamp(err,-cfg().assist*dt,cfg().assist*dt);}
- if(!hole&&!player.gap&&player.y>=g&&player.vy>0){const bad=player.attempted&&Math.abs(angleDiff(player.angle-slope(player.x)))>cfg().tolerance;if(bad&&player.invuln<=0)crash('空翻倒栽了');else{const perfect=player.attempted&&Math.abs(angleDiff(player.angle-slope(player.x)))<Math.PI/12;player.y=g;player.grounded=true;player.vy=0;player.angle=slope(player.x);player.jumps=0;const flips=Math.floor((player.spin+.65)/TAU);player.flips+=flips;player.streak++;player.combo=Math.min(3,1+Math.floor(player.streak/2));player.bonus+=flips*100*player.combo;if(flips){for(const pad of pads)if(pad.challenge===player.airChallenge)pad.active=true;boost(Math.min(3,(perfect?.7:.5)+flips*.45));if(perfect)player.bonus+=40;}if(flips)feedback(`${flips}圈${perfect?' · 漂亮贴坡':'成功'} +${flips*100*player.combo+(perfect?40:0)}`);sound.effect(flips?'flip':'land',flips?flips:player.combo);if(player.buffer>0)jump();}}
+ if(player.windTime>0&&player.vy>0){const cloud=clouds.find(c=>player.x>=c.x&&player.x<=c.end&&previousY<=c.y&&player.y>=c.y);if(cloud){player.cloudRide=cloud;player.grounded=true;player.y=cloud.y;player.vy=0;player.angle=0;player.jumps=0;player.spin=0;player.attempted=false;if(!cloud.used){cloud.used=true;player.bonus+=100;if(player.cleanAir&&player.emergencyBoost<=0)player.supplyClouds++;feedback('接住云台 · +100分');sound.effect('land');}}}
+ if(!hole&&!player.gap&&player.y>=g&&player.vy>0){const bad=player.attempted&&Math.abs(angleDiff(player.angle-slope(player.x)))>cfg().tolerance;if(bad&&player.invuln<=0)crash('空翻倒栽了');else{const perfect=player.attempted&&Math.abs(angleDiff(player.angle-slope(player.x)))<Math.PI/12;player.y=g;player.grounded=true;if(player.windReturn)player.invuln=Math.max(player.invuln,1.2);player.windReturn=false;player.windTime=0;player.cloudRide=null;if(player.cleanAir&&player.emergencyBoost<=0){player.supplyLogs+=player.pendingLogs;}player.pendingLogs=0;player.vy=0;player.angle=slope(player.x);player.jumps=0;const flips=Math.floor((player.spin+.65)/TAU);player.flips+=flips;player.streak++;player.combo=Math.min(3,1+Math.floor(player.streak/2));player.bonus+=flips*100*player.combo;if(flips){if(player.cleanAir&&player.emergencyBoost<=0&&player.airChallenge>=0&&!player.supplySites.includes(player.airChallenge)){player.supplySites.push(player.airChallenge);player.supplyRamps++;}for(const pad of pads)if(pad.challenge===player.airChallenge)pad.active=true;boost(Math.min(3,(perfect?.7:.5)+flips*.45));if(perfect)player.bonus+=40;}if(flips)feedback(`${flips}圈${perfect?' · 漂亮贴坡':'成功'} +${flips*100*player.combo+(perfect?40:0)}`);sound.effect(flips?'flip':'land',flips?flips:player.combo);if(player.buffer>0)jump();}}
  if(player.gap&&player.x>player.gap.end&&player.y<=ground(player.gap.end)+12){player.gap=null;}
  }
  for(const pad of pads)if(pad.active&&!pad.hit&&player.x>=pad.x-35&&player.x<=(pad.end||pad.x)+35&&player.grounded){pad.hit=true;boost(1.5,'挑战完成 · 2.5倍冲刺','pad');}
+ for(const o of obstacles)if(o.kind==='log'&&!o.hit&&!o.jumped&&oldX<=o.x&&player.x>o.x&&player.y<ground(o.x)-65&&player.manualAir&&player.cleanAir&&player.emergencyBoost<=0){o.jumped=true;player.pendingLogs++;}
  for(const o of obstacles)if(!o.hit&&player.x>=o.x-(o.kind==='log'?48:27)&&oldX<=o.x+(o.kind==='log'?48:27)&&player.y>ground(o.x)-(o.kind==='log'?52:31)){o.hit=true;if(player.logGuard||(player.boost>0&&o.kind!=='log')){o.broken=true;for(let i=0;i<5;i++)fragments.push({x:o.x,y:ground(o.x)-15,vx:(i-2)*85,vy:-160-i*25,angle:0,spin:(i-2)*4,life:.65,size:5+i});player.bonus+=40;feedback((o.kind==='log'?'撞碎倒木':'冲破石头')+' +40');sound.effect('land');}else crash(o.kind==='log'?'撞到倒木了':'碰到石头了');}
- for(const item of items)if(!item.taken&&Math.hypot(player.x-item.x,(player.y-45)-item.y)<(item.kind==='bolt'?60:55)){item.taken=true;if(item.kind==='bolt')boost(4,'闪电加速！');else{player.fish++;player.bonus+=25*player.combo;sound.effect('fish',player.combo);}}
+ for(const item of items)if(!item.taken&&Math.hypot(player.x-item.x,(player.y-45)-item.y)<(item.kind==='bolt'?60:55)){item.taken=true;if(item.kind==='wind'){takeWind();}else if(item.kind==='bolt')boost(4,'闪电加速！');else{if(!player.grounded&&player.manualAir&&player.cleanAir&&player.emergencyBoost<=0)player.supplyFish++;player.fish++;player.bonus+=25*player.combo;sound.effect('fish',player.combo);}}
  const ahead=nearby(player.x),upcomingRamp=ahead.flatMap(q=>q.ramps).find(x=>x>player.x);if(upcomingRamp&&upcomingRamp-player.x<player.speed*2.3&&player.warnedRamp!==upcomingRamp){player.warnedRamp=upcomingRamp;say('连翻成功，激活落地加速区',2,1);}
+ const wind=items.find(i=>i.kind==='wind'&&!i.taken&&i.x>player.x&&i.x-player.x<player.speed*2);if(wind&&player.warnedWind!==wind.x){player.warnedWind=wind.x;say('前方风翼 · 起跳拾取，进入云路',2,2);}
  const rock=obstacles.find(o=>!o.hit&&o.x>player.x&&o.x-player.x<player.speed*2);if(rock&&player.warnedRock!==rock.x){player.warnedRock=rock.x;say(rock.kind==='log'?'前方倒木 · 必须跳过':'前方石头 · 跳跃或冲刺通过',1.5,2);}
  const nextGap=ahead.map(q=>q.gap).find(g=>g&&g.start>player.x);if(nextGap&&nextGap.start-player.x<player.speed*3&&player.warnedGap!==nextGap.start){player.warnedGap=nextGap.start;say('前方断口 · 提前跳跃',2.5,3);}
- checkMission();generate();if(clock>player.feedbackUntil)el('ski-feedback').textContent='';if(clock>toastUntil&&toast){toast='';el('ski-message').textContent='';}hudTime+=dt;if(hudTime>.1){hudTime=0;updateHUD();}const fast=clamp((player.speed-normalSpeed())/(normalSpeed()*4),0,1);player.speedView+=(fast-player.speedView)*Math.min(1,dt*2);const targetZoom=1+player.speedView*.08;zoom+=(targetZoom-zoom)*Math.min(1,dt*1.5);W=baseW*zoom;H=baseH*zoom;cameraLift+=(Math.max(0,ground(player.x)-player.y-140)*.85-cameraLift)*Math.min(1,dt*5);
+ checkMission();generate();if(clock>player.feedbackUntil)el('ski-feedback').textContent='';if(clock>toastUntil&&toast){toast='';el('ski-message').textContent='';}hudTime+=dt;if(hudTime>.1){hudTime=0;updateHUD();}const fast=clamp((player.speed-normalSpeed())/(normalSpeed()*4),0,1);player.speedView+=(fast-player.speedView)*Math.min(1,dt*2);const targetZoom=1+player.speedView*.08;zoom+=(targetZoom-zoom)*Math.min(1,dt*1.5);W=baseW*zoom;H=baseH*zoom;cameraLift+=(Math.max(0,ground(player.x)-player.y-140)*.90-cameraLift)*Math.min(1,dt*5);
 }
 function path(points,fill,stroke,width=3){ctx.beginPath();points(ctx);if(fill){ctx.fillStyle=fill;ctx.fill();}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=width;ctx.stroke();}}
 function circle(x,y,r,color){ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.fillStyle=color;ctx.fill();}
@@ -382,14 +176,15 @@ function bird(x,y,angle){ctx.save();ctx.translate(x,y);ctx.rotate(angle);ctx.sca
  path(c=>{c.moveTo(17,-110);c.lineTo(45,-110);},null,'#294e60',6);
  path(c=>{c.roundRect(42,-118,24,15,6);},'#26495e','#e8c785',2);
  path(c=>{c.moveTo(48,-115);c.lineTo(57,-107);},null,'#97deec',3);
- circle(53,-98,4,'#ecc3a4');if(player.rescueUntil>clock){const flap=Math.sin(clock*35)*24;path(c=>{c.moveTo(-20,-55);c.quadraticCurveTo(-80,-85+flap,-55,-115+flap);c.quadraticCurveTo(-14,-80,-2,-50);},'#edf4e8','#6d9094',2);}
+ circle(53,-98,4,'#ecc3a4');if(player.rescueUntil>clock||player.windReturn){const flap=Math.sin(clock*35)*24;path(c=>{c.moveTo(-20,-55);c.quadraticCurveTo(-80,-85+flap,-55,-115+flap);c.quadraticCurveTo(-14,-80,-2,-50);},'#edf4e8','#6d9094',2);}
  for(let f=0;f<3;f++)path(c=>{c.moveTo(-24+f*8,-54);c.quadraticCurveTo(-12+f*8,-43,2+f*7,-43);},null,'#b9c8bc',1.5);
  path(c=>{c.moveTo(27,-87);c.quadraticCurveTo(41,-79,52,-89);},null,'#6675bb',7);path(c=>{c.moveTo(28,-86);c.quadraticCurveTo(3,-94,-9,-86);c.lineTo(1,-77);c.quadraticCurveTo(13,-84,28,-82);},'#6675bb');
  ctx.restore();}
 function render(alpha=1){const view={...player};if(previous){view.x=previous.x+(player.x-previous.x)*alpha;view.y=previous.y+(player.y-previous.y)*alpha;view.angle=previous.angle+angleDiff(player.angle-previous.angle)*alpha;}ctx.setTransform(canvas.width/W,0,0,canvas.height/H,0,0);const sky=ctx.createLinearGradient(0,0,0,H);sky.addColorStop(0,'#9ec9dd');sky.addColorStop(.65,'#e3f0f4');sky.addColorStop(1,'#f5fafb');ctx.fillStyle=sky;ctx.fillRect(0,0,W,H);circle(W*.79,H*.23,48,'#fff3d5');
  const anchor=W*(.25-view.speedView*.065),camX=view.x-anchor,camY=ground(view.x)-H*.60-cameraLift;
  for(let layer=0;layer<2;layer++){const stepSize=layer?540:740,shift=view.x*(layer?.18:.07);ctx.fillStyle=layer?'#9ebfcf':'#c4dce5';for(let i=-2;i<W/stepSize+3;i++){const x=i*stepSize-(shift%stepSize),y=H*.51+layer*H*.045;path(c=>{c.moveTo(x-180,H);c.lineTo(x+60,y-145);c.lineTo(x+220,y+12);c.lineTo(x+370,y-85);c.lineTo(x+620,H);c.closePath();},layer?'#aac8d5':'#c9dfe7');path(c=>{c.moveTo(x+60,y-145);c.lineTo(x+3,y-58);c.lineTo(x+50,y-76);c.lineTo(x+78,y-56);c.lineTo(x+111,y-95);c.closePath();},'#eef7f9');}}
- const spacing=route(view.x)===2?160:route(view.x)===5?600:320;for(let i=Math.floor((camX*.5)/spacing)-1;i<(camX*.5+W)/spacing+1;i++)tree(i*spacing-camX*.5,H*.57+Math.sin(i*3)*20,.5+(i%3+3)%3*.13);
+ const biome=segmentAt(view.x).biome;const spacing=biome==='forest'?145:biome==='ice'?1000:520;for(let i=Math.floor((camX*.5)/spacing)-1;i<(camX*.5+W)/spacing+1;i++)tree(i*spacing-camX*.5,H*.57+Math.sin(i*3)*20,.5+(i%3+3)%3*.13);
+ if(biome==='ice'){for(let i=-1;i<7;i++){const x=i*180-(view.x*.28%180),y=H*.65;path(c=>{c.moveTo(x-40,y+130);c.lineTo(x,y-90-(i%2)*45);c.lineTo(x+36,y+130);c.closePath();},'#a7d4e6');path(c=>{c.moveTo(x,y-90-(i%2)*45);c.lineTo(x+10,y+110);c.lineTo(x+36,y+130);c.closePath();},'#d4eff7');}}
  // One closed polygon per continuous snowbank; no adjacent strip seams.
  const visibleSegments=nearby(camX,W+1000),visibleGaps=visibleSegments.map(q=>q.gap).filter(Boolean);const cuts=[camX-30,camX+W+30];const left=cuts[0],right=cuts[1];for(const gap of visibleGaps)for(const edge of [gap.start,gap.end])if(edge>left&&edge<right)cuts.push(edge);cuts.sort((a,b)=>a-b);
  for(let i=0;i<cuts.length-1;i++){const a=cuts[i],b=cuts[i+1];if(gapAt((a+b)/2))continue;const contour=c=>{c.moveTo(a-camX,ground(a)-camY);for(let x=a+6;x<b;x+=6)c.lineTo(x-camX,ground(x)-camY);c.lineTo(b-camX,ground(b)-camY);};path(c=>{contour(c);c.lineTo(b-camX,H+20);c.lineTo(a-camX,H+20);c.closePath();},'#f4f9fc');path(contour,null,'#d1e5ed',3);}
@@ -398,7 +193,8 @@ function render(alpha=1){const view={...player};if(previous){view.x=previous.x+(
  for(const gap of visibleGaps){for(const side of [gap.start-35,gap.end+35]){const x=side-camX,y=ground(side)-camY;path(c=>{c.moveTo(x,y);c.lineTo(x,y-60);},null,'#bc8c6a',3);path(c=>{c.moveTo(x,y-60);c.lineTo(x+23,y-50);c.lineTo(x,y-41);c.closePath();},'#db9780');}}
  for(const q of visibleSegments)for(const wx of q.ramps){const x=wx-camX,y=ground(wx)-camY;for(let j=0;j<3;j++)path(c=>{c.moveTo(x-45+j*20,y-5);c.lineTo(x-35+j*20,y-15);c.lineTo(x-25+j*20,y-5);},null,'#6488b6',4);}
  for(const pad of pads){const end=pad.end||pad.x+70;if(end<camX-80||pad.x>camX+W+80)continue;ctx.save();ctx.globalAlpha=pad.hit?.25:pad.active?1:.45;path(c=>{c.moveTo(pad.x-camX,ground(pad.x)-camY-4);for(let wx=pad.x;wx<=end;wx+=10)c.lineTo(wx-camX,ground(wx)-camY-4);},null,pad.active?'#efc66d':'#8599ac',10);for(let wx=pad.x+25;wx<end;wx+=65){const x=wx-camX,y=ground(wx)-camY;path(c=>{c.moveTo(x-8,y-22);c.lineTo(x+3,y-16);c.lineTo(x-8,y-10);},null,'#267c87',4);}ctx.restore();}
- for(const f of items)if(!f.taken){const x=f.x-camX,y=f.y-camY;if(x< -30||x>W+30)continue;ctx.save();ctx.translate(x,y);if(f.kind==='bolt'){circle(0,0,24,'#fff2ae99');path(c=>{c.moveTo(3,-20);c.lineTo(-14,3);c.lineTo(-1,3);c.lineTo(-5,21);c.lineTo(16,-5);c.lineTo(4,-5);c.closePath();},'#e0a337','#fff5c4',2);}else{path(c=>{c.ellipse(0,0,12,7,0,0,TAU);},'#dfa563');path(c=>{c.moveTo(-10,0);c.lineTo(-20,-8);c.lineTo(-20,8);c.closePath();},'#dfa563');circle(6,-1,1.3,'#fff');}ctx.restore();}
+ for(const c of clouds){if(!view.windReturn)continue;const x=c.x-camX,end=c.end-camX,y=c.y-camY;ctx.save();ctx.globalAlpha=view.windTime>0?.9:.3;for(let xx=x;xx<end;xx+=45)circle(xx,y+18,32,'#ffffff');path(p=>{p.moveTo(x-20,y);p.quadraticCurveTo((x+end)/2,y-12,end+20,y);},null,'#a0dce9',4);ctx.restore();}
+ for(const f of items)if(!f.taken){const x=f.x-camX,y=f.y-camY;if(x< -30||x>W+30)continue;ctx.save();ctx.translate(x,y);if(f.kind==='wind'){circle(0,0,28,'#b9ebf8bb');path(c=>{c.moveTo(0,16);c.quadraticCurveTo(-40,-15,-18,-30);c.lineTo(0,-8);c.lineTo(18,-30);c.quadraticCurveTo(40,-15,0,16);},'#f6fcff','#5991b8',3);}else if(f.kind==='bolt'){circle(0,0,24,'#fff2ae99');path(c=>{c.moveTo(3,-20);c.lineTo(-14,3);c.lineTo(-1,3);c.lineTo(-5,21);c.lineTo(16,-5);c.lineTo(4,-5);c.closePath();},'#e0a337','#fff5c4',2);}else{path(c=>{c.ellipse(0,0,12,7,0,0,TAU);},'#dfa563');path(c=>{c.moveTo(-10,0);c.lineTo(-20,-8);c.lineTo(-20,8);c.closePath();},'#dfa563');circle(6,-1,1.3,'#fff');}ctx.restore();}
  const by=view.y-camY;ctx.save();ctx.globalAlpha=.12;path(c=>c.ellipse(anchor,ground(view.x)-camY+6,46,6,0,0,TAU),'#31596a');ctx.restore();
  bird(anchor,by,view.angle+(view.stumble>0?Math.sin(clock*18)*.2:0));
  if(view.boost>0){ctx.save();ctx.globalAlpha=.42;for(let i=0;i<6;i++){const yy=H*(i<3?.18:.78)+(i%3)*H*.035,xx=W-((clock*1350+i*173)%W);path(c=>{c.moveTo(xx,yy);c.lineTo(xx+70,yy);},null,'#fff',2);}for(let i=0;i<14;i++)circle(anchor-65-i*8,by-4-Math.abs(Math.sin(clock*10+i))*15,2+i%3,'#fff');ctx.restore();}
@@ -411,6 +207,7 @@ path(c=>{c.moveTo(-30,H+20);c.lineTo(-30,frontY-170);c.bezierCurveTo(front-190,f
 for(let i=0;i<18;i++){const wx=view.x-Math.max(-25,view.lead)-i*22,xx=wx-camX,yy=ground(wx)-camY;circle(xx,yy-30-Math.sin(clock*3+i)*18,35+(i%4)*8,i%2?'#e9f6fd':'#c2d9e8');}
 for(let i=0;i<22;i++)circle(front-80+(i*41+clock*170)%100,frontY-20-((i*29+clock*100)%160),2+i%4,'#ffffffbb');
 for(const f of fragments){ctx.save();ctx.globalAlpha=Math.max(0,f.life/.65);ctx.translate(f.x-camX,f.y-camY);ctx.rotate(f.angle);ctx.fillStyle='#7894a5';ctx.fillRect(-f.size/2,-f.size/2,f.size,f.size);ctx.restore();}
+if(view.windReturn){ctx.fillStyle='#315c78';ctx.font='18px system-ui';ctx.fillText('↓ 雪坡在下方 · 未接住云也可安全回落',W*.14,H*.86);}
 const rect=canvas.getBoundingClientRect();el('ski-feedback').style.left=(anchor/W*rect.width)+'px';el('ski-feedback').style.top=clamp((by-170)/H*rect.height,rect.height*.27,rect.height*.74)+'px';
  for(let i=0;i<22;i++){const sx=((i*151-clock*18)%W+W)%W,sy=(i*79+clock*22)%H;circle(sx,sy,1.5,'#ffffff99');}
 }
@@ -424,7 +221,6 @@ el('ski-emergency').addEventListener('click',emergency);
 const playArea=el('ski-app');playArea.addEventListener('selectstart',e=>e.preventDefault());playArea.addEventListener('contextmenu',e=>e.preventDefault());for(const type of ['touchstart','touchmove'])canvas.addEventListener(type,e=>{if(e.cancelable)e.preventDefault();},{passive:false});
 el('ski-music').addEventListener('click',()=>sound.toggle('music'));el('ski-fx').addEventListener('click',()=>sound.toggle('fx'));
 el('ski-start').addEventListener('click',()=>state==='paused'?resume():start());el('ski-restart').addEventListener('click',start);el('ski-pause').addEventListener('click',pause);
-el('ski-watch').addEventListener('click',()=>{pause();document.body.dataset.mode='watch';release();});el('enter-ski').addEventListener('click',()=>{document.body.dataset.mode='ski';lastFrame=null;resize();});
 window.addEventListener('resize',resize);document.addEventListener('visibilitychange',()=>{lastFrame=null;if(document.hidden)pause();});window.addEventListener('blur',()=>{if(document.body.dataset.mode==='ski')pause();});
 sound.sync();reset();resize();render();requestAnimationFrame(frame);
 })();
