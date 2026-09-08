@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN" data-scene="sea" data-time="day"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>鹈鹕骑自行车</title><style>*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#dceffa;color:#183c50;font-family:system-ui,-apple-system,"Microsoft YaHei",sans-serif}body{min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;gap:16px}svg{display:block;width:100%;max-width:1100px;max-height:calc(100dvh - 118px);height:auto;border-radius:24px;box-shadow:0 16px 50px #24577718}.controls{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;background:#ffffffd9;padding:10px 14px;border:1px solid #fff;border-radius:20px;box-shadow:0 5px 24px #24577712}button{font:inherit;font-size:16px;min-height:44px;border-radius:12px;cursor:pointer}button{border:0;padding:10px 22px;background:#145b7a;color:white;min-width:120px}button:hover{background:#0c4763}button:focus-visible{outline:3px solid #239ddd;outline-offset:3px}.speed-options{display:flex;gap:6px}.speed-button{min-width:48px;padding:10px 12px;background:#edf6fb;color:#183c50;border:1px solid #bed6e3}.speed-button:hover{background:#d6ebf7}.speed-button[aria-pressed="true"]{background:#145b7a;color:#fff;border-color:#145b7a}@media(max-width:480px){body{padding:10px;gap:12px}svg{border-radius:16px}.controls{gap:8px;padding:8px 10px}#play-toggle{padding:10px 16px;min-width:88px}.speed-button{padding:10px;min-width:44px}}@media(orientation:landscape) and (max-height:600px){body{height:100dvh;min-height:0;padding:0;gap:0;overflow:hidden}svg{flex:none;width:100%;height:100dvh;max-width:none;max-height:none;border-radius:0;box-shadow:none}.controls{position:fixed;z-index:1;top:max(8px,env(safe-area-inset-top));right:max(8px,env(safe-area-inset-right));gap:6px;padding:6px 8px;border-radius:16px;background:#ffffffdf}#play-toggle{min-width:72px;padding:10px 12px}.speed-button{min-width:44px;padding:10px}.speed-options{gap:4px}} 
+<html lang="zh-CN" data-scene="sakura" data-time="sunset"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>鹈鹕骑自行车</title><style>*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#dceffa;color:#183c50;font-family:system-ui,-apple-system,"Microsoft YaHei",sans-serif}body{min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;gap:16px}svg{display:block;width:100%;max-width:1100px;max-height:calc(100dvh - 118px);height:auto;border-radius:24px;box-shadow:0 16px 50px #24577718}.controls{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;background:#ffffffd9;padding:10px 14px;border:1px solid #fff;border-radius:20px;box-shadow:0 5px 24px #24577712}button{font:inherit;font-size:16px;min-height:44px;border-radius:12px;cursor:pointer}button{border:0;padding:10px 22px;background:#145b7a;color:white;min-width:120px}button:hover{background:#0c4763}button:focus-visible{outline:3px solid #239ddd;outline-offset:3px}.speed-options{display:flex;gap:6px}.speed-button{min-width:48px;padding:10px 12px;background:#edf6fb;color:#183c50;border:1px solid #bed6e3}.speed-button:hover{background:#d6ebf7}.speed-button[aria-pressed="true"]{background:#145b7a;color:#fff;border-color:#145b7a}@media(max-width:480px){body{padding:10px;gap:12px}svg{border-radius:16px}.controls{gap:8px;padding:8px 10px}#play-toggle{padding:10px 16px;min-width:88px}.speed-button{padding:10px;min-width:44px}}@media(orientation:landscape) and (max-height:600px){body{height:100dvh;min-height:0;padding:0;gap:0;overflow:hidden}svg{flex:none;width:100%;height:100dvh;max-width:none;max-height:none;border-radius:0;box-shadow:none}.controls{position:fixed;z-index:1;top:max(8px,env(safe-area-inset-top));right:max(8px,env(safe-area-inset-right));gap:6px;padding:6px 8px;border-radius:16px;background:#ffffffdf}#play-toggle{min-width:72px;padding:10px 12px}.speed-button{min-width:44px;padding:10px}.speed-options{gap:4px}} 
 :root{--sky1:#8fcff4;--sky2:#effbff;--water1:#61bada;--water2:#2396b2;--hill:#4c8d8c;--grass:#79b49f;--road:#dce5e9;--leaf:#478b65;--leaf2:#76af78;--bloom:#f3b9d1;--bloom2:#ffe0ec;--trunk:#795e50;--mount:#78abc0;--cloud:#fff;--page:#dceffa}
 :root[data-time="sunset"]{--sky1:#bd9bbe;--sky2:#ffd9b2;--water1:#bb9fba;--water2:#8d93af;--hill:#827d8d;--grass:#b5a38c;--road:#e2ccc1;--leaf:#797d58;--leaf2:#b49c6b;--bloom:#eaa6b8;--bloom2:#ffd1c7;--trunk:#80615e;--mount:#9f8fa7;--cloud:#ffe8d8;--page:#e6c5c3}
 :root[data-time="night"]{--sky1:#14233e;--sky2:#466180;--water1:#3e6b89;--water2:#254e6a;--hill:#35576a;--grass:#486574;--road:#748596;--leaf:#365866;--leaf2:#567b7b;--bloom:#9e87b0;--bloom2:#c1b0d0;--trunk:#616070;--mount:#435b76;--cloud:#a2b3ca;--page:#263c53}
@@ -11,7 +11,16 @@ html,body{background:var(--page)}
 .setting{display:flex;align-items:center;gap:6px;font-size:14px}.setting select{font:inherit;min-height:44px;border:1px solid #bed6e3;border-radius:10px;padding:6px;background:#f1f8fc;color:#183c50;max-width:110px}.setting select:focus-visible{outline:3px solid #239ddd;outline-offset:2px}.settings{display:flex;gap:12px}.controls{max-width:100%}
 @media(max-width:600px){.settings{width:100%;justify-content:center}.controls{max-width:340px;gap:8px}}
 @media(orientation:landscape) and (max-height:600px){.controls{max-width:294px;gap:5px}.settings{width:100%;justify-content:center;gap:8px}.setting select{min-height:36px}.setting{font-size:13px}}
-</style></head><body><svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+
+[hidden]{display:none!important}.night-only,[data-time="night"] .night-only{display:inline;opacity:var(--night-opacity,0)}
+.sun,[data-time="night"] .sun,[data-time="sunset"] .sun{display:inline;opacity:var(--sun-opacity,1);fill:var(--sun-color,#ffbe88);transform:translate(var(--sun-x,-25px),var(--sun-y,130px))}
+#cloud-scroll,[data-time="night"] #cloud-scroll{opacity:var(--cloud-opacity,.85)}
+#pelican-body{cursor:pointer}#pelican-body:focus-visible{outline:3px solid #eeb8d2}
+.extra-controls{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;width:100%}.extra-controls button,#open-controls{min-width:64px;padding:8px 12px;font-size:14px}.extra-controls button{background:#e4eff5;color:#183c50}.extra-controls button[aria-pressed="true"]{background:#145b7a;color:white}
+.controls{max-width:620px}#open-controls{position:fixed;right:max(10px,env(safe-area-inset-right));top:max(10px,env(safe-area-inset-top));z-index:2}
+@media(max-width:600px){.controls{max-width:340px}svg{max-height:calc(100dvh - 210px)}}
+@media(orientation:landscape) and (max-height:600px){.controls{max-width:294px;max-height:calc(100dvh - 16px);overflow:auto}svg{max-height:none}.extra-controls button{padding:6px 9px;min-height:36px}}
+</style></head><body><svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="group" aria-labelledby="title desc">
 <title id="title">鹈鹕骑自行车动画</title><desc id="desc">A white pelican with an amber bill pedals a red bicycle beside the sea, rendered entirely as SVG vector shapes.</desc>
 <defs>
 <linearGradient id="sky" x2="0" y2="1"><stop stop-color="var(--sky1)"/><stop offset="1" stop-color="var(--sky2)"/></linearGradient>
@@ -61,7 +70,7 @@ html,body{background:var(--page)}
 <path d="M330 612 L434.65 507.35" stroke="#a8b4a3" stroke-width="1.7"/>
 <path d="M330 612 L458.17 538.00" stroke="#a8b4a3" stroke-width="1.7"/>
 <path d="M330 612 L472.96 573.69" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M481 602 A151 151 0 0 1 481 622" fill="none" stroke="#e9a34b" stroke-width="7" stroke-linecap="round"/></g><circle cx="860" cy="612" r="164" fill="none" stroke-width="12"/><circle cx="860" cy="612" r="150" fill="none" stroke="#b3bca7" stroke-width="3"/>
+</g><circle cx="860" cy="612" r="164" fill="none" stroke-width="12"/><circle cx="860" cy="612" r="150" fill="none" stroke="#b3bca7" stroke-width="3"/>
 <g id="spokes-860"><path d="M860 612 L1008.00 612.00" stroke="#a8b4a3" stroke-width="3"/>
 <path d="M860 612 L1002.96 650.31" stroke="#a8b4a3" stroke-width="1.7"/>
 <path d="M860 612 L988.17 686.00" stroke="#a8b4a3" stroke-width="1.7"/>
@@ -86,7 +95,7 @@ html,body{background:var(--page)}
 <path d="M860 612 L964.65 507.35" stroke="#a8b4a3" stroke-width="1.7"/>
 <path d="M860 612 L988.17 538.00" stroke="#a8b4a3" stroke-width="1.7"/>
 <path d="M860 612 L1002.96 573.69" stroke="#a8b4a3" stroke-width="1.7"/>
-<path d="M1011 602 A151 151 0 0 1 1011 622" fill="none" stroke="#e9a34b" stroke-width="7" stroke-linecap="round"/></g><g id="far-leg"><path id="far-bone" fill="none" stroke="#b78739" stroke-width="15"/><path id="far-crank" fill="none" stroke="#718176" stroke-width="8"/><path id="far-pedal" stroke-width="8"/><path id="far-foot" fill="#bf923e" stroke-width="3"/></g>
+</g><g id="far-leg"><path id="far-bone" fill="none" stroke="#b78739" stroke-width="15"/><path id="far-crank" fill="none" stroke="#718176" stroke-width="8"/><path id="far-pedal" stroke-width="8"/><path id="far-foot" fill="#bf923e" stroke-width="3"/></g>
 <!-- Diamond frame -->
 <path d="M330 612 L491 425 L570 612 Z M491 425 L785 419 L570 612 M785 419 L860 612" fill="none" stroke-width="16"/>
 <path d="M330 612 L491 425 L570 612 Z M491 425 L785 419 L570 612 M785 419 L860 612" fill="none" stroke="#bf5946" stroke-width="10"/>
@@ -99,7 +108,7 @@ html,body{background:var(--page)}
 <circle cx="330" cy="612" r="8" fill="#b78349" stroke-width="3"/>
 <circle cx="860" cy="612" r="8" fill="#b78349" stroke-width="3"/>
 <!-- Tail and body -->
-<g id="pelican-body">
+<g id="pelican-body" role="button" tabindex="0" aria-label="逗逗鹈鹕">
 <g id="tail-feathers">
 <path d="M407 363 Q321 372 290 324 L342 331 L311 300 Q361 303 400 327Z" fill="#fbf9ea" stroke-width="4"/>
 </g>
@@ -122,7 +131,7 @@ html,body{background:var(--page)}
 <g id="near-leg"><path id="near-outline" fill="none" stroke-width="19"/><path id="near-bone" fill="none" stroke="#d7a34b" stroke-width="12"/><path id="near-crank" fill="none" stroke="#50665a" stroke-width="9"/><path id="near-pedal" stroke-width="8"/><path id="near-foot" fill="#e4b35b" stroke-width="3"/></g>
 <circle cx="570" cy="612" r="7" fill="#bf5946" stroke-width="3"/>
 </g>
-<g class="scene-layer scene-sakura" fill="var(--bloom2)" stroke="var(--bloom)" stroke-width="1"><path id="petal-0" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-1" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-2" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-3" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-4" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-5" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-6" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-7" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-8" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-9" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-10" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-11" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-12" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-13" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/></g></svg><div class="controls" role="group" aria-label="动画控制"><button id="play-toggle" type="button" aria-pressed="false">暂停</button><div class="speed-options" role="group" aria-label="播放速度"><button class="speed-button" type="button" data-speed="1" aria-pressed="true" aria-label="1倍速">1×</button><button class="speed-button" type="button" data-speed="3" aria-pressed="false" aria-label="3倍速">3×</button><button class="speed-button" type="button" data-speed="5" aria-pressed="false" aria-label="5倍速">5×</button></div><div class="settings"><label class="setting">风景<select id="scene-choice" aria-label="风景"><option value="sea">海边</option><option value="forest">森林</option><option value="sakura">樱花道</option></select></label><label class="setting">时段<select id="time-choice" aria-label="时段"><option value="day">白天</option><option value="sunset">夕阳</option><option value="night">夜晚</option></select></label></div></div><script>"use strict";
+<g class="scene-layer scene-sakura" fill="var(--bloom2)" stroke="var(--bloom)" stroke-width="1"><path id="petal-0" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-1" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-2" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-3" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-4" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-5" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-6" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-7" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-8" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-9" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-10" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-11" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-12" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-13" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/></g></svg><button id="open-controls" type="button" aria-controls="controls-panel" aria-expanded="false" hidden>设置</button><div id="controls-panel" class="controls" role="group" aria-label="动画控制"><button id="play-toggle" type="button" aria-pressed="false">暂停</button><div class="speed-options" role="group" aria-label="播放速度"><button class="speed-button" type="button" data-speed="1" aria-pressed="true" aria-label="1倍速">1×</button><button class="speed-button" type="button" data-speed="3" aria-pressed="false" aria-label="3倍速">3×</button><button class="speed-button" type="button" data-speed="5" aria-pressed="false" aria-label="5倍速">5×</button></div><div class="settings"><label class="setting">风景<select id="scene-choice" aria-label="风景"><option value="sea">海边</option><option value="forest">森林</option><option value="sakura">樱花道</option></select></label><label class="setting">时段<select id="time-choice" aria-label="时段"><option value="day">白天</option><option value="sunset">夕阳</option><option value="night">夜晚</option></select></label></div><div class="extra-controls"><button id="auto-time" type="button" aria-pressed="false">自动昼夜：关</button><button id="reset-defaults" type="button">恢复默认</button><button id="hide-controls" type="button" aria-controls="controls-panel" aria-expanded="true">收起</button></div></div><script>"use strict";
 const get=id=>document.getElementById(id);
 const tau=Math.PI*2;
 function leg(side,angle,hx,hy){
@@ -142,10 +151,11 @@ function leg(side,angle,hx,hy){
 function draw(ms){
  const angle=ms/1000*tau/2.4;
  const bob=2.5*Math.sin(angle*2);
- get('pelican-body').setAttribute('transform',`translate(0 ${bob})`);
+ const reaction=interactionAge<650?Math.sin(Math.PI*interactionAge/650):0;
+ get('pelican-body').setAttribute('transform',`translate(0 ${bob}) rotate(${reaction*3} 620 270)`);
  get('tail-feathers').setAttribute('transform',`rotate(${3*Math.sin(angle*1.3)} 396 343)`);
  const blinkPhase=ms%4700;
- const eyeScale=blinkPhase<180?Math.max(.08,Math.abs(blinkPhase-90)/90):1;
+ const eyeScale=interactionAge<240?Math.max(.08,Math.abs(interactionAge-120)/120):blinkPhase<180?Math.max(.08,Math.abs(blinkPhase-90)/90):1;
  get('pelican-eye').setAttribute('transform',`translate(0 178) scale(1 ${eyeScale}) translate(0 -178)`);
  leg('far',angle+Math.PI,530,402+bob);
  leg('near',angle,516,400+bob);
@@ -169,46 +179,53 @@ function draw(ms){
   get('spokes-'+cx).setAttribute('transform',`rotate(${degrees} ${cx} 612)`);
  }
 }
-let elapsed=0,last=null,paused=false,speed=1,scene='sea',time='day';
-const settingsKey='pelican-ride-settings-v1';
-try{
- const saved=JSON.parse(localStorage.getItem(settingsKey)||'null');
- if(saved&&typeof saved==='object'){
-  if([1,3,5].includes(saved.speed))speed=saved.speed;
-  if(['sea','forest','sakura'].includes(saved.scene))scene=saved.scene;
-  if(['day','sunset','night'].includes(saved.time))time=saved.time;
- }
-}catch{}
-function saveSettings(){try{localStorage.setItem(settingsKey,JSON.stringify({scene,time,speed}));}catch{}}
+let elapsed=0,last=null,paused=false,speed=1,scene='sakura',time='sunset';
+let autoTime=false,cycleElapsed=0,interactionAge=1000;
+const palettes={"day": {"sky1": "#8fcff4", "sky2": "#effbff", "water1": "#61bada", "water2": "#2396b2", "hill": "#4c8d8c", "grass": "#79b49f", "road": "#dce5e9", "leaf": "#478b65", "leaf2": "#76af78", "bloom": "#f3b9d1", "bloom2": "#ffe0ec", "trunk": "#795e50", "mount": "#78abc0", "cloud": "#fff", "page": "#dceffa"}, "sunset": {"sky1": "#bd9bbe", "sky2": "#ffd9b2", "water1": "#bb9fba", "water2": "#8d93af", "hill": "#827d8d", "grass": "#b5a38c", "road": "#e2ccc1", "leaf": "#797d58", "leaf2": "#b49c6b", "bloom": "#eaa6b8", "bloom2": "#ffd1c7", "trunk": "#80615e", "mount": "#9f8fa7", "cloud": "#ffe8d8", "page": "#e6c5c3"}, "night": {"sky1": "#14233e", "sky2": "#466180", "water1": "#3e6b89", "water2": "#254e6a", "hill": "#35576a", "grass": "#486574", "road": "#748596", "leaf": "#365866", "leaf2": "#567b7b", "bloom": "#9e87b0", "bloom2": "#c1b0d0", "trunk": "#616070", "mount": "#435b76", "cloud": "#a2b3ca", "page": "#263c53"}};
+const phases=['day','sunset','night'];
+const sunPositions={day:[0,0],sunset:[-25,130],night:[-25,130]};
+function mixColor(a,b,p){const c=x=>x.match(/\w\w/g).map(v=>parseInt(v,16));const x=c(a.slice(1)),y=c(b.slice(1));return '#'+x.map((v,i)=>Math.round(v+(y[i]-v)*p).toString(16).padStart(2,'0')).join('');}
+function paintTime(from,to=from,p=0){
+ const style=document.documentElement.style;
+ for(const key of Object.keys(palettes[from]))style.setProperty('--'+key,mixColor(palettes[from][key],palettes[to][key],p));
+ const night=(from==='night'?1:0)*(1-p)+(to==='night'?1:0)*p;
+ style.setProperty('--night-opacity',night);style.setProperty('--sun-opacity',1-night);style.setProperty('--cloud-opacity',.85-.57*night);
+ style.setProperty('--sun-color',mixColor(from==='day'?'#fff8de':'#ffbe88',to==='day'?'#fff8de':'#ffbe88',p));
+ for(const [i,axis] of ['x','y'].entries())style.setProperty('--sun-'+axis,(sunPositions[from][i]*(1-p)+sunPositions[to][i]*p)+'px');
+}
 function applyScenery(){
  document.documentElement.dataset.scene=scene;document.documentElement.dataset.time=time;
  get('scene-choice').value=scene;get('time-choice').value=time;
  const names={sea:'海边',forest:'森林',sakura:'樱花道',day:'白天',sunset:'夕阳',night:'夜晚'};
  get('title').textContent=`鹈鹕骑行 · ${names[scene]} · ${names[time]}`;
- get('desc').textContent='鹈鹕骑着红色自行车，远近风景随骑行移动。可暂停，选择风景、时段和播放速度。';
+ get('desc').textContent='鹈鹕骑着红色自行车，点它可以互动。可暂停、调速、选择风景和时段。';
 }
-applyScenery();
-get('scene-choice').addEventListener('change',()=>{advance(performance.now());scene=get('scene-choice').value;applyScenery();saveSettings();draw(elapsed);});
-get('time-choice').addEventListener('change',()=>{advance(performance.now());time=get('time-choice').value;applyScenery();saveSettings();draw(elapsed);});
+function updateCycle(){
+ while(cycleElapsed>=35000){cycleElapsed-=35000;time=phases[(phases.indexOf(time)+1)%3];applyScenery();}
+ const next=phases[(phases.indexOf(time)+1)%3];
+ paintTime(time,next,Math.max(0,(cycleElapsed-30000)/5000));
+}
+function setAuto(value){autoTime=value;cycleElapsed=0;get('auto-time').textContent=value?'自动昼夜：开':'自动昼夜：关';get('auto-time').setAttribute('aria-pressed',String(value));paintTime(time);}
 function advance(now){
- if(last!==null&&!paused&&!document.hidden)elapsed+=Math.max(0,now-last)*speed;
+ if(last!==null&&!document.hidden){const dt=Math.max(0,now-last);interactionAge=Math.min(1000,interactionAge+dt);if(!paused){elapsed+=dt*speed;if(autoTime){cycleElapsed+=dt;updateCycle();}}}
  last=now;
 }
 function frame(now){advance(now);draw(elapsed);requestAnimationFrame(frame);}
-get('play-toggle').addEventListener('click',()=>{
- advance(performance.now());paused=!paused;
- get('play-toggle').textContent=paused?'继续':'暂停';
- get('play-toggle').setAttribute('aria-pressed',String(paused));
- draw(elapsed);
-});
+function syncPlay(){get('play-toggle').textContent=paused?'继续':'暂停';get('play-toggle').setAttribute('aria-pressed',String(paused));}
+get('play-toggle').addEventListener('click',()=>{advance(performance.now());paused=!paused;syncPlay();draw(elapsed);});
 const speedButtons=Array.from(document.querySelectorAll('[data-speed]'));
-for(const button of speedButtons)button.setAttribute('aria-pressed',String(Number(button.dataset.speed)===speed));
-for(const button of speedButtons)button.addEventListener('click',()=>{
- advance(performance.now());speed=Number(button.dataset.speed);
- for(const option of speedButtons)option.setAttribute('aria-pressed',String(option===button));
- saveSettings();
- draw(elapsed);
-});
+function syncSpeed(){for(const b of speedButtons)b.setAttribute('aria-pressed',String(Number(b.dataset.speed)===speed));}
+for(const button of speedButtons)button.addEventListener('click',()=>{advance(performance.now());speed=Number(button.dataset.speed);syncSpeed();draw(elapsed);});
+get('scene-choice').addEventListener('change',()=>{advance(performance.now());scene=get('scene-choice').value;applyScenery();draw(elapsed);});
+get('time-choice').addEventListener('change',()=>{advance(performance.now());time=get('time-choice').value;setAuto(false);applyScenery();draw(elapsed);});
+get('auto-time').addEventListener('click',()=>{advance(performance.now());setAuto(!autoTime);});
+function collapse(value){get('controls-panel').hidden=value;get('open-controls').hidden=!value;get('open-controls').setAttribute('aria-expanded',String(!value));get('hide-controls').setAttribute('aria-expanded',String(!value));}
+get('hide-controls').addEventListener('click',()=>{collapse(true);get('open-controls').focus();});
+get('open-controls').addEventListener('click',()=>{collapse(false);get('hide-controls').focus();});
+function react(){advance(performance.now());interactionAge=0;draw(elapsed);}
+get('pelican-body').addEventListener('click',react);
+get('pelican-body').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();react();}});
+get('reset-defaults').addEventListener('click',()=>{advance(performance.now());speed=1;scene='sakura';time='sunset';paused=false;interactionAge=1000;setAuto(false);collapse(false);syncSpeed();syncPlay();applyScenery();draw(elapsed);});
 document.addEventListener('visibilitychange',()=>{last=null;});
-draw(0);requestAnimationFrame(frame);
+applyScenery();paintTime(time);syncSpeed();collapse(false);draw(0);requestAnimationFrame(frame);
 </script></body></html>
