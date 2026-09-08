@@ -20,7 +20,20 @@ html,body{background:var(--page)}
 .controls{max-width:620px}#open-controls{position:fixed;right:max(10px,env(safe-area-inset-right));top:max(10px,env(safe-area-inset-top));z-index:2}
 @media(max-width:600px){.controls{max-width:340px}svg{max-height:calc(100dvh - 210px)}}
 @media(orientation:landscape) and (max-height:600px){.controls{max-width:294px;max-height:calc(100dvh - 16px);overflow:auto}svg{max-height:none}.extra-controls button{padding:6px 9px;min-height:36px}}
-</style></head><body><svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="group" aria-labelledby="title desc">
+body[data-mode="ski"]{padding:0;display:block;overflow:hidden;background:#c4e3ee}
+body[data-mode="ski"]>svg,body[data-mode="ski"]>#controls-panel,body[data-mode="ski"]>#open-controls{display:none!important}
+body[data-mode="watch"] #ski-app{display:none}
+#ski-app{position:fixed;inset:0;overflow:hidden;font-family:system-ui,-apple-system,"Microsoft YaHei",sans-serif;color:#234657;user-select:none;-webkit-user-select:none}
+#ski-canvas{display:block;width:100%;height:100%;touch-action:none;outline:none}
+.ski-top{position:absolute;top:max(14px,env(safe-area-inset-top));left:max(18px,env(safe-area-inset-left));right:max(18px,env(safe-area-inset-right));display:flex;align-items:flex-start;justify-content:space-between;gap:12px;pointer-events:none}
+.ski-stats{display:flex;gap:24px;text-shadow:0 1px 0 #fff8}.ski-stats strong{font-size:30px;display:block;line-height:1.1;font-variant-numeric:tabular-nums}.ski-stats span{font-size:12px;letter-spacing:1px}.ski-actions{display:flex;gap:8px;pointer-events:auto}.ski-actions button,#enter-ski{min-width:0;font-size:14px;padding:9px 14px;background:#fffC;color:#234657;box-shadow:0 3px 12px #31536d0d}
+.ski-bottom{position:absolute;bottom:max(18px,env(safe-area-inset-bottom));left:24px;right:24px;display:flex;justify-content:space-between;align-items:end;pointer-events:none;font-size:13px}.avalanche{width:170px}.avalanche span{display:block;margin-bottom:6px}.avalanche-track{height:6px;background:#31536d25;border-radius:8px;overflow:hidden}#snow-margin{height:100%;width:100%;background:#327f87;transition:width .1s linear}#ski-tip{max-width:55%;text-align:right;color:#315768}
+#ski-message{position:absolute;top:22%;left:50%;transform:translateX(-50%);font-size:20px;font-weight:700;color:#245e68;text-align:center;pointer-events:none;text-shadow:0 1px 4px white}
+.ski-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#e6f3fa22;padding:22px;pointer-events:none}.ski-card{pointer-events:auto;width:min(390px,100%);padding:30px;border-radius:24px;background:#fffffff0;box-shadow:0 18px 60px #284d661c;text-align:center;backdrop-filter:blur(10px)}.ski-card small{letter-spacing:3px;color:#668b96;font-size:11px}.ski-card h1{margin:12px 0 10px;font-size:34px;letter-spacing:2px;color:#204957}.ski-card p{font-size:14px;line-height:1.8;margin:10px 0 20px;color:#527580}.ski-card button{background:#236c73;width:100%;border-radius:14px}.ski-card .subtle{margin-top:8px;background:transparent;color:#527580;box-shadow:none;font-size:14px}.ski-card .results{font-size:17px;color:#234657}
+#enter-ski{position:fixed;top:max(10px,env(safe-area-inset-top));left:max(10px,env(safe-area-inset-left));z-index:3;background:#236c73;color:white}body[data-mode="ski"] #enter-ski{display:none}
+@media(orientation:portrait){.ski-top{left:14px;right:14px}.ski-stats{gap:12px}.ski-stats strong{font-size:23px}.ski-stats span{font-size:10px}.ski-actions button{padding:8px 10px}.ski-bottom{left:16px;right:16px;gap:12px}.avalanche{width:125px}.ski-card h1{font-size:30px}#ski-message{top:27%}}
+@media(max-height:450px){.ski-card{padding:18px 25px;width:370px}.ski-card h1{font-size:28px;margin:6px 0}.ski-card p{margin:5px 0 12px;font-size:13px}.ski-top{top:10px}.ski-bottom{bottom:10px}.ski-card .subtle{min-height:34px;padding:5px}}
+</style></head><body data-mode="ski"><svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="group" aria-labelledby="title desc">
 <title id="title">鹈鹕骑自行车动画</title><desc id="desc">A white pelican with an amber bill pedals a red bicycle beside the sea, rendered entirely as SVG vector shapes.</desc>
 <defs>
 <linearGradient id="sky" x2="0" y2="1"><stop stop-color="var(--sky1)"/><stop offset="1" stop-color="var(--sky2)"/></linearGradient>
@@ -131,7 +144,7 @@ html,body{background:var(--page)}
 <g id="near-leg"><path id="near-outline" fill="none" stroke-width="19"/><path id="near-bone" fill="none" stroke="#d7a34b" stroke-width="12"/><path id="near-crank" fill="none" stroke="#50665a" stroke-width="9"/><path id="near-pedal" stroke-width="8"/><path id="near-foot" fill="#e4b35b" stroke-width="3"/></g>
 <circle cx="570" cy="612" r="7" fill="#bf5946" stroke-width="3"/>
 </g>
-<g class="scene-layer scene-sakura" fill="var(--bloom2)" stroke="var(--bloom)" stroke-width="1"><path id="petal-0" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-1" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-2" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-3" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-4" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-5" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-6" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-7" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-8" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-9" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-10" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-11" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-12" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-13" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/></g></svg><button id="open-controls" type="button" aria-controls="controls-panel" aria-expanded="false" hidden>设置</button><div id="controls-panel" class="controls" role="group" aria-label="动画控制"><button id="play-toggle" type="button" aria-pressed="false">暂停</button><div class="speed-options" role="group" aria-label="播放速度"><button class="speed-button" type="button" data-speed="1" aria-pressed="true" aria-label="1倍速">1×</button><button class="speed-button" type="button" data-speed="3" aria-pressed="false" aria-label="3倍速">3×</button><button class="speed-button" type="button" data-speed="5" aria-pressed="false" aria-label="5倍速">5×</button></div><div class="settings"><label class="setting">风景<select id="scene-choice" aria-label="风景"><option value="sea">海边</option><option value="forest">森林</option><option value="sakura">樱花道</option></select></label><label class="setting">时段<select id="time-choice" aria-label="时段"><option value="day">白天</option><option value="sunset">夕阳</option><option value="night">夜晚</option></select></label></div><div class="extra-controls"><button id="auto-time" type="button" aria-pressed="false">自动昼夜：关</button><button id="reset-defaults" type="button">恢复默认</button><button id="hide-controls" type="button" aria-controls="controls-panel" aria-expanded="true">收起</button></div></div><script>"use strict";
+<g class="scene-layer scene-sakura" fill="var(--bloom2)" stroke="var(--bloom)" stroke-width="1"><path id="petal-0" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-1" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-2" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-3" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-4" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-5" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-6" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-7" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-8" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-9" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-10" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-11" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-12" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/><path id="petal-13" d="M0 0Q-11-12-15-2Q-14 9 0 0Z"/></g></svg><button id="open-controls" type="button" aria-controls="controls-panel" aria-expanded="false" hidden>设置</button><div id="controls-panel" class="controls" role="group" aria-label="动画控制"><button id="play-toggle" type="button" aria-pressed="false">暂停</button><div class="speed-options" role="group" aria-label="播放速度"><button class="speed-button" type="button" data-speed="1" aria-pressed="true" aria-label="1倍速">1×</button><button class="speed-button" type="button" data-speed="3" aria-pressed="false" aria-label="3倍速">3×</button><button class="speed-button" type="button" data-speed="5" aria-pressed="false" aria-label="5倍速">5×</button></div><div class="settings"><label class="setting">风景<select id="scene-choice" aria-label="风景"><option value="sea">海边</option><option value="forest">森林</option><option value="sakura">樱花道</option></select></label><label class="setting">时段<select id="time-choice" aria-label="时段"><option value="day">白天</option><option value="sunset">夕阳</option><option value="night">夜晚</option></select></label></div><div class="extra-controls"><button id="hide-controls" type="button" aria-controls="controls-panel" aria-expanded="true">收起</button></div></div><script>"use strict";
 const get=id=>document.getElementById(id);
 const tau=Math.PI*2;
 function leg(side,angle,hx,hy){
@@ -179,7 +192,7 @@ function draw(ms){
  }
 }
 let elapsed=0,last=null,paused=false,speed=1,scene='sakura',time='sunset';
-let autoTime=false,cycleElapsed=0;
+
 const palettes={"day": {"sky1": "#8fcff4", "sky2": "#effbff", "water1": "#61bada", "water2": "#2396b2", "hill": "#4c8d8c", "grass": "#79b49f", "road": "#dce5e9", "leaf": "#478b65", "leaf2": "#76af78", "bloom": "#f3b9d1", "bloom2": "#ffe0ec", "trunk": "#795e50", "mount": "#78abc0", "cloud": "#fff", "page": "#dceffa"}, "sunset": {"sky1": "#bd9bbe", "sky2": "#ffd9b2", "water1": "#bb9fba", "water2": "#8d93af", "hill": "#827d8d", "grass": "#b5a38c", "road": "#e2ccc1", "leaf": "#797d58", "leaf2": "#b49c6b", "bloom": "#eaa6b8", "bloom2": "#ffd1c7", "trunk": "#80615e", "mount": "#9f8fa7", "cloud": "#ffe8d8", "page": "#e6c5c3"}, "night": {"sky1": "#14233e", "sky2": "#466180", "water1": "#3e6b89", "water2": "#254e6a", "hill": "#35576a", "grass": "#486574", "road": "#748596", "leaf": "#365866", "leaf2": "#567b7b", "bloom": "#9e87b0", "bloom2": "#c1b0d0", "trunk": "#616070", "mount": "#435b76", "cloud": "#a2b3ca", "page": "#263c53"}};
 const phases=['day','sunset','night'];
 const sunPositions={day:[0,0],sunset:[-25,130],night:[-25,130]};
@@ -199,29 +212,100 @@ function applyScenery(){
  get('title').textContent=`鹈鹕骑行 · ${names[scene]} · ${names[time]}`;
  get('desc').textContent='鹈鹕骑着红色自行车。可暂停、调速、选择风景和时段。';
 }
-function updateCycle(){
- while(cycleElapsed>=35000){cycleElapsed-=35000;time=phases[(phases.indexOf(time)+1)%3];applyScenery();}
- const next=phases[(phases.indexOf(time)+1)%3];
- paintTime(time,next,Math.max(0,(cycleElapsed-30000)/5000));
-}
-function setAuto(value){autoTime=value;cycleElapsed=0;get('auto-time').textContent=value?'自动昼夜：开':'自动昼夜：关';get('auto-time').setAttribute('aria-pressed',String(value));paintTime(time);}
 function advance(now){
- if(last!==null&&!document.hidden){const dt=Math.max(0,now-last);if(!paused){elapsed+=dt*speed;if(autoTime){cycleElapsed+=dt;updateCycle();}}}
+ if(last!==null&&!document.hidden){const dt=Math.max(0,now-last);if(!paused){elapsed+=dt*speed;}}
  last=now;
 }
-function frame(now){advance(now);draw(elapsed);requestAnimationFrame(frame);}
+function frame(now){if(document.body.dataset.mode==='watch'){advance(now);draw(elapsed);}else last=null;requestAnimationFrame(frame);}
 function syncPlay(){get('play-toggle').textContent=paused?'继续':'暂停';get('play-toggle').setAttribute('aria-pressed',String(paused));}
 get('play-toggle').addEventListener('click',()=>{advance(performance.now());paused=!paused;syncPlay();draw(elapsed);});
 const speedButtons=Array.from(document.querySelectorAll('[data-speed]'));
 function syncSpeed(){for(const b of speedButtons)b.setAttribute('aria-pressed',String(Number(b.dataset.speed)===speed));}
 for(const button of speedButtons)button.addEventListener('click',()=>{advance(performance.now());speed=Number(button.dataset.speed);syncSpeed();draw(elapsed);});
 get('scene-choice').addEventListener('change',()=>{advance(performance.now());scene=get('scene-choice').value;applyScenery();draw(elapsed);});
-get('time-choice').addEventListener('change',()=>{advance(performance.now());time=get('time-choice').value;setAuto(false);applyScenery();draw(elapsed);});
-get('auto-time').addEventListener('click',()=>{advance(performance.now());setAuto(!autoTime);});
+get('time-choice').addEventListener('change',()=>{advance(performance.now());time=get('time-choice').value;paintTime(time);applyScenery();draw(elapsed);});
 function collapse(value){get('controls-panel').hidden=value;get('open-controls').hidden=!value;get('open-controls').setAttribute('aria-expanded',String(!value));get('hide-controls').setAttribute('aria-expanded',String(!value));}
 get('hide-controls').addEventListener('click',()=>{collapse(true);get('open-controls').focus();});
 get('open-controls').addEventListener('click',()=>{collapse(false);get('hide-controls').focus();});
-get('reset-defaults').addEventListener('click',()=>{advance(performance.now());speed=1;scene='sakura';time='sunset';paused=false;setAuto(false);collapse(false);syncSpeed();syncPlay();applyScenery();draw(elapsed);});
 document.addEventListener('visibilitychange',()=>{last=null;});
 applyScenery();paintTime(time);syncSpeed();collapse(false);draw(0);requestAnimationFrame(frame);
+</script><button id="enter-ski" type="button">滑雪模式</button>
+<section id="ski-app" aria-label="鹈鹕滑雪冒险">
+<canvas id="ski-canvas" tabindex="0" role="application" aria-label="滑雪赛道。点击或空格跳跃，在空中按住可后空翻，松开停止旋转。"></canvas>
+<div class="ski-top"><div class="ski-stats"><div><strong id="ski-distance">0</strong><span>滑行 / 米</span></div><div><strong id="ski-score">0</strong><span>得分</span></div></div><div class="ski-actions"><button id="ski-watch" type="button">观赏模式</button><button id="ski-pause" type="button" hidden>暂停</button></div></div>
+<div id="ski-message" role="status" aria-live="polite"></div>
+<div class="ski-bottom"><div class="avalanche"><span id="snow-label">雪崩距离 · 安全</span><div class="avalanche-track"><div id="snow-margin"></div></div></div><div id="ski-tip">横屏更开阔 · 竖屏也能玩</div></div>
+<div id="ski-overlay" class="ski-overlay"><div class="ski-card"><small>PELICAN · ALPINE RUN</small><h1 id="ski-title">鹈鹕雪山冒险</h1><p id="ski-description">轻点跳跃，空中按住后空翻<br>松手停止旋转，滑板朝下更好落地<br>轻松难度 · 摔倒也有机会站起来</p><button id="ski-start" type="button">开始滑雪</button><button id="ski-restart" type="button" class="subtle" hidden>重新开始</button></div></div>
+</section>
+<script>(()=>{'use strict';
+const el=id=>document.getElementById(id),canvas=el('ski-canvas'),ctx=canvas.getContext('2d');
+const TAU=Math.PI*2,clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+let W=960,H=600,dpr=1,lastFrame=null,state='ready',held=false,heldFor=0,player,obstacles=[],items=[],nextChunk=0,toast='',toastUntil=0,clock=0,hudTime=0;
+const ground=x=>380+Math.sin(x/350)*45+Math.sin(x/150)*17;
+const slope=x=>Math.atan(Math.cos(x/350)*45/350+Math.cos(x/150)*17/150);
+const gapAt=x=>{const n=Math.floor((x-1850)/2200);if(n<0)return null;const start=1850+n*2200;return x>=start&&x<=start+80?{start,end:start+80}:null;};
+const angleDiff=a=>Math.atan2(Math.sin(a),Math.cos(a));
+function resize(){const r=canvas.getBoundingClientRect();if(!r.width||!r.height)return;const ratio=r.width/r.height;W=Math.max(640,ratio*600);H=W/ratio;dpr=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.round(r.width*dpr);canvas.height=Math.round(r.height*dpr);ctx.setTransform(canvas.width/W,0,0,canvas.height/H,0,0);}
+function say(text,seconds=2){toast=text;toastUntil=clock+seconds;el('ski-message').textContent=text;}
+function generate(){while(nextChunk<player.x+W+1000){const base=nextChunk;nextChunk+=750;if(base<750)continue;const rock=base+180;if(!gapAt(rock)&&!gapAt(rock-100)&&!gapAt(rock+100))obstacles.push({x:rock,hit:false});for(let j=0;j<3;j++){const x=base+350+j*45;if(!gapAt(x))items.push({x,y:ground(x)-65-Math.sin(j*Math.PI/2)*22,taken:false});}}
+ obstacles=obstacles.filter(o=>o.x>player.x-300);items=items.filter(o=>o.x>player.x-300);
+}
+function reset(){player={x:0,y:ground(0),vy:0,angle:slope(0),grounded:true,speed:195,boost:0,stumble:0,invuln:0,lead:760,fish:0,flips:0,spin:0,score:0};obstacles=[];items=[];nextChunk=0;clock=0;held=false;heldFor=0;toast='';toastUntil=0;el('ski-message').textContent='';generate();updateHUD();}
+function updateHUD(){el('ski-distance').textContent=Math.floor(player.x/10);player.score=Math.floor(player.x/10)+player.fish*25+player.flips*100;el('ski-score').textContent=player.score;el('snow-margin').style.width=clamp(player.lead/850*100,0,100)+'%';el('snow-margin').style.background=player.lead<260?'#cd765c':'#327f87';el('snow-label').textContent='雪崩距离 · '+(player.lead<260?'小心':player.lead<480?'接近':'安全');}
+function start(){reset();state='playing';el('ski-overlay').hidden=true;el('ski-pause').hidden=false;el('ski-pause').textContent='暂停';el('ski-tip').textContent='轻点跳跃 · 空中按住后空翻 · 松手停止旋转';lastFrame=null;say('先熟悉雪坡，慢慢来',3);canvas.focus();}
+function pause(){if(state!=='playing')return;state='paused';held=false;el('ski-overlay').hidden=false;el('ski-title').textContent='歇一会儿';el('ski-description').textContent='雪坡和雪崩都已暂停。';el('ski-start').textContent='继续滑雪';el('ski-restart').hidden=false;el('ski-pause').hidden=true;}
+function resume(){state='playing';lastFrame=null;el('ski-overlay').hidden=true;el('ski-pause').hidden=false;canvas.focus();}
+function finish(){state='over';held=false;updateHUD();el('ski-overlay').hidden=false;el('ski-title').textContent='下次滑得更远';el('ski-description').textContent=`滑行 ${Math.floor(player.x/10)} 米 · 空翻 ${player.flips} 次 · 得分 ${player.score}`;el('ski-start').textContent='再滑一次';el('ski-restart').hidden=true;el('ski-pause').hidden=true;say('');}
+function crash(reason,fall=false){if(player.invuln>0&&!fall)return;player.lead-=fall?220:160;player.stumble=1.0;player.invuln=3;player.boost=0;player.speed=90;player.grounded=true;player.vy=0;player.angle=slope(player.x);if(fall){const g=gapAt(player.x);if(g)player.x=g.end+22;}player.y=ground(player.x);say(reason+'，站起来继续！');if(player.lead<=0)finish();}
+function press(){if(state!=='playing'||held)return;held=true;heldFor=0;if(player.grounded&&player.stumble<=0){player.grounded=false;player.vy=-410;player.spin=0;say('松手停转，滑板朝下落地',1.5);}}
+function release(){held=false;heldFor=0;}
+function step(dt){if(state!=='playing')return;clock+=dt;if(held)heldFor+=dt;player.invuln=Math.max(0,player.invuln-dt);player.stumble=Math.max(0,player.stumble-dt);player.boost=Math.max(0,player.boost-dt);
+ const target=195+Math.min(65,player.x/300)+(player.boost>0?35:0);player.speed+=(target-player.speed)*Math.min(1,dt*(player.stumble>0?.3:1.8));player.x+=player.speed*dt;
+ player.lead=clamp(player.lead+dt*(player.stumble>0?-30:3),0,850);if(player.lead<=0){finish();return;}
+ const g=ground(player.x),hole=gapAt(player.x);if(player.grounded){if(hole&&player.invuln<=0){player.grounded=false;player.vy=0;player.spin=0;}else{player.y=g;player.angle=slope(player.x);}}
+ if(!player.grounded){player.vy+=800*dt;player.y+=player.vy*dt;if(held&&heldFor>.16){const turn=TAU*1.15*dt;player.angle-=turn;player.spin+=turn;}
+ if(!hole&&player.y>=g&&player.vy>0){const bad=Math.abs(angleDiff(player.angle-slope(player.x)))>1.3;if(bad&&player.invuln<=0)crash('落地没站稳');else{player.y=g;player.grounded=true;player.vy=0;player.angle=slope(player.x);const flips=Math.floor((player.spin+.15)/TAU);player.flips+=flips;player.boost=flips?2.2:.65;player.lead=Math.min(850,player.lead+(flips?45:8));say(flips?'漂亮！空翻 +100':'稳稳落地',1);}}
+ if(player.y>g+125)crash('滑进了雪沟',true);
+ }
+ for(const o of obstacles)if(!o.hit&&Math.abs(player.x-o.x)<25&&player.y>ground(o.x)-29){o.hit=true;if(player.invuln<=0)crash('碰到石头了');}
+ for(const item of items)if(!item.taken&&Math.hypot(player.x-item.x,(player.y-45)-item.y)<47){item.taken=true;player.fish++;}
+ generate();if(clock>toastUntil&&toast){toast='';el('ski-message').textContent='';}hudTime+=dt;if(hudTime>.1){hudTime=0;updateHUD();}
+}
+function path(points,fill,stroke,width=3){ctx.beginPath();points(ctx);if(fill){ctx.fillStyle=fill;ctx.fill();}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=width;ctx.stroke();}}
+function circle(x,y,r,color){ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.fillStyle=color;ctx.fill();}
+function tree(x,y,size){ctx.save();ctx.translate(x,y);ctx.scale(size,size);ctx.fillStyle='#729cac';ctx.fillRect(-3,-8,6,35);path(c=>{c.moveTo(0,-100);c.lineTo(-38,-28);c.lineTo(-24,-28);c.lineTo(-47,5);c.lineTo(47,5);c.lineTo(24,-28);c.lineTo(38,-28);c.closePath();},'#6f99a5');path(c=>{c.moveTo(0,-100);c.lineTo(-27,-49);c.lineTo(-6,-55);c.lineTo(5,-43);c.lineTo(27,-49);c.closePath();},'#e8f5f7');ctx.restore();}
+function bird(x,y,angle){ctx.save();ctx.translate(x,y);ctx.rotate(angle);ctx.lineCap='round';ctx.lineJoin='round';if(player.invuln>0)ctx.globalAlpha=.68+.32*Math.abs(Math.sin(clock*10));
+ path(c=>{c.moveTo(-53,-2);c.quadraticCurveTo(-38,6,50,2);c.quadraticCurveTo(65,1,69,-9);},null,'#294e60',7);path(c=>{c.moveTo(-46,-4);c.lineTo(49,-1);},null,'#eeb074',3);
+ path(c=>{c.moveTo(-12,-40);c.lineTo(-21,-17);c.lineTo(9,-7);c.moveTo(7,-43);c.lineTo(25,-24);c.lineTo(21,-7);},null,'#cd984d',7);
+ path(c=>{c.moveTo(-36,-53);c.lineTo(-62,-69);c.lineTo(-48,-47);c.quadraticCurveTo(-62,-45,-47,-36);c.lineTo(-22,-39);},'#fffbea','#345764',2.5);
+ path(c=>{c.moveTo(-36,-64);c.bezierCurveTo(-9,-83,13,-60,20,-64);c.bezierCurveTo(29,-75,9,-115,38,-122);c.bezierCurveTo(58,-128,70,-112,64,-96);c.bezierCurveTo(49,-81,58,-61,39,-40);c.bezierCurveTo(16,-24,-36,-27,-42,-48);c.quadraticCurveTo(-47,-57,-36,-64);},'#fffbea','#345764',2.5);
+ path(c=>{c.moveTo(-30,-57);c.quadraticCurveTo(-7,-65,18,-44);c.quadraticCurveTo(-19,-33,-30,-57);},'#e6e8d7','#78928a',1.5);
+ path(c=>{c.moveTo(61,-106);c.lineTo(121,-101);c.quadraticCurveTo(93,-73,65,-96);c.closePath();},'#eab766','#345764',2.3);path(c=>{c.moveTo(59,-108);c.quadraticCurveTo(90,-112,122,-103);c.lineTo(62,-101);c.closePath();},'#f4cb7f','#345764',2);
+ circle(51,-111,3.3,'#284d5c');circle(52,-112,1,'white');
+ path(c=>{c.moveTo(27,-87);c.quadraticCurveTo(41,-79,52,-89);},null,'#d3796d',7);path(c=>{c.moveTo(28,-86);c.quadraticCurveTo(3,-94,-9,-86);c.lineTo(1,-77);c.quadraticCurveTo(13,-84,28,-82);},'#d3796d');
+ ctx.restore();}
+function render(){ctx.setTransform(canvas.width/W,0,0,canvas.height/H,0,0);const sky=ctx.createLinearGradient(0,0,0,H);sky.addColorStop(0,'#9ec9dd');sky.addColorStop(.65,'#e3f0f4');sky.addColorStop(1,'#f5fafb');ctx.fillStyle=sky;ctx.fillRect(0,0,W,H);circle(W*.79,H*.23,48,'#fff3d5');
+ const anchor=W*.24,camX=player.x-anchor,camY=ground(player.x)-H*.7;
+ for(let layer=0;layer<2;layer++){const stepSize=layer?400:570,shift=player.x*(layer?.18:.07);ctx.fillStyle=layer?'#9ebfcf':'#c4dce5';for(let i=-2;i<W/stepSize+3;i++){const x=i*stepSize-(shift%stepSize),y=H*.5+layer*H*.08;path(c=>{c.moveTo(x-180,H);c.lineTo(x+60,y-145);c.lineTo(x+220,y+12);c.lineTo(x+370,y-85);c.lineTo(x+620,H);c.closePath();},layer?'#aac8d5':'#c9dfe7');path(c=>{c.moveTo(x+60,y-145);c.lineTo(x+3,y-58);c.lineTo(x+50,y-76);c.lineTo(x+78,y-56);c.lineTo(x+111,y-95);c.closePath();},'#eef7f9');}}
+ for(let i=Math.floor((camX*.5)/220)-1;i<(camX*.5+W)/220+1;i++)tree(i*220-camX*.5, H*.66+Math.sin(i*3)*20,.6+(i%3+3)%3*.13);
+ // Snow slope split at gaps, so jumps cross visible snow gullies.
+ for(let x=-20;x<W+20;x+=12){const wx=camX+x;if(gapAt(wx))continue;const y=ground(wx)-camY,y2=ground(wx+12)-camY;path(c=>{c.moveTo(x,y);c.lineTo(x+13,y2);c.lineTo(x+13,H+20);c.lineTo(x,H+20);c.closePath();},'#f7fbfc');path(c=>{c.moveTo(x,y);c.lineTo(x+13,y2);},null,'#cfE4eb',3);}
+ for(let i=Math.floor(camX/115)-1;i<(camX+W)/115+1;i++){const wx=i*115;if(!gapAt(wx))path(c=>{c.moveTo(wx-camX,ground(wx)-camY+34);c.lineTo(wx-camX+32,ground(wx+32)-camY+34);},null,'#e4f0f4',2);}
+ for(const o of obstacles){const x=o.x-camX;if(x< -60||x>W+60)continue;const y=ground(o.x)-camY;path(c=>{c.moveTo(x-22,y);c.quadraticCurveTo(x-22,y-22,x-7,y-30);c.quadraticCurveTo(x+16,y-34,x+25,y);c.closePath();},o.hit?'#a9bac4':'#728f9f');path(c=>{c.moveTo(x-16,y-18);c.quadraticCurveTo(x-3,y-41,x+17,y-19);c.lineTo(x+1,y-23);c.closePath();},'#fff');}
+ for(let n=Math.max(0,Math.floor((camX-1850)/2200));n<(camX+W-1850)/2200+1;n++){const gx=1850+n*2200;for(const side of [gx-35,gx+105]){const x=side-camX,y=ground(side)-camY;path(c=>{c.moveTo(x,y);c.lineTo(x,y-60);},null,'#bc8c6a',3);path(c=>{c.moveTo(x,y-60);c.lineTo(x+23,y-50);c.lineTo(x,y-41);c.closePath();},'#db9780');}}
+ for(const f of items)if(!f.taken){const x=f.x-camX,y=f.y-camY;if(x< -30||x>W+30)continue;ctx.save();ctx.translate(x,y);path(c=>{c.ellipse(0,0,12,7,0,0,TAU);},'#dfa563');path(c=>{c.moveTo(-10,0);c.lineTo(-20,-8);c.lineTo(-20,8);c.closePath();},'#dfa563');circle(6,-1,1.3,'#fff');ctx.restore();}
+ const by=player.y-camY;ctx.save();ctx.globalAlpha=.12;path(c=>c.ellipse(anchor,ground(player.x)-camY+6,46,6,0,0,TAU),'#31596a');ctx.restore();
+ bird(anchor,by,player.angle+(player.stumble>0?Math.sin(clock*18)*.2:0));
+ if(player.grounded)for(let i=0;i<7;i++)circle(anchor-45-i*7,by-2-Math.abs(Math.sin(clock*7+i))*8,2+(i%2),'#fff');
+ const edge=-120+Math.max(0,500-player.lead)*.65;for(let i=0;i<12;i++)circle(edge-Math.sin(i+clock)*15,H*.35+i*H/15,55+(i%3)*14,'#eaf5f9');
+ for(let i=0;i<22;i++){const sx=((i*151-clock*18)%W+W)%W,sy=(i*79+clock*22)%H;circle(sx,sy,1.5,'#ffffff99');}
+}
+function frame(now){if(document.body.dataset.mode==='ski'){const dt=lastFrame===null?0:Math.min(.08,(now-lastFrame)/1000);lastFrame=now;if(!document.hidden){let remaining=dt;while(remaining>0){const h=Math.min(1/120,remaining);step(h);remaining-=h;}render();}}else lastFrame=null;requestAnimationFrame(frame);}
+canvas.addEventListener('pointerdown',e=>{if(e.button!==0)return;e.preventDefault();canvas.setPointerCapture(e.pointerId);press();});canvas.addEventListener('pointerup',release);canvas.addEventListener('pointercancel',release);canvas.addEventListener('lostpointercapture',release);
+window.addEventListener('keydown',e=>{if(document.body.dataset.mode!=='ski'||e.target!==canvas)return;if((e.code==='Space'||e.code==='ArrowUp')&&!e.repeat){e.preventDefault();press();}if(e.code==='Escape')pause();});window.addEventListener('keyup',e=>{if(e.code==='Space'||e.code==='ArrowUp')release();});
+el('ski-start').addEventListener('click',()=>state==='paused'?resume():start());el('ski-restart').addEventListener('click',start);el('ski-pause').addEventListener('click',pause);
+el('ski-watch').addEventListener('click',()=>{pause();document.body.dataset.mode='watch';release();});el('enter-ski').addEventListener('click',()=>{document.body.dataset.mode='ski';lastFrame=null;resize();});
+window.addEventListener('resize',resize);document.addEventListener('visibilitychange',()=>{lastFrame=null;if(document.hidden)pause();});window.addEventListener('blur',()=>{if(document.body.dataset.mode==='ski')pause();});
+reset();resize();render();requestAnimationFrame(frame);
+})();
 </script></body></html>
