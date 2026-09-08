@@ -398,10 +398,10 @@ function render(alpha=1){const view={...player};if(previous){view.x=previous.x+(
  if(view.burst>0){ctx.save();ctx.globalAlpha=view.burst/.45;for(let i=0;i<12;i++)circle(anchor-55-(.45-view.burst)*(110+i*30),by-10-Math.sin(i)*(.45-view.burst)*90,3+i%3,'#eafaff');ctx.restore();}
  if(view.grounded)for(let i=0;i<7;i++)circle(anchor-45-i*7,by-2-Math.abs(Math.sin(clock*7+i))*8,2+(i%2),'#fff');
  const danger=clamp((550-view.lead)/550,0,1);if(danger>0){const fog=ctx.createLinearGradient(0,0,W*.14,0);fog.addColorStop(0,'rgba(177,208,226,'+(danger*.5)+')');fog.addColorStop(1,'rgba(177,208,226,0)');ctx.fillStyle=fog;ctx.fillRect(0,0,W*.14,H);}
- const front=Math.min(anchor+25,anchor-view.lead),frontY=ground(view.x-view.lead)-camY;
+ const front=Math.min(anchor+25,anchor-view.lead),frontY=ground(view.x-Math.max(-25,view.lead))-camY;
 const cloud=ctx.createLinearGradient(front-180,0,front+20,0);cloud.addColorStop(0,'#7695afa8');cloud.addColorStop(1,'#e7f6ff');
 path(c=>{c.moveTo(-30,H+20);c.lineTo(-30,frontY-170);c.bezierCurveTo(front-190,frontY-200,front-65,frontY-190,front,frontY-35);c.lineTo(front+12,frontY+45);c.lineTo(front-40,H+20);c.closePath();},cloud);
-for(let i=0;i<18;i++){const wx=view.x-view.lead-i*22,xx=wx-camX,yy=ground(wx)-camY;circle(xx,yy-30-Math.sin(clock*3+i)*18,35+(i%4)*8,i%2?'#e9f6fd':'#c2d9e8');}
+for(let i=0;i<18;i++){const wx=view.x-Math.max(-25,view.lead)-i*22,xx=wx-camX,yy=ground(wx)-camY;circle(xx,yy-30-Math.sin(clock*3+i)*18,35+(i%4)*8,i%2?'#e9f6fd':'#c2d9e8');}
 for(let i=0;i<22;i++)circle(front-80+(i*41+clock*170)%100,frontY-20-((i*29+clock*100)%160),2+i%4,'#ffffffbb');
 for(const f of fragments){ctx.save();ctx.globalAlpha=Math.max(0,f.life/.65);ctx.translate(f.x-camX,f.y-camY);ctx.rotate(f.angle);ctx.fillStyle='#7894a5';ctx.fillRect(-f.size/2,-f.size/2,f.size,f.size);ctx.restore();}
 const rect=canvas.getBoundingClientRect();el('ski-feedback').style.left=(anchor/W*rect.width)+'px';el('ski-feedback').style.top=clamp((by-170)/H*rect.height,rect.height*.27,rect.height*.74)+'px';
