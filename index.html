@@ -60,7 +60,7 @@ let segments=[],clouds=[],routeBags={};
 const hash=n=>{let h=(n+courseSeed)|0;h=Math.imul(h^(h>>>16),0x45d9f3b);h=Math.imul(h^(h>>>16),0x45d9f3b);return((h^(h>>>16))>>>0)/4294967296;};
 // Six distinct play segments, shuffled without adjacent repeats. Every bag covers all six.
 function ensure(x){while(!segments.length||segments.at(-1).end<x){const n=segments.length,prev=segments.at(-1),bagIndex=Math.floor((n-1)/6),slot=(n-1)%6;
- const bag=[1,2,3,5,6,8];for(let i=5;i>0;i--){const j=Math.floor(hash(bagIndex*113+i*37)* (i+1));[bag[i],bag[j]]=[bag[j],bag[i]];}if(prev&&slot===0&&bag[0]===prev.kind)[bag[0],bag[1]]=[bag[1],bag[0]];
+ const challenge=[2,3,8],release=[1,5,6];for(const [k,list] of [challenge,release].entries())for(let i=2;i>0;i--){const j=Math.floor(hash(bagIndex*113+i*37+k*911)*(i+1));[list[i],list[j]]=[list[j],list[i]];}const bag=challenge.flatMap((kind,i)=>hash(bagIndex*313+i*719)>.5?[kind,release[i]]:[release[i],kind]);if(prev&&bag[0]===prev.kind){const j=bag.findIndex((kind,i)=>i>0&&challenge.includes(kind)===challenge.includes(bag[0]));[bag[0],bag[j]]=[bag[j],bag[0]];}
  // Persist the permutation so lookahead calls cannot change the first-slot swap.
  if(slot===0)routeBags[bagIndex]=bag;const kind=n===0?0:(routeBags[bagIndex]||bag)[slot];
  const type=({0:4,1:1,2:2,3:3,5:0,6:4,8:5})[kind],length=n===0?3300:kind===1?5100+hash(n+7)*900:3000+hash(n+31)*1500,drop=length*((kind===5?.24:.16)+hash(n+71)*.12),start=prev?.end||0;
