@@ -172,6 +172,8 @@ function ensure(x){while(!segments.length||segments.at(-1).end<x){
  for(const platform of seg.platforms){platform.y0=rawGround(seg,platform.x)-platform.offset;platform.y1=rawGround(seg,platform.end)-platform.offset;platform.curve=(style%2?1:-1)*Math.min(35,(platform.end-platform.x)*.02);}
  seg.entry={height:seg.y,slope:seg.drop/length};seg.exit={height:seg.y+drop,protectedUntil:prev?.protectedUntil||0};
  if(prev?.protectedUntil){seg.hazardSpecs=seg.hazardSpecs.filter(o=>o.x>prev.protectedUntil);seg.platforms=seg.platforms.filter(p=>p.x>prev.protectedUntil);}
+ // Goals are reconciled after the previous sled's safe landing corridor removes geometry.
+ if(seg.goal?.[0]==='clear'||seg.goal?.[0]==='upper'){const count=seg.goal[0]==='clear'?seg.hazardSpecs.filter(o=>o.kind!=='arch').length:seg.platforms.filter(p=>!p.bonusMount).length;seg.goal=count?[seg.goal[0],Math.min(seg.goal[1],count),seg.goal[0]==='clear'?'主动越障'+Math.min(seg.goal[1],count)+'次并落稳':'主动接上'+Math.min(seg.goal[1],count)+'段上层雪道']:['land',1,'主动跳跃后落稳'];}
  if(seg.sledX)seg.protectedUntil=seg.end-600+Math.min(config.maxSpeed,normalSpeed()*2)*2.5;
  if(seg.gate){const speed=cruiseAt(seg.start);const t=.8;seg.gate.x=seg.ramps[0]+speed*t;seg.gate.y=rawGround(seg,seg.ramps[0])+seg.launchPower*t+550*t*t;}
  }}
