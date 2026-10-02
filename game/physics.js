@@ -1,5 +1,5 @@
-import {CONFIG as C,clamp,wrap,lerp} from './config.js?v=20261003-r8';
-import {ground,tangent,gapAt,surface,segmentAt,obstacleX,platformY} from './levels.js?v=20261003-r8';
+import {CONFIG as C,clamp,wrap,lerp} from './config.js?v=20261003-r10';
+import {ground,tangent,gapAt,surface,segmentAt,obstacleX,platformY} from './levels.js?v=20261003-r10';
 export function createGame(level){return {level,p:{x:0,y:ground(level,0),vy:0,speed:C.base,angle:tangent(level,0),grounded:true,airTime:0,coyote:C.coyote,buffer:0,holdAge:1,jumpConsumed:false,trick:false,turn:0,rotation:0,rescued:false,rescue:1,resource:0,fall:0,fallAge:0,boostTime:0,boostFactor:1,landPose:0,mount:null,mountCooldown:0,wing:0,wingVisual:0,magnet:0,lead:C.leadStart,caught:0,score:0,combo:0,fish:0,collisions:0,perfect:0,flips:0},input:{jump:false,trick:false},time:0,state:'playing',events:[],taken:new Set(),hit:new Set(),visited:new Set(),rewards:new Set(),arcChoices:new Map(),platformTouches:new Map(),stats:{jumps:0,rescues:0,mountSeconds:0,wingSeconds:0,boostSeconds:0,discarded:0},trace:[],reason:null};}
 export function emit(g,type,detail={}){g.events.push({type,time:g.time,...detail});if(g.events.length>80)g.events.shift();}
 export function clearInput(g){g.input.jump=false;g.input.trick=false;g.p.buffer=0;g.p.holdAge=1;g.p.trick=false;g.p.turn=0;}
@@ -34,7 +34,7 @@ export function tick(g,dt=C.step){if(g.state!=='playing')return;let p=g.p,l=g.le
  if(p.y>ground(l,p.x)+250){g.state='dead';g.reason='落入断崖';emit(g,'end');}
  }
  }
- for(let o of seg.obstacles.concat(l.segments[seg.index+1]?.obstacles||[])){if(g.hit.has(o.id))continue;let ox=obstacleX(o,g.time),passed=oldX-C.bodyRadius<ox+o.w/2&&p.x+C.bodyRadius>ox-o.w/2;if(!passed)continue;let oy=ground(l,o.x),collide=sweptBox(oldX-obstacleX(o,g.time-dt),oldY,p.x-ox,p.y,-o.w/2-C.bodyRadius,o.w/2+C.bodyRadius,o.kind==='arch'?oy-o.h-70:oy-o.h,o.kind==='arch'?oy-68:oy+60);if(collide){g.hit.add(o.id);if(p.mount?.kind==='bear'&&p.mount.shield){p.mount=null;p.mountCooldown=C.mountCooldown;emit(g,'shield');}else crash(g,o.kind);}}
+ for(let o of seg.obstacles.concat(l.segments[seg.index+1]?.obstacles||[])){if(g.hit.has(o.id))continue;let ox=obstacleX(o,g.time),passed=oldX-C.bodyRadius<ox+o.w/2&&p.x+C.bodyRadius>ox-o.w/2;if(!passed)continue;let oy=ground(l,o.x),collide=sweptBox(oldX-obstacleX(o,g.time-dt),oldY,p.x-ox,p.y,-o.w/2-C.bodyRadius,o.w/2+C.bodyRadius,o.kind==='arch'?oy-o.h-30:oy-o.h,o.kind==='arch'?oy-o.clearance+C.hitHeight:oy+60);if(collide){g.hit.add(o.id);if(p.mount?.kind==='bear'&&p.mount.shield){p.mount=null;p.mountCooldown=C.mountCooldown;emit(g,'shield');}else crash(g,o.kind);}}
  selectArcs(g);const radius=p.magnet>0?140:C.collectRadius;for(let it of seg.items.concat(l.segments[seg.index+1]?.items||[])){if((it.vehicle===undefined||it.vehicle===g.arcChoices.get(seg.index))&&!g.taken.has(it.id)&&sweptPoint(oldX,oldY-45,p.x,p.y-45,it.x,it.y,radius))take(g,it);}
  // Deliberately phase based pressure, not speed copying. Successful ordinary jumps maintain a viable lead.
  let phase=Math.floor(g.time/22)%2;const snow=base*(phase===0?1.035:.98);if(g.time>C.pressureGrace){p.lead=clamp(p.lead+(p.speed-snow)*dt, -100,C.leadMax);if(p.lead<=0){p.caught+=dt;if(p.caught>=C.caughtWindow){g.state='dead';g.reason='连续失误被雪崩卷入';emit(g,'end');}}else p.caught=Math.max(0,p.caught-dt*2);}
