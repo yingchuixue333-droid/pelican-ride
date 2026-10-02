@@ -1,4 +1,4 @@
-import {CONFIG as C,clamp} from './config.js';
+import {CONFIG as C,clamp} from './config.js?v=20261003-r3';
 export const MODULES=[
  {id:'pebbles',name:'短跳碎石',theme:0,ops:[['rock',1150]],jump:'low'},
  {id:'timber',name:'越过倒木',theme:0,ops:[['log',1250]],jump:'high'},
