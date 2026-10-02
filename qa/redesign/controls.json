@@ -1,0 +1,96 @@
+[
+  {
+    "name": "high is materially higher than low",
+    "passed": true,
+    "low": 79.28396641949196,
+    "high": 159.29918755911308
+  },
+  {
+    "name": "held jump cannot retrigger",
+    "passed": true
+  },
+  {
+    "name": "coyote immediate",
+    "passed": true
+  },
+  {
+    "name": "coyote consumed once",
+    "passed": true
+  },
+  {
+    "name": "prelanding buffer jump",
+    "passed": true
+  },
+  {
+    "name": "expired buffer never jumps",
+    "passed": true
+  },
+  {
+    "name": "released trick freezes active angle",
+    "passed": true
+  },
+  {
+    "name": "cancel leaves no held or buffered input",
+    "passed": true
+  },
+  {
+    "name": "pause forbids input and time progression",
+    "passed": true
+  },
+  {
+    "name": "resume does not replay held jump",
+    "passed": true
+  },
+  {
+    "name": "ground rescue consumes one",
+    "passed": true
+  },
+  {
+    "name": "empty rescue rejects repeats",
+    "passed": true
+  },
+  {
+    "name": "insufficient technique energy",
+    "passed": true
+  },
+  {
+    "name": "five energy refills exactly one",
+    "passed": true
+  },
+  {
+    "name": "capacity remains one",
+    "passed": true
+  },
+  {
+    "name": "air rescue is bounded flap",
+    "passed": true
+  },
+  {
+    "name": "mount clears held state",
+    "passed": true
+  },
+  {
+    "name": "mount cannot chain",
+    "passed": true
+  },
+  {
+    "name": "mount exits and cooldown remains",
+    "passed": true
+  },
+  {
+    "name": "wing expires and returns to ground",
+    "passed": true
+  },
+  {
+    "name": "highspeed swept collision",
+    "passed": true
+  },
+  {
+    "name": "swept safe jump",
+    "passed": true
+  },
+  {
+    "name": "angle interpolation wraps full turn",
+    "passed": true
+  }
+]
