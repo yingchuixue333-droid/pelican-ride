@@ -1,9 +1,9 @@
-import {VERSION,CONFIG as C,THEMES,clamp} from './config.js?v=20261003-r8';
-import {createLevel,segmentAt} from './levels.js?v=20261003-r8';
-import {createGame,tick,input,clearInput,bakeArcs} from './physics.js?v=20261003-r8';
-import {createRenderer} from './render.js?v=20261003-r8';
-import {validateAndRepair} from './validation.js?v=20261003-r8';
-import {AudioBus} from './audio.js?v=20261003-r8';
+import {VERSION,CONFIG as C,THEMES,clamp} from './config.js?v=20261003-r10';
+import {createLevel,segmentAt} from './levels.js?v=20261003-r10';
+import {createGame,tick,input,clearInput,bakeArcs} from './physics.js?v=20261003-r10';
+import {createRenderer} from './render.js?v=20261003-r10';
+import {validateAndRepair} from './validation.js?v=20261003-r10';
+import {AudioBus} from './audio.js?v=20261003-r10';
 const $=id=>document.getElementById(id),canvas=$('canvas'),renderer=createRenderer(canvas),audio=new AudioBus();let g,previous=null,acc=0,last=0,eventAt=0,toastUntil=0,hudAt=0,activePointers=new Map(),seed=Date.now()>>>0,finishedAt=0;const frames=[];let dropped=0,mode='ready',hiddenPause=false;
 function build(s){const level=validateAndRepair(createLevel(s));bakeArcs(level);return createGame(level);}
 function reset(s=Date.now()>>>0){audio.pause(true);frames.length=0;dropped=0;seed=s;g=build(seed);mode='ready';g.state='ready';previous=null;acc=0;eventAt=0;toastUntil=0;activePointers.clear();$('overlay').hidden=false;$('settings').hidden=true;$('hud').hidden=true;$('controls').hidden=true;$('status').hidden=true;$('result').hidden=true;$('same').hidden=true;$('start').textContent='踏上雪路 →';$('description').textContent='短按低跳，按住高跳；空中按住特技旋转。';$('version').textContent=`雪路新章 · ${VERSION} · 雪路 ${seed}`;}
