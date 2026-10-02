@@ -92,5 +92,17 @@
   {
     "name": "angle interpolation wraps full turn",
     "passed": true
+  },
+  {
+    "name": "ground-held trick cannot generate turns or reward",
+    "passed": true
+  },
+  {
+    "name": "incomplete trick landing genuinely crashes",
+    "passed": true
+  },
+  {
+    "name": "rescued trick has no technique reward",
+    "passed": true
   }
 ]
