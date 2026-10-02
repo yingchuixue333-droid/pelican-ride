@@ -1,0 +1,1028 @@
+{
+  "checked": 1350,
+  "failures": [
+    {
+      "seed": 1,
+      "module": "launch",
+      "item": "resource-7",
+      "kind": "magnet"
+    },
+    {
+      "seed": 1,
+      "module": "double",
+      "item": "resource-39",
+      "kind": "magnet"
+    },
+    {
+      "seed": 3,
+      "module": "double",
+      "item": "resource-31",
+      "kind": "magnet"
+    },
+    {
+      "seed": 4,
+      "module": "launch",
+      "item": "resource-9",
+      "kind": "magnet"
+    },
+    {
+      "seed": 4,
+      "module": "double",
+      "item": "resource-33",
+      "kind": "magnet"
+    },
+    {
+      "seed": 5,
+      "module": "launch",
+      "item": "resource-9",
+      "kind": "magnet"
+    },
+    {
+      "seed": 5,
+      "module": "double",
+      "item": "resource-33",
+      "kind": "magnet"
+    },
+    {
+      "seed": 5,
+      "module": "double",
+      "item": "resource-39",
+      "kind": "magnet"
+    },
+    {
+      "seed": 6,
+      "module": "double",
+      "item": "resource-31",
+      "kind": "magnet"
+    },
+    {
+      "seed": 6,
+      "module": "double",
+      "item": "resource-39",
+      "kind": "magnet"
+    },
+    {
+      "seed": 8,
+      "module": "launch",
+      "item": "resource-7",
+      "kind": "magnet"
+    },
+    {
+      "seed": 8,
+      "module": "double",
+      "item": "resource-31",
+      "kind": "magnet"
+    },
+    {
+      "seed": 10,
+      "module": "double",
+      "item": "resource-31",
+      "kind": "magnet"
+    },
+    {
+      "seed": 11,
+      "module": "double",
+      "item": "resource-31",
+      "kind": "magnet"
+    },
+    {
+      "seed": 11,
+      "module": "double",
+      "item": "resource-37",
+      "kind": "magnet"
+    },
+    {
+      "seed": 12,
+      "module": "double",
+      "item": "resource-33",
+      "kind": "magnet"
+    },
+    {
+      "seed": 13,
+      "module": "double",
+      "item": "resource-39",
+      "kind": "magnet"
+    },
+    {
+      "seed": 14,
+      "module": "launch",
+      "item": "resource-7",
+      "kind": "magnet"
+    },
+    {
+      "seed": 14,
+      "module": "double",
+      "item": "resource-33",
+      "kind": "magnet"
+    },
+    {
+      "seed": 14,
+      "module": "double",
+      "item": "resource-37",
+      "kind": "magnet"
+    },
+    {
+      "seed": 15,
+      "module": "double",
+      "item": "resource-39",
+      "kind": "magnet"
+    },
+    {
+      "seed": 17,
+      "module": "launch",
+      "item": "resource-9",
+      "kind": "magnet"
+    },
+    {
+      "seed": 17,
+      "module": "double",
+      "item": "resource-31",
+      "kind": "magnet"
+    },
+    {
+      "seed": 17,
+      "module": "double",
+      "item": "resource-39",
+      "kind": "magnet"
+    },
+    {
+      "seed": 18,
+      "module": "launch",
+      "item": "resource-9",
+      "kind": "magnet"
+    },
+    {
+      "seed": 18,
+      "module": "double",
+      "item": "resource-31",
+      "kind": "magnet"
+    },
+    {
+      "seed": 19,
+      "module": "double",
+      "item": "resource-33",
+      "kind": "magnet"
+    },
+    {
+      "seed": 19,
+      "module": "double",
+      "item": "resource-37",
+      "kind": "magnet"
+    },
+    {
+      "seed": 20,
+      "module": "launch",
+      "item": "resource-7",
+      "kind": "magnet"
+    },
+    {
+      "seed": 20,
+      "module": "double",
+      "item": "resource-33",
+      "kind": "magnet"
+    },
+    {
+      "seed": 21,
+      "module": "launch",
+      "item": "resource-7",
+      "kind": "magnet"
+    },
+    {
+      "seed": 23,
+      "module": "double",
+      "item": "resource-31",
+      "kind": "magnet"
+    },
+    {
+      "seed": 24,
+      "module": "double",
+      "item": "resource-31",
+      "kind": "magnet"
+    },
+    {
+      "seed": 25,
+      "module": "launch",
+      "item": "resource-9",
+      "kind": "magnet"
+    },
+    {
+      "seed": 25,
+      "module": "double",
+      "item": "resource-39",
+      "kind": "magnet"
+    },
+    {
+      "seed": 26,
+      "module": "double",
+      "item": "resource-33",
+      "kind": "magnet"
+    },
+    {
+      "seed": 27,
+      "module": "launch",
+      "item": "resource-7",
+      "kind": "magnet"
+    },
+    {
+      "seed": 28,
+      "module": "launch",
+      "item": "resource-7",
+      "kind": "magnet"
+    },
+    {
+      "seed": 28,
+      "module": "double",
+      "item": "resource-31",
+      "kind": "magnet"
+    },
+    {
+      "seed": 28,
+      "module": "double",
+      "item": "resource-39",
+      "kind": "magnet"
+    },
+    {
+      "seed": 29,
+      "module": "double",
+      "item": "resource-31",
+      "kind": "magnet"
+    },
+    {
+      "seed": 29,
+      "module": "double",
+      "item": "resource-39",
+      "kind": "magnet"
+    },
+    {
+      "seed": 30,
+      "module": "double",
+      "item": "resource-31",
+      "kind": "magnet"
+    },
+    {
+      "seed": 31,
+      "module": "double",
+      "item": "resource-33",
+      "kind": "magnet"
+    },
+    {
+      "seed": 32,
+      "module": "launch",
+      "item": "resource-9",
+      "kind": "magnet"
+    },
+    {
+      "seed": 32,
+      "module": "double",
+      "item": "resource-31",
+      "kind": "magnet"
+    },
+    {
+      "seed": 32,
+      "module": "double",
+      "item": "resource-39",
+      "kind": "magnet"
+    },
+    {
+      "seed": 33,
+      "module": "launch",
+      "item": "resource-7",
+      "kind": "magnet"
+    },
+    {
+      "seed": 34,
+      "module": "launch",
+      "item": "resource-7",
+      "kind": "magnet"
+    },
+    {
+      "seed": 36,
+      "module": "double",
+      "item": "resource-33",
+      "kind": "magnet"
+    },
+    {
+      "seed": 37,
+      "module": "double",
+      "item": "resource-39",
+      "kind": "magnet"
+    },
+    {
+      "seed": 38,
+      "module": "launch",
+      "item": "resource-9",
+      "kind": "magnet"
+    },
+    {
+      "seed": 40,
+      "module": "launch",
+      "item": "resource-7",
+      "kind": "magnet"
+    },
+    {
+      "seed": 40,
+      "module": "double",
+      "item": "resource-33",
+      "kind": "magnet"
+    },
+    {
+      "seed": 41,
+      "module": "double",
+      "item": "resource-37",
+      "kind": "magnet"
+    },
+    {
+      "seed": 42,
+      "module": "double",
+      "item": "resource-39",
+      "kind": "magnet"
+    },
+    {
+      "seed": 43,
+      "module": "double",
+      "item": "resource-39",
+      "kind": "magnet"
+    },
+    {
+      "seed": 45,
+      "module": "launch",
+      "item": "resource-9",
+      "kind": "magnet"
+    },
+    {
+      "seed": 45,
+      "module": "double",
+      "item": "resource-39",
+      "kind": "magnet"
+    },
+    {
+      "seed": 46,
+      "module": "launch",
+      "item": "resource-7",
+      "kind": "magnet"
+    },
+    {
+      "seed": 47,
+      "module": "launch",
+      "item": "resource-7",
+      "kind": "magnet"
+    },
+    {
+      "seed": 47,
+      "module": "double",
+      "item": "resource-33",
+      "kind": "magnet"
+    },
+    {
+      "seed": 47,
+      "module": "double",
+      "item": "resource-37",
+      "kind": "magnet"
+    },
+    {
+      "seed": 48,
+      "module": "launch",
+      "item": "resource-9",
+      "kind": "magnet"
+    },
+    {
+      "seed": 48,
+      "module": "double",
+      "item": "resource-33",
+      "kind": "magnet"
+    },
+    {
+      "seed": 48,
+      "module": "double",
+      "item": "resource-39",
+      "kind": "magnet"
+    },
+    {
+      "seed": 49,
+      "module": "launch",
+      "item": "resource-9",
+      "kind": "magnet"
+    },
+    {
+      "seed": 50,
+      "module": "double",
+      "item": "resource-39",
+      "kind": "magnet"
+    },
+    {
+      "seed": 52,
+      "module": "double",
+      "item": "resource-33",
+      "kind": "magnet"
+    },
+    {
+      "seed": 53,
+      "module": "launch",
+      "item": "resource-7",
+      "kind": "magnet"
+    },
+    {
+      "seed": 55,
+      "module": "launch",
+      "item": "resource-9",
+      "kind": "magnet"
+    },
+    {
+      "seed": 56,
+      "module": "double",
+      "item": "resource-33",
+      "kind": "magnet"
+    },
+    {
+      "seed": 57,
+      "module": "double",
+      "item": "resource-31",
+      "kind": "magnet"
+    },
+    {
+      "seed": 58,
+      "module": "double",
+      "item": "resource-39",
+      "kind": "magnet"
+    },
+    {
+      "seed": 59,
+      "module": "double",
+      "item": "resource-39",
+      "kind": "magnet"
+    },
+    {
+      "seed": 60,
+      "module": "launch",
+      "item": "resource-7",
+      "kind": "magnet"
+    },
+    {
+      "seed": 61,
+      "module": "launch",
+      "item": "resource-9",
+      "kind": "magnet"
+    },
+    {
+      "seed": 61,
+      "module": "double",
+      "item": "resource-31",
+      "kind": "magnet"
+    },
+    {
+      "seed": 62,
+      "module": "launch",
+      "item": "resource-9",
+      "kind": "magnet"
+    },
+    {
+      "seed": 63,
+      "module": "double",
+      "item": "resource-39",
+      "kind": "magnet"
+    },
+    {
+      "seed": 64,
+      "module": "double",
+      "item": "resource-31",
+      "kind": "magnet"
+    },
+    {
+      "seed": 66,
+      "module": "launch",
+      "item": "resource-7",
+      "kind": "magnet"
+    },
+    {
+      "seed": 66,
+      "module": "double",
+      "item": "resource-33",
+      "kind": "magnet"
+    },
+    {
+      "seed": 67,
+      "module": "double",
+      "item": "resource-31",
+      "kind": "magnet"
+    },
+    {
+      "seed": 68,
+      "module": "double",
+      "item": "resource-33",
+      "kind": "magnet"
+    },
+    {
+      "seed": 70,
+      "module": "launch",
+      "item": "resource-9",
+      "kind": "magnet"
+    },
+    {
+      "seed": 70,
+      "module": "double",
+      "item": "resource-31",
+      "kind": "magnet"
+    },
+    {
+      "seed": 71,
+      "module": "double",
+      "item": "resource-31",
+      "kind": "magnet"
+    },
+    {
+      "seed": 72,
+      "module": "double",
+      "item": "resource-33",
+      "kind": "magnet"
+    },
+    {
+      "seed": 72,
+      "module": "double",
+      "item": "resource-39",
+      "kind": "magnet"
+    },
+    {
+      "seed": 73,
+      "module": "launch",
+      "item": "resource-7",
+      "kind": "magnet"
+    },
+    {
+      "seed": 74,
+      "module": "double",
+      "item": "resource-39",
+      "kind": "magnet"
+    },
+    {
+      "seed": 75,
+      "module": "double",
+      "item": "resource-33",
+      "kind": "magnet"
+    },
+    {
+      "seed": 75,
+      "module": "double",
+      "item": "resource-37",
+      "kind": "magnet"
+    },
+    {
+      "seed": 76,
+      "module": "launch",
+      "item": "resource-9",
+      "kind": "magnet"
+    },
+    {
+      "seed": 79,
+      "module": "launch",
+      "item": "resource-7",
+      "kind": "magnet"
+    },
+    {
+      "seed": 79,
+      "module": "double",
+      "item": "resource-31",
+      "kind": "magnet"
+    },
+    {
+      "seed": 79,
+      "module": "double",
+      "item": "resource-37",
+      "kind": "magnet"
+    },
+    {
+      "seed": 80,
+      "module": "launch",
+      "item": "resource-7",
+      "kind": "magnet"
+    },
+    {
+      "seed": 80,
+      "module": "double",
+      "item": "resource-31",
+      "kind": "magnet"
+    },
+    {
+      "seed": 80,
+      "module": "double",
+      "item": "resource-39",
+      "kind": "magnet"
+    },
+    {
+      "seed": 81,
+      "module": "double",
+      "item": "resource-33",
+      "kind": "magnet"
+    },
+    {
+      "seed": 81,
+      "module": "double",
+      "item": "resource-37",
+      "kind": "magnet"
+    },
+    {
+      "seed": 83,
+      "module": "launch",
+      "item": "resource-9",
+      "kind": "magnet"
+    },
+    {
+      "seed": 84,
+      "module": "double",
+      "item": "resource-39",
+      "kind": "magnet"
+    },
+    {
+      "seed": 85,
+      "module": "double",
+      "item": "resource-33",
+      "kind": "magnet"
+    },
+    {
+      "seed": 85,
+      "module": "double",
+      "item": "resource-37",
+      "kind": "magnet"
+    },
+    {
+      "seed": 86,
+      "module": "launch",
+      "item": "resource-7",
+      "kind": "magnet"
+    },
+    {
+      "seed": 87,
+      "module": "double",
+      "item": "resource-39",
+      "kind": "magnet"
+    },
+    {
+      "seed": 88,
+      "module": "double",
+      "item": "resource-31",
+      "kind": "magnet"
+    },
+    {
+      "seed": 89,
+      "module": "launch",
+      "item": "resource-9",
+      "kind": "magnet"
+    },
+    {
+      "seed": 89,
+      "module": "double",
+      "item": "resource-33",
+      "kind": "magnet"
+    },
+    {
+      "seed": 90,
+      "module": "double",
+      "item": "resource-37",
+      "kind": "magnet"
+    },
+    {
+      "seed": 91,
+      "module": "launch",
+      "item": "resource-9",
+      "kind": "magnet"
+    },
+    {
+      "seed": 92,
+      "module": "launch",
+      "item": "resource-7",
+      "kind": "magnet"
+    },
+    {
+      "seed": 92,
+      "module": "double",
+      "item": "resource-33",
+      "kind": "magnet"
+    },
+    {
+      "seed": 93,
+      "module": "launch",
+      "item": "resource-7",
+      "kind": "magnet"
+    },
+    {
+      "seed": 94,
+      "module": "double",
+      "item": "resource-37",
+      "kind": "magnet"
+    },
+    {
+      "seed": 96,
+      "module": "double",
+      "item": "resource-31",
+      "kind": "magnet"
+    },
+    {
+      "seed": 97,
+      "module": "double",
+      "item": "resource-31",
+      "kind": "magnet"
+    },
+    {
+      "seed": 97,
+      "module": "double",
+      "item": "resource-39",
+      "kind": "magnet"
+    },
+    {
+      "seed": 98,
+      "module": "launch",
+      "item": "resource-9",
+      "kind": "magnet"
+    },
+    {
+      "seed": 99,
+      "module": "double",
+      "item": "resource-33",
+      "kind": "magnet"
+    },
+    {
+      "seed": 99,
+      "module": "double",
+      "item": "resource-39",
+      "kind": "magnet"
+    }
+  ],
+  "examples": [
+    {
+      "seed": 1,
+      "module": "launch",
+      "item": "resource-2",
+      "kind": "bolt",
+      "attempt": 0,
+      "inputs": []
+    },
+    {
+      "seed": 1,
+      "module": "shelf",
+      "item": "resource-3",
+      "kind": "magnet",
+      "attempt": 0,
+      "inputs": [
+        {
+          "t": 10.624999999999964,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 10.883333333333283,
+          "key": "jump",
+          "down": false
+        },
+        {
+          "t": 11.941666666666556,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 12.033333333333218,
+          "key": "jump",
+          "down": false
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "module": "shelf",
+      "item": "resource-6",
+      "kind": "bolt",
+      "attempt": 0,
+      "inputs": [
+        {
+          "t": 10.624999999999964,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 10.883333333333283,
+          "key": "jump",
+          "down": false
+        },
+        {
+          "t": 11.941666666666556,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 12.033333333333218,
+          "key": "jump",
+          "down": false
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "module": "ice",
+      "item": "resource-10",
+      "kind": "bolt",
+      "attempt": 5,
+      "inputs": [
+        {
+          "t": 11.816666666666563,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 12.074999999999882,
+          "key": "jump",
+          "down": false
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "module": "floes",
+      "item": "resource-13",
+      "kind": "magnet",
+      "attempt": 0,
+      "inputs": [
+        {
+          "t": 10.591666666666633,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 10.849999999999952,
+          "key": "jump",
+          "down": false
+        },
+        {
+          "t": 12.816666666666507,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 12.908333333333168,
+          "key": "jump",
+          "down": false
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "module": "forest",
+      "item": "resource-16",
+      "kind": "bolt",
+      "attempt": 0,
+      "inputs": [
+        {
+          "t": 10.591666666666633,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 10.849999999999952,
+          "key": "jump",
+          "down": false
+        },
+        {
+          "t": 11.333333333333258,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 11.591666666666576,
+          "key": "jump",
+          "down": false
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "module": "forest",
+      "item": "resource-18",
+      "kind": "bolt",
+      "attempt": 0,
+      "inputs": [
+        {
+          "t": 10.591666666666633,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 10.849999999999952,
+          "key": "jump",
+          "down": false
+        },
+        {
+          "t": 11.274999999999928,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 11.533333333333246,
+          "key": "jump",
+          "down": false
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "module": "floes",
+      "item": "resource-19",
+      "kind": "magnet",
+      "attempt": 0,
+      "inputs": [
+        {
+          "t": 10.591666666666633,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 10.849999999999952,
+          "key": "jump",
+          "down": false
+        },
+        {
+          "t": 12.816666666666507,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 12.908333333333168,
+          "key": "jump",
+          "down": false
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "module": "cloud",
+      "item": "wing-24",
+      "kind": "wind",
+      "attempt": 0,
+      "inputs": [
+        {
+          "t": 10.558333333333302,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 10.81666666666662,
+          "key": "jump",
+          "down": false
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "module": "cloud",
+      "item": "resource-24",
+      "kind": "bolt",
+      "attempt": 1,
+      "inputs": [
+        {
+          "t": 12.53333333333319,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 12.791666666666508,
+          "key": "jump",
+          "down": false
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "module": "double",
+      "item": "resource-34",
+      "kind": "bolt",
+      "attempt": 1,
+      "inputs": [
+        {
+          "t": 11.22499999999993,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 11.483333333333249,
+          "key": "jump",
+          "down": false
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "module": "corridor",
+      "item": "resource-36",
+      "kind": "bolt",
+      "attempt": 9,
+      "inputs": [
+        {
+          "t": 11.041666666666607,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 11.299999999999926,
+          "key": "jump",
+          "down": false
+        }
+      ]
+    }
+  ]
+}
