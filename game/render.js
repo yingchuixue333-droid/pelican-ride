@@ -1,7 +1,7 @@
-import {CONFIG as C,THEMES,clamp,lerp,wrap} from './config.js?v=20261003-r8';
-import {ground,tangent,gapAt,segmentAt,platformY,obstacleX} from './levels.js?v=20261003-r8';
-import {selectArcs} from './physics.js?v=20261003-r8';
-import {createArt} from './art.js?v=20261003-r8';
+import {CONFIG as C,THEMES,clamp,lerp,wrap} from './config.js?v=20261003-r10';
+import {ground,tangent,gapAt,segmentAt,platformY,obstacleX} from './levels.js?v=20261003-r10';
+import {selectArcs} from './physics.js?v=20261003-r10';
+import {createArt} from './art.js?v=20261003-r10';
 export function createRenderer(canvas){const ctx=canvas.getContext('2d',{alpha:false}),art=createArt(ctx);let width=390,height=844,dpr=1,viewW=930,camY=0,zoom=1,lastX=0;
  const path=(fn,fill,stroke=null,w=3)=>{ctx.beginPath();fn(ctx);if(fill){ctx.fillStyle=fill;ctx.fill();}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=w;ctx.stroke();}};
  const circle=(x,y,r,fill)=>path(c=>c.arc(x,y,r,0,Math.PI*2),fill);
@@ -9,7 +9,7 @@ export function createRenderer(canvas){const ctx=canvas.getContext('2d',{alpha:f
  function tree(x,y,size,t){ctx.save();ctx.translate(x,y);ctx.scale(size,size);ctx.fillStyle=t.near;ctx.fillRect(-4,-30,8,43);path(c=>{c.moveTo(0,-135);c.lineTo(-55,-16);c.lineTo(-35,-21);c.lineTo(-62,7);c.lineTo(61,7);c.lineTo(34,-21);c.lineTo(55,-16);c.closePath();},t.near);path(c=>{c.moveTo(0,-135);c.lineTo(-22,-85);c.lineTo(-5,-91);c.lineTo(12,-83);c.lineTo(23,-90);},t.snow);ctx.restore();}
  function obstacle(o,x,y,time,t){ctx.save();ctx.translate(x,y);const w=o.w,h=o.h;ctx.lineJoin='round';if(o.kind==='rock'){path(c=>{c.moveTo(-w/2,0);c.lineTo(-w*.28,-h*.76);c.lineTo(w*.12,-h);c.lineTo(w/2,-h*.40);c.lineTo(w/2,0);c.closePath();},'#69808b',t.ink,3);path(c=>{c.moveTo(-w*.28,-h*.76);c.lineTo(w*.12,-h);c.lineTo(w*.27,-h*.64);c.lineTo(-w*.3,-h*.52);},'#e4eff0');}
  else if(o.kind==='log'){path(c=>c.roundRect(-w/2,-h,w,h,15),'#9b6e4d',t.ink,4);for(let i=0;i<3;i++)path(c=>{c.moveTo(-w/2+12,-h+25+i*18);c.quadraticCurveTo(0,-h+14+i*20,w/2-15,-h+30+i*18);},null,'#684e42',3);path(c=>c.ellipse(w/2-14,-h/2,12,h/2-7,0,0,6.28),'#d3a66c',t.ink,3);path(c=>c.ellipse(w/2-14,-h/2,6,h/2-19,0,0,6.28),null,'#906d49',2);path(c=>{c.moveTo(-w/2+12,-h);c.lineTo(w/2-18,-h);c.lineTo(w/2-25,-h+12);c.lineTo(-w/2+9,-h+10);},t.snow);}
- else if(o.kind==='arch'){path(c=>{c.moveTo(-w/2,-68);c.lineTo(w/2,-68);c.lineTo(w/2+25,-h-30);c.lineTo(-w/2-28,-h-30);c.closePath();},'#688093',t.ink,4);path(c=>{c.moveTo(-w/2-28,-h-30);c.lineTo(w/2+25,-h-30);c.lineTo(w/2+15,-h-12);c.lineTo(-w/2-16,-h-6);},t.snow);path(c=>{c.moveTo(-30,-h-22);c.lineTo(-10,-h+6);c.lineTo(-22,-h+19);},null,'#aec8d6',3);}
+ else if(o.kind==='arch'){path(c=>{c.moveTo(-w/2,-o.clearance);c.lineTo(w/2,-o.clearance);c.lineTo(w/2+25,-h-30);c.lineTo(-w/2-28,-h-30);c.closePath();},'#688093',t.ink,4);path(c=>{c.moveTo(-w/2-28,-h-30);c.lineTo(w/2+25,-h-30);c.lineTo(w/2+15,-h-12);c.lineTo(-w/2-16,-h-6);},t.snow);path(c=>{c.moveTo(-30,-h-22);c.lineTo(-10,-h+6);c.lineTo(-22,-h+19);},null,'#aec8d6',3);}
  else if(o.kind==='snowball'){ctx.translate(0,-h/2);ctx.rotate(time*.9);circle(0,0,h/2,'#eff8fa');path(c=>c.arc(0,0,h/2,0,6.28),null,'#6f9ba9',3);path(c=>{c.moveTo(-28,0);c.quadraticCurveTo(0,-29,26,-15);c.quadraticCurveTo(37,12,4,28);},null,'#b7d2d9',5);}
  else{path(c=>{c.moveTo(-w/2,0);c.lineTo(-w/2+6,-h);c.lineTo(w/2,-h+8);c.lineTo(w/2,0);},'#8bc3d4',t.ink,3);path(c=>{c.moveTo(0,-h);c.lineTo(10,-h/2);c.lineTo(-10,-h/2+8);c.lineTo(8,0);},null,'#e3f7f6',4);}ctx.restore();}
  function render(g,alpha=1,previous=null,dt=1/60){selectArcs(g);let p=g.p,l=g.level,seg=segmentAt(l,p.x),t=THEMES[seg.theme],speedRatio=p.speed/(C.base*(1+.04*seg.theme));zoom=lerp(zoom,clamp(1+(speedRatio-1)*.85,1,1.6),Math.min(1,dt*5));viewW=930*zoom;const H=height/width*viewW,anchor=viewW*.20,px=previous?lerp(previous.x,p.x,alpha):p.x,py=previous?lerp(previous.y,p.y,alpha):p.y;let camX=px-anchor,gy=ground(l,px),desired=lerp(gy,Math.min(gy,py+155),.62)-H*.58;if(Math.abs(px-lastX)>1200||!lastX)camY=desired;else camY=lerp(camY,desired,Math.min(1,dt*6));lastX=px;ctx.setTransform(canvas.width/viewW,0,0,canvas.height/H,0,0);
