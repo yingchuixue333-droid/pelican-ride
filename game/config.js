@@ -1,5 +1,5 @@
-export const VERSION='snowbound-2.0.0';
-export const CONFIG=Object.freeze({step:1/120,maxSteps:12,maxDelta:.12,base:350,gravity:1050,jump:425,holdLift:1100,holdTime:.25,buffer:.12,coyote:.10,trickRate:4.7,moduleLength:3000,restLength:1600,modules:40,rescueCapacity:1,rescueCost:5,bodyRadius:23,hitHeight:76,collectRadius:42,mountTime:10,mountCooldown:25,wingTime:6,pressureGrace:12,leadStart:1000,leadMax:1400,caughtWindow:1.8});
+export const VERSION='snowbound-2.0.1';
+export const CONFIG=Object.freeze({step:1/120,maxSteps:12,maxDelta:.12,base:350,gravity:1050,jump:425,holdLift:1100,holdTime:.25,buffer:.12,coyote:.10,trickRate:4.7,moduleLength:3000,restLength:1600,modules:40,rescueCapacity:1,rescueCost:5,bodyRadius:23,hitHeight:170,collectRadius:42,mountTime:10,mountCooldown:25,wingTime:6,pressureGrace:12,leadStart:1000,leadMax:1400,caughtWindow:1.8});
 export const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 export const lerp=(a,b,t)=>a+(b-a)*t;
 export const wrap=a=>Math.atan2(Math.sin(a),Math.cos(a));
