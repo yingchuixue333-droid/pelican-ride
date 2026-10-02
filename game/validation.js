@@ -1,7 +1,7 @@
 // Planner used only for generation checks and reproducible QA; never controls formal play.
-import {CONFIG as C} from './config.js?v=20261003-r4';
-import {createGame,tick,input} from './physics.js?v=20261003-r4';
-import {ground,segmentAt,obstacleX} from './levels.js?v=20261003-r4';
+import {CONFIG as C} from './config.js?v=20261003-r6';
+import {createGame,tick,input} from './physics.js?v=20261003-r6';
+import {ground,segmentAt,obstacleX} from './levels.js?v=20261003-r6';
 export function planInput(g,options={}){const p=g.p,s=segmentAt(g.level,p.x);if(p.fall){if(g.input.jump)input(g,'jump',false);return;}
  if(!p.grounded){const hold=p.planHold??.25;if(p.airTime>=hold&&g.input.jump)input(g,'jump',false);if(options.tricks&&s.ramp&&!p.rescued){let target=(s.large?2:1)*Math.PI*2;if(Math.abs(p.rotation)<target&&p.airTime>.08)input(g,'trick',true);else input(g,'trick',false);}return;}
  if(g.input.trick)input(g,'trick',false);const o=s.obstacles.find(o=>!g.hit.has(o.id)&&o.kind!=='arch'&&obstacleX(o,g.time)>p.x-15);let target=o?obstacleX(o,g.time):Infinity,hold=o?.kind==='rock'?.09:.25,distance=p.speed*(o?.kind==='rock'?.35:.46);
