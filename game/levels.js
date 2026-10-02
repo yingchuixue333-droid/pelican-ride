@@ -1,4 +1,4 @@
-import {CONFIG as C,clamp} from './config.js?v=20261003-r3';
+import {CONFIG as C,clamp} from './config.js?v=20261003-r4';
 export const MODULES=[
  {id:'pebbles',name:'短跳碎石',theme:0,ops:[['rock',1150]],jump:'low'},
  {id:'timber',name:'越过倒木',theme:0,ops:[['log',1250]],jump:'high'},
@@ -39,6 +39,6 @@ export function groundOn(s,x){let u=clamp((x-s.start)/C.moduleLength,0,1);return
 export function ground(level,x){return groundOn(segmentAt(level,x),x);}
 export function tangent(level,x){return Math.atan((ground(level,x+1)-ground(level,x-1))/2);}
 export function gapAt(level,x){let s=segmentAt(level,x);return s.gap&&x>s.start+s.gap[0]&&x<s.start+s.gap[1];}
-export function platformY(level,p,x,time=0){return ground(level,x)-p.offset+(p.sink?Math.min(22,Math.max(0,time-(p.touchAt??time))*12):0);}
-export function surface(level,x,oldY,newY,time=0){let candidates=[];if(!gapAt(level,x))candidates.push({y:ground(level,x),platform:null});for(let p of level.platforms){if(x>=p.start&&x<=p.end){let y=platformY(level,p,x,time);if(oldY<=y+5&&newY>=y-3)candidates.push({y,platform:p});}}return candidates.sort((a,b)=>a.y-b.y).find(q=>oldY<=q.y+5&&newY>=q.y-3)||null;}
+export function platformY(level,p,x,time=0,touch=undefined){return ground(level,x)-p.offset+(p.sink?Math.min(22,Math.max(0,time-(touch??time))*12):0);}
+export function surface(level,x,oldY,newY,time=0,touches=null){let candidates=[];if(!gapAt(level,x))candidates.push({y:ground(level,x),platform:null});for(let p of level.platforms){if(x>=p.start&&x<=p.end){let y=platformY(level,p,x,time,touches?.get(p.id));if(oldY<=y+5&&newY>=y-3)candidates.push({y,platform:p});}}return candidates.sort((a,b)=>a.y-b.y).find(q=>oldY<=q.y+5&&newY>=q.y-3)||null;}
 export function obstacleX(o,time){return o.x+(o.kind==='snowball'?Math.sin(time*.8+o.phase)*45:0);}
