@@ -1,9 +1,9 @@
-import {VERSION,CONFIG as C,THEMES,clamp} from './config.js?v=20261003-r3';
-import {createLevel,segmentAt} from './levels.js?v=20261003-r3';
-import {createGame,tick,input,clearInput,bakeArcs} from './physics.js?v=20261003-r3';
-import {createRenderer} from './render.js?v=20261003-r3';
-import {validateAndRepair} from './validation.js?v=20261003-r3';
-import {AudioBus} from './audio.js?v=20261003-r3';
+import {VERSION,CONFIG as C,THEMES,clamp} from './config.js?v=20261003-r4';
+import {createLevel,segmentAt} from './levels.js?v=20261003-r4';
+import {createGame,tick,input,clearInput,bakeArcs} from './physics.js?v=20261003-r4';
+import {createRenderer} from './render.js?v=20261003-r4';
+import {validateAndRepair} from './validation.js?v=20261003-r4';
+import {AudioBus} from './audio.js?v=20261003-r4';
 const $=id=>document.getElementById(id),canvas=$('canvas'),renderer=createRenderer(canvas),audio=new AudioBus();let g,previous=null,acc=0,last=0,eventAt=0,toastUntil=0,hudAt=0,activePointers=new Map(),seed=Date.now()>>>0,finishedAt=0;const frames=[];let dropped=0,mode='ready',hiddenPause=false;
 function build(s){const level=validateAndRepair(createLevel(s));bakeArcs(level);return createGame(level);}
 function reset(s=Date.now()>>>0){seed=s;g=build(seed);mode='ready';g.state='ready';previous=null;acc=0;eventAt=0;toastUntil=0;activePointers.clear();$('overlay').hidden=false;$('settings').hidden=true;$('hud').hidden=true;$('controls').hidden=true;$('status').hidden=true;$('result').hidden=true;$('same').hidden=true;$('start').textContent='踏上雪路 →';$('description').textContent='短按低跳，按住高跳；空中按住特技旋转。';$('version').textContent=`雪路新章 · ${VERSION} · 雪路 ${seed}`;}
@@ -20,7 +20,7 @@ for(const key of ['jump','trick','rescue']){const b=$(key);b.addEventListener('p
 document.addEventListener('contextmenu',e=>{if($('app').contains(e.target))e.preventDefault()});document.addEventListener('selectstart',e=>e.preventDefault());window.addEventListener('keydown',e=>{if(e.repeat)return;if(['Space','ArrowUp','KeyX'].includes(e.code)){e.preventDefault();input(g,e.code==='KeyX'?'trick':'jump',true);audio.unlock();}if(e.code==='KeyR')input(g,'rescue',true);if(e.code==='Escape')mode==='playing'?pause():resume();});window.addEventListener('keyup',e=>input(g,e.code==='KeyX'?'trick':'jump',false));window.addEventListener('blur',()=>{if(mode==='playing'){hiddenPause=true;pause();}});document.addEventListener('visibilitychange',()=>{if(document.hidden&&mode==='playing'){hiddenPause=true;pause();}});
 $('start').onclick=()=>{if(mode==='ready')start();else{reset();start();}};$('same').onclick=()=>{reset(seed);start();};$('menu').onclick=pause;$('resume').onclick=()=>{hiddenPause=false;resume();};$('restart').onclick=()=>{reset();start();};$('music').onchange=e=>{audio.music=e.target.checked;audio.unlock();};$('effects').onchange=e=>{audio.effects=e.target.checked;audio.unlock();};$('swap').onchange=e=>{cancelPointers();$('controls').classList.toggle('swap',e.target.checked);};
 function resize(){const box=$('app').getBoundingClientRect();renderer.resize(box.width,box.height,window.devicePixelRatio);cancelPointers();}window.addEventListener('resize',resize);
-function frame(now){let raw=last?(now-last)/1000:0;last=now;if(mode==='playing'){frames.push(raw*1000);if(frames.length>18000)frames.shift();const accepted=Math.min(raw,C.maxDelta);dropped+=Math.max(0,raw-accepted);acc+=accepted;let n=0;while(acc>=C.step&&n<C.maxSteps){previous={...g.p};tick(g);acc-=C.step;n++;if(g.state!=='playing'){ending();break;}}if(acc>=C.step){dropped+=acc;acc=0;}events();audio.update(g);if(now-hudAt>100){hudAt=now;hud();}if(g.time>toastUntil)$('toast').style.opacity='0';}
+function frame(now){let raw=last?(now-last)/1000:0;last=now;if(mode==='playing'&&raw>.75){dropped+=raw;pause();toast('画面中断 · 已安全暂停',2);}if(mode==='playing'){frames.push(raw*1000);if(frames.length>18000)frames.shift();const accepted=Math.min(raw,C.maxDelta);dropped+=Math.max(0,raw-accepted);acc+=accepted;let n=0;while(acc>=C.step&&n<C.maxSteps){previous={...g.p};tick(g);acc-=C.step;n++;if(g.state!=='playing'){ending();break;}}if(acc>=C.step){dropped+=acc;acc=0;}events();audio.update(g);if(now-hudAt>100){hudAt=now;hud();}if(g.time>toastUntil)$('toast').style.opacity='0';}
  renderer.render(g,mode==='playing'?acc/C.step:1,previous,Math.min(.05,raw||1/60));requestAnimationFrame(frame);}
 reset();resize();requestAnimationFrame(frame);
 // The audit page uses this opt-in interface. Formal play has no debug HUD or automatic controller.
