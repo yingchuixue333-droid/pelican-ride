@@ -1,0 +1,314 @@
+{
+  "checks": 14,
+  "paths": 43200,
+  "moduleCounts": {
+    "pebbles": 175,
+    "timber": 180,
+    "breath": 1200,
+    "rhythm": 83,
+    "fox": 115,
+    "ice": 105,
+    "bridge": 121,
+    "forest": 131,
+    "floes": 128,
+    "snowball": 119,
+    "tunnel": 135,
+    "cave": 123,
+    "rabbit": 112,
+    "cloud": 111,
+    "ridge": 124,
+    "bear": 127,
+    "double": 116,
+    "corridor": 122,
+    "launch": 89,
+    "ledge": 111,
+    "shelf": 73
+  },
+  "failures": {
+    "count": 1200,
+    "examples": [
+      {
+        "seed": 1,
+        "module": "breath",
+        "index": 35,
+        "factor": 1,
+        "mount": null,
+        "routes": false,
+        "tricks": false,
+        "passed": false,
+        "collisions": 0,
+        "reason": null,
+        "exitSpeed": 392.00000000000006,
+        "airTime": 0,
+        "minWindow": null,
+        "rewards": [],
+        "flips": 0,
+        "trace": [],
+        "hits": [],
+        "landed": []
+      },
+      {
+        "seed": 1,
+        "module": "breath",
+        "index": 35,
+        "factor": 1.45,
+        "mount": null,
+        "routes": false,
+        "tricks": false,
+        "passed": false,
+        "collisions": 0,
+        "reason": null,
+        "exitSpeed": 568.4000000000001,
+        "airTime": 0,
+        "minWindow": null,
+        "rewards": [],
+        "flips": 0,
+        "trace": [],
+        "hits": [],
+        "landed": []
+      },
+      {
+        "seed": 1,
+        "module": "breath",
+        "index": 35,
+        "factor": 1.9,
+        "mount": null,
+        "routes": false,
+        "tricks": false,
+        "passed": false,
+        "collisions": 0,
+        "reason": null,
+        "exitSpeed": 744.8000000000001,
+        "airTime": 0,
+        "minWindow": null,
+        "rewards": [],
+        "flips": 0,
+        "trace": [],
+        "hits": [],
+        "landed": []
+      }
+    ]
+  },
+  "optionalFailures": {
+    "count": 212,
+    "examples": [
+      {
+        "seed": 1,
+        "module": "double",
+        "index": 31,
+        "factor": 1,
+        "mount": null,
+        "routes": false,
+        "tricks": true,
+        "passed": false,
+        "collisions": 1,
+        "reason": null,
+        "exitSpeed": 391.9913302980002,
+        "airTime": 1.8583333333333292,
+        "minWindow": 2.758333333333326,
+        "rewards": [],
+        "flips": 0,
+        "trace": [
+          {
+            "t": 2.833333333333326,
+            "key": "trick",
+            "down": true
+          }
+        ],
+        "hits": [
+          {
+            "x": 94806.46666666452,
+            "time": 4.608333333333352,
+            "reason": "空翻落地角度偏差",
+            "module": "double"
+          }
+        ],
+        "landed": [
+          {
+            "time": 4.608333333333352,
+            "x": 94806.46666666452
+          }
+        ],
+        "expected": 2
+      },
+      {
+        "seed": 2,
+        "module": "launch",
+        "index": 4,
+        "factor": 1,
+        "mount": null,
+        "routes": false,
+        "tricks": true,
+        "passed": false,
+        "collisions": 1,
+        "reason": null,
+        "exitSpeed": 349.99997166725797,
+        "airTime": 1.3083333333333311,
+        "minWindow": 3.0083333333333253,
+        "rewards": [],
+        "flips": 0,
+        "trace": [
+          {
+            "t": 3.083333333333325,
+            "key": "trick",
+            "down": true
+          }
+        ],
+        "hits": [
+          {
+            "x": 13507.916666666353,
+            "time": 4.308333333333337,
+            "reason": "特技未完成",
+            "module": "launch"
+          }
+        ],
+        "landed": [
+          {
+            "time": 4.308333333333337,
+            "x": 13507.916666666353
+          }
+        ],
+        "expected": 1
+      },
+      {
+        "seed": 2,
+        "module": "launch",
+        "index": 7,
+        "factor": 1,
+        "mount": null,
+        "routes": false,
+        "tricks": true,
+        "passed": false,
+        "collisions": 1,
+        "reason": null,
+        "exitSpeed": 349.9999706902669,
+        "airTime": 1.3249999999999977,
+        "minWindow": 2.999999999999992,
+        "rewards": [],
+        "flips": 0,
+        "trace": [
+          {
+            "t": 3.0749999999999917,
+            "key": "trick",
+            "down": true
+          }
+        ],
+        "hits": [
+          {
+            "x": 22510.83333333396,
+            "time": 4.316666666666671,
+            "reason": "特技未完成",
+            "module": "launch"
+          }
+        ],
+        "landed": [
+          {
+            "time": 4.316666666666671,
+            "x": 22510.83333333396
+          }
+        ],
+        "expected": 1
+      }
+    ]
+  },
+  "reactionFailures": {
+    "count": 1978,
+    "examples": [
+      {
+        "seed": 1,
+        "index": 0,
+        "id": "pebbles",
+        "reaction": 0.8810315789473684,
+        "budget": 1.1
+      },
+      {
+        "seed": 1,
+        "index": 1,
+        "id": "timber",
+        "reaction": 0.7334375939849623,
+        "budget": 1.1
+      },
+      {
+        "seed": 1,
+        "index": 3,
+        "id": "pebbles",
+        "reaction": 0.8810315789473684,
+        "budget": 1.1
+      }
+    ]
+  },
+  "minReaction": 0.5232024505708717,
+  "strategies": {
+    "count": 100,
+    "examples": [
+      {
+        "kind": "none",
+        "seed": 1,
+        "state": "dead",
+        "distance": 10524.953255317818,
+        "time": 31.791666666665503,
+        "collisions": 3,
+        "reason": "连续失误被雪崩卷入",
+        "rescues": 0,
+        "mountOccupancy": 0,
+        "flips": 0
+      },
+      {
+        "kind": "none",
+        "seed": 2,
+        "state": "dead",
+        "distance": 10376.203255317849,
+        "time": 31.366666666665527,
+        "collisions": 3,
+        "reason": "连续失误被雪崩卷入",
+        "rescues": 0,
+        "mountOccupancy": 0,
+        "flips": 0
+      },
+      {
+        "kind": "none",
+        "seed": 3,
+        "state": "dead",
+        "distance": 10524.953255317818,
+        "time": 31.791666666665503,
+        "collisions": 3,
+        "reason": "连续失误被雪崩卷入",
+        "rescues": 0,
+        "mountOccupancy": 0,
+        "flips": 0
+      }
+    ]
+  },
+  "summary": {
+    "none": {
+      "finished": 0,
+      "minSeconds": 31.366666666665527,
+      "maxSeconds": 41.56666666666495,
+      "meanCollisions": 3
+    },
+    "hold": {
+      "finished": 0,
+      "minSeconds": 31.366666666665527,
+      "maxSeconds": 41.59999999999828,
+      "meanCollisions": 3
+    },
+    "random": {
+      "finished": 0,
+      "minSeconds": 40.22499999999836,
+      "maxSeconds": 270.12499999991866,
+      "meanCollisions": 3.55
+    },
+    "safe": {
+      "finished": 20,
+      "minSeconds": 277.63333333324516,
+      "maxSeconds": 287.5083333332362,
+      "meanCollisions": 0
+    },
+    "skill": {
+      "finished": 14,
+      "minSeconds": 65.64166666666497,
+      "maxSeconds": 288.43333333323534,
+      "meanCollisions": 2.1
+    }
+  }
+}
