@@ -1,0 +1,310 @@
+{
+  "checked": 1350,
+  "failures": [],
+  "examples": [
+    {
+      "seed": 1,
+      "module": "launch",
+      "item": "resource-2",
+      "kind": "bolt",
+      "attempt": 0,
+      "inputs": []
+    },
+    {
+      "seed": 1,
+      "module": "shelf",
+      "item": "resource-3",
+      "kind": "magnet",
+      "attempt": 0,
+      "inputs": [
+        {
+          "t": 10.624999999999964,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 10.883333333333283,
+          "key": "jump",
+          "down": false
+        },
+        {
+          "t": 11.941666666666556,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 12.033333333333218,
+          "key": "jump",
+          "down": false
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "module": "shelf",
+      "item": "resource-6",
+      "kind": "bolt",
+      "attempt": 0,
+      "inputs": [
+        {
+          "t": 10.624999999999964,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 10.883333333333283,
+          "key": "jump",
+          "down": false
+        },
+        {
+          "t": 11.941666666666556,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 12.033333333333218,
+          "key": "jump",
+          "down": false
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "module": "launch",
+      "item": "resource-7",
+      "kind": "magnet",
+      "attempt": 0,
+      "inputs": []
+    },
+    {
+      "seed": 1,
+      "module": "ice",
+      "item": "resource-10",
+      "kind": "bolt",
+      "attempt": 5,
+      "inputs": [
+        {
+          "t": 11.816666666666563,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 12.074999999999882,
+          "key": "jump",
+          "down": false
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "module": "floes",
+      "item": "resource-13",
+      "kind": "magnet",
+      "attempt": 0,
+      "inputs": [
+        {
+          "t": 10.591666666666633,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 10.849999999999952,
+          "key": "jump",
+          "down": false
+        },
+        {
+          "t": 12.816666666666507,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 12.908333333333168,
+          "key": "jump",
+          "down": false
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "module": "forest",
+      "item": "resource-16",
+      "kind": "bolt",
+      "attempt": 0,
+      "inputs": [
+        {
+          "t": 10.591666666666633,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 10.849999999999952,
+          "key": "jump",
+          "down": false
+        },
+        {
+          "t": 11.333333333333258,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 11.591666666666576,
+          "key": "jump",
+          "down": false
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "module": "forest",
+      "item": "resource-18",
+      "kind": "bolt",
+      "attempt": 0,
+      "inputs": [
+        {
+          "t": 10.591666666666633,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 10.849999999999952,
+          "key": "jump",
+          "down": false
+        },
+        {
+          "t": 11.274999999999928,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 11.533333333333246,
+          "key": "jump",
+          "down": false
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "module": "floes",
+      "item": "resource-19",
+      "kind": "magnet",
+      "attempt": 0,
+      "inputs": [
+        {
+          "t": 10.591666666666633,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 10.849999999999952,
+          "key": "jump",
+          "down": false
+        },
+        {
+          "t": 12.816666666666507,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 12.908333333333168,
+          "key": "jump",
+          "down": false
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "module": "cloud",
+      "item": "wing-24",
+      "kind": "wind",
+      "attempt": 0,
+      "inputs": [
+        {
+          "t": 10.558333333333302,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 10.81666666666662,
+          "key": "jump",
+          "down": false
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "module": "cloud",
+      "item": "resource-24",
+      "kind": "bolt",
+      "attempt": 1,
+      "inputs": [
+        {
+          "t": 12.53333333333319,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 12.791666666666508,
+          "key": "jump",
+          "down": false
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "module": "double",
+      "item": "resource-34",
+      "kind": "bolt",
+      "attempt": 1,
+      "inputs": [
+        {
+          "t": 11.22499999999993,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 11.483333333333249,
+          "key": "jump",
+          "down": false
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "module": "corridor",
+      "item": "resource-36",
+      "kind": "bolt",
+      "attempt": 9,
+      "inputs": [
+        {
+          "t": 11.041666666666607,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 11.299999999999926,
+          "key": "jump",
+          "down": false
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "module": "double",
+      "item": "resource-39",
+      "kind": "magnet",
+      "attempt": 1,
+      "inputs": [
+        {
+          "t": 11.22499999999993,
+          "key": "jump",
+          "down": true
+        },
+        {
+          "t": 11.483333333333249,
+          "key": "jump",
+          "down": false
+        }
+      ]
+    }
+  ]
+}
