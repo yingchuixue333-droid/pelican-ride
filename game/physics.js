@@ -1,5 +1,5 @@
-import {CONFIG as C,clamp,wrap,lerp} from './config.js?v=20261003-r4';
-import {ground,tangent,gapAt,surface,segmentAt,obstacleX,platformY} from './levels.js?v=20261003-r4';
+import {CONFIG as C,clamp,wrap,lerp} from './config.js?v=20261003-r6';
+import {ground,tangent,gapAt,surface,segmentAt,obstacleX,platformY} from './levels.js?v=20261003-r6';
 export function createGame(level){return {level,p:{x:0,y:ground(level,0),vy:0,speed:C.base,angle:tangent(level,0),grounded:true,airTime:0,coyote:C.coyote,buffer:0,holdAge:1,jumpConsumed:false,trick:false,turn:0,rotation:0,rescued:false,rescue:1,resource:0,fall:0,fallAge:0,boostTime:0,boostFactor:1,landPose:0,mount:null,mountCooldown:0,wing:0,wingVisual:0,magnet:0,lead:C.leadStart,caught:0,score:0,combo:0,fish:0,collisions:0,perfect:0,flips:0},input:{jump:false,trick:false},time:0,state:'playing',events:[],taken:new Set(),hit:new Set(),visited:new Set(),rewards:new Set(),arcChoices:new Map(),platformTouches:new Map(),stats:{jumps:0,rescues:0,mountSeconds:0,wingSeconds:0,boostSeconds:0,discarded:0},trace:[],reason:null};}
 export function emit(g,type,detail={}){g.events.push({type,time:g.time,...detail});if(g.events.length>80)g.events.shift();}
 export function clearInput(g){g.input.jump=false;g.input.trick=false;g.p.buffer=0;g.p.holdAge=1;g.p.trick=false;g.p.turn=0;}
