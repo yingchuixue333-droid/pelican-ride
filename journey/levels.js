@@ -1,4 +1,4 @@
-import {CONFIG as C,clamp} from './config.js?v=20261003-v4b';
+import {CONFIG as C,clamp} from './config.js?v=20261003-v4c';
 // Authored decision templates. All low routes are legal without tricks.
 export const MODULES=[
 {id:'short-snow',name:'短雪丘 · 一跳收手',family:'short',theme:0,gravity:1.30,ops:[['rock',1700]],amp:35,waves:3},
@@ -33,10 +33,10 @@ export function createLevel(seed=1,cycle=0,options={}){
  const intro=['short-snow','launch-valley','fork-valley','short-snow','breath','relay-bridge','launch-ice','short-trees','fork-ice','breath','cave-low','launch-cave'];
  const families=['short','launch','fork','relay','ceiling','cloud'];let order=[...families];for(let i=order.length-1;i;i--){let j=Math.floor(rand()*(i+1));[order[i],order[j]]=[order[j],order[i]];}
  for(let i=0;i<24;i++){
-  let id;if(cycle===0&&!options.skipTutorial&&i<intro.length)id=intro[i];else if(i%5===4)id='breath';else{let fam=order[(i-Math.floor(i/5))%6],pool=MODULES.filter(m=>m.family===fam);if(options.daily==='relay'&&i%4===2)pool=MODULES.filter(m=>m.family==='relay');if(options.daily==='cloud'&&i%4===2)pool=MODULES.filter(m=>m.family==='cloud');if(options.daily==='trick'&&i%4===2)pool=MODULES.filter(m=>m.family==='launch');id=pool[Math.floor(rand()*pool.length)].id;}
+  let id;if(cycle===0&&!options.skipTutorial&&i<intro.length)id=intro[i];else if(i%5===4)id='breath';else{let fam=order[(i-Math.floor(i/5))%6],pool=MODULES.filter(m=>m.family===fam);if(options.condition==='relay'&&i%4===2)pool=MODULES.filter(m=>m.family==='relay');if(options.condition==='cloud'&&i%4===2)pool=MODULES.filter(m=>m.family==='cloud');if(options.condition==='trick'&&i%4===2)pool=MODULES.filter(m=>m.family==='launch');id=pool[Math.floor(rand()*pool.length)].id;}
   const def=MODULES.find(m=>m.id===id);let theme=def.rest?(segments.at(-1)?.theme||0):def.theme,stage=Math.min(4,cycle),length=def.rest?2100:3600+Math.floor(rand()*700);
   let s={...def,index:i,theme,start:cursor,end:cursor+length,y,slope:def.slope||.075+rand()*.09,amp:def.amp+(cycle?rand()*15:0),waves:def.waves||1,items:[],obstacles:[],platforms:[],entrySpeed:[C.base,C.base*1.7],jumpWindows:[],landingZones:[],restoreSpace:700,risk:def.family==='cloud'?2:1,stage};cursor+=length;segments.push(s);y=groundOn(s,s.end);ids.push(id);
-  let ops=(def.ops||[]).map(o=>[...o]);if(stage>=1&&!def.rest&&['short','launch','fork'].includes(def.family)&&i%3===0)ops.push(['rock',length-500]);
+  let ops=(def.ops||[]).map(o=>[...o]);if(stage>=1&&!def.rest&&['short','launch','fork'].includes(def.family)&&i%3===0)ops.push(['rock',length-500]);if(stage>=2&&!def.rest&&['relay','cloud'].includes(def.family)&&i%3===1)ops.push(['rock',length-430]);if(stage>=3&&!def.rest&&['fork','ceiling'].includes(def.family)&&ops.length<2&&i%4===0)ops.push(['snowball',length-460]);
   for(let[kind,baseOff]of ops){let off=baseOff+(cycle||i>11?(rand()-.5)*240:0),o={id:`${cycle}:${i}-${kind}-${off}`,kind,x:s.start+off,w:kind==='log'?110:kind==='arch'?290:70,h:kind==='log'?75:kind==='arch'?345:kind==='icewall'?75:kind==='snowball'?60:33,clearance:kind==='arch'?(def.clearance||230):0,phase:rand()*6.28};s.obstacles.push(o);obstacles.push(o);s.jumpWindows.push({earliest:o.x-420,latest:o.x-125,kind});}
   if(def.platform){let q={id:`platform-${cycle}-${i}`,start:s.start+(def.platformStart||1700),end:s.start+3000,offset:def.offset||120,cloud:!!def.cloud,sink:!!def.sink,mount:null,theme};s.platforms.push(q);platforms.push(q);s.landingZones.push({start:q.start,end:q.end,yOffset:q.offset});}
   let add=it=>{items.push(it);s.items.push(it);};for(let j=0;j<7;j++){let x=s.end-1050+j*130;add({id:`fish-g-${cycle}-${i}-${j}`,kind:'fish',x,y:groundOn(s,x)-45});}
