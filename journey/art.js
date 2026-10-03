@@ -12,6 +12,7 @@ function boardArt(x=0,y=0,size=1){ctx.save();ctx.translate(x,y);ctx.scale(size,s
  line(c=>{c.moveTo(-49,5);c.lineTo(42,7);c.quadraticCurveTo(61,6,69,-3);},'#d6c7a1',1.6);
  shape(c=>{c.moveTo(-33,-1);c.lineTo(-11,-1);c.lineTo(-21,3);c.lineTo(-43,1);},'#a8ded2',null);
  shape(c=>{c.moveTo(46,0);c.lineTo(60,-4);c.lineTo(53,3);c.lineTo(41,4);},'#efbc62',null);
+ const skin=player.skin||0;for(let k=0;k<3;k++){let x=-30+k*27;if(skin===5){shape(c=>{c.moveTo(x,-1);c.lineTo(x+3,-7);c.lineTo(x+6,-1);c.lineTo(x+11,0);c.lineTo(x+6,3);c.lineTo(x+3,8);c.lineTo(x,3);c.lineTo(x-5,0);c.closePath();},'#f5d795',null);}else if(skin===2){shape(c=>{c.moveTo(x,-4);c.lineTo(x-5,3);c.lineTo(x+5,3);},'#ecdfb0',null);}else if(skin===3){shape(c=>{c.moveTo(x,-4);c.lineTo(x+5,0);c.lineTo(x,5);c.lineTo(x-4,0);c.closePath();},'#d4f0eb',null);}else if(skin===1){line(c=>{c.moveTo(x-8,2);c.quadraticCurveTo(x,-3,x+8,2);},'#d5e8dc',2);}else if(skin===4){circle(x,0,3,'#f5d09d');}}
  for(const foot of [-13,29]){shape(c=>c.roundRect(foot-11,-9,23,9,3),'#324957',ART.ink,1.5);line(c=>{c.moveTo(foot-8,-4);c.lineTo(foot+8,-4);},'#aabec0',1.5);}
  ctx.restore();}
 function sledArt(x=0,y=0,size=1){ctx.save();ctx.translate(x,y);ctx.scale(size,size);ctx.lineJoin='round';ctx.lineCap='round';
