@@ -1,0 +1,2621 @@
+{
+  "version": "snowbound-5.0.0",
+  "baseline": "15d59d5f88529dde354232096bb2b9e4b2b4f08b",
+  "environment": "Node v24.19.0 Linux; formal engine 1/120s; 4 seeds, equal 180s exposure; synthetic visible controllers with collision-data precision, no human samples",
+  "checks": [
+    {
+      "name": "20ms full tap, no repeat/flip",
+      "status": "pass"
+    },
+    {
+      "name": "40ms full tap, no repeat/flip",
+      "status": "pass"
+    },
+    {
+      "name": "80ms full tap, no repeat/flip",
+      "status": "pass"
+    },
+    {
+      "name": "150ms full tap, no repeat/flip",
+      "status": "pass"
+    },
+    {
+      "name": "ordinary landing / fish no combo no feathers",
+      "status": "pass"
+    },
+    {
+      "name": "180 degree landing no score, raw angle unchanged in telemetry",
+      "status": "pass"
+    },
+    {
+      "name": "flap preserves accumulated rotation/angle and only one per flight",
+      "status": "pass"
+    },
+    {
+      "name": "hold continues past two rotations, release stops",
+      "status": "pass"
+    },
+    {
+      "name": "feather cliff only, light and heavy cannot spend it",
+      "status": "pass"
+    },
+    {
+      "name": "only bear blocks one heavy collision",
+      "status": "pass"
+    },
+    {
+      "name": "same/automatic swap no relay reward; intentional different route earns",
+      "status": "pass"
+    },
+    {
+      "name": "failed air relay loses pending only, banked score stays",
+      "status": "pass"
+    },
+    {
+      "name": "expired mount stays through legitimate air then leaves",
+      "status": "pass"
+    },
+    {
+      "name": "pause no physics reward; clear releases input",
+      "status": "pass"
+    },
+    {
+      "name": "V3 data migrates, old unlocked outfits retained",
+      "status": "pass"
+    },
+    {
+      "name": "same local date rules yields deterministic daily seed",
+      "status": "pass"
+    },
+    {
+      "name": "authored six families and deterministic generation",
+      "status": "pass"
+    },
+    {
+      "name": "daily condition really biases matching authored family and fixed map",
+      "status": "pass"
+    },
+    {
+      "name": "near landing second press always spends available flap, never both buffer and flap",
+      "status": "pass"
+    },
+    {
+      "name": "launch on coyote and mount do not refresh a spent air flap",
+      "status": "pass"
+    },
+    {
+      "name": "floe contact records time and actual surface visibly lowers",
+      "status": "pass"
+    },
+    {
+      "name": "359 to 361 degrees rewards progress without snapping",
+      "status": "pass"
+    },
+    {
+      "name": "one flight advances multiplier only once for flip plus relay",
+      "status": "pass"
+    },
+    {
+      "name": "automatic walk across platform awards no chosen-route points",
+      "status": "pass"
+    },
+    {
+      "name": "rabbit normal jump stays familiar, ramp and flap show advantage",
+      "status": "pass"
+    },
+    {
+      "name": "no-fault ordinary cruise has no hidden increasing snow speed",
+      "status": "pass"
+    },
+    {
+      "name": "safe angle includes ordinary 55 degree imperfect technique",
+      "status": "pass"
+    },
+    {
+      "name": "continuous representative run reclaims world and events",
+      "status": "pass"
+    },
+    {
+      "name": "release scans reproducible and wrong support never gives skill",
+      "status": "pass"
+    }
+  ],
+  "summary": [
+    {
+      "strategy": "idle",
+      "seconds": 180.00000000000063,
+      "mean": 6564.697208186282,
+      "median": 6573.703303895302,
+      "flips": 0,
+      "hits": 15.5,
+      "distance": 10105.493020465776,
+      "feathers": 2,
+      "routes": 0,
+      "parts": {
+        "distance": 4042.1972081863264,
+        "collection": 2522.5,
+        "technique": 0
+      }
+    },
+    {
+      "strategy": "ground-hold",
+      "seconds": 180.00000000000063,
+      "mean": 18021.175881670493,
+      "median": 17195.667877382595,
+      "flips": 20.25,
+      "hits": 44.25,
+      "distance": 10615.91487671718,
+      "feathers": 2,
+      "routes": 4,
+      "parts": {
+        "distance": 4246.365950686886,
+        "collection": 1977.5,
+        "technique": 11797.30993098361
+      }
+    },
+    {
+      "strategy": "tap-0.8",
+      "seconds": 180.00000000000063,
+      "mean": 6903.768034325941,
+      "median": 6909.593214056872,
+      "flips": 0,
+      "hits": 6.25,
+      "distance": 10137.545085814814,
+      "feathers": 2,
+      "routes": 4.75,
+      "parts": {
+        "distance": 4055.0180343259394,
+        "collection": 1945,
+        "technique": 903.75
+      }
+    },
+    {
+      "strategy": "tap-1.15",
+      "seconds": 180.00000000000063,
+      "mean": 7058.046366152805,
+      "median": 7136.786956533982,
+      "flips": 0,
+      "hits": 8,
+      "distance": 10141.990915382012,
+      "feathers": 2,
+      "routes": 5.25,
+      "parts": {
+        "distance": 4056.79636615282,
+        "collection": 2105,
+        "technique": 896.25
+      }
+    },
+    {
+      "strategy": "tap-1.7",
+      "seconds": 180.00000000000063,
+      "mean": 6660.028615090565,
+      "median": 6496.68466708073,
+      "flips": 0,
+      "hits": 10.75,
+      "distance": 10096.946537726468,
+      "feathers": 2,
+      "routes": 1.25,
+      "parts": {
+        "distance": 4038.7786150905813,
+        "collection": 2265,
+        "technique": 356.25
+      }
+    },
+    {
+      "strategy": "visible-low",
+      "seconds": 180.00000000000063,
+      "mean": 6863.662085928796,
+      "median": 6842.4175153099495,
+      "flips": 0,
+      "hits": 0,
+      "distance": 10209.15521482199,
+      "feathers": 2,
+      "routes": 0,
+      "parts": {
+        "distance": 4083.6620859287777,
+        "collection": 2780,
+        "technique": 0
+      }
+    },
+    {
+      "strategy": "visible-technique",
+      "seconds": 180.00000000000063,
+      "mean": 19040.893720169704,
+      "median": 19333.63688435857,
+      "flips": 17,
+      "hits": 0.25,
+      "distance": 10829.120318309991,
+      "feathers": 2,
+      "routes": 16.75,
+      "parts": {
+        "distance": 4331.648127323986,
+        "collection": 3222.5,
+        "technique": 11486.7455928457
+      }
+    },
+    {
+      "strategy": "visible-delayed",
+      "seconds": 180.00000000000063,
+      "mean": 8865.778901076947,
+      "median": 8729.328809202521,
+      "flips": 6.75,
+      "hits": 4.25,
+      "distance": 10407.126892162541,
+      "feathers": 1.75,
+      "routes": 6.75,
+      "parts": {
+        "distance": 4162.850756865026,
+        "collection": 2827.5,
+        "technique": 1875.4281442119295
+      }
+    }
+  ],
+  "runs": [
+    {
+      "strategy": "idle",
+      "seed": 1,
+      "seconds": 180.00000000000063,
+      "score": 6568.491579663705,
+      "parts": {
+        "distance": 3998.4915796637133,
+        "collection": 2570,
+        "technique": 0
+      },
+      "flips": 0,
+      "hits": 16,
+      "distance": 9996.228949159218,
+      "feathers": 2,
+      "routes": 0,
+      "airFlaps": 0
+    },
+    {
+      "strategy": "idle",
+      "seed": 2,
+      "seconds": 180.00000000000063,
+      "score": 6502.213124398707,
+      "parts": {
+        "distance": 4012.213124398774,
+        "collection": 2490,
+        "technique": 0
+      },
+      "flips": 0,
+      "hits": 16,
+      "distance": 10030.532810996869,
+      "feathers": 2,
+      "routes": 0,
+      "airFlaps": 0
+    },
+    {
+      "strategy": "idle",
+      "seed": 3,
+      "seconds": 180.00000000000063,
+      "score": 6578.915028126899,
+      "parts": {
+        "distance": 4078.915028126943,
+        "collection": 2500,
+        "technique": 0
+      },
+      "flips": 0,
+      "hits": 14,
+      "distance": 10197.287570317378,
+      "feathers": 2,
+      "routes": 0,
+      "airFlaps": 0
+    },
+    {
+      "strategy": "idle",
+      "seed": 4,
+      "seconds": 180.00000000000063,
+      "score": 6609.169100555817,
+      "parts": {
+        "distance": 4079.1691005558746,
+        "collection": 2530,
+        "technique": 0
+      },
+      "flips": 0,
+      "hits": 16,
+      "distance": 10197.922751389642,
+      "feathers": 2,
+      "routes": 0,
+      "airFlaps": 0
+    },
+    {
+      "strategy": "ground-hold",
+      "seed": 1,
+      "seconds": 180.00000000000063,
+      "score": 14971.338630415363,
+      "parts": {
+        "distance": 4208.556252945497,
+        "collection": 1940,
+        "technique": 8822.782377469919
+      },
+      "flips": 17,
+      "hits": 49,
+      "distance": 10521.390632363738,
+      "feathers": 2,
+      "routes": 2,
+      "airFlaps": 0
+    },
+    {
+      "strategy": "ground-hold",
+      "seed": 2,
+      "seconds": 180.00000000000063,
+      "score": 18844.94765182525,
+      "parts": {
+        "distance": 4265.1380392284855,
+        "collection": 1750,
+        "technique": 12829.809612596662
+      },
+      "flips": 24,
+      "hits": 47,
+      "distance": 10662.845098071139,
+      "feathers": 2,
+      "routes": 6,
+      "airFlaps": 0
+    },
+    {
+      "strategy": "ground-hold",
+      "seed": 3,
+      "seconds": 180.00000000000063,
+      "score": 15546.388102939942,
+      "parts": {
+        "distance": 4193.216232468067,
+        "collection": 2100,
+        "technique": 9253.171870471888
+      },
+      "flips": 16,
+      "hits": 45,
+      "distance": 10483.040581170195,
+      "feathers": 2,
+      "routes": 2,
+      "airFlaps": 0
+    },
+    {
+      "strategy": "ground-hold",
+      "seed": 4,
+      "seconds": 180.00000000000063,
+      "score": 22722.029141501425,
+      "parts": {
+        "distance": 4318.553278105495,
+        "collection": 2120,
+        "technique": 16283.47586339597
+      },
+      "flips": 24,
+      "hits": 36,
+      "distance": 10796.383195263648,
+      "feathers": 2,
+      "routes": 6,
+      "airFlaps": 0
+    },
+    {
+      "strategy": "tap-0.8",
+      "seed": 1,
+      "seconds": 180.00000000000063,
+      "score": 6991.340067708893,
+      "parts": {
+        "distance": 4006.340067708924,
+        "collection": 1950,
+        "technique": 1035
+      },
+      "flips": 0,
+      "hits": 7,
+      "distance": 10015.85016927226,
+      "feathers": 2,
+      "routes": 6,
+      "airFlaps": 106
+    },
+    {
+      "strategy": "tap-0.8",
+      "seed": 2,
+      "seconds": 180.00000000000063,
+      "score": 6352.001219111025,
+      "parts": {
+        "distance": 4027.001219111028,
+        "collection": 1800,
+        "technique": 525
+      },
+      "flips": 0,
+      "hits": 5,
+      "distance": 10067.503047777547,
+      "feathers": 2,
+      "routes": 4,
+      "airFlaps": 101
+    },
+    {
+      "strategy": "tap-0.8",
+      "seed": 3,
+      "seconds": 180.00000000000063,
+      "score": 7443.884490078993,
+      "parts": {
+        "distance": 4118.884490078969,
+        "collection": 2140,
+        "technique": 1185
+      },
+      "flips": 0,
+      "hits": 5,
+      "distance": 10297.211225197376,
+      "feathers": 2,
+      "routes": 5,
+      "airFlaps": 103
+    },
+    {
+      "strategy": "tap-0.8",
+      "seed": 4,
+      "seconds": 180.00000000000063,
+      "score": 6827.846360404851,
+      "parts": {
+        "distance": 4067.846360404835,
+        "collection": 1890,
+        "technique": 870
+      },
+      "flips": 0,
+      "hits": 8,
+      "distance": 10169.615901012075,
+      "feathers": 2,
+      "routes": 4,
+      "airFlaps": 104
+    },
+    {
+      "strategy": "tap-1.15",
+      "seed": 1,
+      "seconds": 180.00000000000063,
+      "score": 6356.384207700683,
+      "parts": {
+        "distance": 3991.3842077007175,
+        "collection": 2050,
+        "technique": 315
+      },
+      "flips": 0,
+      "hits": 9,
+      "distance": 9978.460519251757,
+      "feathers": 2,
+      "routes": 3,
+      "airFlaps": 44
+    },
+    {
+      "strategy": "tap-1.15",
+      "seed": 2,
+      "seconds": 180.00000000000063,
+      "score": 7602.227343842573,
+      "parts": {
+        "distance": 4072.227343842561,
+        "collection": 2240,
+        "technique": 1290
+      },
+      "flips": 0,
+      "hits": 6,
+      "distance": 10180.56835960629,
+      "feathers": 2,
+      "routes": 6,
+      "airFlaps": 41
+    },
+    {
+      "strategy": "tap-1.15",
+      "seed": 3,
+      "seconds": 180.00000000000063,
+      "score": 7534.456056700836,
+      "parts": {
+        "distance": 4089.4560567008753,
+        "collection": 1930,
+        "technique": 1515
+      },
+      "flips": 0,
+      "hits": 6,
+      "distance": 10223.640141752196,
+      "feathers": 2,
+      "routes": 9,
+      "airFlaps": 53
+    },
+    {
+      "strategy": "tap-1.15",
+      "seed": 4,
+      "seconds": 180.00000000000063,
+      "score": 6739.117856367128,
+      "parts": {
+        "distance": 4074.117856367127,
+        "collection": 2200,
+        "technique": 465
+      },
+      "flips": 0,
+      "hits": 11,
+      "distance": 10185.294640917802,
+      "feathers": 2,
+      "routes": 3,
+      "airFlaps": 48
+    },
+    {
+      "strategy": "tap-1.7",
+      "seed": 1,
+      "seconds": 180.00000000000063,
+      "score": 6444.320752572107,
+      "parts": {
+        "distance": 3999.320752572122,
+        "collection": 2340,
+        "technique": 105
+      },
+      "flips": 0,
+      "hits": 11,
+      "distance": 9998.301881430361,
+      "feathers": 2,
+      "routes": 1,
+      "airFlaps": 6
+    },
+    {
+      "strategy": "tap-1.7",
+      "seed": 2,
+      "seconds": 180.00000000000063,
+      "score": 6435.8703857695145,
+      "parts": {
+        "distance": 3990.8703857695295,
+        "collection": 2190,
+        "technique": 255
+      },
+      "flips": 0,
+      "hits": 10,
+      "distance": 9977.175964423786,
+      "feathers": 2,
+      "routes": 1,
+      "airFlaps": 9
+    },
+    {
+      "strategy": "tap-1.7",
+      "seed": 3,
+      "seconds": 180.00000000000063,
+      "score": 6549.048581589352,
+      "parts": {
+        "distance": 4034.048581589376,
+        "collection": 2260,
+        "technique": 255
+      },
+      "flips": 0,
+      "hits": 12,
+      "distance": 10085.121453973425,
+      "feathers": 2,
+      "routes": 1,
+      "airFlaps": 12
+    },
+    {
+      "strategy": "tap-1.7",
+      "seed": 4,
+      "seconds": 180.00000000000063,
+      "score": 7210.8747404312835,
+      "parts": {
+        "distance": 4130.874740431297,
+        "collection": 2270,
+        "technique": 810
+      },
+      "flips": 0,
+      "hits": 10,
+      "distance": 10327.186851078299,
+      "feathers": 2,
+      "routes": 2,
+      "airFlaps": 10
+    },
+    {
+      "strategy": "visible-low",
+      "seed": 1,
+      "seconds": 180.00000000000063,
+      "score": 6771.244035395587,
+      "parts": {
+        "distance": 4051.244035395617,
+        "collection": 2720,
+        "technique": 0
+      },
+      "flips": 0,
+      "hits": 0,
+      "distance": 10128.110088489066,
+      "feathers": 2,
+      "routes": 0,
+      "airFlaps": 0
+    },
+    {
+      "strategy": "visible-low",
+      "seed": 2,
+      "seconds": 180.00000000000063,
+      "score": 6858.315530989473,
+      "parts": {
+        "distance": 4048.3155309894214,
+        "collection": 2810,
+        "technique": 0
+      },
+      "flips": 0,
+      "hits": 0,
+      "distance": 10120.788827473625,
+      "feathers": 2,
+      "routes": 0,
+      "airFlaps": 0
+    },
+    {
+      "strategy": "visible-low",
+      "seed": 3,
+      "seconds": 180.00000000000063,
+      "score": 6998.5692776996975,
+      "parts": {
+        "distance": 4118.569277699696,
+        "collection": 2880,
+        "technique": 0
+      },
+      "flips": 0,
+      "hits": 0,
+      "distance": 10296.423194249288,
+      "feathers": 2,
+      "routes": 0,
+      "airFlaps": 0
+    },
+    {
+      "strategy": "visible-low",
+      "seed": 4,
+      "seconds": 180.00000000000063,
+      "score": 6826.519499630425,
+      "parts": {
+        "distance": 4116.519499630377,
+        "collection": 2710,
+        "technique": 0
+      },
+      "flips": 0,
+      "hits": 0,
+      "distance": 10291.298749075986,
+      "feathers": 2,
+      "routes": 0,
+      "airFlaps": 0
+    },
+    {
+      "strategy": "visible-technique",
+      "seed": 1,
+      "seconds": 180.00000000000063,
+      "score": 18126.16298864905,
+      "parts": {
+        "distance": 4306.322404526797,
+        "collection": 3290,
+        "technique": 10529.840584122314
+      },
+      "flips": 17,
+      "hits": 0,
+      "distance": 10765.806011317047,
+      "feathers": 2,
+      "routes": 17,
+      "airFlaps": 17
+    },
+    {
+      "strategy": "visible-technique",
+      "seed": 2,
+      "seconds": 180.00000000000063,
+      "score": 15548.644605864363,
+      "parts": {
+        "distance": 4271.876777798249,
+        "collection": 3150,
+        "technique": 8126.767828066118
+      },
+      "flips": 15,
+      "hits": 0,
+      "distance": 10679.691944495631,
+      "feathers": 2,
+      "routes": 15,
+      "airFlaps": 15
+    },
+    {
+      "strategy": "visible-technique",
+      "seed": 3,
+      "seconds": 180.00000000000063,
+      "score": 21947.656506097315,
+      "parts": {
+        "distance": 4374.412006957672,
+        "collection": 3330,
+        "technique": 14243.244499139582
+      },
+      "flips": 19,
+      "hits": 1,
+      "distance": 10936.030017394167,
+      "feathers": 2,
+      "routes": 18,
+      "airFlaps": 19
+    },
+    {
+      "strategy": "visible-technique",
+      "seed": 4,
+      "seconds": 180.00000000000063,
+      "score": 20541.11078006809,
+      "parts": {
+        "distance": 4373.981320013227,
+        "collection": 3120,
+        "technique": 13047.129460054786
+      },
+      "flips": 17,
+      "hits": 0,
+      "distance": 10934.95330003312,
+      "feathers": 2,
+      "routes": 17,
+      "airFlaps": 17
+    },
+    {
+      "strategy": "visible-delayed",
+      "seed": 1,
+      "seconds": 180.00000000000063,
+      "score": 8929.974600271304,
+      "parts": {
+        "distance": 4141.323885533606,
+        "collection": 2920,
+        "technique": 1868.6507147377256
+      },
+      "flips": 7,
+      "hits": 4,
+      "distance": 10353.309713834009,
+      "feathers": 2,
+      "routes": 7,
+      "airFlaps": 7
+    },
+    {
+      "strategy": "visible-delayed",
+      "seed": 2,
+      "seconds": 180.00000000000063,
+      "score": 8499.050726251127,
+      "parts": {
+        "distance": 4120.669660696772,
+        "collection": 2770,
+        "technique": 1608.3810655542964
+      },
+      "flips": 6,
+      "hits": 4,
+      "distance": 10301.674151741949,
+      "feathers": 2,
+      "routes": 6,
+      "airFlaps": 6
+    },
+    {
+      "strategy": "visible-delayed",
+      "seed": 3,
+      "seconds": 180.00000000000063,
+      "score": 9505.407259651616,
+      "parts": {
+        "distance": 4200.300419552661,
+        "collection": 2890,
+        "technique": 2415.106840098948
+      },
+      "flips": 8,
+      "hits": 4,
+      "distance": 10500.751048881571,
+      "feathers": 1,
+      "routes": 8,
+      "airFlaps": 8
+    },
+    {
+      "strategy": "visible-delayed",
+      "seed": 4,
+      "seconds": 180.00000000000063,
+      "score": 8528.683018133741,
+      "parts": {
+        "distance": 4189.109061677063,
+        "collection": 2730,
+        "technique": 1609.5739564567484
+      },
+      "flips": 6,
+      "hits": 5,
+      "distance": 10472.772654192635,
+      "feathers": 2,
+      "routes": 6,
+      "airFlaps": 6
+    }
+  ],
+  "scans": [
+    {
+      "id": "short-snow",
+      "outcomes": [
+        {
+          "release": 0.25,
+          "angle": -37.208798939698056,
+          "completed": 0.07692488916108275,
+          "awarded": false,
+          "grade": "未满一圈 · 安全落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 0.325,
+          "angle": -59.363167018089875,
+          "completed": 0.13846480048994894,
+          "awarded": false,
+          "grade": "未满一圈 · 安全落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 0.4,
+          "angle": -84.28683110628069,
+          "completed": 0.2076972007349234,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 0.47500000000000003,
+          "angle": -109.21049519447148,
+          "completed": 0.2769296009798979,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 0.55,
+          "angle": -134.13415928266232,
+          "completed": 0.34616200122487234,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 0.625,
+          "angle": -159.05782337085313,
+          "completed": 0.4153944014698468,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 0.7,
+          "angle": 176.01851254095607,
+          "completed": 0.4846268017148213,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 0.7749999999999999,
+          "angle": 148.32555244296628,
+          "completed": 0.5615516908759041,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 0.8499999999999999,
+          "angle": 123.40188835477545,
+          "completed": 0.6307840911208785,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 0.9249999999999998,
+          "angle": 117.86329633517757,
+          "completed": 0.646169068953095,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 0.9999999999999998,
+          "angle": 117.86329633517757,
+          "completed": 0.646169068953095,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 1.0749999999999997,
+          "angle": 117.86329633517757,
+          "completed": 0.646169068953095,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 1.1499999999999997,
+          "angle": 117.86329633517757,
+          "completed": 0.646169068953095,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 1.2249999999999996,
+          "angle": 117.86329633517757,
+          "completed": 0.646169068953095,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 1.2999999999999996,
+          "angle": 117.86329633517757,
+          "completed": 0.646169068953095,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 1.3749999999999996,
+          "angle": 117.86329633517757,
+          "completed": 0.646169068953095,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 1.4499999999999995,
+          "angle": 117.86329633517757,
+          "completed": 0.646169068953095,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 1.5249999999999995,
+          "angle": 117.86329633517757,
+          "completed": 0.646169068953095,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 1.5999999999999994,
+          "angle": 117.86329633517757,
+          "completed": 0.646169068953095,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 1.6749999999999994,
+          "angle": 117.86329633517757,
+          "completed": 0.646169068953095,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 1.7499999999999993,
+          "angle": 117.86329633517757,
+          "completed": 0.646169068953095,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 1.8249999999999993,
+          "angle": 117.86329633517757,
+          "completed": 0.646169068953095,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 1.8999999999999992,
+          "angle": 117.86329633517757,
+          "completed": 0.646169068953095,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 1.9749999999999992,
+          "angle": 117.86329633517757,
+          "completed": 0.646169068953095,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 2.0499999999999994,
+          "angle": 117.86329633517757,
+          "completed": 0.646169068953095,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 2.1249999999999996,
+          "angle": 117.86329633517757,
+          "completed": 0.646169068953095,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 2.1999999999999997,
+          "angle": 117.86329633517757,
+          "completed": 0.646169068953095,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 2.275,
+          "angle": 117.86329633517757,
+          "completed": 0.646169068953095,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 2.35,
+          "angle": 117.86329633517757,
+          "completed": 0.646169068953095,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 2.4250000000000003,
+          "angle": 117.86329633517757,
+          "completed": 0.646169068953095,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 2.5000000000000004,
+          "angle": 117.86329633517757,
+          "completed": 0.646169068953095,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 2.5750000000000006,
+          "angle": 117.86329633517757,
+          "completed": 0.646169068953095,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 2.650000000000001,
+          "angle": 117.86329633517757,
+          "completed": 0.646169068953095,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 2.725000000000001,
+          "angle": 117.86329633517757,
+          "completed": 0.646169068953095,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 2.800000000000001,
+          "angle": 117.86329633517757,
+          "completed": 0.646169068953095,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 2.8750000000000013,
+          "angle": 117.86329633517757,
+          "completed": 0.646169068953095,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        },
+        {
+          "release": 2.9500000000000015,
+          "angle": 117.86329633517757,
+          "completed": 0.646169068953095,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 1450.5181616061489
+        }
+      ]
+    },
+    {
+      "id": "launch-bowl",
+      "outcomes": [
+        {
+          "release": 0.25,
+          "angle": -30.02381780746165,
+          "completed": 0.07692488916108275,
+          "awarded": false,
+          "grade": "未满一圈 · 安全落地",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 0.325,
+          "angle": -52.17818588585348,
+          "completed": 0.13846480048994894,
+          "awarded": false,
+          "grade": "未满一圈 · 安全落地",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 0.4,
+          "angle": -77.10184997404428,
+          "completed": 0.2076972007349234,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 0.47500000000000003,
+          "angle": -77.10184997404428,
+          "completed": 0.2076972007349234,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 0.55,
+          "angle": -77.10184997404428,
+          "completed": 0.2076972007349234,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 0.625,
+          "angle": -93.71762603283817,
+          "completed": 0.25385213423157305,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 0.7,
+          "angle": -118.64129012102897,
+          "completed": 0.3230845344765475,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 0.7749999999999999,
+          "angle": -146.33425021901877,
+          "completed": 0.40000942363763026,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 0.8499999999999999,
+          "angle": -171.25791430720957,
+          "completed": 0.46924182388260477,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 0.9249999999999998,
+          "angle": 163.81842160459962,
+          "completed": 0.5384742241275793,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 0.9999999999999998,
+          "angle": 138.89475751640882,
+          "completed": 0.6077066243725537,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 1.0749999999999997,
+          "angle": 113.97109342821814,
+          "completed": 0.6769390246175279,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 1.1499999999999997,
+          "angle": 89.04742934002756,
+          "completed": 0.7461714248625017,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 1.2249999999999996,
+          "angle": 64.12376525183699,
+          "completed": 0.8154038251074756,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 1.2999999999999996,
+          "angle": 39.200101163646394,
+          "completed": 0.8846362253524493,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 1.3749999999999996,
+          "angle": 14.276437075455808,
+          "completed": 0.9538686255974232,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 1.4499999999999995,
+          "angle": -10.647227012734776,
+          "completed": 1.0231010258423971,
+          "awarded": true,
+          "grade": "干净落地",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 1.5249999999999995,
+          "angle": -35.57089110092536,
+          "completed": 1.092333426087371,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 1.5999999999999994,
+          "angle": -60.49455518911594,
+          "completed": 1.1615658263323447,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 1.6749999999999994,
+          "angle": -85.41821927730652,
+          "completed": 1.2307982265773185,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 1.7499999999999993,
+          "angle": -110.34188336549732,
+          "completed": 1.300030626822293,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 1.8249999999999993,
+          "angle": -135.26554745368836,
+          "completed": 1.369263027067268,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 1.8999999999999992,
+          "angle": -160.1892115418794,
+          "completed": 1.4384954273122432,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 1.9749999999999992,
+          "angle": 174.88712436992955,
+          "completed": 1.5077278275572183,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 2.0499999999999994,
+          "angle": 149.96346028173852,
+          "completed": 1.5769602278021935,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 2.1249999999999996,
+          "angle": 125.03979619354747,
+          "completed": 1.6461926280471686,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 2.1999999999999997,
+          "angle": 100.11613210535644,
+          "completed": 1.7154250282921437,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 2.275,
+          "angle": 75.1924680171654,
+          "completed": 1.7846574285371188,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 2.35,
+          "angle": 50.26880392897435,
+          "completed": 1.853889828782094,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 2.4250000000000003,
+          "angle": 25.345139840783315,
+          "completed": 1.923122229027069,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 2.5000000000000004,
+          "angle": 0.4214757525922705,
+          "completed": 1.9923546292720442,
+          "awarded": true,
+          "grade": "干净落地",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 2.5750000000000006,
+          "angle": -16.19430030620176,
+          "completed": 2.038509562768694,
+          "awarded": true,
+          "grade": "干净落地",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 2.650000000000001,
+          "angle": -16.19430030620176,
+          "completed": 2.038509562768694,
+          "awarded": true,
+          "grade": "干净落地",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 2.725000000000001,
+          "angle": -16.19430030620176,
+          "completed": 2.038509562768694,
+          "awarded": true,
+          "grade": "干净落地",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 2.800000000000001,
+          "angle": -16.19430030620176,
+          "completed": 2.038509562768694,
+          "awarded": true,
+          "grade": "干净落地",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 2.8750000000000013,
+          "angle": -16.19430030620176,
+          "completed": 2.038509562768694,
+          "awarded": true,
+          "grade": "干净落地",
+          "x": 26358.4984588969
+        },
+        {
+          "release": 2.9500000000000015,
+          "angle": -16.19430030620176,
+          "completed": 2.038509562768694,
+          "awarded": true,
+          "grade": "干净落地",
+          "x": 26358.4984588969
+        }
+      ]
+    },
+    {
+      "id": "fork-ice",
+      "outcomes": [
+        {
+          "release": 0.25,
+          "angle": -30.722238470482925,
+          "completed": 0.07692488916108275,
+          "awarded": false,
+          "grade": "未满一圈 · 安全落地",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 0.325,
+          "angle": -52.87660654887476,
+          "completed": 0.13846480048994894,
+          "awarded": false,
+          "grade": "未满一圈 · 安全落地",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 0.4,
+          "angle": -77.80027063706557,
+          "completed": 0.2076972007349234,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 0.47500000000000003,
+          "angle": -102.72393472525637,
+          "completed": 0.2769296009798979,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 0.55,
+          "angle": -127.64759881344715,
+          "completed": 0.34616200122487234,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 0.625,
+          "angle": -152.57126290163797,
+          "completed": 0.4153944014698468,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 0.7,
+          "angle": -177.49492698982877,
+          "completed": 0.4846268017148213,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 0.7749999999999999,
+          "angle": 154.81211291218145,
+          "completed": 0.5615516908759041,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 0.8499999999999999,
+          "angle": 129.88844882399061,
+          "completed": 0.6307840911208785,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 0.9249999999999998,
+          "angle": 104.9647847358,
+          "completed": 0.7000164913658524,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 0.9999999999999998,
+          "angle": 80.0411206476094,
+          "completed": 0.7692488916108263,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 1.0749999999999997,
+          "angle": 55.11745655941883,
+          "completed": 0.8384812918558001,
+          "awarded": false,
+          "grade": "未满一圈 · 安全落地",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 1.1499999999999997,
+          "angle": 30.19379247122823,
+          "completed": 0.907713692100774,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 1.2249999999999996,
+          "angle": 5.27012838303765,
+          "completed": 0.9769460923457478,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 1.2999999999999996,
+          "angle": -19.653535705152933,
+          "completed": 1.0461784925907216,
+          "awarded": true,
+          "grade": "干净落地",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 1.3749999999999996,
+          "angle": -27.961423734549793,
+          "completed": 1.0692559593390463,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 1.4499999999999995,
+          "angle": -27.961423734549793,
+          "completed": 1.0692559593390463,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 1.5249999999999995,
+          "angle": -27.961423734549793,
+          "completed": 1.0692559593390463,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 1.5999999999999994,
+          "angle": -27.961423734549793,
+          "completed": 1.0692559593390463,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 1.6749999999999994,
+          "angle": -27.961423734549793,
+          "completed": 1.0692559593390463,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 1.7499999999999993,
+          "angle": -27.961423734549793,
+          "completed": 1.0692559593390463,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 1.8249999999999993,
+          "angle": -27.961423734549793,
+          "completed": 1.0692559593390463,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 1.8999999999999992,
+          "angle": -27.961423734549793,
+          "completed": 1.0692559593390463,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 1.9749999999999992,
+          "angle": -27.961423734549793,
+          "completed": 1.0692559593390463,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 2.0499999999999994,
+          "angle": -27.961423734549793,
+          "completed": 1.0692559593390463,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 2.1249999999999996,
+          "angle": -27.961423734549793,
+          "completed": 1.0692559593390463,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 2.1999999999999997,
+          "angle": -27.961423734549793,
+          "completed": 1.0692559593390463,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 2.275,
+          "angle": -27.961423734549793,
+          "completed": 1.0692559593390463,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 2.35,
+          "angle": -27.961423734549793,
+          "completed": 1.0692559593390463,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 2.4250000000000003,
+          "angle": -27.961423734549793,
+          "completed": 1.0692559593390463,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 2.5000000000000004,
+          "angle": -27.961423734549793,
+          "completed": 1.0692559593390463,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 2.5750000000000006,
+          "angle": -27.961423734549793,
+          "completed": 1.0692559593390463,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 2.650000000000001,
+          "angle": -27.961423734549793,
+          "completed": 1.0692559593390463,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 2.725000000000001,
+          "angle": -27.961423734549793,
+          "completed": 1.0692559593390463,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 2.800000000000001,
+          "angle": -27.961423734549793,
+          "completed": 1.0692559593390463,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 2.8750000000000013,
+          "angle": -27.961423734549793,
+          "completed": 1.0692559593390463,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 18288.22056443356
+        },
+        {
+          "release": 2.9500000000000015,
+          "angle": -27.961423734549793,
+          "completed": 1.0692559593390463,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 18288.22056443356
+        }
+      ]
+    },
+    {
+      "id": "relay-bridge",
+      "outcomes": [
+        {
+          "release": 0.25,
+          "angle": -30.71338273675459,
+          "completed": 0.07692488916108275,
+          "awarded": false,
+          "grade": "未满一圈 · 安全落地",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 0.325,
+          "angle": -52.86775081514643,
+          "completed": 0.13846480048994894,
+          "awarded": false,
+          "grade": "未满一圈 · 安全落地",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 0.4,
+          "angle": -77.79141490333723,
+          "completed": 0.2076972007349234,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 0.47500000000000003,
+          "angle": -102.71507899152803,
+          "completed": 0.2769296009798979,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 0.55,
+          "angle": -127.63874307971884,
+          "completed": 0.34616200122487234,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 0.625,
+          "angle": -152.5624071679097,
+          "completed": 0.4153944014698468,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 0.7,
+          "angle": -177.48607125610047,
+          "completed": 0.4846268017148213,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 0.7749999999999999,
+          "angle": 154.82096864590974,
+          "completed": 0.5615516908759041,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 0.8499999999999999,
+          "angle": 129.8973045577189,
+          "completed": 0.6307840911208785,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 0.9249999999999998,
+          "angle": 104.97364046952833,
+          "completed": 0.7000164913658524,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 0.9999999999999998,
+          "angle": 80.04997638133776,
+          "completed": 0.7692488916108263,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 1.0749999999999997,
+          "angle": 55.12631229314716,
+          "completed": 0.8384812918558001,
+          "awarded": false,
+          "grade": "未满一圈 · 安全落地",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 1.1499999999999997,
+          "angle": 30.20264820495658,
+          "completed": 0.907713692100774,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 1.2249999999999996,
+          "angle": 5.278984116765993,
+          "completed": 0.9769460923457478,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 1.2999999999999996,
+          "angle": -19.644679971424594,
+          "completed": 1.0461784925907216,
+          "awarded": true,
+          "grade": "干净落地",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 1.3749999999999996,
+          "angle": -30.721864010620408,
+          "completed": 1.0769484482551546,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 1.4499999999999995,
+          "angle": -30.721864010620408,
+          "completed": 1.0769484482551546,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 1.5249999999999995,
+          "angle": -30.721864010620408,
+          "completed": 1.0769484482551546,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 1.5999999999999994,
+          "angle": -30.721864010620408,
+          "completed": 1.0769484482551546,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 1.6749999999999994,
+          "angle": -30.721864010620408,
+          "completed": 1.0769484482551546,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 1.7499999999999993,
+          "angle": -30.721864010620408,
+          "completed": 1.0769484482551546,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 1.8249999999999993,
+          "angle": -30.721864010620408,
+          "completed": 1.0769484482551546,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 1.8999999999999992,
+          "angle": -30.721864010620408,
+          "completed": 1.0769484482551546,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 1.9749999999999992,
+          "angle": -30.721864010620408,
+          "completed": 1.0769484482551546,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 2.0499999999999994,
+          "angle": -30.721864010620408,
+          "completed": 1.0769484482551546,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 2.1249999999999996,
+          "angle": -30.721864010620408,
+          "completed": 1.0769484482551546,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 2.1999999999999997,
+          "angle": -30.721864010620408,
+          "completed": 1.0769484482551546,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 2.275,
+          "angle": -30.721864010620408,
+          "completed": 1.0769484482551546,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 2.35,
+          "angle": -30.721864010620408,
+          "completed": 1.0769484482551546,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 2.4250000000000003,
+          "angle": -30.721864010620408,
+          "completed": 1.0769484482551546,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 2.5000000000000004,
+          "angle": -30.721864010620408,
+          "completed": 1.0769484482551546,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 2.5750000000000006,
+          "angle": -30.721864010620408,
+          "completed": 1.0769484482551546,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 2.650000000000001,
+          "angle": -30.721864010620408,
+          "completed": 1.0769484482551546,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 2.725000000000001,
+          "angle": -30.721864010620408,
+          "completed": 1.0769484482551546,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 2.800000000000001,
+          "angle": -30.721864010620408,
+          "completed": 1.0769484482551546,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 2.8750000000000013,
+          "angle": -30.721864010620408,
+          "completed": 1.0769484482551546,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 12780.270597586183
+        },
+        {
+          "release": 2.9500000000000015,
+          "angle": -30.721864010620408,
+          "completed": 1.0769484482551546,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 12780.270597586183
+        }
+      ]
+    },
+    {
+      "id": "cave-turn",
+      "outcomes": [
+        {
+          "release": 0.25,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 0.325,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 0.4,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 0.47500000000000003,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 0.55,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 0.625,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 0.7,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 0.7749999999999999,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 0.8499999999999999,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 0.9249999999999998,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 0.9999999999999998,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 1.0749999999999997,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 1.1499999999999997,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 1.2249999999999996,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 1.2999999999999996,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 1.3749999999999996,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 1.4499999999999995,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 1.5249999999999995,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 1.5999999999999994,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 1.6749999999999994,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 1.7499999999999993,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 1.8249999999999993,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 1.8999999999999992,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 1.9749999999999992,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 2.0499999999999994,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 2.1249999999999996,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 2.1999999999999997,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 2.275,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 2.35,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 2.4250000000000003,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 2.5000000000000004,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 2.5750000000000006,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 2.650000000000001,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 2.725000000000001,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 2.800000000000001,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 2.8750000000000013,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        },
+        {
+          "release": 2.9500000000000015,
+          "angle": 2.6192873239580727,
+          "completed": 0,
+          "awarded": false,
+          "grade": "稳稳落地",
+          "x": 20971.722285822023
+        }
+      ]
+    },
+    {
+      "id": "cloud-return",
+      "outcomes": [
+        {
+          "release": 0.25,
+          "angle": -28.46140908563348,
+          "completed": 0.07692488916108275,
+          "awarded": false,
+          "grade": "未满一圈 · 安全落地",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 0.325,
+          "angle": -50.6157771640253,
+          "completed": 0.13846480048994894,
+          "awarded": false,
+          "grade": "未满一圈 · 安全落地",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 0.4,
+          "angle": -75.53944125221611,
+          "completed": 0.2076972007349234,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 0.47500000000000003,
+          "angle": -100.46310534040694,
+          "completed": 0.2769296009798979,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 0.55,
+          "angle": -125.38676942859774,
+          "completed": 0.34616200122487234,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 0.625,
+          "angle": -150.31043351678855,
+          "completed": 0.4153944014698468,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 0.7,
+          "angle": -175.23409760497935,
+          "completed": 0.4846268017148213,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 0.7749999999999999,
+          "angle": 157.07294229703086,
+          "completed": 0.5615516908759041,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 0.8499999999999999,
+          "angle": 132.14927820884003,
+          "completed": 0.6307840911208785,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 0.9249999999999998,
+          "angle": 107.22561412064945,
+          "completed": 0.7000164913658524,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 0.9999999999999998,
+          "angle": 82.30195003245886,
+          "completed": 0.7692488916108263,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 1.0749999999999997,
+          "angle": 57.37828594426828,
+          "completed": 0.8384812918558001,
+          "awarded": false,
+          "grade": "未满一圈 · 安全落地",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 1.1499999999999997,
+          "angle": 32.45462185607771,
+          "completed": 0.907713692100774,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 1.2249999999999996,
+          "angle": 7.530957767887116,
+          "completed": 0.9769460923457478,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 1.2999999999999996,
+          "angle": -17.39270632030347,
+          "completed": 1.0461784925907216,
+          "awarded": true,
+          "grade": "干净落地",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 1.3749999999999996,
+          "angle": -42.31637040849405,
+          "completed": 1.1154108928356956,
+          "awarded": true,
+          "grade": "技巧落地",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 1.4499999999999995,
+          "angle": -67.24003449668464,
+          "completed": 1.1846432930806694,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 1.5249999999999995,
+          "angle": -92.16369858487523,
+          "completed": 1.2538756933256432,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 1.5999999999999994,
+          "angle": -117.08736267306622,
+          "completed": 1.323108093570618,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 1.6749999999999994,
+          "angle": -142.01102676125723,
+          "completed": 1.3923404938155932,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 1.7499999999999993,
+          "angle": -166.9346908494483,
+          "completed": 1.4615728940605683,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 1.8249999999999993,
+          "angle": 168.14164506236068,
+          "completed": 1.5308052943055435,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 1.8999999999999992,
+          "angle": 143.21798097416962,
+          "completed": 1.6000376945505186,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 1.9749999999999992,
+          "angle": 118.2943168859786,
+          "completed": 1.6692700947954937,
+          "awarded": false,
+          "grade": "倒着落地",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 2.0499999999999994,
+          "angle": 98.90924481738557,
+          "completed": 1.723117517208252,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 2.1249999999999996,
+          "angle": 98.90924481738557,
+          "completed": 1.723117517208252,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 2.1999999999999997,
+          "angle": 98.90924481738557,
+          "completed": 1.723117517208252,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 2.275,
+          "angle": 98.90924481738557,
+          "completed": 1.723117517208252,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 2.35,
+          "angle": 98.90924481738557,
+          "completed": 1.723117517208252,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 2.4250000000000003,
+          "angle": 98.90924481738557,
+          "completed": 1.723117517208252,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 2.5000000000000004,
+          "angle": 98.90924481738557,
+          "completed": 1.723117517208252,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 2.5750000000000006,
+          "angle": 98.90924481738557,
+          "completed": 1.723117517208252,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 2.650000000000001,
+          "angle": 98.90924481738557,
+          "completed": 1.723117517208252,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 2.725000000000001,
+          "angle": 98.90924481738557,
+          "completed": 1.723117517208252,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 2.800000000000001,
+          "angle": 98.90924481738557,
+          "completed": 1.723117517208252,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 2.8750000000000013,
+          "angle": 98.90924481738557,
+          "completed": 1.723117517208252,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 31382.028230832224
+        },
+        {
+          "release": 2.9500000000000015,
+          "angle": 98.90924481738557,
+          "completed": 1.723117517208252,
+          "awarded": false,
+          "grade": "不稳 · 本跳未入账",
+          "x": 31382.028230832224
+        }
+      ]
+    }
+  ],
+  "long": {
+    "seconds": 599.9999999996187,
+    "reason": null,
+    "distance": 37882.8164960484,
+    "parts": {
+      "distance": 15153.126598419298,
+      "collection": 11060,
+      "technique": 53964.20972390577
+    },
+    "cycles": 4,
+    "maxObjects": 494,
+    "maxSegments": 27
+  },
+  "elapsedMs": 6336.21248
+}
