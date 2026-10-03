@@ -39,6 +39,10 @@
     {
       "name": "same entry chooses near ledge without flap, far ledge with timed flap",
       "status": "pass"
+    },
+    {
+      "name": "partial first circle never reports already over a full turn",
+      "status": "pass"
     }
   ],
   "screen": [

@@ -1,4 +1,4 @@
-import {CONFIG as C,clamp} from './config.js?v=20261003-v6b';
+import {CONFIG as C,clamp} from './config.js?v=20261003-v6c';
 // Authored decision templates. All low routes are legal without tricks.
 export const MODULES=[
 {id:'short-snow',name:'短雪丘 · 一跳收手',family:'short',theme:0,gravity:1,ops:[['rock',1700]],amp:35,waves:3},
