@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';import fs from 'node:fs';import{performance}from'node:perf_hooks';import {CONFIG as C,VERSION}from'../journey/config.js';import{createLevel,MODULES,ground,tangent,segmentAt,platformY,surface,platformSlope,rampPower}from'../journey/levels.js';import{createGame,tick,input,landing,crash,take,takeMount,rescue,clearInput}from'../journey/physics.js';import{prepareContinuous,maintainWorld}from'../journey/endless.js';import{planInput}from'../journey/validation.js';import{loadProgress,unlocked,dailySpec}from'../journey/progress.js';
+const strategies=['idle','ground-hold','tap-0.8','tap-1.15','tap-1.7','visible-low','visible-technique','visible-delayed'];let runs=[];let start=performance.now();
+for(let strategy of strategies)for(let seed=1;seed<=4;seed++){
+ let g=createGame(createLevel(seed),'challenge');prepareContinuous(g);let equal30=null;
+ for(let i=0;i<120*30&&g.state==='playing';i++){
+  if(strategy==='ground-hold')input(g,'jump',g.p.grounded?!g.input.jump:true);
+  if(strategy.startsWith('tap'))input(g,'jump',g.time%+strategy.slice(4)<.04);
+  if(strategy.startsWith('visible'))planInput(g,{routes:strategy!=='visible-low',tricks:strategy!=='visible-low',latency:strategy==='visible-delayed'?.09:0,offset:strategy==='visible-delayed'?Math.sin(seed+g.time)*15:0});
+  tick(g);maintainWorld(g);if(!equal30&&g.time>=30)equal30={score:g.p.score,parts:{...g.p.parts},distance:g.p.x/10,hits:g.p.collisions,flips:g.p.flips,completedLines:g.stats.lineSeconds,boostSeconds:g.stats.boostSeconds,lead:g.p.lead};g.events.length=0;
+ }
+ runs.push({strategy,seed,equal30,seconds:g.time,score:g.p.score,parts:{...g.p.parts},flips:g.p.flips,hits:g.p.collisions,distance:g.p.x/10,feathers:g.p.rescue,routes:g.routes.size,airFlaps:g.stats.flaps,completedLines:g.stats.lineSeconds,lineScore:g.stats.lineScore,boostSeconds:g.stats.boostSeconds,pressureRecoveries:g.stats.pressureRecoveries,reason:g.reason,lead:g.p.lead});
+}
+const mean=a=>a.reduce((a,b)=>a+b,0)/a.length,median=a=>{a=[...a].sort((a,b)=>a-b);return (a[1]+a[2])/2;};let summary=strategies.map(strategy=>{let rs=runs.filter(r=>r.strategy===strategy);return {strategy,seconds:mean(rs.map(r=>r.seconds)),mean:mean(rs.map(r=>r.score)),median:median(rs.map(r=>r.score)),flips:mean(rs.map(r=>r.flips)),hits:mean(rs.map(r=>r.hits)),distance:mean(rs.map(r=>r.distance)),feathers:mean(rs.map(r=>r.feathers)),routes:mean(rs.map(r=>r.routes)),completedLines:mean(rs.map(r=>r.completedLines)),boostSeconds:mean(rs.map(r=>r.boostSeconds)),survived:rs.filter(r=>r.seconds>=179.99).length,parts:Object.fromEntries(['distance','collection','technique'].map(k=>[k,mean(rs.map(r=>r.parts[k]))]))};});
+fs.writeFileSync('qa/v6-equal-results.json',JSON.stringify({runs,summary},null,2));console.log(summary.map(s=>({strategy:s.strategy,score:Math.round(s.mean),distance:Math.round(s.distance),hits:s.hits})));

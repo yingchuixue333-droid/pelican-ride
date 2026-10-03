@@ -1,0 +1,61 @@
+{
+  "checks": [
+    {
+      "name": "real screen motion rises from cruise to chain peak",
+      "status": "pass"
+    },
+    {
+      "name": "unique additive speed composition, bounded at 1.75 including partners and ice",
+      "status": "pass"
+    },
+    {
+      "name": "input held through landing never launches a second jump",
+      "status": "pass"
+    },
+    {
+      "name": "flat successful flip does not manufacture line completion or full chain",
+      "status": "pass"
+    },
+    {
+      "name": "crash clears current line pending but preserves earned distance/fish",
+      "status": "pass"
+    },
+    {
+      "name": "pressure authored, independent of lead and score",
+      "status": "pass"
+    },
+    {
+      "name": "warning starts before pressure entry with two seconds of road",
+      "status": "pass"
+    },
+    {
+      "name": "V5 records kept as history, V6 gameplay record separate",
+      "status": "pass"
+    },
+    {
+      "name": "ordinary jump airtime stable and brisk on real ground",
+      "status": "pass"
+    },
+    {
+      "name": "same entry chooses near ledge without flap, far ledge with timed flap",
+      "status": "pass"
+    }
+  ],
+  "screen": [
+    {
+      "v": 760,
+      "width": 1000,
+      "screenRate": 0.76
+    },
+    {
+      "v": 950,
+      "width": 1047.5,
+      "screenRate": 0.9069212410501193
+    },
+    {
+      "v": 1330,
+      "width": 1142.5,
+      "screenRate": 1.1641137855579868
+    }
+  ]
+}

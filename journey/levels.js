@@ -1,4 +1,4 @@
-import {CONFIG as C,clamp} from './config.js?v=20261003-v6a';
+import {CONFIG as C,clamp} from './config.js?v=20261003-v6b';
 // Authored decision templates. All low routes are legal without tricks.
 export const MODULES=[
 {id:'short-snow',name:'短雪丘 · 一跳收手',family:'short',theme:0,gravity:1,ops:[['rock',1700]],amp:35,waves:3},
@@ -40,7 +40,9 @@ export function createLevel(seed=1,cycle=0,options={}){
   if(def.family==='short'&&ops.length<2)ops.push(['rock',650]);if(def.family==='fork'&&!ops.some(o=>o[1]<1200))ops.push(['rock',650]);if(def.family==='ceiling'){s.ramp=1950;s.power=1.55;s.shoulder=65;if(ops.some(o=>o[0]==='log'))ops=ops.map(o=>o[0]==='log'?['log',2560]:o);}
   for(let[kind,baseOff]of ops){let off=Math.min(length-230,baseOff)+(cycle||i>11?(rand()-.5)*120:0),o={id:`${cycle}:${i}-${kind}-${off}`,kind,x:s.start+off,w:kind==='log'?110:kind==='arch'?290:70,h:kind==='log'?75:kind==='arch'?345:kind==='icewall'?75:kind==='snowball'?60:33,clearance:kind==='arch'?(def.clearance||230):0,phase:rand()*6.28};s.obstacles.push(o);obstacles.push(o);s.jumpWindows.push({earliest:o.x-420,latest:o.x-125,kind});}
   if(def.family==='launch'){s.power=def.large?2.3:def.id==='launch-valley'?1.7:1.6;s.ramp=1000;s.shoulder=def.large||def.id==='launch-valley'?100:65;if(def.id==='launch-valley')s.large=true;s.platform=true;s.offset=def.large?170:125;}if(s.platform){let q={id:`platform-${cycle}-${i}`,start:s.start+(def.family==='launch'?(def.large?2130:1840):def.platformStart||1780),end:s.start+(length-100),offset:s.offset||120,cloud:!!def.cloud,sink:!!def.sink,mount:null,theme,edge:70};s.platforms.push(q);platforms.push(q);s.landingZones.push({start:q.start,end:q.end,yOffset:q.offset});}
+  if(def.id==='launch-valley'){let near=s.platforms[0];near.end=s.start+2230;near.offset=105;let far={...near,id:near.id+'-far',start:s.start+2320,end:s.end-50,offset:155};s.platforms.push(far);platforms.push(far);}
   let add=it=>{items.push(it);s.items.push(it);};for(let j=0;j<7;j++){let x=s.end-1050+j*130;add({id:`fish-g-${cycle}-${i}-${j}`,kind:'fish',x,y:groundOn(s,x)-45});}
+  if(def.id==='launch-valley'){let q=s.platforms[1];for(let j=0;j<4;j++)add({id:`fish-far-${cycle}-${i}-${j}`,kind:'fish',x:q.start+70+j*110,platformId:q.id,y:groundOn(s,q.start+70+j*110)-q.offset-45});}
   if(def.groundMount)add({id:`partner-${cycle}-${i}`,kind:'partner',mount:def.groundMount,x:s.start+500,y:groundOn(s,s.start+500)-45});
   if(def.relayMount){let x=s.start+2350;add({id:`relay-${cycle}-${i}`,kind:'partner',mount:def.relayMount,relay:true,routeId:s.platforms[0].id,platformId:s.platforms[0].id,x,y:groundOn(s,x)-(s.offset||120)-45});}
   if(def.wing){let x=s.start+480;add({id:`wind-${cycle}-${i}`,kind:'wind',x,y:groundOn(s,x)-45});}
@@ -64,6 +66,6 @@ export function gapAt(l,x){let s=segmentAt(l,x);return s.gap&&x>s.start+s.gap[0]
 export function platformY(l,p,x,time=0,touch){let sink=p.sink?Math.min(95,Math.max(0,time-(touch??time))**1.3*32):0;return ground(l,x)-p.offset+sink;}
 export function platformSlope(l,p,x,time=0,touch){return Math.atan((platformY(l,p,x+1,time,touch)-platformY(l,p,x-1,time,touch))/2);}
 export function itemY(l,it,time=0,touches=new Map()){let q=it.platformId&&l.platforms.find(p=>p.id===it.platformId);return q?platformY(l,q,it.x,time,touches.get(q.id))-45:it.y;}
-export function rampPower(s,x){if(!s.ramp)return 1;let d=Math.abs(x-s.start-s.ramp)/220;return 1+((s.power||1.3)-1)*Math.max(0,1-d*d);}
+export function rampPower(s,x){let power=1;for(let [center,peak] of [[s.ramp,s.power||1.3],[s.echo,1.45]])if(center){let d=Math.abs(x-s.start-center)/220;power=Math.max(power,1+(peak-1)*Math.max(0,1-d*d));}return power;}
 export function surface(l,x,oldY,newY,time=0,touches=null){let choices=[];if(!gapAt(l,x))choices.push({y:ground(l,x),slope:tangent(l,x),platform:null});for(let p of l.platforms){if(x>=p.start&&x<=p.end){let y=platformY(l,p,x,time,touches?.get(p.id));if(oldY<=y+6&&newY>=y-3)choices.push({y,slope:platformSlope(l,p,x,time,touches?.get(p.id)),platform:p});}}return choices.sort((a,b)=>a.y-b.y).find(q=>oldY<=q.y+6&&newY>=q.y-3)||null;}
 export function obstacleX(o,time){return o.x+(o.kind==='snowball'?Math.sin(time*1.4+o.phase)*125:0);}
