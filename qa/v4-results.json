@@ -72,6 +72,10 @@
       "status": "pass"
     },
     {
+      "name": "daily condition really biases matching authored family and fixed map",
+      "status": "pass"
+    },
+    {
       "name": "observed terrain strategy beats all blind strategy mean and median",
       "status": "pass"
     },
@@ -9597,5 +9601,5 @@
       ]
     }
   ],
-  "elapsedMs": 16416.967246
+  "elapsedMs": 17152.192981
 }
