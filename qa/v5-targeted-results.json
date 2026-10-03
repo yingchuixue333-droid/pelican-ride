@@ -1,0 +1,47 @@
+{
+  "checks": [
+    {
+      "name": "platform exit falls, no instant snapping down",
+      "status": "pass"
+    },
+    {
+      "name": "shared support slope and subpixel render sampling",
+      "status": "pass"
+    },
+    {
+      "name": "V4 saved results kept historic, V5 and daily start separate",
+      "status": "pass"
+    },
+    {
+      "name": "readable camera contract across actual valid speed range",
+      "status": "pass"
+    },
+    {
+      "name": "first ledge different airborne flap times alter first outlet",
+      "status": "pass"
+    }
+  ],
+  "choices": [
+    {
+      "flap": null,
+      "time": 2.2166666666666615,
+      "x": 6060.289746238048,
+      "platform": null,
+      "flaps": 0
+    },
+    {
+      "flap": 0.45,
+      "time": 2.59166666666666,
+      "x": 6262.962381249457,
+      "platform": "platform-0-1",
+      "flaps": 1
+    },
+    {
+      "flap": 1.8,
+      "time": 2.7666666666666595,
+      "x": 6357.443264609464,
+      "platform": "platform-0-1",
+      "flaps": 1
+    }
+  ]
+}
