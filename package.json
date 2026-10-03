@@ -1,1 +1,1 @@
-{"private":true,"type":"module","scripts":{"test":"node qa/v5-test.mjs"}}
+{"private":true,"type":"module","scripts":{"test":"node qa/v6-contract.mjs && node qa/v6-test.mjs"}}
