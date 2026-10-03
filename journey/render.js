@@ -1,7 +1,7 @@
-import {CONFIG as C,THEMES,clamp,lerp,wrap} from './config.js?v=20261003-one4';
-import {ground,tangent,gapAt,segmentAt,platformY,obstacleX} from './levels.js?v=20261003-one4';
-import {selectArcs} from './physics.js?v=20261003-one4';
-import {createArt} from './art.js?v=20261003-one4';
+import {CONFIG as C,THEMES,clamp,lerp,wrap} from './config.js?v=20261003-v4a';
+import {ground,tangent,gapAt,segmentAt,platformY,obstacleX} from './levels.js?v=20261003-v4a';
+import {selectArcs} from './physics.js?v=20261003-v4a';
+import {createArt} from './art.js?v=20261003-v4a';
 export function createRenderer(canvas){const ctx=canvas.getContext('2d',{alpha:false}),art=createArt(ctx);let width=390,height=844,dpr=1,viewW=820,camY=0,zoom=1,lastX=0;
  const path=(fn,fill,stroke=null,w=3)=>{ctx.beginPath();fn(ctx);if(fill){ctx.fillStyle=fill;ctx.fill();}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=w;ctx.stroke();}};
  const circle=(x,y,r,fill)=>path(c=>c.arc(x,y,r,0,Math.PI*2),fill);
