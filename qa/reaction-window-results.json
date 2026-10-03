@@ -1,0 +1,82 @@
+[
+  {
+    "state": "cruise",
+    "kind": "rock",
+    "min": 0.22,
+    "max": 0.84,
+    "width": 0.62,
+    "samples": 63
+  },
+  {
+    "state": "cruise",
+    "kind": "log",
+    "min": 0.28,
+    "max": 0.81,
+    "width": 0.53,
+    "samples": 54
+  },
+  {
+    "state": "boost",
+    "kind": "rock",
+    "min": 0.22,
+    "max": 0.84,
+    "width": 0.62,
+    "samples": 63
+  },
+  {
+    "state": "boost",
+    "kind": "log",
+    "min": 0.29,
+    "max": 0.82,
+    "width": 0.53,
+    "samples": 54
+  },
+  {
+    "state": "fox",
+    "kind": "rock",
+    "min": 0.22,
+    "max": 0.84,
+    "width": 0.62,
+    "samples": 63
+  },
+  {
+    "state": "fox",
+    "kind": "log",
+    "min": 0.26,
+    "max": 0.84,
+    "width": 0.58,
+    "samples": 59
+  },
+  {
+    "state": "rabbit",
+    "kind": "rock",
+    "min": 0.22,
+    "max": 0.84,
+    "width": 0.62,
+    "samples": 63
+  },
+  {
+    "state": "rabbit",
+    "kind": "log",
+    "min": 0.25,
+    "max": 0.84,
+    "width": 0.59,
+    "samples": 60
+  },
+  {
+    "state": "wind",
+    "kind": "rock",
+    "min": 0.22,
+    "max": 0.84,
+    "width": 0.62,
+    "samples": 63
+  },
+  {
+    "state": "wind",
+    "kind": "log",
+    "min": 0.28,
+    "max": 0.81,
+    "width": 0.53,
+    "samples": 54
+  }
+]

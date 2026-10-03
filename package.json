@@ -1,1 +1,1 @@
-{"name":"pelican-snowbound","private":true,"type":"module","scripts":{"test":"node qa/redesign/controls.mjs && node qa/redesign/pickups.mjs && node qa/redesign/specials.mjs && node qa/redesign/verify.mjs"}}
+{"name":"pelican-seaside-journey","private":true,"type":"module","scripts":{"test":"node qa/one-touch-test.mjs"}}
