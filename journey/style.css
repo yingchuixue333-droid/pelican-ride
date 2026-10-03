@@ -5,3 +5,5 @@
 #skipLabel{display:block;font-size:12px;margin-top:12px;color:#586b70}#skipLabel input{accent-color:#bd6655}#result{font-size:12px;line-height:1.6}#description{line-height:1.5}#export{font-size:12px}.secondary button{flex:1 0 30%}
 
 #recordLink{display:block;padding:10px;font-size:12px;color:#386674;text-align:center}
+
+#retrySegment{width:100%;margin-top:8px}#card{max-height:calc(100dvh - 30px);overflow:auto}#toast{top:23%;font-size:15px}#status{font-size:12px;top:116px}#app{overscroll-behavior:none}canvas{-webkit-touch-callout:none;-webkit-user-select:none}

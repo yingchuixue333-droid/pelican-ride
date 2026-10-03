@@ -1,4 +1,4 @@
-import {CONFIG as C,clamp} from './config.js?v=20261003-v4e';
+import {CONFIG as C,clamp} from './config.js?v=20261003-v5a';
 // Authored decision templates. All low routes are legal without tricks.
 export const MODULES=[
 {id:'short-snow',name:'短雪丘 · 一跳收手',family:'short',theme:0,gravity:1.30,ops:[['rock',1700]],amp:35,waves:3},
@@ -30,31 +30,34 @@ export const MODULES=[
 export function rng(seed){let x=seed>>>0;return()=>{x=(Math.imul(x,1664525)+1013904223)>>>0;return x/4294967296;};}
 export function createLevel(seed=1,cycle=0,options={}){
  let rand=rng(seed+cycle*1999),segments=[],obstacles=[],items=[],platforms=[],cursor=0,y=0,last='',ids=[];
- const intro=['short-snow','launch-valley','fork-valley','short-snow','breath','relay-bridge','launch-ice','short-trees','fork-ice','breath','cave-low','launch-cave'];
- const families=['short','launch','fork','relay','ceiling','cloud'];let order=[...families];for(let i=order.length-1;i;i--){let j=Math.floor(rand()*(i+1));[order[i],order[j]]=[order[j],order[i]];}
+ const intro=['short-snow','launch-valley','fork-valley','relay-bridge','breath','fork-ice','cave-turn','launch-bowl','breath','cloud-return','relay-floe','cave-step'];
+ const families=['short','launch','fork','relay','ceiling','cloud'];let recent=[],previousTheme=cycle%4,themeAge=0;
  for(let i=0;i<24;i++){
-  let id;if(cycle===0&&!options.skipTutorial&&i<intro.length)id=intro[i];else if(i%5===4)id='breath';else{let fam=order[(i-Math.floor(i/5))%6],pool=MODULES.filter(m=>m.family===fam);if(options.condition==='relay'&&i%4===2)pool=MODULES.filter(m=>m.family==='relay');if(options.condition==='cloud'&&i%4===2)pool=MODULES.filter(m=>m.family==='cloud');if(options.condition==='trick'&&i%4===2)pool=MODULES.filter(m=>m.family==='launch');id=pool[Math.floor(rand()*pool.length)].id;}
-  const def=MODULES.find(m=>m.id===id);let theme=def.rest?(segments.at(-1)?.theme||0):def.theme,stage=Math.min(4,cycle),length=def.rest?2100:3600+Math.floor(rand()*700);
-  let s={...def,index:i,theme,start:cursor,end:cursor+length,y,slope:def.slope||.075+rand()*.09,amp:def.amp+(cycle?rand()*15:0),waves:def.waves||1,items:[],obstacles:[],platforms:[],entrySpeed:[C.base,C.base*1.7],jumpWindows:[],landingZones:[],restoreSpace:700,risk:def.family==='cloud'?2:1,stage};cursor+=length;segments.push(s);y=groundOn(s,s.end);ids.push(id);
-  let ops=(def.ops||[]).map(o=>[...o]);if(stage>=1&&!def.rest&&['short','launch','fork'].includes(def.family)&&i%3===0)ops.push(['rock',length-500]);if(stage>=2&&!def.rest&&['relay','cloud'].includes(def.family)&&i%3===1)ops.push(['rock',length-430]);if(stage>=3&&!def.rest&&['fork','ceiling'].includes(def.family)&&ops.length<2&&i%4===0)ops.push(['snowball',length-460]);
+  let id;if(cycle===0&&!options.skipTutorial&&i<intro.length)id=intro[i];else if(i%5===4)id='breath';else{let familyPool=families.filter(f=>!recent.slice(-2).includes(f)),fam=familyPool[Math.floor(rand()*familyPool.length)],pool=MODULES.filter(m=>m.family===fam);if(cycle>0&&segments.at(-1)?.family==='cloud'&&i%3===0)pool=MODULES.filter(m=>m.id==='cave-turn'||m.id==='cave-step');if(options.condition==='relay'&&i%4===2)pool=MODULES.filter(m=>m.family==='relay');if(options.condition==='cloud'&&i%4===2)pool=MODULES.filter(m=>m.family==='cloud');if(options.condition==='trick'&&i%4===2)pool=MODULES.filter(m=>m.family==='launch');id=pool[Math.floor(rand()*pool.length)].id;}
+  const def=MODULES.find(m=>m.id===id);recent.push(def.family);if(themeAge>=4&&!def.rest){previousTheme=(previousTheme+1)%4;themeAge=0;}let theme=cycle===0&&i<4?0:previousTheme;themeAge++;let stage=Math.min(4,cycle),length=def.rest?1550:3400+Math.floor(rand()*650);
+  let s={...def,index:i,theme,start:cursor,end:cursor+length,y,slope:def.slope||.075+rand()*.09,amp:def.amp+(cycle?rand()*15:0),waves:def.waves||1,items:[],obstacles:[],platforms:[],entrySpeed:[C.base,C.base*1.7],jumpWindows:[],landingZones:[],route:!!def.platform,restoreSpace:700,risk:def.family==='cloud'?2:1,stage};cursor+=length;segments.push(s);y=groundOn(s,s.end);ids.push(id);
+  let ops=(def.ops||[]).map(o=>[...o]);if(stage>0&&def.family==='launch'&&i%2===0){s.echo=length-560;s.echoAmp=45;ops.push(['rock',length-180]);}if(stage>0&&def.family==='relay'&&i%2){ops.push(['arch',length-300]);}if(stage>1&&def.family==='fork'&&i%2===0){s.gravity=1.15;s.echo=length-650;s.echoAmp=38;}if(false&&stage>=1&&!def.rest&&['short','launch','fork'].includes(def.family)&&i%3===0)ops.push(['rock',length-500]);if(false&&stage>=2&&!def.rest&&['relay','cloud'].includes(def.family)&&i%3===1)ops.push(['rock',length-430]);if(false&&stage>=3&&!def.rest&&['fork','ceiling'].includes(def.family)&&ops.length<2&&i%4===0)ops.push(['snowball',length-460]);
   for(let[kind,baseOff]of ops){let off=baseOff+(cycle||i>11?(rand()-.5)*240:0),o={id:`${cycle}:${i}-${kind}-${off}`,kind,x:s.start+off,w:kind==='log'?110:kind==='arch'?290:70,h:kind==='log'?75:kind==='arch'?345:kind==='icewall'?75:kind==='snowball'?60:33,clearance:kind==='arch'?(def.clearance||230):0,phase:rand()*6.28};s.obstacles.push(o);obstacles.push(o);s.jumpWindows.push({earliest:o.x-420,latest:o.x-125,kind});}
-  if(def.platform){let q={id:`platform-${cycle}-${i}`,start:s.start+(def.platformStart||1700),end:s.start+3000,offset:def.offset||120,cloud:!!def.cloud,sink:!!def.sink,mount:null,theme};s.platforms.push(q);platforms.push(q);s.landingZones.push({start:q.start,end:q.end,yOffset:q.offset});}
+  if(def.family==='launch'){s.power=def.large?1.95:1.38;s.ramp=1350;s.shoulder=def.large?100:65;s.platform=true;s.offset=def.large?170:125;}if(s.platform){let q={id:`platform-${cycle}-${i}`,start:s.start+(def.platformStart||(def.family==='launch'?2320:1780)),end:s.start+(def.family==='launch'?3150:2920),offset:s.offset||120,cloud:!!def.cloud,sink:!!def.sink,mount:null,theme,edge:70};s.platforms.push(q);platforms.push(q);s.landingZones.push({start:q.start,end:q.end,yOffset:q.offset});}
   let add=it=>{items.push(it);s.items.push(it);};for(let j=0;j<7;j++){let x=s.end-1050+j*130;add({id:`fish-g-${cycle}-${i}-${j}`,kind:'fish',x,y:groundOn(s,x)-45});}
   if(def.groundMount)add({id:`partner-${cycle}-${i}`,kind:'partner',mount:def.groundMount,x:s.start+500,y:groundOn(s,s.start+500)-45});
-  if(def.relayMount){let x=s.start+2350;add({id:`relay-${cycle}-${i}`,kind:'partner',mount:def.relayMount,relay:true,routeId:s.platforms[0].id,x,y:groundOn(s,x)-(def.offset||120)-45});}
+  if(def.relayMount){let x=s.start+2350;add({id:`relay-${cycle}-${i}`,kind:'partner',mount:def.relayMount,relay:true,routeId:s.platforms[0].id,platformId:s.platforms[0].id,x,y:groundOn(s,x)-(s.offset||120)-45});}
   if(def.wing){let x=s.start+480;add({id:`wind-${cycle}-${i}`,kind:'wind',x,y:groundOn(s,x)-45});}
   if(i%8===7){let x=s.start+700;add({id:`magnet-${cycle}-${i}`,kind:'magnet',x,y:groundOn(s,x)-45});}
   if(i===13||(cycle>0&&i===2)){let x=s.start+700;add({id:`feather-${cycle}-${i}`,kind:'feather',x,y:groundOn(s,x)-50});}
   let target=s.obstacles.find(o=>!['arch'].includes(o.kind)),takeoff=s.start+(s.ramp||0);if(target)takeoff=target.x-300;
   if(s.ramp||target){let base=C.base*(1+.025*stage),v=C.jump*(s.ramp?s.power||1.3:1),y0=groundOn(s,takeoff);for(let j=0;j<7;j++){let t=.1+j*.135,x=takeoff+base*t;add({id:`fish-a-${cycle}-${i}-${j}`,kind:'fish',x,y:y0-v*t+C.gravity*(s.gravity||1)*t*t/2-45});}}
-  if(s.platforms.length)for(let j=0;j<7;j++){let q=s.platforms[0],x=q.start+100+j*165;add({id:`fish-high-${cycle}-${i}-${j}`,kind:'fish',x,y:groundOn(s,x)-q.offset-45});}
+  if(s.platforms.length)for(let j=0;j<7;j++){let q=s.platforms[0],x=q.start+100+j*165;add({id:`fish-high-${cycle}-${i}-${j}`,kind:'fish',x,platformId:q.id,y:groundOn(s,x)-q.offset-45});}
  }
  return {seed,cycle,options,segments,obstacles,items,platforms,fallbacks:[],finish:cursor,lastEnd:cursor,templateIds:ids};
 }
 export function segmentAt(l,x){let lo=0,hi=l.segments.length-1;while(lo<hi){let m=(lo+hi)>>1;if(x>=l.segments[m].end)lo=m+1;else hi=m;}return l.segments[lo];}
-export function groundOn(s,x){let u=clamp((x-s.start)/(s.end-s.start),0,1);return s.y+s.slope*(x-s.start)+s.amp*Math.sin(u*Math.PI*(s.waves||1))**2;}
+export function groundOn(s,x){let u=clamp((x-s.start)/(s.end-s.start),0,1);let y=s.y+s.slope*(x-s.start)+s.amp*Math.sin(u*Math.PI*(s.waves||1))**2;for(let [center,height] of [[s.ramp,s.shoulder||(s.ramp?50:0)],[s.echo,s.echoAmp||0]])if(center){let d=(x-s.start-center)/230;if(Math.abs(d)<1)y-=height*Math.cos(d*Math.PI/2)**2;}return y;}
 export function ground(l,x){return groundOn(segmentAt(l,x),x);}export function tangent(l,x){return Math.atan((ground(l,x+1)-ground(l,x-1))/2);}
 export function gapAt(l,x){let s=segmentAt(l,x);return s.gap&&x>s.start+s.gap[0]&&x<s.start+s.gap[1];}
-export function platformY(l,p,x,time=0,touch){return ground(l,x)-p.offset+(p.sink?Math.min(18,Math.max(0,time-(touch??time))*10):0);}
-export function surface(l,x,oldY,newY,time=0,touches=null){let choices=[];if(!gapAt(l,x))choices.push({y:ground(l,x),platform:null});for(let p of l.platforms){if(x>=p.start&&x<=p.end){let y=platformY(l,p,x,time,touches?.get(p.id));if(oldY<=y+6&&newY>=y-3)choices.push({y,platform:p});}}return choices.sort((a,b)=>a.y-b.y).find(q=>oldY<=q.y+6&&newY>=q.y-3)||null;}
-export function obstacleX(o,time){return o.x+(o.kind==='snowball'?Math.sin(time*.8+o.phase)*30:0);}
+export function platformY(l,p,x,time=0,touch){let sink=p.sink?Math.min(95,Math.max(0,time-(touch??time))**1.3*32):0;return ground(l,x)-p.offset+sink;}
+export function platformSlope(l,p,x,time=0,touch){return Math.atan((platformY(l,p,x+1,time,touch)-platformY(l,p,x-1,time,touch))/2);}
+export function itemY(l,it,time=0,touches=new Map()){let q=it.platformId&&l.platforms.find(p=>p.id===it.platformId);return q?platformY(l,q,it.x,time,touches.get(q.id))-45:it.y;}
+export function rampPower(s,x){if(!s.ramp)return 1;let d=Math.abs(x-s.start-s.ramp)/220;return 1+((s.power||1.3)-1)*Math.max(0,1-d*d);}
+export function surface(l,x,oldY,newY,time=0,touches=null){let choices=[];if(!gapAt(l,x))choices.push({y:ground(l,x),slope:tangent(l,x),platform:null});for(let p of l.platforms){if(x>=p.start&&x<=p.end){let y=platformY(l,p,x,time,touches?.get(p.id));if(oldY<=y+6&&newY>=y-3)choices.push({y,slope:platformSlope(l,p,x,time,touches?.get(p.id)),platform:p});}}return choices.sort((a,b)=>a.y-b.y).find(q=>oldY<=q.y+6&&newY>=q.y-3)||null;}
+export function obstacleX(o,time){return o.x+(o.kind==='snowball'?Math.sin(time*1.4+o.phase)*125:0);}

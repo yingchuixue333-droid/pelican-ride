@@ -1,9 +1,15 @@
-import {input} from './physics.js?v=20261003-v4e';
-import {segmentAt,tangent,ground} from './levels.js?v=20261003-v4e';
-import {wrap,CONFIG as C} from './config.js?v=20261003-v4e';
-// Test controller sees the authored terrain; it never changes player physics or pose.
-export function planInput(g,{routes=true,tricks=true,offset=0}={}){let p=g.p,s=segmentAt(g.level,p.x);if(g.state!=='playing')return;if(g.input.jump){if(p.grounded||p.fall||!tricks){input(g,'jump',false);return;}let turns=s.large&&p.vy<-280?2:1;if(g.botTarget===undefined)g.botTarget=turns*Math.PI*2+.035;let slope=tangent(g.level,p.x+p.speed*Math.max(0,p.vy/1000)),target=g.botTarget+Math.max(0,p.launchAngle-slope);if(Math.abs(p.rotation)>=target)input(g,'jump',false);return;}
-if(p.grounded&&p.fall<.3){let o=s.obstacles.find(o=>o.kind!=='arch'&&!g.hit.has(o.id)&&o.x>p.x),goal=o?o.x-p.speed*(o.kind==='rock'?.37:.48)+offset:Infinity;if(s.gap)goal=Math.min(goal,s.start+s.gap[0]-p.speed*.36+offset);if(routes&&s.ramp)goal=Math.min(goal,s.start+s.ramp-65);if(p.x>=goal&&p.x<goal+p.speed*.12){g.botTarget=undefined;input(g,'jump',true);}}
-else if(routes&&s.platforms.length&&p.airFlap&&p.airTime>.5&&p.vy>-100&&p.x<s.platforms[0].start-100&&!g.input.jump){let q=s.platforms[0],height=ground(g.level,p.x)-p.y;if(height<q.offset+60){input(g,'jump',true);input(g,'jump',false);}}
+import {input} from './physics.js?v=20261003-v5a';
+import {segmentAt,ground,tangent,obstacleX,rampPower} from './levels.js?v=20261003-v5a';
+import {CONFIG as C,viewMetrics} from './config.js?v=20261003-v5a';
+// Only observed forward space is exposed. This controller sends inputs, never changes pose/rewards.
+// It remains synthetic: reading collision surfaces is more precise than a human looking at pixels.
+export function planInput(g,{routes=true,tricks=true,offset=0,latency=0}={}){
+ let p=g.p,s=segmentAt(g.level,p.x),look=viewMetrics(p.speed).lookahead;
+ if(g.state!=='playing')return;
+ if(g.botWait>g.time)return;
+ let canTurn=['launch','fork','relay','cloud'].includes(s.family)&&(p.flightStart?.launchPower>1.18||p.wing>0);
+ if(g.input.jump){if(routes&&canTurn&&p.airFlap&&p.airTime>.35&&p.airTime<.65&&s.platforms.length){input(g,'jump',false);input(g,'jump',true);g.botWait=g.time+.02;return;}if(p.grounded||p.fall||!tricks||!canTurn){input(g,'jump',false);return;}let target=Math.PI*2+.01+Math.max(0,p.launchAngle-tangent(g.level,Math.min(p.x+look,p.x+p.speed*.7)));if(Math.abs(p.rotation)>=target){input(g,'jump',false);g.botWait=g.time+.04;}return;}
+ if(p.grounded&&p.fall<.3){let o=g.level.obstacles.find(o=>o.kind!=='arch'&&!g.hit.has(o.id)&&obstacleX(o,g.time)>p.x&&o.x-p.x<look),goal=o?obstacleX(o,g.time)-p.speed*(o.kind==='rock'?.33:.44)+offset:Infinity;if(s.gap&&s.start+s.gap[0]-p.x<look)goal=Math.min(goal,s.start+s.gap[0]-p.speed*.42+offset);if(routes&&s.ramp&&s.start+s.ramp-p.x<look)goal=Math.min(goal,s.start+s.ramp-30);if(p.x>=goal&&p.x<goal+p.speed*.22){if(latency&&!g.botDelay){g.botDelay={at:g.time+latency,goal};return;}if(g.botDelay&&g.time<g.botDelay.at)return;g.botDelay=null;input(g,'jump',true);}}
+ else if(routes&&p.airFlap&&p.airTime>.35&&p.vy<200&&!g.input.jump&&canTurn){let q=s.platforms.find(q=>q.start-p.x<look&&q.end>p.x);if(q&&ground(g.level,p.x)-p.y<q.offset+100&&p.x<q.start-100){input(g,'jump',true);input(g,'jump',false);}}
 }
 export function validateAndRepair(level){return level;}

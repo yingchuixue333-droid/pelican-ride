@@ -1,1 +1,1 @@
-{"name":"pelican-snowbound","private":true,"type":"module","scripts":{"test":"node qa/v4-test.mjs"}}
+{"private":true,"type":"module","scripts":{"test":"node qa/v5-test.mjs"}}
