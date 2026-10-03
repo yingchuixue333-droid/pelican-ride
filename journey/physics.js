@@ -33,7 +33,7 @@ export function tick(g,dt=C.step){if(g.state!=='playing')return;let p=g.p,l=g.le
  p.speed=lerp(p.speed,chapterBase*factor,Math.min(1,dt*5));p.x+=p.speed*dt;if(!g.visited.has(seg.start)){g.visited.add(seg.start);emit(g,'module',{id:seg.id,name:seg.name,theme:seg.theme,optional:seg.route});}
  if(p.fall>0){p.fall-=dt;p.fallAge+=dt;if(p.fallSevere){p.y=ground(l,p.x);p.angle=tangent(l,p.x);}if(p.fall<=0){p.fall=0;emit(g,'recover');}}
  if(!p.fallSevere||p.fall<=0){if(p.grounded){let floor=surface(l,p.x,p.y-65,ground(l,p.x)+15,g.time,g.platformTouches);if(!floor){p.grounded=false;p.vy=0;p.airTime=0;p.launchAngle=p.angle;}else{p.y=floor.y;p.angle=tangent(l,p.x);if(seg.ramp&&oldX<seg.start+seg.ramp&&p.x>=seg.start+seg.ramp)launch(g,seg.large?1.9:1.32);}}
- if(!p.grounded){p.airTime+=dt;p.holdAge+=dt;let grav=p.wing>0?C.gravity*.64:C.gravity;if(p.wing>0){g.stats.wingSeconds+=dt;if(seg.updraft&&p.x>seg.start+1400&&p.x<seg.start+2300)p.vy-=850*dt;}p.vy+=grav*dt;p.y+=p.vy*dt;
+ if(!p.grounded){p.airTime+=dt;p.holdAge+=dt;let grav=p.wing>0?C.gravity*.64:C.gravity;if(p.wing>0){g.stats.wingSeconds+=dt;if(seg.updraft&&p.x>seg.start+1400&&p.x<seg.start+2300)p.vy-=850*dt;}p.vy+=grav*dt;if(p.wing>0&&ground(l,p.x)-p.y>500&&p.vy<80)p.vy=lerp(p.vy,80,Math.min(1,dt*10));p.y+=p.vy*dt;
  p.turn=g.input.jump&&p.holdAge>=C.holdDelay?C.trickRate:0;if(p.turn){p.trick=true;p.rotation-=p.turn*dt;}p.angle=p.trick?p.launchAngle+p.rotation:tangent(l,p.x)+Math.sin(p.airTime*4)*.08;
  let s=surface(l,p.x,oldY,p.y,g.time,g.platformTouches);if(s&&p.vy>=0){landing(g,s);if(p.buffer>0&&p.fall<.3)launch(g);}
  if(p.y>ground(l,p.x)+200){if(rescue(g,'坠崖')){}else{g.state='dead';g.reason='羽毛用完后落入断崖';emit(g,'end');}}

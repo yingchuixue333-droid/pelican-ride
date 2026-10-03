@@ -1,5 +1,5 @@
 {
-  "checks": 40,
+  "checks": 41,
   "taps": [
     {
       "ms": 20,
@@ -27,11 +27,11 @@
       "seed": 1,
       "strategy": "low",
       "state": "finished",
-      "time": 194.43333333332083,
-      "x": 115000.33094794738,
+      "time": 194.55833333332072,
+      "x": 115003.8907575275,
       "collisions": 0,
       "feathers": 3,
-      "fish": 501,
+      "fish": 503,
       "mounts": [
         "fox",
         "fox",
@@ -40,25 +40,25 @@
         "rabbit"
       ],
       "flips": 0,
-      "lead": 1094.7609067251772
+      "lead": 1096.4085090051085
     },
     {
       "seed": 1,
       "strategy": "high",
       "state": "finished",
-      "time": 181.63333333333247,
-      "x": 115003.725361909,
-      "collisions": 4,
+      "time": 179.98333333333397,
+      "x": 115003.742305378,
+      "collisions": 3,
       "feathers": 3,
-      "fish": 524,
+      "fish": 522,
       "mounts": [
         "fox",
         "fox",
         "bear",
         "bear"
       ],
-      "flips": 21,
-      "lead": 1169.9476157874828
+      "flips": 23,
+      "lead": 1169.9477672568419
     },
     {
       "seed": 1,
@@ -80,11 +80,11 @@
       "seed": 2,
       "strategy": "low",
       "state": "finished",
-      "time": 196.5249999999856,
-      "x": 115000.35009498813,
+      "time": 196.64166666665216,
+      "x": 115000.08525794712,
       "collisions": 0,
       "feathers": 3,
-      "fish": 480,
+      "fish": 483,
       "mounts": [
         "fox",
         "bear",
@@ -92,24 +92,24 @@
         "rabbit"
       ],
       "flips": 0,
-      "lead": 1150.6706763137688
+      "lead": 1152.3341037181565
     },
     {
       "seed": 2,
       "strategy": "high",
       "state": "finished",
-      "time": 183.85833333333045,
-      "x": 115000.31440898366,
+      "time": 182.2583333333319,
+      "x": 115000.33376494213,
       "collisions": 1,
       "feathers": 3,
-      "fish": 513,
+      "fish": 508,
       "mounts": [
         "fox",
         "bear",
         "bear"
       ],
-      "flips": 19,
-      "lead": 1175.412459214481
+      "flips": 21,
+      "lead": 1175.4126521350324
     },
     {
       "seed": 2,
@@ -131,11 +131,11 @@
       "seed": 3,
       "strategy": "low",
       "state": "finished",
-      "time": 197.74166666665116,
-      "x": 115001.74251060099,
+      "time": 197.85833333331772,
+      "x": 115001.24294467302,
       "collisions": 0,
       "feathers": 3,
-      "fish": 509,
+      "fish": 516,
       "mounts": [
         "fox",
         "bear",
@@ -144,24 +144,25 @@
         "rabbit"
       ],
       "flips": 0,
-      "lead": 1172.7783898403025
+      "lead": 1174.4475300448557
     },
     {
       "seed": 3,
       "strategy": "high",
       "state": "finished",
-      "time": 185.17499999999592,
-      "x": 115002.53315052864,
-      "collisions": 5,
+      "time": 182.62499999999824,
+      "x": 115000.08242984308,
+      "collisions": 3,
       "feathers": 3,
-      "fish": 535,
+      "fish": 534,
       "mounts": [
         "fox",
         "bear",
-        "bear"
+        "bear",
+        "rabbit"
       ],
-      "flips": 20,
-      "lead": 1175.5370867187496
+      "flips": 22,
+      "lead": 1175.5125155333383
     },
     {
       "seed": 3,
@@ -183,11 +184,11 @@
       "seed": 4,
       "strategy": "low",
       "state": "finished",
-      "time": 196.7249999999854,
-      "x": 115002.80207942153,
+      "time": 196.83333333331865,
+      "x": 115000.80685831403,
       "collisions": 0,
       "feathers": 3,
-      "fish": 507,
+      "fish": 517,
       "mounts": [
         "fox",
         "bear",
@@ -195,24 +196,24 @@
         "rabbit"
       ],
       "flips": 0,
-      "lead": 1117.0470602328455
+      "lead": 1118.6855777931396
     },
     {
       "seed": 4,
       "strategy": "high",
       "state": "finished",
-      "time": 184.4916666666632,
-      "x": 115003.18346572961,
-      "collisions": 3,
+      "time": 183.3916666666642,
+      "x": 115000.55353225066,
+      "collisions": 2,
       "feathers": 3,
-      "fish": 527,
+      "fish": 534,
       "mounts": [
         "fox",
         "bear",
         "bear"
       ],
-      "flips": 19,
-      "lead": 1168.0338410475676
+      "flips": 20,
+      "lead": 1168.012947812363
     },
     {
       "seed": 4,
@@ -234,11 +235,11 @@
       "seed": 5,
       "strategy": "low",
       "state": "finished",
-      "time": 194.02499999998787,
-      "x": 115004.32731329351,
+      "time": 194.14166666665443,
+      "x": 115004.7626568765,
       "collisions": 0,
       "feathers": 3,
-      "fish": 477,
+      "fish": 480,
       "mounts": [
         "fox",
         "fox",
@@ -247,25 +248,25 @@
         "rabbit"
       ],
       "flips": 0,
-      "lead": 1083.2282284249675
+      "lead": 1084.8797026449624
     },
     {
       "seed": 5,
       "strategy": "high",
       "state": "finished",
-      "time": 182.5833333333316,
-      "x": 115003.11444253605,
+      "time": 180.98333333333306,
+      "x": 115003.86298415271,
       "collisions": 2,
       "feathers": 3,
-      "fish": 524,
+      "fish": 519,
       "mounts": [
         "fox",
         "fox",
         "bear",
         "bear"
       ],
-      "flips": 18,
-      "lead": 1168.9920341521615
+      "flips": 20,
+      "lead": 1168.8010889373697
     },
     {
       "seed": 5,
@@ -287,11 +288,11 @@
       "seed": 6,
       "strategy": "low",
       "state": "finished",
-      "time": 197.64999999998457,
-      "x": 115001.60094734159,
+      "time": 197.76666666665113,
+      "x": 115001.56660548064,
       "collisions": 0,
       "feathers": 3,
-      "fish": 519,
+      "fish": 528,
       "mounts": [
         "fox",
         "bear",
@@ -300,17 +301,17 @@
         "rabbit"
       ],
       "flips": 0,
-      "lead": 1144.2001194744028
+      "lead": 1145.862616689647
     },
     {
       "seed": 6,
       "strategy": "high",
       "state": "finished",
-      "time": 185.21666666666255,
-      "x": 115004.68220975905,
+      "time": 185.20833333332922,
+      "x": 115000.27734040184,
       "collisions": 3,
       "feathers": 3,
-      "fish": 545,
+      "fish": 551,
       "mounts": [
         "fox",
         "bear",
@@ -318,7 +319,7 @@
         "rabbit"
       ],
       "flips": 19,
-      "lead": 1170.0102949307122
+      "lead": 1170.1625625920592
     },
     {
       "seed": 6,
@@ -340,11 +341,11 @@
       "seed": 7,
       "strategy": "low",
       "state": "finished",
-      "time": 198.274999999984,
-      "x": 115002.76414380902,
+      "time": 198.39166666665056,
+      "x": 115002.73035569198,
       "collisions": 0,
       "feathers": 3,
-      "fish": 509,
+      "fish": 513,
       "mounts": [
         "fox",
         "bear",
@@ -352,24 +353,24 @@
         "rabbit"
       ],
       "flips": 0,
-      "lead": 1138.685399116981
+      "lead": 1140.3477370470093
     },
     {
       "seed": 7,
       "strategy": "high",
       "state": "finished",
-      "time": 185.6583333333288,
-      "x": 115003.09357979192,
+      "time": 184.05833333333027,
+      "x": 115003.39330631011,
       "collisions": 2,
       "feathers": 3,
-      "fish": 532,
+      "fish": 527,
       "mounts": [
         "fox",
         "bear",
         "bear"
       ],
-      "flips": 19,
-      "lead": 1169.0825800916273
+      "flips": 21,
+      "lead": 1169.0851756029276
     },
     {
       "seed": 7,
@@ -391,11 +392,11 @@
       "seed": 8,
       "strategy": "low",
       "state": "finished",
-      "time": 194.59999999998735,
-      "x": 115003.885931016,
+      "time": 194.7166666666539,
+      "x": 115004.56544487087,
       "collisions": 0,
       "feathers": 3,
-      "fish": 487,
+      "fish": 490,
       "mounts": [
         "fox",
         "fox",
@@ -404,25 +405,25 @@
         "rabbit"
       ],
       "flips": 0,
-      "lead": 1098.5339664445578
+      "lead": 1100.1853340673817
     },
     {
       "seed": 8,
       "strategy": "high",
       "state": "finished",
-      "time": 183.26666666666432,
-      "x": 115000.66672247577,
+      "time": 181.6749999999991,
+      "x": 115001.84942013351,
       "collisions": 2,
       "feathers": 3,
-      "fish": 522,
+      "fish": 517,
       "mounts": [
         "fox",
         "fox",
         "bear",
         "bear"
       ],
-      "flips": 18,
-      "lead": 1169.1775734018388
+      "flips": 20,
+      "lead": 1169.1877527560325
     },
     {
       "seed": 8,
@@ -444,11 +445,11 @@
       "seed": 9,
       "strategy": "low",
       "state": "finished",
-      "time": 198.3083333333173,
-      "x": 115000.6011302014,
+      "time": 198.42499999998387,
+      "x": 115000.9900127897,
       "collisions": 0,
       "feathers": 3,
-      "fish": 515,
+      "fish": 519,
       "mounts": [
         "fox",
         "bear",
@@ -456,24 +457,24 @@
         "rabbit"
       ],
       "flips": 0,
-      "lead": 1168.2293153234148
+      "lead": 1169.8913449185932
     },
     {
       "seed": 9,
       "strategy": "high",
       "state": "finished",
-      "time": 184.25833333333009,
-      "x": 115001.0923512838,
-      "collisions": 2,
+      "time": 182.6083333333316,
+      "x": 115001.25754156837,
+      "collisions": 1,
       "feathers": 3,
-      "fish": 538,
+      "fish": 535,
       "mounts": [
         "fox",
         "bear",
         "bear"
       ],
-      "flips": 21,
-      "lead": 1174.270390038585
+      "flips": 23,
+      "lead": 1174.2720139544112
     },
     {
       "seed": 9,
@@ -495,11 +496,11 @@
       "seed": 10,
       "strategy": "low",
       "state": "finished",
-      "time": 197.87499999998437,
-      "x": 115000.30001468882,
+      "time": 197.99999999998425,
+      "x": 115000.07772492492,
       "collisions": 0,
       "feathers": 3,
-      "fish": 511,
+      "fish": 518,
       "mounts": [
         "fox",
         "bear",
@@ -508,24 +509,25 @@
         "rabbit"
       ],
       "flips": 0,
-      "lead": 1154.5444206001316
+      "lead": 1156.2479552881373
     },
     {
       "seed": 10,
       "strategy": "high",
       "state": "finished",
-      "time": 186.1083333333284,
-      "x": 115000.92421090468,
-      "collisions": 4,
+      "time": 183.5499999999974,
+      "x": 115000.14552708436,
+      "collisions": 2,
       "feathers": 3,
-      "fish": 535,
+      "fish": 534,
       "mounts": [
         "fox",
         "bear",
-        "bear"
+        "bear",
+        "rabbit"
       ],
-      "flips": 20,
-      "lead": 1171.6766479504047
+      "flips": 22,
+      "lead": 1171.6694484475809
     },
     {
       "seed": 10,
@@ -547,11 +549,11 @@
       "seed": 11,
       "strategy": "low",
       "state": "finished",
-      "time": 194.0333333333212,
-      "x": 115003.80582634133,
+      "time": 194.14999999998776,
+      "x": 115003.53294909009,
       "collisions": 0,
       "feathers": 3,
-      "fish": 484,
+      "fish": 492,
       "mounts": [
         "fox",
         "fox",
@@ -561,17 +563,17 @@
         "rabbit"
       ],
       "flips": 0,
-      "lead": 1108.5717280703393
+      "lead": 1110.2370408134734
     },
     {
       "seed": 11,
       "strategy": "high",
       "state": "finished",
-      "time": 181.94999999999885,
-      "x": 115004.41650531047,
+      "time": 181.21666666666619,
+      "x": 115004.64789730098,
       "collisions": 1,
       "feathers": 3,
-      "fish": 519,
+      "fish": 520,
       "mounts": [
         "fox",
         "fox",
@@ -579,8 +581,8 @@
         "bear",
         "rabbit"
       ],
-      "flips": 20,
-      "lead": 1175.1952759720346
+      "flips": 21,
+      "lead": 1175.197619992375
     },
     {
       "seed": 11,
@@ -602,11 +604,11 @@
       "seed": 12,
       "strategy": "low",
       "state": "finished",
-      "time": 194.55833333332072,
-      "x": 115003.40847260473,
+      "time": 194.67499999998728,
+      "x": 115003.37125139478,
       "collisions": 0,
       "feathers": 3,
-      "fish": 510,
+      "fish": 519,
       "mounts": [
         "fox",
         "bear",
@@ -615,17 +617,17 @@
         "rabbit"
       ],
       "flips": 0,
-      "lead": 1095.646381723196
+      "lead": 1097.3084693214053
     },
     {
       "seed": 12,
       "strategy": "high",
       "state": "finished",
       "time": 181.84166666666562,
-      "x": 115003.21490416142,
+      "x": 115003.86284567713,
       "collisions": 2,
       "feathers": 3,
-      "fish": 535,
+      "fish": 541,
       "mounts": [
         "fox",
         "bear",
@@ -633,7 +635,7 @@
         "rabbit"
       ],
       "flips": 19,
-      "lead": 1170.7568348172535
+      "lead": 1170.762794347836
     },
     {
       "seed": 12,
@@ -651,5 +653,6 @@
       "flips": 0,
       "lead": -87.41619858606886
     }
-  ]
+  ],
+  "windAltitude": 613.6933616235401
 }
