@@ -1,7 +1,7 @@
-import {CONFIG as C,THEMES,clamp,lerp,wrap} from './config.js?v=20261003-one3';
-import {ground,tangent,gapAt,segmentAt,platformY,obstacleX} from './levels.js?v=20261003-one3';
-import {selectArcs} from './physics.js?v=20261003-one3';
-import {createArt} from './art.js?v=20261003-one3';
+import {CONFIG as C,THEMES,clamp,lerp,wrap} from './config.js?v=20261003-one4';
+import {ground,tangent,gapAt,segmentAt,platformY,obstacleX} from './levels.js?v=20261003-one4';
+import {selectArcs} from './physics.js?v=20261003-one4';
+import {createArt} from './art.js?v=20261003-one4';
 export function createRenderer(canvas){const ctx=canvas.getContext('2d',{alpha:false}),art=createArt(ctx);let width=390,height=844,dpr=1,viewW=820,camY=0,zoom=1,lastX=0;
  const path=(fn,fill,stroke=null,w=3)=>{ctx.beginPath();fn(ctx);if(fill){ctx.fillStyle=fill;ctx.fill();}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=w;ctx.stroke();}};
  const circle=(x,y,r,fill)=>path(c=>c.arc(x,y,r,0,Math.PI*2),fill);
@@ -32,7 +32,7 @@ export function createRenderer(canvas){const ctx=canvas.getContext('2d',{alpha:f
  art.set(p,g.time);for(let it of l.items){let x=it.x-camX;if(x>-60&&x<viewW+60&&(it.vehicle===undefined||it.vehicle===g.arcChoices.get(segmentAt(l,it.x).index))&&!g.taken.has(it.id))it.kind==='partner'?art.mount(it.mount,x,it.y-camY+45,.82):art.item(it.kind,x,it.y-camY,it.kind==='fish'?1.2:1.1);}
  if(p.lead<420){let danger=1-clamp(p.lead/420,0,1),edge=12+danger*100;for(let i=-2;i<12;i++){let y=H*.2+i*90;circle(-50+Math.sin(g.time*2+i)*20+edge,y,80+20*Math.sin(i),'#9bb7c9');circle(-80+edge,y-10,70,'#dfedf0');}ctx.fillStyle='#6e91a34a';ctx.fillRect(0,0,edge,H);}
  if(p.boostTime>0||seg.corridor){for(let i=0;i<7;i++){let y=H*.38+i*37,x=viewW-((g.time*400+i*160)%200);path(c=>{c.moveTo(x,y);c.lineTo(x+70,y);},null,'#effaf566',2);}}
- let a=previous?previous.angle+wrap(p.angle-previous.angle)*alpha:p.angle;art.bird(anchor,py-camY,a);if(g.state==='ready'){ctx.save();ctx.translate(viewW*.39,H*.24);ctx.scale(1.65,1.65);art.bird(0,0,0);ctx.restore();}if(p.magnet>0){ctx.setLineDash([9,10]);path(c=>c.arc(anchor,py-camY-40,145,0,6.28),null,'#729db45a',2);ctx.setLineDash([]);}
+ let a=previous?previous.angle+wrap(p.angle-previous.angle)*alpha:p.angle;if(p.departure)art.mount(p.departure.kind,anchor-(.45-p.departure.time)*290,gy-camY,.7);if(p.grounded&&g.state==='playing'){for(let i=0;i<3;i++){let age=(g.time*6+i*.33)%1;path(c=>{c.moveTo(anchor-60-age*90,py-camY-3-age*14);c.lineTo(anchor-69-age*90,py-camY-5-age*14);},null,'#c4dbe1',2*(1-age));}}art.bird(anchor,py-camY,a);if(g.state==='ready'){ctx.save();ctx.translate(viewW*.39,H*.24);ctx.scale(1.65,1.65);art.bird(0,0,0);ctx.restore();}if(p.magnet>0){ctx.setLineDash([9,10]);path(c=>c.arc(anchor,py-camY-40,145,0,6.28),null,'#729db45a',2);ctx.setLineDash([]);}
  if(g.state==='finished'){ctx.fillStyle='#f0c56b';for(let i=0;i<22;i++)ctx.fillRect(viewW*.5+Math.sin(i*3.4+g.time)*viewW*.42,H*.25+((g.time*140+i*67)%(H*.4)),9,12);}
  return {worldWidth:viewW,lookahead:viewW-anchor,anchor,theme:seg.theme,worldSpeed:p.speed,screenWidthsPerSecond:p.speed/viewW};
  }

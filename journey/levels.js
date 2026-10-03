@@ -1,4 +1,4 @@
-import {CONFIG as C,clamp} from './config.js?v=20261003-one3';
+import {CONFIG as C,clamp} from './config.js?v=20261003-one4';
 export const MODULES=[
  {id:'pebbles',name:'轻点越过雪石',theme:0,ops:[['rock',1600]]},
  {id:'timber',name:'雪松横卧的长坡',theme:0,ops:[['log',1700]]},
