@@ -1,7 +1,7 @@
-import {snowlinePlan,snowlineReady} from './snowline.js?v=20261004-v62d';
-import {diagnoseJump} from './coaching.js?v=20261004-v62d';
-import {CONFIG as C,clamp,wrap,lerp} from './config.js?v=20261004-v62d';
-import {ground,tangent,gapAt,surface,segmentAt,obstacleX,platformY,platformSlope,itemY,rampPower} from './levels.js?v=20261004-v62d';
+import {snowlinePlan,snowlineReady} from './snowline.js?v=20261004-v62e';
+import {diagnoseJump} from './coaching.js?v=20261004-v62e';
+import {CONFIG as C,clamp,wrap,lerp} from './config.js?v=20261004-v62e';
+import {ground,tangent,gapAt,surface,segmentAt,obstacleX,platformY,platformSlope,itemY,rampPower} from './levels.js?v=20261004-v62e';
 export function createGame(level,mode='adventure'){return {level,mode,p:{x:0,y:ground(level,0),vy:0,speed:C.base*.9,angle:tangent(level,0),grounded:true,airTime:0,coyote:C.coyote,buffer:0,holdAge:0,airFlap:1,flapPose:0,launchAngle:0,turn:0,trick:false,rotation:0,rescue:2,resource:0,fall:0,fallAge:0,fallSevere:false,invuln:0,boostTime:0,boostFactor:1,landPose:0,mount:null,mountCooldown:0,wing:0,wingVisual:0,magnet:0,lead:C.leadStart,caught:0,score:0,combo:0,bestCombo:0,comboTime:0,fish:0,collisions:0,perfect:0,flips:0,skin:0,pending:0,parts:{distance:0,collection:0,technique:0},platformId:null,wingFlight:false},input:{jump:false,trick:false},time:0,state:'playing',events:[],taken:new Set(),hit:new Set(),visited:new Set(),rewards:new Set(),arcChoices:new Map(),platformTouches:new Map(),stats:{jumps:0,flaps:0,rescues:0,mountSeconds:0,wingSeconds:0,boostSeconds:0,lineSeconds:0,pressureRecoveries:0,lineScore:0,routeScore:0,routeCount:0,partners:[],hits:[]},trace:[],reason:null,relayPairs:{},discoveries:new Set(),history:[],routes:new Set(),opportunities:new Set(),entries:[],flightId:0,line:null,completedLines:new Set(),pressureState:'relax',lesson:{stage:0},lastJump:null};}
 export function emit(g,type,detail={}){let e={type,time:g.time,x:g.p.x,module:segmentAt(g.level,g.p.x).id,seed:g.level.seed,...detail};g.events.push(e);g.history.push(e);if(g.history.length>1600)g.history.shift();if(g.events.length>80)g.events.shift();}
 export function clearInput(g){g.input.jump=false;g.input.trick=false;g.p.buffer=0;g.p.holdAge=0;g.p.turn=0;}
