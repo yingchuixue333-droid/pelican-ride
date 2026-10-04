@@ -40,6 +40,10 @@
     {
       "name": "one-circle learning uses real inputs and identical landing tolerance",
       "status": "pass"
+    },
+    {
+      "name": "actual incomplete landing gets actionable diagnosis, not generic collision",
+      "status": "pass"
     }
   ]
 }
