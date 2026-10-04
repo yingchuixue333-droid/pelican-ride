@@ -29,6 +29,14 @@
     {
       "name": "old full circle can never be replayed as an award after obstacle recovery",
       "status": "pass"
+    },
+    {
+      "name": "valid cross-segment flip banks its own skill instead of staging on an unrelated snowline",
+      "status": "pass"
+    },
+    {
+      "name": "recovery can earn a new valid skill without reviving the abandoned line",
+      "status": "pass"
     }
   ]
 }
