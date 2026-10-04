@@ -1,0 +1,34 @@
+{
+  "version": "snowbound-6.2.1",
+  "method": "Directed engine boundaries and real-input same-course attempts; fixtures disclosed, not UI or human trials",
+  "checks": [
+    {
+      "name": "repeat ordinary contacts and flights cannot grow route base or skill chain",
+      "status": "pass"
+    },
+    {
+      "name": "one genuine flight cannot bank or stage its flip twice",
+      "status": "pass"
+    },
+    {
+      "name": "skill chain bonuses apply only to earned skill, never multiply route base",
+      "status": "pass"
+    },
+    {
+      "name": "collision loses staged skill but preserves exact already banked components",
+      "status": "pass"
+    },
+    {
+      "name": "inflated legacy action quality cannot inflate a real completed route",
+      "status": "pass"
+    },
+    {
+      "name": "ordinary and actual one-circle share course; successful skill has extra identifiable award",
+      "status": "pass"
+    },
+    {
+      "name": "old full circle can never be replayed as an award after obstacle recovery",
+      "status": "pass"
+    }
+  ]
+}
