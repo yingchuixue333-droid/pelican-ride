@@ -1,5 +1,5 @@
-import {CONFIG as C,wrap} from './config.js?v=20261004-v61e';
-import {segmentAt,ground,surface,rampPower} from './levels.js?v=20261004-v61e';
+import {CONFIG as C,wrap} from './config.js?v=20261004-v61f';
+import {segmentAt,ground,surface,rampPower} from './levels.js?v=20261004-v61f';
 const TAU=Math.PI*2;
 // Diagnostics describe the real jump. No correction of rotation, input or landing tolerance.
 export function diagnoseJump(d){

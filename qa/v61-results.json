@@ -48,6 +48,10 @@
     {
       "name": "passive ledge drop does not replace the previous active jump feedback",
       "status": "pass"
+    },
+    {
+      "name": "contact following an obstacle hit keeps that flight collision diagnosis",
+      "status": "pass"
     }
   ]
 }
