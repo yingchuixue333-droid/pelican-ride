@@ -1,14 +1,14 @@
-import {CONFIG as C,wrap} from './config.js?v=20261004-v61g';
-import {segmentAt,ground,surface,rampPower} from './levels.js?v=20261004-v61g';
+import {CONFIG as C,wrap} from './config.js?v=20261004-v62a';
+import {segmentAt,ground,surface,rampPower} from './levels.js?v=20261004-v62a';
 const TAU=Math.PI*2;
 // Diagnostics describe the real jump. No correction of rotation, input or landing tolerance.
 export function diagnoseJump(d){
  if(d.reason){return d.reason.includes('拱')?'碰到低拱：过拱后再起跳':d.reason.includes('薄冰')?'碰到冰门：先选绕行出口':d.reason.includes('倒木')?'撞到倒木：在倒木前轻点起跳':d.reason.includes('雪球')?'碰到雪球：提前看它的移动方向':d.reason.includes('雪石')?'碰到雪石：在雪石前轻点起跳':'这次碰撞打断了动作';}
- if(!d.trick)return '普通跳落稳';
+ if(!d.trick)return d.flapUsed&&d.platformId?'扑翼接到远台':'普通跳接住落坡';
  if(d.error<=60){return d.turns>=1?`${d.turns===1?'一':d.turns}圈落稳`:d.completed>=.88?'接近一圈 · 落地接正':'普通跳落稳 · 这跳未满一圈';}
- if(d.power<=1.15&&d.airTime<1.15)return '这处先普通跳，下一大坡再翻';
+ if(d.power<=1.15&&d.airTime<1.15)return d.practice?'本次高度不足以转完，重试这个坡':'这处先普通跳，下一大坡再翻';
  const n=Math.max(1,Math.round(d.completed)),target=n*TAU+d.launchAngle-d.slope,diff=(-d.rotation-target)*180/Math.PI;
- if(Math.abs(diff)>15&&Math.abs(diff)<170)return diff>0?'多转了：下次更早松手':d.flapUsed?'少转了：下次更早从坡面起跳':'少转了：下次留一次扑翼延长回落';
+ if(Math.abs(diff)>15&&Math.abs(diff)<170)return diff>0?'多转了：下次更早松手':d.flapUsed?'少转了：重试起跳区，先借到坡的高度':'少转了：下次留一次扑翼延长回落';
  return '落地姿态未接正 · 对照落坡方向收手';
 }
 // Forecast only a released trajectory, using the SAME surfaces, gravity and wind rules.

@@ -7,6 +7,7 @@ export class AudioBus{constructor(){this.music=true;this.effects=true;this.conte
  if(e.type==='jump'){this.noise(.11,650,.035);this.tone(160,.09,'triangle',.025);}
  if(e.type==='flap'){this.noise(.22,420,.075);this.tone(95,.16,'sine',.025);}
  if(e.type==='land'&&e.error<=60){this.noise(.11,e.material==='ice'?1600:e.material==='bridge'?360:800,.055);this.tone(e.material==='bridge'?95:e.grade==='干净落地'?190:130,.08,'triangle',.035);}
+ if(e.type==='land'&&e.awarded){this.tone(520,.13,'triangle',.022,780);this.tone(1040,.16,'sine',.012);}
  if(e.type==='hit'){this.noise(e.severe?.28:.12,220,.065);this.tone(80,.16,'sine',.055);}
  if(e.type==='lineComplete'){this.tone(110,.18,'sine',.09);for(let f of [440,660,880])this.tone(f,.30,'triangle',.018);this.noise(.24,1500,.04);}
  if(e.type==='pressure'&&e.phase==='warning'){this.tone(55,.7,'sine',.045);this.noise(.4,180,.025);}
