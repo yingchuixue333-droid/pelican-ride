@@ -1,0 +1,42 @@
+{
+  "version": "snowbound-7.0.0",
+  "method": "directed formal engine and save boundaries; not human play",
+  "checks": [
+    {
+      "name": "practice ready does not advance, and approach is readable before actual ramp",
+      "status": "pass"
+    },
+    {
+      "name": "legacy jump flap route save retains records and still needs flip help",
+      "status": "pass"
+    },
+    {
+      "name": "mastery requires landed actual skill, not tutorial clicks or flap press",
+      "status": "pass"
+    },
+    {
+      "name": "practice insufficient height never points to a nonexistent next slope",
+      "status": "pass"
+    },
+    {
+      "name": "authored high and low plans require real milestones, not action count",
+      "status": "pass"
+    },
+    {
+      "name": "line settles once, clears exact staged value, crash stays disqualified",
+      "status": "pass"
+    },
+    {
+      "name": "two normal approach conditions complete actual one circle without pose correction",
+      "status": "pass"
+    },
+    {
+      "name": "repeated contacts cannot turn failed trick into ordinary mastery",
+      "status": "pass"
+    },
+    {
+      "name": "far platform flap is a real additional target without requiring the later route exit in practice",
+      "status": "pass"
+    }
+  ]
+}

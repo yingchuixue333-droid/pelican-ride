@@ -1,1 +1,1 @@
-{"private": true, "type": "module", "scripts": {"test": "node qa/v621-test.mjs && node qa/v62-test.mjs && node qa/v61-test.mjs && node qa/v6-contract.mjs"}}
+{"private":true,"type":"module","scripts":{"test":"node qa/v7-reward.mjs && node qa/v7-practice.mjs && node qa/v7-contract.mjs && node qa/v7-route.mjs && node qa/v7-flow.mjs"}}

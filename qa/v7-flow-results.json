@@ -1,0 +1,91 @@
+{
+  "method": "directed engine boundaries and synthetic input, not UI or human claims",
+  "checks": [
+    {
+      "name": "opportunity uniqueness defeats jump spam and repeated platform reward",
+      "status": "pass"
+    },
+    {
+      "name": "next opportunity distance replaces four second cutoff and survives connection",
+      "status": "pass"
+    },
+    {
+      "name": "two separate opportunities bank exact bounded bonus once at stable exit",
+      "status": "pass"
+    },
+    {
+      "name": "three actual opportunity contributions automatically collect finite chain",
+      "status": "pass"
+    },
+    {
+      "name": "collision cancels only risky flow, not earned full flip",
+      "status": "pass"
+    },
+    {
+      "name": "all regions use region-specific templates, three differentiated families and repeatable seed",
+      "status": "pass"
+    },
+    {
+      "name": "new save migrates historical scores without losing unlock or new records",
+      "status": "pass"
+    },
+    {
+      "name": "daily uses explicit Shanghai day and same seed independent of host timezone",
+      "status": "pass"
+    },
+    {
+      "name": "same double-ledge real inputs choose safe exit or continue with separately banked rewards",
+      "status": "pass"
+    },
+    {
+      "name": "continuous course reaches four regions with real inputs; finite retained world",
+      "status": "pass"
+    }
+  ],
+  "sustained": [
+    {
+      "time": 150.0000000000279,
+      "state": "playing",
+      "x": 174280.65564159185,
+      "flips": 41,
+      "routes": 16,
+      "lines": 18,
+      "collisions": 5,
+      "sources": {
+        "ordinaryJump": 0,
+        "flip": 6176.739244293365,
+        "chain": 630,
+        "route": 0,
+        "snowline": 9400,
+        "relay": 0
+      },
+      "themes": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "flows": [
+        {
+          "name": "落稳翻转 → 落稳翻转 → 落稳翻转",
+          "count": 3,
+          "value": 300,
+          "reason": "三段收线"
+        },
+        {
+          "name": "落稳翻转 → 落稳翻转",
+          "count": 2,
+          "value": 165,
+          "reason": "稳定出口"
+        },
+        {
+          "name": "落稳翻转 → 越障接落坡",
+          "count": 2,
+          "value": 165,
+          "reason": "稳定出口"
+        }
+      ],
+      "segments": 43
+    }
+  ]
+}
