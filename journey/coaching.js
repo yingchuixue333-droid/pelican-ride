@@ -1,5 +1,5 @@
-import {CONFIG as C,wrap} from './config.js?v=20261004-v61d';
-import {segmentAt,ground,surface,rampPower} from './levels.js?v=20261004-v61d';
+import {CONFIG as C,wrap} from './config.js?v=20261004-v61e';
+import {segmentAt,ground,surface,rampPower} from './levels.js?v=20261004-v61e';
 const TAU=Math.PI*2;
 // Diagnostics describe the real jump. No correction of rotation, input or landing tolerance.
 export function diagnoseJump(d){
@@ -13,7 +13,7 @@ export function diagnoseJump(d){
 }
 // Forecast only a released trajectory, using the SAME surfaces, gravity and wind rules.
 // Advice is suppressed when a nearby obstacle, missing support, or a changing surface is uncertain.
-export function releaseAdvice(g){let p=g.p,s=segmentAt(g.level,p.x);if(p.grounded||p.fall||!p.trick||!g.input.jump||Math.abs(p.rotation)<TAU||Math.abs(p.rotation)>TAU*1.2)return null;
+export function releaseAdvice(g){let p=g.p,s=segmentAt(g.level,p.x);if(p.wing>0||p.wingFlight||p.boostTime>0||p.grounded||p.fall||!p.trick||!g.input.jump||Math.abs(p.rotation)<TAU||Math.abs(p.rotation)>TAU*1.2)return null;
  let x=p.x,y=p.y,vy=p.vy,dt=1/60;
  for(let t=dt;t<=1.5;t+=dt){let oldY=y,ss=segmentAt(g.level,x);x+=p.speed*dt;let gravity=p.wing>0||p.wingFlight?C.gravity*.64:C.gravity;if((p.wing>0||p.wingFlight)&&ss.updraft&&x>ss.start+1400&&x<ss.start+2300)vy-=850*dt;vy+=gravity*dt;y+=vy*dt;
  if(ss.obstacles.some(o=>Math.abs(o.x-x)<o.w/2+C.bodyRadius&&y<ground(g.level,o.x)+20&&y>ground(g.level,o.x)-o.h-130))return null;
