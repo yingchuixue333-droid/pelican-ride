@@ -1,6 +1,6 @@
-import {input} from './physics.js?v=20261004-v61f';
-import {segmentAt,ground,tangent,obstacleX,rampPower} from './levels.js?v=20261004-v61f';
-import {CONFIG as C,viewMetrics} from './config.js?v=20261004-v61f';
+import {input} from './physics.js?v=20261004-v61g';
+import {segmentAt,ground,tangent,obstacleX,rampPower} from './levels.js?v=20261004-v61g';
+import {CONFIG as C,viewMetrics} from './config.js?v=20261004-v61g';
 // Only observed forward space is exposed. This controller sends inputs, never changes pose/rewards.
 // It remains synthetic: reading collision surfaces is more precise than a human looking at pixels.
 export function planInput(g,{routes=true,tricks=true,offset=0,latency=0}={}){
