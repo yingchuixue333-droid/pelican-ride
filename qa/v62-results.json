@@ -34,6 +34,10 @@
     {
       "name": "repeated contacts cannot turn failed trick into ordinary mastery",
       "status": "pass"
+    },
+    {
+      "name": "far platform flap is a real additional milestone with explained reward",
+      "status": "pass"
     }
   ]
 }

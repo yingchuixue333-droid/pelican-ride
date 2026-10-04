@@ -2,7 +2,7 @@
 const has=(a,prefix)=>a.some(k=>k.startsWith(prefix));
 export function snowlinePlan(s,a=[]){
  const platform=a.find(k=>k.startsWith('platform-'));
- if(platform){let id=platform.slice(9);return {key:'high',name:has(a,'ramp-')?'借坡接高台':'普通跳接高台',steps:[{label:has(a,'ramp-')?'借坡':'主动起跳',done:has(a,'ramp-')||has(a,'approach-')},{label:'接台',done:true},{label:'指定出口',done:a.includes('exit-'+id)}]};}
+ if(platform){let id=platform.slice(9);return {key:'high',name:has(a,'flap-route-')?'扑翼接远台':has(a,'ramp-')?'借坡接高台':'普通跳接高台',steps:[{label:has(a,'ramp-')?'借坡':'主动起跳',done:has(a,'ramp-')||has(a,'approach-')},...(has(a,'flap-route-')?[{label:'扑翼延伸',done:true}]:[]),{label:'接台',done:true},{label:'指定出口',done:a.includes('exit-'+id)}]};}
  const obstacles=s.obstacles.filter(o=>o.kind!=='arch');
  let steps=[];
  if(s.family==='ceiling'&&s.obstacles.some(o=>o.kind==='arch'))steps.push({label:'过低拱',done:has(a,'arch-pass-')});

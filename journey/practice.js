@@ -1,3 +1,3 @@
-import {CONFIG as C} from './config.js?v=20261004-v62b';
-import {ground,tangent} from './levels.js?v=20261004-v62b';
+import {CONFIG as C} from './config.js?v=20261004-v62c';
+import {ground,tangent} from './levels.js?v=20261004-v62c';
 export function prepareLesson(g,stage=0,entrySeconds=1.3){let s=g.level.segments.find(s=>s.id==='launch-valley');g.p.x=Math.max(s.start+30,s.start+s.ramp-C.base*entrySeconds);g.p.y=ground(g.level,g.p.x);g.p.angle=tangent(g.level,g.p.x);g.p.speed=C.base;g.lesson.stage=stage;g.lesson.segment=s.start;g.lesson.target=stage===2?s.platforms[1]?.id:s.platforms[0]?.id;g.lesson.entrySeconds=entrySeconds;g.level.finish=s.end+60;g.level.lastEnd=g.level.finish+10000;g.state='ready';return s;}
