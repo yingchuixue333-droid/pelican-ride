@@ -44,6 +44,10 @@
     {
       "name": "actual incomplete landing gets actionable diagnosis, not generic collision",
       "status": "pass"
+    },
+    {
+      "name": "passive ledge drop does not replace the previous active jump feedback",
+      "status": "pass"
     }
   ]
 }
