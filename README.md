@@ -1,3 +1,15 @@
+# 鹈鹕逐雪 V7 · 连贯冲雪
+
+正式入口：https://yingchuixue333-droid.github.io/pelican-ride/
+
+本版在 V6.2.1 正式物理与原创矢量骨架基础上更新。动作基础分立即入账，真实连续机会的额外奖励独立结算，稳收与续接由普通操作决定；四地域模板池、伙伴路线取舍、逐跳练习、旅行手帐、北京时间每日准备和独立纪录已实现。详见 V7-RELEASE.md。
+
+运行 `npm test`：53 项奖励、练习、契约、路线和连贯回归。`qa/v7-compare.mjs` 为同种子等时/等距策略对比；`v7-review.html` 为实际浏览器输入验收。策略读取地形，不能等同真人成功率。
+
+无外部运行时素材网站依赖；声音为原创程序编排。回退分支 backup-before-v7-20261004，基线 ad7d71177ea0c56517502eeee4c5cde572a32d8e。用恢复文件的新提交回退，禁止强推。
+
+## 历史更新
+
 # 鹈鹕逐雪 V6 · 冲雪
 
 正式入口：https://yingchuixue333-droid.github.io/pelican-ride/

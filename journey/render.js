@@ -1,7 +1,7 @@
-import {CONFIG as C,THEMES,clamp,lerp,wrap,viewMetrics} from './config.js?v=20261004-v7a';
-import {ground,tangent,gapAt,segmentAt,platformY,obstacleX,itemY} from './levels.js?v=20261004-v7a';
-import {selectArcs} from './physics.js?v=20261004-v7a';
-import {createArt} from './art.js?v=20261004-v7a';
+import {CONFIG as C,THEMES,clamp,lerp,wrap,viewMetrics} from './config.js?v=20261004-v7b';
+import {ground,tangent,gapAt,segmentAt,platformY,obstacleX,itemY} from './levels.js?v=20261004-v7b';
+import {selectArcs} from './physics.js?v=20261004-v7b';
+import {createArt} from './art.js?v=20261004-v7b';
 export function createRenderer(canvas){const ctx=canvas.getContext('2d',{alpha:false}),art=createArt(ctx);let width=390,height=844,dpr=1,viewW=820,camY=0,zoom=1,lastX=0,colors={...THEMES[0]};
  const path=(fn,fill,stroke=null,w=3)=>{ctx.beginPath();fn(ctx);if(fill){ctx.fillStyle=fill;ctx.fill();}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=w;ctx.stroke();}};
  const circle=(x,y,r,fill)=>path(c=>c.arc(x,y,r,0,Math.PI*2),fill);
@@ -39,7 +39,7 @@ export function createRenderer(canvas){const ctx=canvas.getContext('2d',{alpha:f
  for(let ss of l.segments){if(ss.updraft&&ss.end>left&&ss.start<right){let start=ss.start+1400,end=ss.start+2300;ctx.setLineDash([10,14]);for(let xx of [start,end])path(c=>{c.moveTo(xx-camX,ground(l,xx)-camY);c.lineTo(xx-camX,ground(l,xx)-camY-430);},null,'#74aeb388',2);ctx.setLineDash([]);for(let i=0;i<5;i++){let xx=start+((g.time*70+i*130)%(end-start));path(c=>{let yy=ground(l,xx)-camY-150-i*35;c.moveTo(xx-camX-24,yy);c.quadraticCurveTo(xx-camX+15,yy-8,xx-camX+7,yy-33);},null,'#baded8aa',3);}}}
  
  // V7 world markers: geometric decisions stay close to their real supports.
- if(g.flow?.next&&g.flow.next>=left&&g.flow.next<=right){let xx=g.flow.next-camX,yy=ground(l,g.flow.next)-camY;path(c=>{c.moveTo(xx-35,yy+12);c.lineTo(xx+35,yy+12);},null,'#c98348',5);ctx.fillStyle=seg.theme===2?'#fff1d2':t.ink;ctx.font='bold '+Math.round(viewW/width*11)+'px sans-serif';ctx.fillText('下一借坡',xx-45,yy-60);}
+ if(g.flow?.next&&g.flow.next>=left&&g.flow.next<=right){let xx=g.flow.next-camX,yy=ground(l,g.flow.next)-camY;path(c=>{c.moveTo(xx-35,yy+12);c.lineTo(xx+35,yy+12);},null,'#c98348',5);ctx.fillStyle=seg.theme===2?'#fff1d2':t.ink;ctx.font='bold '+Math.round(viewW/width*11)+'px sans-serif';ctx.fillText(g.flow.nextKind==='support'?'下一支撑面':'下一借坡',xx-45,yy-60);}
  for(let q of l.platforms){if(q.end<left||q.start>right)continue;let xx=q.end-camX,yy=platformY(l,q,q.end,g.time,g.platformTouches.get(q.id))-camY;if(xx>60&&xx<viewW-80){ctx.fillStyle=seg.theme===2?'#ffecd0':t.ink;ctx.font='bold '+Math.round(viewW/width*10)+'px sans-serif';ctx.fillText('落坡稳收 / 起跳续接',xx-165,yy+55);}}
  if(!p.grounded&&p.trick){let rr=Math.min(1,Math.abs(p.rotation)/(Math.PI*2)),cx=anchor+18,cy=py-camY-195;path(c=>c.arc(cx,cy,25,-Math.PI/2,Math.PI*1.5),null,'#35566b55',4);path(c=>c.arc(cx,cy,25,-Math.PI/2,-Math.PI/2+rr*Math.PI*2),null,'#e6ae54',5);ctx.fillStyle=seg.theme===2?'#fff1d2':t.ink;ctx.font='bold 22px sans-serif';ctx.fillText(Math.floor(Math.abs(p.rotation)/(Math.PI*2))+'圈',cx-13,cy+7);}
 
