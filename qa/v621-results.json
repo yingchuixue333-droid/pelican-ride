@@ -37,6 +37,10 @@
     {
       "name": "recovery can earn a new valid skill without reviving the abandoned line",
       "status": "pass"
+    },
+    {
+      "name": "new reward records are comparable without erasing old scores, daily records or unlocks",
+      "status": "pass"
     }
   ]
 }
