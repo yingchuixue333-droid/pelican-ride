@@ -1,0 +1,45 @@
+{
+  "kind": "directed formal engine checks; fixtures are not UI play",
+  "checks": [
+    {
+      "name": "practice has no authored pressure events, lead or caught drift",
+      "status": "pass"
+    },
+    {
+      "name": "ordinary jump plus flap may establish same high route as ramp jump",
+      "status": "pass"
+    },
+    {
+      "name": "no active launch contact does not establish route",
+      "status": "pass"
+    },
+    {
+      "name": "designated exit jump may complete airborne, only once",
+      "status": "pass"
+    },
+    {
+      "name": "early platform departure cancels rather than banks later",
+      "status": "pass"
+    },
+    {
+      "name": "low path from active landing is separately acknowledged",
+      "status": "pass"
+    },
+    {
+      "name": "successful contextual flip stages exact pending, not fake airborne estimate",
+      "status": "pass"
+    },
+    {
+      "name": "collision clears pending, leaves banked score and diagnoses obstacle",
+      "status": "pass"
+    },
+    {
+      "name": "under/over/short jump diagnosis uses continuous rotation and landing slope",
+      "status": "pass"
+    },
+    {
+      "name": "one-circle learning uses real inputs and identical landing tolerance",
+      "status": "pass"
+    }
+  ]
+}
