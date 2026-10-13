@@ -30,6 +30,10 @@
       "status": "pass"
     },
     {
+      "name": "V8 canonical storage survives an old V7 tab overwriting its own legacy key",
+      "status": "pass"
+    },
+    {
       "name": "ghost is recorded from actual ticks, bounded and interpolates wrap without inventing a pose",
       "status": "pass"
     },
