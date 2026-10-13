@@ -30,6 +30,10 @@
       "status": "pass"
     },
     {
+      "name": "historical discovery-based outfit unlocks survive even without fish or distance thresholds",
+      "status": "pass"
+    },
+    {
       "name": "V8 canonical storage survives an old V7 tab overwriting its own legacy key",
       "status": "pass"
     },

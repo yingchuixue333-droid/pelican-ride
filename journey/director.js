@@ -1,4 +1,4 @@
-import {clamp} from './config.js?v=20261013-v8c';
+import {clamp} from './config.js?v=20261013-v8d';
 // A public, seeded timeline. Never depends on the player's lead or score.
 export function pressureSchedule(seed,time){
  const round=Math.floor(time/36),hash=(Math.imul((seed>>>0)^round,1664525)+1013904223)>>>0;
