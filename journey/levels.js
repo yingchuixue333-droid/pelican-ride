@@ -1,4 +1,4 @@
-import {CONFIG as C,clamp} from './config.js?v=20261004-v7b';
+import {CONFIG as C,clamp} from './config.js?v=20261013-v8b';
 // Authored decision templates. All low routes are legal without tricks.
 export const MODULES=[
 {id:'short-snow',name:'短雪丘 · 一跳收手',family:'short',theme:0,gravity:1,ops:[['rock',1700]],amp:35,waves:3},
@@ -34,8 +34,8 @@ export const MODULES=[
 export function rng(seed){let x=seed>>>0;return()=>{x=(Math.imul(x,1664525)+1013904223)>>>0;return x/4294967296;};}
 export function createLevel(seed=1,cycle=0,options={}){
  let rand=rng(seed+cycle*1999),segments=[],obstacles=[],items=[],platforms=[],cursor=0,y=0,last='',ids=[];
- const regional={0:['short-snow','launch-valley','fork-valley','cloud-long','valley-step'],1:['short-trees','launch-ice','fork-ice','relay-bridge','relay-floe','river-stair'],2:['cave-low','cave-turn','cave-step','fork-crystal','relay-cave','cave-release'],3:['short-bay','launch-bowl','fork-ridge','relay-bay','cloud-return','cloud-gap','bay-drift']};
- let recent=[],previousTheme=cycle%4,themeAge=0;
+ const regional={0:['short-snow','launch-valley','fork-valley','cloud-long','valley-step'],1:['short-trees','short-ice','launch-ice','fork-ice','relay-bridge','relay-floe','river-stair'],2:['cave-low','cave-turn','cave-step','fork-crystal','relay-cave','cave-release','launch-cave','cave-snowball','cloud-rise'],3:['short-bay','launch-bowl','fork-ridge','relay-bay','cloud-return','cloud-gap','bay-drift']};
+ let recent=[],gift=false,previousTheme=cycle%4,themeAge=0;
  for(let i=0;i<40;i++){
   let theme=(Math.floor(i/10)+cycle)%4;previousTheme=theme;
   let pool=regional[theme].filter(id=>!recent.slice(-3).includes(id));
@@ -45,16 +45,20 @@ export function createLevel(seed=1,cycle=0,options={}){
   if(options.condition==='relay'&&i%10===3)id=theme===0?'fork-valley':theme===1?'relay-bridge':theme===2?'relay-cave':'relay-bay';
   if(options.condition==='cloud'&&i%10===3)id=theme===3?'cloud-return':theme===0?'cloud-long':theme===1?'river-stair':'cave-release';
   if(options.condition==='trick'&&i%10===3)id=theme===0?'launch-valley':theme===1?'launch-ice':theme===2?'cave-release':'launch-bowl';
-  if(i===0&&cycle>0&&(options.entryContext?.height>160||options.entryContext?.speed>C.base*1.85))id='breath';const def=MODULES.find(m=>m.id===id);recent.push(id);let stage=Math.min(4,cycle+Math.floor(i/20)),length=def.rest?1500:def.id==='launch-valley'?3800:def.id==='valley-step'?4600:def.family==='ceiling'?3450:3200+Math.floor(rand()*300);
+  if(i===0&&cycle>0)id='breath';const def=MODULES.find(m=>m.id===id);recent.push(id);let stage=Math.min(4,cycle+Math.floor(i/20)),length=def.rest?1500:def.id==='launch-valley'?3800:def.id==='valley-step'?4600:def.family==='ceiling'?3450:3200+Math.floor(rand()*300);
   let s={...def,index:i,theme,start:cursor,end:cursor+length,y,slope:def.slope||.075+rand()*.09,amp:def.amp+(cycle?rand()*15:0),waves:def.waves||1,items:[],obstacles:[],platforms:[],entrySpeed:[C.base,C.base*1.75],entryContext:options.entryContext||null,jumpWindows:[],landingZones:[],route:!!def.platform,pressure:((cycle*24+i)%6===2||(cycle*24+i)%6===3||(cycle*24+i)%6===4),restoreSpace:600,risk:def.family==='cloud'?2:1,stage};cursor+=length;segments.push(s);y=groundOn(s,s.end);ids.push(id);
-  let ops=(def.ops||[]).map(o=>[...o]);if(stage>0&&def.family==='launch'&&i%2===0){s.echo=length-560;s.echoAmp=45;ops.push(['rock',length-180]);}if(stage>1&&def.family==='relay'&&i%2){ops.push(['arch',length-450]);}if(stage>1&&def.family==='fork'&&i%2===0){s.gravity=1;s.echo=length-650;s.echoAmp=38;}if(false&&stage>=1&&!def.rest&&['short','launch','fork'].includes(def.family)&&i%3===0)ops.push(['rock',length-500]);if(false&&stage>=2&&!def.rest&&['relay','cloud'].includes(def.family)&&i%3===1)ops.push(['rock',length-430]);if(false&&stage>=3&&!def.rest&&['fork','ceiling'].includes(def.family)&&ops.length<2&&i%4===0)ops.push(['snowball',length-460]);
+  let ops=(def.ops||[]).map(o=>[...o]);if(stage>0&&def.family==='launch'&&i%2===0){s.echo=length-560;s.echoAmp=45;ops.push(['rock',length-180]);}if(stage>1&&def.family==='relay'&&i%2){ops.push(['arch',length-450]);}if(stage>1&&def.family==='fork'&&i%2===0){s.gravity=1;s.echo=length-650;s.echoAmp=38;}
   if(def.family==='short'&&ops.length<2)ops.push(['rock',650]);if(def.family==='fork'&&!ops.some(o=>o[1]<1200))ops.push(['rock',650]);if(def.family==='ceiling'){s.ramp=1950;s.power=1.55;s.shoulder=65;if(ops.some(o=>o[0]==='log'))ops=ops.map(o=>o[0]==='log'?['log',2560]:o);}
   for(let[kind,baseOff]of ops){let off=Math.min(length-230,baseOff)+(cycle||i>11?(rand()-.5)*120:0),o={id:`${cycle}:${i}-${kind}-${off}`,kind,x:s.start+off,w:kind==='log'?110:kind==='arch'?290:70,h:kind==='log'?75:kind==='arch'?345:kind==='icewall'?75:kind==='snowball'?60:33,clearance:kind==='arch'?(def.clearance||230):0,phase:rand()*6.28};s.obstacles.push(o);obstacles.push(o);s.jumpWindows.push({earliest:o.x-420,latest:o.x-125,kind});}
   if(def.family==='launch'){s.power=def.large?2.3:def.id==='launch-valley'?1.7:1.6;s.ramp=1000;s.shoulder=def.large||def.id==='launch-valley'?100:65;if(def.id==='launch-valley')s.large=true;s.platform=true;s.offset=def.large?170:125;}if(s.platform){let q={id:`platform-${cycle}-${i}`,start:s.start+(def.family==='launch'?(def.large?2130:1840):def.platformStart||1780),end:s.start+(length-100),offset:s.offset||120,cloud:!!def.cloud,sink:!!def.sink,mount:null,theme,edge:70};s.platforms.push(q);platforms.push(q);s.landingZones.push({start:q.start,end:q.end,yOffset:q.offset});}
+  s.variant=options.practice||cycle===0&&i<2?0:Math.floor(rand()*3);s.signature=def.id+':'+s.variant;s.landmark=i%10===6?['冰瀑跨桥','杉林渡口','晶洞回声','海湾云桥'][theme]:null;
+  if(s.variant&&s.ramp){s.ramp+=s.variant===1?-140:160;s.shoulder=(s.shoulder||65)+(s.variant===2?25:0);}
+  if(s.variant&&s.platforms.length&&!['valley-step','launch-valley','bay-drift'].includes(s.id)){let q=s.platforms[0];q.start+=s.variant===1?-130:150;q.offset+=s.variant===1?-12:12;s.offset=q.offset;s.landingZones[0].start=q.start;}
+  if(s.variant===2&&s.family==='fork'&&s.obstacles.length){let o=s.obstacles[0];o.kind=theme===2?'icewall':'log';o.w=110;o.h=75;}
   if(def.id==='launch-valley'){s.echo=2160;s.echoAmp=25;let near=s.platforms[0];near.end=s.start+2230;near.offset=105;let far={...near,id:near.id+'-far',start:s.start+2320,end:s.end-50,offset:155};s.platforms.push(far);platforms.push(far);}
   let add=it=>{items.push(it);s.items.push(it);};for(let j=0;j<7;j++){let x=s.end-1050+j*130;add({id:`fish-g-${cycle}-${i}-${j}`,kind:'fish',x,y:groundOn(s,x)-45});}
   if(def.id==='launch-valley'){let q=s.platforms[1];for(let j=0;j<4;j++)add({id:`fish-far-${cycle}-${i}-${j}`,kind:'fish',x:q.start+70+j*110,platformId:q.id,y:groundOn(s,q.start+70+j*110)-q.offset-45});}
-  if(def.groundMount)add({id:`partner-${cycle}-${i}`,kind:'partner',mount:def.groundMount,x:s.start+500,y:groundOn(s,s.start+500)-45});
+  if(def.groundMount&&(i%2===0||!gift&&cycle===0)){let welcome=!gift&&cycle===0;gift=true;let x=s.start+(welcome?500:length-500);add({id:`partner-${cycle}-${i}`,kind:'partner',mount:def.groundMount,requireAction:!welcome,x,y:groundOn(s,x)-(welcome?45:145)});}
   if(def.relayMount){let x=s.start+2350;add({id:`relay-${cycle}-${i}`,kind:'partner',mount:def.relayMount,relay:true,routeId:s.platforms[0].id,platformId:s.platforms[0].id,x,y:groundOn(s,x)-(s.offset||120)-45});}
   if(def.wing){let x=s.start+480;add({id:`wind-${cycle}-${i}`,kind:'wind',x,y:groundOn(s,x)-45});}
   if(i%8===7){let x=s.start+700;add({id:`magnet-${cycle}-${i}`,kind:'magnet',x,y:groundOn(s,x)-45});}
@@ -66,6 +70,8 @@ export function createLevel(seed=1,cycle=0,options={}){
   if(def.id==='valley-step'){s.platforms[0].end=s.start+2800;s.echo=2660;s.echoAmp=40;let q={...s.platforms[0],id:s.platforms[0].id+'-next',start:s.start+3100,end:s.end-80,offset:125};s.platforms.push(q);platforms.push(q);}
   if(def.id==='bay-drift'){s.platforms[0].end=s.start+2260;let q={...s.platforms[0],id:s.platforms[0].id+'-far',start:s.start+2600,end:s.end-120,offset:210};s.platforms.push(q);platforms.push(q);}
   if(def.family==='ceiling')s.platforms.forEach(q=>{q.start=Math.max(q.start,s.start+2350);q.end=s.end-250;});
+  if(s.variant===2&&['short','fork'].includes(s.family)&&!s.rest&&stage>=1&&s.obstacles.every(o=>Math.abs(o.x-(s.end-450))>950)){let o={id:`${cycle}:${i}-exit-rock`,kind:'rock',x:s.end-450,w:70,h:33,phase:0};s.obstacles.push(o);obstacles.push(o);}
+  s.entrySpeed=[C.base,C.base*1.92];s.reactionFloor=.9;
   s.opportunityId=`line-${cycle}-${i}`;s.requiredActions=def.family==='short'||def.rest?1:2;
   let target=s.obstacles.find(o=>!['arch'].includes(o.kind)),takeoff=s.start+(s.ramp||0);if(target)takeoff=target.x-300;
   if(s.ramp||target){let base=C.base*(1+.025*stage),v=C.jump*(s.ramp?s.power||1.3:1),y0=groundOn(s,takeoff);for(let j=0;j<7;j++){let t=.1+j*.135,x=takeoff+base*t;add({id:`fish-a-${cycle}-${i}-${j}`,kind:'fish',x,y:y0-v*t+C.gravity*(s.gravity||1)*t*t/2-45});}}

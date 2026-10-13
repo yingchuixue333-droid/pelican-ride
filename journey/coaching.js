@@ -1,5 +1,5 @@
-import {CONFIG as C,wrap} from './config.js?v=20261004-v7b';
-import {segmentAt,ground,surface,rampPower} from './levels.js?v=20261004-v7b';
+import {CONFIG as C,wrap} from './config.js?v=20261013-v8b';
+import {segmentAt,ground,surface,rampPower} from './levels.js?v=20261013-v8b';
 const TAU=Math.PI*2;
 // Diagnostics describe the real jump. No correction of rotation, input or landing tolerance.
 export function diagnoseJump(d){
@@ -25,4 +25,4 @@ export function practiceCue(g){let p=g.p,s=segmentAt(g.level,p.x),stage=g.lesson
  if(s.ramp&&Math.abs(p.x-s.start-s.ramp)<220&&rampPower(s,p.x)>1.3)return stage===0?'标记处轻点：先普通起跳落地':stage===1?'这里可以试一圈 · 按住后收手':'想走远台，再点一次扑翼';
  return null;
 }
-export function pressureAction(g){let s=segmentAt(g.level,g.p.x),next=g.level.segments[s.index+1],target=g.pressureState==='warning'?next:s;if(!target)return '看清前方落坡，轻点避障';if(target.family==='ceiling')return '先走低路，过低拱后再起跳';if(target.ramp)return '前方大坡，借坡起跳接落坡';if(target.sink)return '离开裂开的冰台，接前方落坡';return '走低坡保速，在障碍前轻点';}
+export function pressureAction(g){let s=segmentAt(g.level,g.p.x),next=g.level.segments[s.index+1],target=g.pressureState==='warning'?next:s;if(!target)return '看清前方落坡，轻点避障';if(target.obstacles.some(o=>o.kind==='arch'))return '先走低路，过低拱后再起跳';if(target.ramp)return '前方大坡，借坡起跳接落坡';if(target.sink)return '离开裂开的冰台，接前方落坡';return '走低坡保速，在障碍前轻点';}

@@ -16,3 +16,5 @@
 
 /* V7: one decision at a time, compact results and real outfit previews. */
 #nextLesson{width:100%;margin-bottom:8px}#journeyPages{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}#journeyPages article{padding:10px;border:1px solid #c7d7d3;border-radius:12px;font-size:12px;font-weight:650}#journeyPages p{font-size:10px;font-weight:400;margin:5px 0}#journal .panel{max-height:calc(100dvh - 32px);overflow:auto}#status{top:auto;bottom:calc(14px + env(safe-area-inset-bottom));font-size:11px}#coach{top:25%;font-size:13px}#toast{top:20%;left:10%;right:10%;font-size:14px}#result p{margin:5px 0 10px;white-space:pre-line}details{font-size:11px;line-height:1.6}summary{cursor:pointer}#skins canvas{display:block}#app #canvas{user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;touch-action:none}
+
+#ghostLabel{display:block;font-size:11px;margin-top:12px}#dailyReplay{width:100%;margin-top:8px;font-size:12px}#milestones{margin:12px 0;border-top:1px solid #d4ded3}#milestones p{font-size:11px;line-height:1.5;margin:7px 0}#ghostToggle{accent-color:#479098}

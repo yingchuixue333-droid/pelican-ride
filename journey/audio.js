@@ -7,13 +7,14 @@ export class AudioBus{constructor(){this.music=true;this.effects=true;this.conte
  if(e.type==='jump'){this.noise(.11,650,.035);this.tone(160,.09,'triangle',.025);}
  if(e.type==='flap'){this.noise(.22,420,.075);this.tone(95,.16,'sine',.025);}
  if(e.type==='land'&&e.error<=60){this.noise(.11,e.material==='ice'?1600:e.material==='bridge'?360:800,.055);this.tone(e.material==='bridge'?95:e.grade==='干净落地'?190:130,.08,'triangle',.035);}
- if(e.type==='land'&&e.awarded){this.tone(520,.13,'triangle',.022,780);this.tone(1040,.16,'sine',.012);}
+ if(e.type==='land'&&e.awarded&&e.grade==='干净落地'){this.tone(520,.13,'triangle',.022,780);this.tone(1040,.16,'sine',.012);}
  if(e.type==='hit'){this.noise(e.severe?.28:.12,220,.065);this.tone(80,.16,'sine',.055);}
+ if(e.type==='flowAdvance'&&e.count>=2){this.tone(e.count===3?990:660,.12,'triangle',.024);}
  if(e.type==='flowBank'&&e.awarded){this.noise(.32,1100,.035);this.tone(140,.3,'sine',.035,320);this.tone(660,.24,'triangle',.022);}
  if(e.type==='boost'&&e.factor>1.4){this.noise(.16,1000,.018);}
  if(e.type==='lineComplete'){this.tone(110,.18,'sine',.09);for(let f of [440,660,880])this.tone(f,.30,'triangle',.018);this.noise(.24,1500,.04);}
  if(e.type==='pressure'&&e.phase==='warning'){this.tone(55,.7,'sine',.045);this.noise(.4,180,.025);}
- if(e.type==='escape'){this.tone(660,.22,'triangle',.025);this.tone(990,.25,'sine',.02);}
+ if(e.type==='escape'){this.noise(.26,900,.028);this.tone(660,.22,'triangle',.025);this.tone(990,.25,'sine',.02);}
  if(e.type==='mount'){this.tone(440,.15,'triangle',.022);this.tone(660,.17,'sine',.018);}
  if(['rescue','refill','shield'].includes(e.type))this.tone(820,.22,'sine',.04);
  }
@@ -24,7 +25,7 @@ export class AudioBus{constructor(){this.music=true;this.effects=true;this.conte
  // Original 64-bar arrangement; each region owns a scale, phrase, palette and pulse.
  let theme=g.level.segments.find(s=>g.p.x>=s.start&&g.p.x<s.end)?.theme||0;
  let palettes=[{root:146.83,scale:[0,2,4,7,9],wave:'triangle',phrase:[0,2,4,null,3,2,1,null]},{root:130.81,scale:[0,2,3,7,10],wave:'sine',phrase:[0,null,3,2,4,null,1,2]},{root:164.81,scale:[0,2,3,5,8],wave:'sine',phrase:[0,null,2,null,4,3,null,1]},{root:174.61,scale:[0,2,4,7,11],wave:'triangle',phrase:[0,3,null,4,2,1,3,null]}];
- let a=palettes[theme],bar=Math.floor(key/8),section=Math.floor(bar/8)%8,beat=key%8,roots=[0,-5,-3,-7,0,-3,-5,2],root=a.root*Math.pow(2,roots[Math.floor(bar/2)%8]/12),degree=a.phrase[(beat+(section%3)*2)%8];let danger=g.mode!=='practice'&&(g.pressureState==='pressure'||g.p.lead<600),flow=g.flow?.count||0;
+ let a=palettes[theme],bar=Math.floor(key/8),section=Math.floor(bar/8)%8,beat=key%8,roots=[0,-5,-3,-7,0,-3,-5,2],root=a.root*Math.pow(2,roots[Math.floor(bar/2)%8]/12),degree=a.phrase[(beat+(section%3)*2)%8];let danger=g.mode!=='practice'&&(g.pressureState==='pressure'||g.p.lead<650),flow=g.flow?.count||0;
  if(degree!==null&&(section!==6||beat%2===0))this.tone(root*Math.pow(2,(a.scale[degree]+(section>=4?12:0))/12),theme===2?.9:.38,a.wave,.012);
  if(beat===0){this.tone(root/2,1.6,'sine',.016);this.tone(root*1.5,1.3,'sine',.005);}
  if(beat%2===0&&theme!==2)this.tone(theme===1?75:60,.08,'sine',.014);

@@ -1,3 +1,7 @@
+# 鹈鹕逐雪 V8 · 路线与节奏
+
+当前正式版本为 V8。原主网址持续更新，详见 V8-RELEASE.md。运行 npm test 执行65项回归及长程检查。
+
 # 鹈鹕逐雪 V7 · 连贯冲雪
 
 正式入口：https://yingchuixue333-droid.github.io/pelican-ride/
