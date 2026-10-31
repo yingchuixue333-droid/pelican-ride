@@ -1,14 +1,15 @@
-# 鹈鹕雪境 2.0 · 海湾来信
+# 雪境工坊 · 雪团弹弹
 
 正式网址：https://yingchuixue333-droid.github.io/pelican-ride/
 
-目前包含雪谷小站和海湾灯塔两个可互动地点。轻点空地让鹈鹕散步；找齐每天的三件小物，留下一张纪念卡；在邮局写给自己的明信片；出发滑雪，回站翻看真实路签。
+向后拉动雪团，松手弹出；用三弹撞响三口风铃。三场不同布置，圆鼓反弹、冰砖碎裂、连续撞铃加分。打开即玩，触屏竖屏优先，无外部依赖。声音默认关闭，可自行开启。
 
-- 小站入口：index.html → station/app.js。原创绘制、三种时光、角色与雪境动画都在station/scene.js。
-- 灯塔雪路：play.html → journey/app.js，保留V9玩法、纪录和装扮。回站会暂停绘制；同一局的中途路签在完成后更新。
-- 小站数据独立保存在pelican-station-v2，兼容迁移V1收藏与旧备份。海湾可读漂流瓶、调整三面镜片点灯并获得独立纪念卡。明信片可生成PNG，旅行箱可导出/合并JSON备份。没有向外发送信件、账号或后端服务。
-- 开发：npm run dev；验收：npm test；小站专项：npm run test:station。手机尺寸与雪路衔接检查在qa/station-browser.html。
-- 接续工作先读 [PROJECT.md](PROJECT.md)；本轮验收与限制见 [STATION-RELEASE.md](STATION-RELEASE.md)。
+- 首页：index.html → fling/app.js；固定步长物理在fling/physics.js，原创Canvas画面在fling/render.js。
+- 以前的小站：station.html，旧收藏保留；滑雪仍在play.html。
+- 弹射纪录：snowbound-fling-v1，与旧玩法独立。
+- 开发：npm run dev；完整回归：npm test；弹射专项：npm run test:fling。
+- qa/fling-browser.html 提供手机尺寸与明确标注的物理快进验收。它不是玩家成功率测试。
+- 接续先读PROJECT.md；本轮范围与限制见FLING-RELEASE.md。
 
 ---
 
