@@ -1,0 +1,42 @@
+{
+  "version": "station-1.0.0",
+  "method": "State roundtrips, legal storage boundaries and real drawing-path smoke checks; browser interaction recorded separately",
+  "checks": [
+    {
+      "name": "Shanghai calendar and deterministic fictional daily scene",
+      "pass": true
+    },
+    {
+      "name": "three actual discoveries earn one card; repeat pickups cannot duplicate it",
+      "pass": true
+    },
+    {
+      "name": "invalid, corrupt and hostile-shaped backups normalize without prototype changes",
+      "pass": true
+    },
+    {
+      "name": "a returning run updates one ticket, with current actual score and percentage",
+      "pass": true
+    },
+    {
+      "name": "blank cards rejected, Unicode note bounded, records retained within limits",
+      "pass": true
+    },
+    {
+      "name": "restore merges current notes and discoveries without duplicate awards",
+      "pass": true
+    },
+    {
+      "name": "station data is isolated from game saves; storage failure is reported",
+      "pass": true
+    },
+    {
+      "name": "three phone layouts keep real building centers and collectible targets inside view",
+      "pass": true
+    },
+    {
+      "name": "all phases and postcard export draw using the original rig without runtime errors",
+      "pass": true
+    }
+  ]
+}

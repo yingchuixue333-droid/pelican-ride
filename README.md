@@ -1,4 +1,18 @@
-# 当前正式版：V9「灯塔之旅」
+# 鹈鹕雪境 · 雪境小站 1.0
+
+正式网址：https://yingchuixue333-droid.github.io/pelican-ride/
+
+目前的首页是一座可互动的雪境小站。轻点空地让鹈鹕散步；找齐每天的三件小物，留下一张纪念卡；在邮局写给自己的明信片；出发滑雪，回站翻看真实路签。
+
+- 小站入口：index.html → station/app.js。原创绘制、三种时光、角色与雪境动画都在station/scene.js。
+- 灯塔雪路：play.html → journey/app.js，保留V9玩法、纪录和装扮。回站会暂停绘制；同一局的中途路签在完成后更新。
+- 小站数据独立保存在pelican-station-v1。明信片可生成PNG，旅行箱可导出/合并JSON备份。没有向外发送信件、账号或后端服务。
+- 开发：npm run dev；验收：npm test；小站专项：npm run test:station。手机尺寸与雪路衔接检查在qa/station-browser.html。
+- 接续工作先读 [PROJECT.md](PROJECT.md)；本轮验收与限制见 [STATION-RELEASE.md](STATION-RELEASE.md)。
+
+---
+
+# 灯塔路线：V9「灯塔之旅」
 
 主网址保持 https://yingchuixue333-droid.github.io/pelican-ride/ ，入口仍为根目录 `index.html` → `journey/app.js`。
 
