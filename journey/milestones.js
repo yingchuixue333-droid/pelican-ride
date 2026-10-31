@@ -1,10 +1,10 @@
 export const MILESTONES=[
  {id:'ice-fox',name:'杉林同伴',goal:'保留雪狐，完成冰河低路',outfit:1},
- {id:'cave-link',name:'晶洞穿行',goal:'穿过低拱，再完成晶台高路',outfit:2},
+ {id:'cave-link',name:'晶洞穿行',goal:'穿过晶洞低拱，再越过倒木',outfit:2},
  {id:'cloud-return',name:'海风领航',goal:'用扑翼接远云台，完成出口',outfit:3},
  {id:'clean-three',name:'三次干净',goal:'不中断地完成三次干净翻转落地'},
  {id:'flow-three',name:'顺接大师',goal:'接上三个不同机会并收线'},
- {id:'bear-save',name:'雪团守护',goal:'让雪团兽挡住一次重撞'}
+ {id:'bear-save',name:'雪团守护',goal:'让雪团兽挡住一次碰撞'}
 ];
 export function nextGoal(g,progress){
  if(g.stats.hits.length)return {text:g.stats.hits.at(-1).reason+'：练刚才这一段',practice:true};

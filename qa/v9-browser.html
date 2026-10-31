@@ -1,0 +1,10 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>V9 开发验证台</title><style>body{margin:0;background:#29434e;color:#fff;font:14px system-ui;display:flex;gap:20px;padding:12px}aside{width:280px}button,select{display:block;margin:12px 0;padding:10px;min-height:48px;width:100%}iframe{border:0;flex:none;background:#fff}pre{white-space:pre-wrap;font-size:12px}</style><aside><h2>V9 开发验证台</h2><p>自动策略和快进用于检查程序。快进画面不代表真人操作或实机性能。</p><select id="size"><option>390×844</option><option>360×800</option><option>412×915</option></select><button id="start">正常策略 · 重新开始</button><button id="step">快进 30 秒（正式物理）</button><button id="finish">快进到结算（正式物理）</button><button id="stop">暂停</button><pre id="report"></pre></aside><iframe id="game" width="390" height="844" src="../?audit"></iframe><script type="module">
+import {drive} from './v9-sim.mjs';
+const frame=document.querySelector('iframe'),q=id=>document.getElementById(id),audit=()=>frame.contentWindow.snowAudit;
+q('size').onchange=()=>{let [w,h]=q('size').value.split('×');frame.width=w;frame.height=h;};
+q('start').onclick=()=>{const a=audit();a.reset(9,'challenge');a.driver=g=>drive(g,'skill');a.start();};
+q('step').onclick=()=>audit().advance(30);
+q('finish').onclick=()=>audit().advance(200);
+q('stop').onclick=()=>audit().pause();
+setInterval(()=>{const a=audit();if(!a)return;let g=a.game,frames=a.frames.slice().sort((a,b)=>a-b);q('report').textContent=JSON.stringify({version:a.version,mode:a.mode,seconds:+g.time.toFixed(2),progress:Math.round(g.p.x/g.level.finish*100),hits:g.p.collisions,rescues:g.stats.rescues,flips:g.p.flips,partners:g.stats.partners,score:Math.floor(g.p.score),p50:frames[Math.floor(frames.length*.5)],p95:frames[Math.floor(frames.length*.95)],dropped:a.dropped},null,2);},500);
+</script></html>

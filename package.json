@@ -1,1 +1,9 @@
-{"private":true,"type":"module","scripts":{"test":"node qa/v8-reward.mjs && node qa/v8-practice.mjs && node qa/v8-contract.mjs && node qa/v8-route.mjs && node qa/v8-flow.mjs && node qa/v8-upgrade.mjs"}}
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node qa/v8-reward.mjs && node qa/v8-practice.mjs && node qa/v9-test.mjs && node qa/v9-storage.mjs",
+    "dev": "node scripts/serve.mjs",
+    "test:v8": "node qa/v8-reward.mjs && node qa/v8-practice.mjs && node qa/v8-contract.mjs && node qa/v8-route.mjs && node qa/v8-flow.mjs && node qa/v8-upgrade.mjs"
+  }
+}

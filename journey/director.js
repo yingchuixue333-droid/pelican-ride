@@ -1,13 +1,9 @@
-import {clamp} from './config.js?v=20261013-v8d';
-// A public, seeded timeline. Never depends on the player's lead or score.
+import {clamp} from './config.js?v=20261031-v9a';
+// Visible, independent snow pulses. A clean conservative run gains ground over each round.
+// Pressure comes from the time actually lost to mistakes, never a mandatory trick tax.
 export function pressureSchedule(seed,time){
- const round=Math.floor(time/36),hash=(Math.imul((seed>>>0)^round,1664525)+1013904223)>>>0;
- const start=round*36;
- // Constant 36-second rounds preserve continuity; durations within them vary.
- const warning=4+(hash%3),push=10+((hash>>>4)%4),escape=5+((hash>>>8)%3),t=time-start;
- const age=clamp((time-35)/565,0,1);
- let phase=t<warning?'warning':t<warning+push?'pressure':t<warning+push+escape?'escape':'relax';
- if(time<22)phase='relax';
- const snowFactor={warning:1.07+age*.20,pressure:1.18+age*.28,escape:1.08+age*.18,relax:1.04+age*.15}[phase];
- return {phase,snowFactor,round,age,exit:start+36,warning,push,escape};
+ const round=Math.floor(time/36),t=time-round*36,age=clamp(time/200,0,1);
+ const phase=time<22?'relax':t<5?'warning':t<17?'pressure':t<24?'escape':'relax';
+ const snowFactor={warning:1.02,pressure:1.08,escape:.96,relax:.98}[phase];
+ return {phase,snowFactor,round,age,exit:(round+1)*36,warning:5,push:12,escape:7};
 }
