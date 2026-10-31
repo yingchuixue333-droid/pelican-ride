@@ -1,4 +1,4 @@
-import {rememberRun,shanghaiDay} from '../station/state.js?v=20261031-s1';
+import {rememberRun,shanghaiDay} from '../station/state.js?v=20261031-s2';
 import {createCourse,courseModule} from './course.js?v=20261031-v9a';
 import {MILESTONES,nextGoal,usableGhost,ghostPose} from './milestones.js?v=20261031-v9a';
 import {createArt} from './art.js?v=20261031-v9a';

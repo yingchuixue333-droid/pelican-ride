@@ -1,0 +1,41 @@
+{
+  "version": "station-2.0.0",
+  "checks": [
+    {
+      "name": "V1 cards, discoveries and runs migrate without inventing a lit lighthouse",
+      "pass": true
+    },
+    {
+      "name": "cached V1 tab cannot erase V2 events or new cards",
+      "pass": true
+    },
+    {
+      "name": "turns are deterministic, persisted and bounded; invalid dial has no effect",
+      "pass": true
+    },
+    {
+      "name": "only aligned optics light the beacon and award a single real postcard",
+      "pass": true
+    },
+    {
+      "name": "all 64 starting combinations have a legal solution within nine taps",
+      "pass": true
+    },
+    {
+      "name": "letter can be kept once and exported without masquerading as a sent message",
+      "pass": true
+    },
+    {
+      "name": "V1 backups stay readable; V2 restore preserves both earned cards and the lit state",
+      "pass": true
+    },
+    {
+      "name": "actual run updates preserve the chosen place, mirror progress and earned scene",
+      "pass": true
+    },
+    {
+      "name": "bay draw and its earned postcard work in every phase and phone viewport",
+      "pass": true
+    }
+  ]
+}

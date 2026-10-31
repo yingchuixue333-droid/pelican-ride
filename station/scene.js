@@ -1,6 +1,8 @@
-import {createArt} from '../journey/art.js?v=20261031-s1';
-import {dailyScene} from './state.js?v=20261031-s1';
-export function layout(width,height){const scale=Math.min(width/1000,height/1000);return {scale,x:(width-scale*1000)/2,y:(height-scale*1000)/2};}
+import {layout} from './layout.js?v=20261031-s2';
+import {paintBay} from './bay.js?v=20261031-s2';
+export {layout} from './layout.js?v=20261031-s2';
+import {createArt} from '../journey/art.js?v=20261031-s2';
+import {dailyScene} from './state.js?v=20261031-s2';
 const PALETTES={
  dawn:{far:'#c2d8d6',mountain:'#9ebfbe',ridge:'#7fa4aa',snow:'#fff9eb',edge:'#b5d5d4',ink:'#345663',tree:'#608681',window:'#ebc589',pond:'#a8cbd0',roof:'#758e8a'},
  dusk:{far:'#d7c7c1',mountain:'#b4adbb',ridge:'#8d929f',snow:'#fff0db',edge:'#c9cbd0',ink:'#4b5665',tree:'#687d78',window:'#f4bf71',pond:'#a0b7c5',roof:'#897f80'},
@@ -77,22 +79,22 @@ export function createWorld(canvas,onLayout){
  const ctx=canvas.getContext('2d'),art=createArt(ctx),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
  let width=390,height=450,ratio=1,scene={phase:'dawn',daily:dailyScene()},bird={x:435,y:680,walking:false},target={x:435,y:680},tracks=[],last=0,clock=0,raf=0,visible=true,arrival=0,facing=1;
  function resize(){const rect=canvas.getBoundingClientRect();width=rect.width;height=rect.height;ratio=Math.min(devicePixelRatio||1,1.7);canvas.width=Math.round(width*ratio);canvas.height=Math.round(height*ratio);onLayout?.(layout(width,height));draw();}
- function draw(){ctx.setTransform(ratio,0,0,ratio,0,0);paintScene(ctx,width,height,{...scene,time:clock,bird,tracks,arrival,facing},art);}
+ function draw(){ctx.setTransform(ratio,0,0,ratio,0,0);(scene.place==='bay'?paintBay:paintScene)(ctx,width,height,{...scene,time:clock,bird,tracks,arrival,facing},art);}
  function frame(now){raf=0;if(!visible||document.hidden)return;let dt=last?Math.min(.05,(now-last)/1000):0;last=now;clock+=dt;
  const dx=target.x-bird.x,dy=target.y-bird.y,d=Math.hypot(dx,dy);bird.walking=d>3;if(bird.walking){const step=Math.min(d,dt*130);bird.x+=dx/d*step;bird.y+=dy/d*step;facing=dx<0?-1:1;if(!reduced&&Math.floor(clock*5)!==Math.floor((clock-dt)*5))tracks.push({x:bird.x,y:bird.y,life:1});}
  tracks=tracks.map(t=>({...t,life:t.life-dt*.025})).filter(t=>t.life>0).slice(-65);arrival=Math.max(0,arrival-dt*.08);draw();if(!reduced||bird.walking||arrival>0)raf=requestAnimationFrame(frame);
  }
  function wake(){if(visible&&!document.hidden&&!raf){last=0;raf=requestAnimationFrame(frame);}}
- canvas.addEventListener('click',e=>{const r=canvas.getBoundingClientRect(),m=layout(width,height);target={x:Math.max(110,Math.min(890,(e.clientX-r.left-m.x)/m.scale)),y:Math.max(570,Math.min(880,(e.clientY-r.top-m.y)/m.scale))};wake();});
+ canvas.addEventListener('click',e=>{const r=canvas.getBoundingClientRect(),m=layout(width,height);const bay=scene.place==='bay';target={x:Math.max(bay?550:110,Math.min(bay?860:890,(e.clientX-r.left-m.x)/m.scale)),y:Math.max(bay?720:570,Math.min(bay?870:880,(e.clientY-r.top-m.y)/m.scale))};wake();});
  document.addEventListener('visibilitychange',()=>{if(document.hidden){if(raf)cancelAnimationFrame(raf);raf=0;}else wake();});
  const observer=new ResizeObserver(resize);observer.observe(canvas);wake();
- return {set(next){scene={...scene,...next};draw();wake();},move(x,y){target={x,y};wake();},arrive(){arrival=1;target={x:435,y:680};wake();},setVisible(value){visible=value;if(!value){cancelAnimationFrame(raf);raf=0;}else wake();},resize};
+ return {set(next){if(next.place&&next.place!==scene.place){bird={x:next.place==='bay'?600:435,y:next.place==='bay'?811:680,walking:false};target={...bird};tracks=[];}scene={...scene,...next};draw();wake();},move(x,y){target={x,y};wake();},arrive(){arrival=1;target={x:scene.place==='bay'?600:435,y:scene.place==='bay'?811:680};wake();},setVisible(value){visible=value;if(!value){cancelAnimationFrame(raf);raf=0;}else wake();},resize};
 }
 export function paintPostcard(canvas,card){
  const ctx=canvas.getContext('2d');canvas.width=1200;canvas.height=800;ctx.fillStyle='#fff8e6';ctx.fillRect(0,0,1200,800);
- ctx.save();ctx.beginPath();ctx.roundRect(30,30,1140,465,20);ctx.clip();ctx.fillStyle={dawn:'#edf3eb',dusk:'#f1e8d8',night:'#283f4a'}[card.phase]||'#edf3eb';ctx.fillRect(30,30,1140,465);ctx.translate(100,-65);paintScene(ctx,1000,650,{phase:card.phase,daily:dailyScene(card.day),bird:{x:435,y:680},time:0,clear:false});ctx.restore();
+ ctx.save();ctx.beginPath();ctx.roundRect(30,30,1140,465,20);ctx.clip();ctx.fillStyle={dawn:'#edf3eb',dusk:'#f1e8d8',night:'#283f4a'}[card.phase]||'#edf3eb';ctx.fillRect(30,30,1140,465);ctx.translate(100,-65);(card.place==='bay'?paintBay:paintScene)(ctx,1000,650,{phase:card.phase,daily:dailyScene(card.day),bird:card.place==='bay'?{x:600,y:811}:{x:435,y:680},bay:{lit:card.source==='beacon'},time:0,clear:false});ctx.restore();
  ctx.strokeStyle='#b8c7bb';ctx.lineWidth=2;ctx.strokeRect(30,30,1140,465);
  ctx.fillStyle='#607b7b';ctx.font='16px sans-serif';ctx.fillText('PELICAN  /  SNOWBOUND STATION',55,536);ctx.textAlign='right';ctx.fillText(card.day,1144,536);ctx.textAlign='start';
  ctx.fillStyle='#35545e';ctx.font='26px serif';const chars=Array.from((card.text||'今天，也在这里停留了一会儿。').replace(/\s+/g,' '));let line='',lines=[],limit=1080;for(let c of chars){if(c==='\n'||ctx.measureText(line+c).width>limit){lines.push(line);line=c==='\n'?'':c;}else line+=c;}if(line)lines.push(line);lines.slice(0,5).forEach((text,i)=>ctx.fillText(text,56,590+i*36));
- ctx.fillStyle='#ac8063';ctx.font='17px serif';ctx.fillText('一张留给自己的明信片',55,765);ctx.textAlign='right';ctx.fillText(card.source==='walk'?dailyScene(card.day).stamp:'寄存在雪境的片刻',1140,765);ctx.textAlign='start';return canvas;
+ ctx.fillStyle='#ac8063';ctx.font='17px serif';ctx.fillText('一张留给自己的明信片',55,765);ctx.textAlign='right';ctx.fillText(card.source==='beacon'?'海湾灯塔 · 点灯纪念':card.source==='bottle'?'海湾来信':card.source==='walk'?dailyScene(card.day).stamp:'寄存在雪境的片刻',1140,765);ctx.textAlign='start';return canvas;
 }

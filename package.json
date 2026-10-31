@@ -2,9 +2,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node qa/v8-reward.mjs && node qa/v8-practice.mjs && node qa/v9-test.mjs && node qa/v9-storage.mjs && node qa/station-test.mjs",
+    "test": "node qa/v8-reward.mjs && node qa/v8-practice.mjs && node qa/v9-test.mjs && node qa/v9-storage.mjs && node qa/station-test.mjs && node qa/bay-test.mjs",
     "dev": "node scripts/serve.mjs",
     "test:v8": "node qa/v8-reward.mjs && node qa/v8-practice.mjs && node qa/v8-contract.mjs && node qa/v8-route.mjs && node qa/v8-flow.mjs && node qa/v8-upgrade.mjs",
-    "test:station": "node qa/station-test.mjs"
+    "test:station": "node qa/station-test.mjs && node qa/bay-test.mjs"
   }
 }
