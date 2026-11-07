@@ -21,7 +21,7 @@
 
 - 正式地址：https://yingchuixue333-droid.github.io/pelican-ride/
 - 仓库：yingchuixue333-droid/pelican-ride，main，GitHub Pages自动发布。
-- 根目录index.html → farm/app.js：风里农场。farm/model.js 为独立规则/时间/存档校验；farm/art.js 原创画面。六作物、十二地块、三设施、三变异、委托、图鉴和备份。
+- 根目录index.html → farm/app.js：风里农场。farm/model.js 为独立规则/时间/存档校验，farm/touch.js 管理不拦截滚动的轻点操作；farm/art.js 原创画面。六作物、十二地块、三设施、三变异、委托、图鉴和备份。
 - fling.html → fling/app.js：旧雪团弹弹，存档保留。
 - station.html：原双地点小站，旧收藏及备份继续保留。
 - play.html：V9灯塔雪路。旧版根目录入口在提交9a9657924f0c65b65d3cd90ff2f47fb7d9228170可回退。
@@ -55,3 +55,5 @@
 ## 与聊天无关的持久位置
 
 代码、设计选择、验收和发布历史在这个Git仓库。用户浏览器里的明信片与路签不在仓库中，需要通过旅行箱自行备份。不要把个人明信片内容、浏览器导出或凭据提交到公开仓库。
+
+最新触控原则：手机菜地必须允许原生上下滑动，不能再用touch-action:none或pointerdown立即种收。批量照料只用按钮；触控测试qa/farm-touch-test.mjs覆盖滑动、取消、多指与轻点。种子偏好单独保存windfarm-seed-v1。
