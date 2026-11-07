@@ -1,15 +1,13 @@
-# 雪境工坊 · 雪团弹弹
+# 风里农场 · 第一季
 
 正式网址：https://yingchuixue333-droid.github.io/pelican-ride/
 
-向后拉动雪团，松手弹出；用三弹撞响三口风铃。三场不同布置，圆鼓反弹、冰砖碎裂、连续撞铃加分。打开即玩，触屏竖屏优先，无外部依赖。声音默认关闭，可自行开启。
+选种子，点田地播种/浇水/收获。六种作物，成熟45秒到4分钟；最多十二块田、三设施、三种有保底的变异，支持离线生长、图鉴、采收委托和本机备份。种子免费，升级经验最高固定60。
 
-- 首页：index.html → fling/app.js；固定步长物理在fling/physics.js，原创Canvas画面在fling/render.js。
-- 以前的小站：station.html，旧收藏保留；滑雪仍在play.html。
-- 弹射纪录：snowbound-fling-v1，与旧玩法独立。
-- 开发：npm run dev；完整回归：npm test；弹射专项：npm run test:fling。
-- qa/fling-browser.html 提供手机尺寸与明确标注的物理快进验收。它不是玩家成功率测试。
-- 接续先读PROJECT.md；本轮范围与限制见FLING-RELEASE.md。
+- 开始前写好的研究与完整执行指令：[FARM-INSTRUCTIONS.md](FARM-INSTRUCTIONS.md)。本轮验收与限制：[FARM-RELEASE.md](FARM-RELEASE.md)。接续工作先读PROJECT.md。
+- 首页index.html → farm/app.js，独立规则farm/model.js，原创Canvas画面farm/art.js，无外部素材/运行依赖。
+- 开发npm run dev；回归npm test；农场专项及经济模拟npm run test:farm。手机/开发时钟验收台qa/farm-browser.html。
+- 进度仅保存在当前浏览器windfarm-v1。设置可导出JSON并确认后导入；无账号同步。旧内容在fling.html、station.html、play.html，旧存档保留。
 
 ---
 
