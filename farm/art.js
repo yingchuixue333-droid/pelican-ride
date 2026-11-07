@@ -1,4 +1,4 @@
-import {CROPS,crop,growth,ready} from './model.js?v=20261107a';
+import {CROPS,crop,growth,ready} from './model.js?v=20261107b';
 const INK='#40584b';
 function ellipse(c,x,y,rx,ry,fill,stroke=null){c.beginPath();c.ellipse(x,y,rx,ry,0,0,Math.PI*2);if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.lineWidth=2;c.strokeStyle=stroke;c.stroke();}}
 function path(c,points,fill,stroke=null){c.beginPath();for(let i=0;i<points.length;i++)c[i?'lineTo':'moveTo'](...points[i]);c.closePath();if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.lineWidth=2;c.strokeStyle=stroke;c.stroke();}}
@@ -9,7 +9,7 @@ export function plantArt(c,id,x,y,size=1,stage=3,variant=0,t=0){c.save();c.trans
  if(stage===0){line(c,0,2,0,-17,'#58835a',2);leaf(c,-1,-8,-.85,.55);leaf(c,1,-10,.85,.55);c.restore();return;}
  const grow=stage===1?.65:stage===2?.85:1;c.scale(grow,grow);let color=variant===1?'#e4bc54':crop(id).color;
  if(id==='radish'){path(c,[[-15,-13],[-17,0],[-10,16],[0,26],[9,16],[17,0],[14,-13]],color,INK);ellipse(c,-1,-12,15,8,'#f3ded1',INK);leaf(c,0,-17,-.6);leaf(c,0,-17,.6);leaf(c,0,-20,0,.8);line(c,0,25,3,32,'#b99b79',1.5);}
- if(id==='wheat'){for(let k=-1;k<=1;k++){c.save();c.translate(k*12,0);c.rotate(k*.18);line(c,0,12,0,-45,'#8d9762',2);for(let j=0;j<4;j++){ellipse(c,-5,-16-j*8,6,4,color,INK);ellipse(c,5,-20-j*8,6,4,color,INK);}line(c,0,-42,0,-55,'#b59c56',1);c.restore();}}
+ if(id==='wheat'){for(let k=-1;k<=1;k++){c.save();c.translate(k*12,0);c.rotate(k*.18);line(c,0,12,0,-45,'#8d9762',2);for(let j=0;j<4;j++){for(let side of [-1,1]){c.save();c.translate(side*4,-15-j*9+(side<0?0:-4));c.rotate(side*.65);ellipse(c,0,0,3.4,6.5,color);c.restore();}}line(c,0,-42,0,-55,'#b59c56',1);c.restore();}}
  if(id==='berry'){leaf(c,0,-14,-.7);leaf(c,0,-14,.7);path(c,[[-18,-11],[-20,0],[-14,12],[0,27],[14,12],[20,0],[18,-11],[0,-18]],color,INK);for(let i=0;i<7;i++)ellipse(c,((i*13)%27)-13,-5+Math.floor(i/3)*9,1.5,2,'#ffebbc');path(c,[[-17,-10],[-7,-17],[0,-12],[8,-19],[17,-11],[7,-8],[0,-4],[-6,-9]],'#668952',INK);}
  if(id==='tomato'){line(c,0,12,0,-45,'#61885a',3);leaf(c,0,-32,.8,.8);leaf(c,0,-25,-.8,.9);for(let k=-1;k<=1;k++){ellipse(c,k*14,-4+(k===0?14:0),15,15,color,INK);path(c,[[k*14-8,-16+(k===0?14:0)],[k*14,-20+(k===0?14:0)],[k*14+8,-16+(k===0?14:0)],[k*14,-12+(k===0?14:0)]],'#5d8550');}}
  if(id==='pumpkin'){line(c,0,-17,4,-33,'#668257',6);leaf(c,2,-29,.8,.7);ellipse(c,0,1,29,23,color,INK);ellipse(c,0,1,17,23,null,'#a77741');ellipse(c,0,1,6,23,null,'#a77741');ellipse(c,-12,-8,7,4,'#f2c577');}
@@ -35,7 +35,7 @@ export function createScene(canvas){const c=canvas.getContext('2d');let w=720,h=
  if(locked){ellipse(c,x,y,83,28,'#9eb68d');for(let j=-1;j<=1;j++){leaf(c,x+j*27,y,-.25+j*.4,.7);}continue;}
  path(c,[[x-94,y-31],[x+78,y-31],[x+94,y+9],[x+80,y+30],[x-80,y+30],[x-94,y+9]],'#a9895e',INK);path(c,[[x-86,y-29],[x+74,y-29],[x+86,y+6],[x+73,y+19],[x-74,y+19],[x-86,y+5]],'#8b6950');
  for(let k=-1;k<=1;k++)line(c,x-65,y+k*10,x+65,y+k*10,'#a27d59',2);
- if(p){let g=growth(s,p,now),st=g<.18?0:g<.5?1:g<.83?2:3,v=g>=.65?p.variant:0;for(let j=-1;j<=1;j++)plantArt(c,p.id,x+j*46,y-15+(Math.abs(j)?2:0),.9,st,v,reduced?0:t+j);if(p.watered){for(let j=0;j<3;j++)ellipse(c,x-70+j*60,y+4,3,2,'#92bbb5');}if(ready(s,p,now)){star(c,x+75,y-60,5+Math.sin(t*3)*1.5,'#fff7c9');}}
+ if(p){let g=growth(s,p,now),st=g<.18?0:g<.5?1:g<.83?2:3,v=g>=.65?p.variant:0;const offsets=['wheat','tomato','pumpkin','moon'].includes(p.id)?[-36,36]:[-48,0,48];for(let j=0;j<offsets.length;j++)plantArt(c,p.id,x+offsets[j],y-15+(j%2?2:0),p.id==='wheat'?.82:.9,st,v,reduced?0:t+j);if(p.watered){for(let j=0;j<3;j++)ellipse(c,x-70+j*60,y+4,3,2,'#92bbb5');}if(ready(s,p,now)){star(c,x+75,y-60,5+Math.sin(t*3)*1.5,'#fff7c9');}}
  else{for(let j=-1;j<=1;j++)ellipse(c,x+j*48,y-7,4,2,'#705840');}
  }
  for(let i=0;i<22;i++){let x=18+(i*109)%690,y=282+(i*79)%410;if(x>55&&x<665)continue;line(c,x,y,x+3,y-9,'#7a986c',2);ellipse(c,x,y-9,3,3,i%3?'#e9dca5':'#e5b99d');}
