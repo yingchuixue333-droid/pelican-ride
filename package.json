@@ -2,11 +2,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node qa/v8-reward.mjs && node qa/v8-practice.mjs && node qa/v9-test.mjs && node qa/v9-storage.mjs && node qa/station-test.mjs && node qa/bay-test.mjs && node qa/fling-test.mjs && node qa/farm-test.mjs && node qa/farm-touch-test.mjs",
+    "test": "node qa/v8-reward.mjs && node qa/v8-practice.mjs && node qa/v9-test.mjs && node qa/v9-storage.mjs && node qa/station-test.mjs && node qa/bay-test.mjs && node qa/fling-test.mjs && node qa/farm-test.mjs && node qa/farm-touch-test.mjs && node qa/farm-art-test.mjs",
     "dev": "node scripts/serve.mjs",
     "test:v8": "node qa/v8-reward.mjs && node qa/v8-practice.mjs && node qa/v8-contract.mjs && node qa/v8-route.mjs && node qa/v8-flow.mjs && node qa/v8-upgrade.mjs",
     "test:station": "node qa/station-test.mjs && node qa/bay-test.mjs",
     "test:fling": "node qa/fling-test.mjs",
-    "test:farm": "node qa/farm-test.mjs && node qa/farm-economy.mjs && node qa/farm-touch-test.mjs"
+    "test:farm": "node qa/farm-test.mjs && node qa/farm-touch-test.mjs && node qa/farm-art-test.mjs && node qa/farm-month-sim.mjs"
   }
 }

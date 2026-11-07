@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {newGame,CROPS,levelOf,plant,water,harvest,expand,build,claimOrder} from '../farm/model.js';
+import {newGame,CROPS,levelOf,plant,water,harvest,expand,build,claimOrder} from '../farm/legacy.js';
 const START=1800000000000;let reports=[];
 for(let policy of ['radish-care','mixed-care','mixed-no-care']){
  let s=newGame(START,459271),marks={},previous=1;
