@@ -1,0 +1,9 @@
+import assert from 'node:assert/strict';
+import {newGame,plant,harvest,threshold,improve,CROPS} from '../farm/model.js';
+import {visualPhase,plotDetails,exactCountdown,readyMoment} from '../farm/presentation.js';
+const T=1800000000000;let s=newGame(T);s.xp=threshold(40);s.coins=100000;
+for(let c of CROPS){s.plots[4]=null;plant(s,4,c.id,T);let p=s.plots[4];for(let g of [0,.2,.5,.8,.999,1]){let n=p.start+p.duration*g,v=visualPhase(s,p,n);assert(v.phase>=0&&v.phase<=4);assert.equal(v.phase===4,g===1);assert(!v.established);let before=JSON.stringify(s),d=plotDetails(s,4,n);assert.equal(d.value,p.value);assert.equal(d.xp,p.xp);assert.equal(JSON.stringify(s),before,'view must not mutate progress');}let e=harvest(s,4,p.end);if(c.harvests>1){let v=visualPhase(s,s.plots[4],s.at);assert(v.established);assert.equal(v.phase,1);assert.equal(s.plots[4].cycle,2);assert.equal(s.plots[4].remaining,c.harvests-1);assert(e.repeated);}}
+s=newGame(T);s.xp=threshold(40);s.coins=10000;plant(s,4,'apple',T);let oldValue=s.plots[4].value;improve(s,4,T);let d=plotDetails(s,4,T);assert.equal(d.value,oldValue);assert.equal(d.soil,'肥沃田');assert(d.soilEffect.includes('下轮'));assert.equal(d.countdown,'04:00:00');assert.equal(d.action,'water');
+assert.equal(exactCountdown(61.1),'00:01:02');assert.equal(exactCountdown(-1),'00:00:00');assert.equal(exactCountdown(28800),'08:00:00');let at=Date.UTC(2026,10,8,15,59);let moment=readyMoment(Date.UTC(2026,10,8,16,1),at);assert(moment.includes('明天')&&moment.includes('00:01'));assert(moment.includes('北京时间'));
+assert.equal(plotDetails(s,5,T,'wheat').action,'plant');assert.equal(plotDetails(s,5,T,'wheat').value,16);
+console.log('PASS 40 crops phases, ripe boundary, established regrowth, readonly details, actual price, soil next-cycle disclosure, exact countdown and Beijing midnight');

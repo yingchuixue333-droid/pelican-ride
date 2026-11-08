@@ -7,7 +7,8 @@
 目标是每天多次短时游玩，约一个月完成主要解锁。独立新档策略模拟：每天8次×4分钟，27.92天；实际因种植选择、频率及旧进度而异。
 
 - [完整设定与执行指令](FARM-V2-INSTRUCTIONS.md)
-- [验收与限制](FARM-V2-RELEASE.md)
+- [本版生长与手机操作更新](FARM-V21-RELEASE.md)
+- [慢种版数值验收与限制](FARM-V2-RELEASE.md)
 - [数值模拟原始结果](farm-balance-report.json)
 - 接续先读PROJECT.md。开发npm run dev；全部回归npm test；农场专项npm run test:farm。
 - V1自动迁移到V2独立数据键，旧键保留。进度只在当前浏览器，设置里可导出JSON。备份文件不公开提交。
