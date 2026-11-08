@@ -7,7 +7,8 @@
 目标是每天多次短时游玩，约一个月完成主要解锁。独立新档策略模拟：每天8次×4分钟，27.92天；实际因种植选择、频率及旧进度而异。
 
 - [完整设定与执行指令](FARM-V2-INSTRUCTIONS.md)
-- [本版卡通农场与操作更新](FARM-V22-RELEASE.md)
+- [本版生长、再生与绘制优化](FARM-V23-RELEASE.md)
+- [卡通农场与操作更新](FARM-V22-RELEASE.md)
 - [上版生长与手机操作更新](FARM-V21-RELEASE.md)
 - [慢种版数值验收与限制](FARM-V2-RELEASE.md)
 - [数值模拟原始结果](farm-balance-report.json)
