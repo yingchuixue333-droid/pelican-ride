@@ -11,3 +11,8 @@ root.send('pointerdown');root.send('pointerdown',{pointerId:2,isPrimary:false});
 root.send('pointerdown');root.send('pointermove',{clientY:55});root.send('click');assert.deepEqual(hits,[0,2,0],'small natural finger movement still taps');
 root.send('pointerdown');taps.cancel();root.send('click');assert.equal(hits.length,3);taps.destroy();assert.equal(Object.keys(root.listeners).length,0);
 console.log('PASS native-scroll-safe taps: deferred action, vertical/horizontal swipe, cancel, cross-plot, keyboard, multitouch, small movement and cleanup');
+const holdRoot=new Surface(),tapEvents=[],holdEvents=[],hold=bindPlotTaps(holdRoot,i=>tapEvents.push(i),{onHold:i=>holdEvents.push(i),holdMs:15});
+holdRoot.send('pointerdown');await new Promise(r=>setTimeout(r,30));holdRoot.send('pointerup');holdRoot.send('click');assert.deepEqual(holdEvents,[0]);assert.deepEqual(tapEvents,[],'releasing a long press must not harvest');
+holdRoot.send('pointerdown');holdRoot.send('pointermove',{clientY:100});await new Promise(r=>setTimeout(r,25));holdRoot.send('click');assert.equal(holdEvents.length,1,'swipe must cancel long press');
+holdRoot.send('pointerdown');holdRoot.send('pointercancel');await new Promise(r=>setTimeout(r,25));assert.equal(holdEvents.length,1);
+holdRoot.send('pointerdown');holdRoot.send('pointerdown',{isPrimary:false,pointerId:2});await new Promise(r=>setTimeout(r,25));holdRoot.send('click');assert.equal(holdEvents.length,1);assert.equal(tapEvents.length,0);hold.destroy();console.log('PASS long press shows details once and suppresses harvest; swipe, cancel and multitouch clear the hold timer');
