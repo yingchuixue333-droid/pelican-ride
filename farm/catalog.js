@@ -41,9 +41,10 @@ const rows=[
  ['kiwi','猕猴桃树',38,420,430,920,'果树','tree','#a7ab6b',6,240],
  ['lychee','荔枝树',40,480,480,1050,'果树','tree','#d28b8d',6,240]
 ];
+const unlockLevels={radish:1,wheat:1,lettuce:2,cabbage:3,carrot:2,berry:2,potato:3,spinach:4,tomato:4,corn:5,bean:5,apple:2,cucumber:6,pumpkin:6,onion:7,rice:1,pepper:8,pear:6,moon:8,garlic:9,eggplant:9,watermelon:3,peach:10,broccoli:10,sunflower:5,blueberry:11,orange:12,sweetpotato:7,mushroom:13,grape:14,banana:14,strawflower:15,pineapple:10,cherry:16,melon:12,asparagus:17,lemon:18,lotus:16,kiwi:20,lychee:24};
 const shortXp={lettuce:4,cabbage:7,spinach:6,bean:8};
-export const CROPS=rows.map(([id,name,level,minutes,cost,coins,group,shape,color,harvests=1,regrow=0])=>({id,name,short:name.replace('樱桃萝卜','萝卜').replace('蜜糖南瓜','南瓜').replace('树',''),level,seconds:minutes*60,minutes,cost,coins,xp:shortXp[id]??Math.max(1,Math.round(Math.sqrt(minutes)*.9)),group,shape,color,harvests,regrowSeconds:regrow*60}));
+export const CROPS=rows.map(([id,name,level,minutes,cost,coins,group,shape,color,harvests=1,regrow=0])=>({id,name,short:name.replace('樱桃萝卜','萝卜').replace('蜜糖南瓜','南瓜').replace('树',''),level:unlockLevels[id],seconds:minutes*60,minutes,cost,coins,xp:shortXp[id]??Math.max(1,Math.round(Math.sqrt(minutes)*.9)),group,shape,color,harvests,regrowSeconds:regrow*60}));
 export const crop=id=>CROPS.find(c=>c.id===id);
-export const EXPANSIONS=[{level:5,cost:240,count:8},{level:12,cost:1800,count:10},{level:22,cost:6000,count:12}];
-export const SOILS=[{name:'普通田',level:1,cost:0,speed:1,bonus:1},{name:'肥沃田',level:10,cost:600,speed:.9,bonus:1.1},{name:'丰饶田',level:25,cost:1800,speed:.8,bonus:1.25}];
+export const EXPANSIONS=[{level:3,cost:240,count:8},{level:6,cost:1800,count:10},{level:10,cost:6000,count:12}];
+export const SOILS=[{name:'普通田',level:1,cost:0,speed:1,bonus:1},{name:'肥沃田',level:5,cost:600,speed:.9,bonus:1.1},{name:'丰饶田',level:12,cost:1800,speed:.8,bonus:1.25}];
 export const formatTime=seconds=>{let n=Math.max(0,Math.ceil(seconds));if(n<60)return n+'秒';if(n<3600)return Math.ceil(n/60)+'分钟';let h=Math.floor(n/3600),m=Math.ceil((n%3600)/60);if(m===60){h++;m=0;}return h+'小时'+(m?m+'分':'');};

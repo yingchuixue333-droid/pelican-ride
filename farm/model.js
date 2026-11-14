@@ -1,9 +1,9 @@
 import {validate as oldValidate,levelOf as oldLevel,CROPS as OLD_CROPS} from './legacy.js?v=20261107d';
-export {CROPS,crop,EXPANSIONS,SOILS,formatTime} from './catalog.js?v=20261114a';
-import {CROPS,crop,EXPANSIONS,SOILS} from './catalog.js?v=20261114a';
+export {CROPS,crop,EXPANSIONS,SOILS,formatTime} from './catalog.js?v=20261114b';
+import {CROPS,crop,EXPANSIONS,SOILS} from './catalog.js?v=20261114b';
 export const KEY='windfarm-v2',OLD_KEY='windfarm-v1';
-export const REQUIREMENTS=[12,36,72,120,180,240,320,400,480,560,640,720,800];
-const LIMIT=1000;
+export const REQUIREMENTS=[8,16,24,32,40,48,60,72,84,96,108,120];
+const LIMIT=160;
 const bounds=[0];for(let n of REQUIREMENTS)bounds.push(bounds.at(-1)+n);
 export function levelOf(xp){if(xp>=bounds.at(-1))return bounds.length+Math.floor((xp-bounds.at(-1))/LIMIT);let n=1;while(xp>=bounds[n])n++;return n;}
 export function threshold(level){return level<=bounds.length?bounds[level-1]:bounds.at(-1)+(level-bounds.length)*LIMIT;}
@@ -22,8 +22,11 @@ export function water(s,i,now){let p=s.plots[i];if(i>=s.plotCount||!p||p.watered
 export function harvest(s,i,now){let p=s.plots[i];if(i>=s.plotCount||!ready(s,p,now))return false;now=time(s,now);let c=crop(p.id),coins=p.value,xp=p.xp;s.coins+=coins;let levels=award(s,xp);s.stats[p.id].harvest++;let repeated=p.remaining>1;if(repeated){p.remaining--;p.cycle++;p.start=now;p.duration=c.regrowSeconds*1000*SOILS[s.soil[i]].speed;p.end=now+p.duration;p.watered=false;p.value=Math.round(c.coins*SOILS[s.soil[i]].bonus);}else s.plots[i]=null;s.at=now;return {kind:'harvest',coins,xp,levels,repeated,message:c.short+' +'+coins+'币 · +'+xp+'经验'+(repeated?' · 还可收'+p.remaining+'次':'')+(levels?' · 升级！':'')};}
 export function expand(s,now){let e=EXPANSIONS[(s.plotCount-6)/2];if(!e||s.coins<e.cost||levelOf(s.xp)<e.level)return false;s.coins-=e.cost;s.plotCount=e.count;s.at=time(s,now);return {kind:'build',message:'新增两块田 · 现在有'+s.plotCount+'块'};}
 export function improve(s,i,now){if(i<0||i>=s.plotCount)return false;let soil=SOILS[s.soil[i]+1];if(!soil||levelOf(s.xp)<soil.level||s.coins<soil.cost)return false;s.coins-=soil.cost;s.soil[i]++;s.at=time(s,now);return {kind:'build',message:'第'+(i+1)+'块升级为'+soil.name+' · 下次播种或结果时生效'};}
-export function refundFor(p){return p&&p.cycle===1?Math.floor(p.paid*.5):0;}
-export function uproot(s,i,now){let p=s.plots[i];if(i<0||i>=s.plotCount||!p)return false;let refund=refundFor(p);s.coins+=refund;s.plots[i]=null;s.at=time(s,now);return {kind:'uproot',message:'已铲除'+crop(p.id).short+' · 退回'+refund+'币'};}
+export function refundFor(p){return p?Math.floor(p.paid*p.remaining/crop(p.id).harvests):0;}
+export function uproot(s,i,now){let p=s.plots[i];if(i<0||i>=s.plotCount||!p)return false;let refund=refundFor(p);s.coins+=refund;s.plots[i]=null;s.at=time(s,now);return {kind:'uproot',refund,message:'已铲除'+crop(p.id).short+' · 退回'+refund+'币'};}
+// Clear only the requested open plots. Mature produce is collected before removal.
+export function clearPlots(s,indices,now){let count=0,refund=0,harvestCoins=0,xp=0,levels=0;now=time(s,now);for(let i of new Set(indices)){if(!Number.isInteger(i)||i<0||i>=s.plotCount||!s.plots[i])continue;count++;if(ready(s,s.plots[i],now)){let e=harvest(s,i,now);harvestCoins+=e.coins;xp+=e.xp;levels+=e.levels;}if(s.plots[i]){let e=uproot(s,i,now);refund+=e.refund;}}return count?{kind:'clear',count,refund,harvestCoins,xp,levels,message:'已清空'+count+'块田 · 退种子费'+refund+'币'+(harvestCoins?' · 收菜'+harvestCoins+'币':'')+(levels?' · 升级奖励'+levels*25+'币':'')}:false;}
+export function clearQuote(s,indices,now){return clearPlots(structuredClone(s),indices,now);}
 const int=(n,a=0,b=1e9)=>Number.isSafeInteger(n)&&n>=a&&n<=b;
 function validateV2(raw){
  if(!raw||raw.version!==2||!int(raw.rev)||!int(raw.at,0,9e15)||!int(raw.coins)||!int(raw.xp)||![6,8,10,12].includes(raw.plotCount)||!Array.isArray(raw.soil)||raw.soil.length!==12||!raw.soil.every(n=>int(n,0,2))||!Array.isArray(raw.lastSeeds)||raw.lastSeeds.length!==12||!raw.lastSeeds.every(crop)||!Array.isArray(raw.legacyUnlocked)||raw.legacyUnlocked.length>6||!raw.legacyUnlocked.every(id=>OLD_CROPS.some(c=>c.id===id))||typeof raw.legacyNote!=='boolean')throw Error('农场数据格式或数值不正确');
