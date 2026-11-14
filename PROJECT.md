@@ -57,3 +57,7 @@ planning.js只读计算初熟/全周期/净利、时间筛选排序、成长目�
 ## V2.6 轻松种收（当前）
 
 根据用户操作反馈简化为默认种/收/浇直达，无可见连续播种模式。种子卡点即选，下方按钮可按实际预算直接种空田；高级比较折叠。主操作栏增加全部铲除，详情可铲单块，模型clearQuote只读报价/clearPlots先收成熟后清田；未收全额退款、多茬按剩余次数比例退款。确认检查revision和完整报价，变化则拒绝本次操作。原经验曲线被用户明确推翻：每级最高160，开局有水稻，2级苹果树，3级西瓜，24级全种；旧XP和田地快照保留直接升新等级，无追补金币。模拟8×4分钟2.75天，不再使用一月目标。新增qa/farm-simple-test.mjs并纳入npm test和test:farm。详见FARM-V26-RELEASE.md。
+
+## V2.7 回访与成长（当前）
+
+模型提供harvestAndResow/resowQuote、improveAll/improvementQuote，报价只读克隆同一执行模型。每块只升一层，廉价改良优先；收菜后补各田lastSeeds，多茬留田，不成熟不动。planning新增freshSeedIds/newSeedsFirst，seen展示偏好独立存储。feedback.js只从真实收获事件生成金币/经验到HUD动画，最多24个、后台清理/减少动态跳过。中长作和多茬经验重算，当前snapshot保留，下轮p.xp更新为c.xp。时间、币价、升级曲线、解锁等级不动。新指定策略8×4分钟约1.34天，非实玩保证。新增farm-visit-test并纳入全部测试，详见FARM-V27-RELEASE.md。

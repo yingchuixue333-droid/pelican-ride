@@ -1,8 +1,8 @@
-import {CROPS,crop,growth,ready} from './model.js?v=20261114b';
-import {growthProfile,frameDelay} from './growth.js?v=20261114b';
-import {sprite,images,assetsReady} from './assets.js?v=20261114b';
+import {CROPS,crop,growth,ready} from './model.js?v=20261114c';
+import {growthProfile,frameDelay} from './growth.js?v=20261114c';
+import {sprite,images,assetsReady} from './assets.js?v=20261114c';
 export {assetsReady};
-import {visualPhase} from './presentation.js?v=20261114b';
+import {visualPhase} from './presentation.js?v=20261114c';
 const INK='#40584b';
 function ellipse(c,x,y,rx,ry,fill,stroke=null){c.beginPath();c.ellipse(x,y,rx,ry,0,0,Math.PI*2);if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.lineWidth=2;c.strokeStyle=stroke;c.stroke();}}
 function path(c,points,fill,stroke=null){c.beginPath();for(let i=0;i<points.length;i++)c[i?'lineTo':'moveTo'](...points[i]);c.closePath();if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.lineWidth=2;c.strokeStyle=stroke;c.stroke();}}
@@ -76,7 +76,7 @@ function drawGround(c,s,w,h){
   for(let k=0;k<5;k++){let yy=y-31+k*17;c.beginPath();c.moveTo(x-79,yy);c.quadraticCurveTo(x,yy-4,x+78,yy+1);c.strokeStyle=ground.ridge;c.globalAlpha=.35;c.lineWidth=2;c.stroke();}c.globalAlpha=1;
   for(let j=0;j<85;j++){let xx=x-83+(j*37%164),yy=y-43+(j*29%83);ellipse(c,xx,yy,2+(j%3),1.3,j%2?'#deb17699':'#3b2d2255');}
   if(wet){c.globalAlpha=.17;c.fillStyle='#3a3926';c.fillRect(x-95,y-51,190,106);c.globalAlpha=1;for(let j=-1;j<=1;j++)ellipse(c,x+j*53,y+30,13,3,'#748c6c40');}c.restore();
-  c.fillStyle=ground.badge;c.font='bold 14px Georgia';c.textAlign='center';c.fillText(['I','II','III'][soil],x-79,y+44);c.restore();
+  c.fillStyle=ground.badge;c.font='bold 14px Georgia';c.textAlign='center';c.fillText(['•','✿','✦'][soil],x-79,y+44);if(soil){c.strokeStyle=soil===1?'#a9c871':'#f2cd71';c.lineWidth=soil===1?4:5;soilPath(c,x,y);c.stroke();for(let dx of [-86,84]){ellipse(c,x+dx,y+38,6,6,soil===1?'#badb85':'#ffe5a0','#73613b');if(soil===1)leaf(c,x+dx,y+32,dx>0?.8:-.8,.32);}}c.restore();
  }
 }
 const makeCanvas=()=>typeof document!=='undefined'?document.createElement('canvas'):typeof OffscreenCanvas!=='undefined'?new OffscreenCanvas(1,1):null;
@@ -96,11 +96,11 @@ export function createScene(canvas,{createCanvas=makeCanvas}={}){
     let v=visualPhase(s,p,now),bucket=Math.floor(v.progress*100),k=[p.id,p.cycle>1,bucket,v.phase,soil,p.watered,assetKey].join('|'),entry=plants.get(i);
     if(!entry||entry.key!==k){let layer=entry?.canvas||createCanvas();if(layer){layer.width=440;layer.height=440;let pc=layer.getContext('2d');pc.setTransform(2,0,0,2,220,360);drawPlant(pc,p.id,0,0,{...v,progress:v.phase===4?1:bucket/100},0,soil,p.watered);entry={key:k,canvas:layer};plants.set(i,entry);stats.plantBuilds++;}}
     c.save();c.translate(x,y);if(!reduced)c.rotate(Math.sin(t*.9+i)*.003);if(entry)c.drawImage(entry.canvas,-110,-180,220,220);else drawPlant(c,p.id,0,0,v,0,soil,p.watered);c.restore();
-    if(v.phase===4){ellipse(c,x+79,y-62,13,13,'#fff3bf','#a38d4d');line(c,x+73,y-62,x+77,y-58,'#527d36',3);line(c,x+77,y-58,x+85,y-67,'#527d36',3);}
+    if(v.phase===4){c.save();c.strokeStyle='#ffe5a0';c.lineWidth=3;soilPath(c,x,y);c.stroke();c.restore();ellipse(c,x+79,y-62,13,13,'#fff3bf','#a38d4d');line(c,x+73,y-62,x+77,y-58,'#527d36',3);line(c,x+77,y-58,x+85,y-67,'#527d36',3);}
    }else{plants.delete(i);for(let j=-1;j<=1;j++)ellipse(c,x+j*42,y+2,5,2,'#4b392a66');}
   }
   effects=effects.filter(e=>t-e.start<e.life);for(let e of effects){let a=Math.max(0,(t-e.start)/e.life);if(a>1||t<e.start)continue;let{x,y}=e;c.save();c.globalAlpha=1-a;
-   if(e.kind==='harvest'&&!reduced){let tx=x+(650-x)*a,ty=y-(y-45)*a;harvestToken(c,e.id,tx,ty,.55*(1-a*.6));for(let j=0;j<5;j++)ellipse(c,x+Math.sin(j*2.4)*a*51,y-18-Math.cos(j*2.4)*a*25-a*25,2,2,'#f7dd83');}
+   if(e.kind==='harvest'&&!reduced){let tx=x+Math.sin(a*Math.PI)*18,ty=y-a*52;harvestToken(c,e.id,tx,ty,.55*(1-a*.6));for(let j=0;j<5;j++)ellipse(c,x+Math.sin(j*2.4)*a*51,y-18-Math.cos(j*2.4)*a*25-a*25,2,2,'#f7dd83');}
    if(e.kind==='plant'&&!reduced)for(let j=-1;j<=1;j++)ellipse(c,x+j*33,y-70+Math.min(70,a*180),3,5,'#e6d39b','#8b6742');
    if(e.kind==='water'&&!reduced)for(let j=0;j<9;j++)ellipse(c,x-60+j*15,y-80+((a*140+j*9)%98),2,5,'#a9e0e0');
    if(e.kind==='soil'){c.strokeStyle='#f7df98';c.lineWidth=4;c.strokeRect(x-100-a*7,y-52-a*7,200+a*14,108+a*14);}

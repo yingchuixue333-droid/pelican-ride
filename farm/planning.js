@@ -1,5 +1,5 @@
-import {CROPS,EXPANSIONS,SOILS} from './catalog.js?v=20261114b';
-import {levelOf,threshold,progress,unlocked,time,ready} from './model.js?v=20261114b';
+import {CROPS,EXPANSIONS,SOILS} from './catalog.js?v=20261114c';
+import {levelOf,threshold,progress,unlocked,time,ready} from './model.js?v=20261114c';
 export const PLANS=[{id:'any',label:'不限时间',min:0,max:Infinity,hint:'按自己的节奏选种'},{id:'quick',label:'玩几分钟',min:0,max:600,hint:'初熟不超过10分钟，适合短时种收'},{id:'hour',label:'1小时后回来',min:1800,max:3600,hint:'初熟30～60分钟，回来即可收；不枯萎'},{id:'sleep',label:'睡前种',min:14400,max:28800,hint:'初熟4～8小时；多茬仍需回来手动采收'}];
 export function cropComparison(c,{soil=0,watered=false}={}){let ground=SOILS[soil]||SOILS[0],speed=ground.speed*(watered?.75:1),first=Math.round(c.seconds*speed*1000)/1000,regrow=Math.round(c.regrowSeconds*speed*1000)/1000,seconds=first+(c.harvests-1)*regrow,value=Math.round(c.coins*ground.bonus),net=value*c.harvests-c.cost,xp=c.xp*c.harvests;return {first,regrow,total:seconds,value,net,xp,coinsPerHour:net*3600/seconds,xpPerHour:xp*3600/seconds,actions:c.harvests+1,coinsPerAction:net/(c.harvests+1)};}
 export const cropRole=c=>({'短作':'适合在线勤收，换取较高每小时收益','中作':'适合隔一阵回来，单次收成更足','长作':'适合离线前安排，回来一次收大份','再生':'一次播种，多次手动采收，省去重复播种','果树':'投入较高，连续多轮结果，适合长期留田'}[c.group]);
@@ -9,3 +9,7 @@ export function fieldIntent(mode,p,isReady=false){if(mode==='soil'||mode==='shov
 export function growthGoals(s){const level=levelOf(s.xp),pr=progress(s),next=CROPS.filter(c=>!unlocked(s,c.id)).sort((a,b)=>a.level-b.level),nextLevel=next.filter(c=>c.level===level+1),expansion=EXPANSIONS[(s.plotCount-6)/2];return{level,remaining:pr.need-pr.have,nextLevel,nextCrop:next[0]||null,expansion:expansion?{...expansion,xpMissing:Math.max(0,threshold(expansion.level)-s.xp),coinsMissing:Math.max(0,expansion.cost-s.coins)}:null};}
 
 export function sowingQuote(s,id){let c=CROPS.find(c=>c.id===id),empty=s.plots.slice(0,s.plotCount).filter(p=>!p).length;if(!c||!unlocked(s,id))return{empty,count:0,cost:0};let count=Math.min(empty,c.cost?Math.floor(s.coins/c.cost):empty);return{empty,count,cost:count*c.cost};}
+
+// Seen state is presentation-only; never changes crop availability or the farm save.
+export function freshSeedIds(s,seen=[]){let known=new Set(seen);return CROPS.filter(c=>unlocked(s,c.id)&&!known.has(c.id)).map(c=>c.id);}
+export function newSeedsFirst(list,fresh=[]){let ids=new Set(fresh);return [...list].sort((a,b)=>Number(ids.has(b.id))-Number(ids.has(a.id))||(ids.has(a.id)&&ids.has(b.id)?b.level-a.level:0));}
