@@ -39,11 +39,13 @@ const rows=[
  ['lemon','柠檬树',36,420,400,840,'果树','tree','#e1cf69',6,240],
  ['lotus','莲藕',37,480,120,1400,'长作','lotus','#c5aa91'],
  ['kiwi','猕猴桃树',38,420,430,920,'果树','tree','#a7ab6b',6,240],
+ ['nightwheat','晚风麦',5,720,90,1250,'长作','wheat','#c49cdb'],
+ ['starwumpkin','星蜜瓜',8,960,140,1800,'长作','pumpkin','#90a5cc'],
  ['lychee','荔枝树',40,480,480,1050,'果树','tree','#d28b8d',6,240]
 ];
-const unlockLevels={radish:1,wheat:1,lettuce:2,cabbage:3,carrot:2,berry:2,potato:3,spinach:4,tomato:4,corn:5,bean:5,apple:2,cucumber:6,pumpkin:6,onion:7,rice:1,pepper:8,pear:6,moon:8,garlic:9,eggplant:9,watermelon:3,peach:10,broccoli:10,sunflower:5,blueberry:11,orange:12,sweetpotato:7,mushroom:13,grape:14,banana:14,strawflower:15,pineapple:10,cherry:16,melon:12,asparagus:17,lemon:18,lotus:16,kiwi:20,lychee:24};
-const shortXp={lettuce:4,cabbage:7,spinach:6,bean:8};
-export const CROPS=rows.map(([id,name,level,minutes,cost,coins,group,shape,color,harvests=1,regrow=0])=>({id,name,short:name.replace('樱桃萝卜','萝卜').replace('蜜糖南瓜','南瓜').replace('树',''),level:unlockLevels[id],seconds:minutes*60,minutes,cost,coins,xp:shortXp[id]??(group==='短作'?Math.max(1,Math.round(Math.sqrt(minutes)*.9)):Math.round((group==='中作'?minutes*.5:(minutes+(harvests-1)*regrow)/harvests*.45))),group,shape,color,harvests,regrowSeconds:regrow*60}));
+const unlockLevels={nightwheat:5,starwumpkin:8,radish:1,wheat:1,lettuce:2,cabbage:3,carrot:2,berry:2,potato:3,spinach:4,tomato:4,corn:5,bean:5,apple:2,cucumber:6,pumpkin:6,onion:7,rice:1,pepper:8,pear:6,moon:8,garlic:9,eggplant:9,watermelon:3,peach:10,broccoli:10,sunflower:5,blueberry:11,orange:12,sweetpotato:7,mushroom:13,grape:14,banana:14,strawflower:15,pineapple:10,cherry:16,melon:12,asparagus:17,lemon:18,lotus:16,kiwi:20,lychee:24};
+const shortXp={radish:12,wheat:16,lettuce:20,cabbage:24,spinach:22,bean:26};
+export const CROPS=rows.map(([id,name,level,minutes,cost,coins,group,shape,color,harvests=1,regrow=0])=>({id,name,short:name.replace('樱桃萝卜','萝卜').replace('蜜糖南瓜','南瓜').replace('树',''),level:unlockLevels[id],seconds:minutes*60,minutes,cost,coins,xp:shortXp[id]??(group==='短作'?Math.max(1,Math.round(Math.sqrt(minutes)*.9)):Math.min(80,Math.round(24+Math.sqrt(group==='中作'?minutes:(minutes+(harvests-1)*regrow)/harvests)*1.7))),group,shape,color,harvests,regrowSeconds:regrow*60}));
 export const crop=id=>CROPS.find(c=>c.id===id);
 export const EXPANSIONS=[{level:3,cost:240,count:8},{level:6,cost:1800,count:10},{level:10,cost:6000,count:12}];
 export const SOILS=[{name:'普通田',level:1,cost:0,speed:1,bonus:1},{name:'肥沃田',level:5,cost:600,speed:.9,bonus:1.1},{name:'丰饶田',level:12,cost:1800,speed:.8,bonus:1.25}];
