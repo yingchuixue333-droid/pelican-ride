@@ -1,6 +1,6 @@
 import {validate as oldValidate,levelOf as oldLevel,CROPS as OLD_CROPS} from './legacy.js?v=20261107d';
-export {CROPS,crop,EXPANSIONS,SOILS,formatTime} from './catalog.js?v=20261107d';
-import {CROPS,crop,EXPANSIONS,SOILS} from './catalog.js?v=20261107d';
+export {CROPS,crop,EXPANSIONS,SOILS,formatTime} from './catalog.js?v=20261114a';
+import {CROPS,crop,EXPANSIONS,SOILS} from './catalog.js?v=20261114a';
 export const KEY='windfarm-v2',OLD_KEY='windfarm-v1';
 export const REQUIREMENTS=[12,36,72,120,180,240,320,400,480,560,640,720,800];
 const LIMIT=1000;

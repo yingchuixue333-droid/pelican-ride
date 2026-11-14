@@ -1,4 +1,4 @@
-import {crop,growth,ready,time,SOILS} from './model.js?v=20261108c';
+import {crop,growth,ready,time,SOILS} from './model.js?v=20261114a';
 const nonFlowering=new Set(['radish','carrot','root','leaf','lotus','mushroom','wheat','corn']);
 export function visualPhase(s,p,now){
  if(!p)return {phase:-1,label:'空地',progress:0,established:false};
