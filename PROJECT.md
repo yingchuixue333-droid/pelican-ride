@@ -61,3 +61,7 @@ planning.js只读计算初熟/全周期/净利、时间筛选排序、成长目�
 ## V2.7 回访与成长（当前）
 
 模型提供harvestAndResow/resowQuote、improveAll/improvementQuote，报价只读克隆同一执行模型。每块只升一层，廉价改良优先；收菜后补各田lastSeeds，多茬留田，不成熟不动。planning新增freshSeedIds/newSeedsFirst，seen展示偏好独立存储。feedback.js只从真实收获事件生成金币/经验到HUD动画，最多24个、后台清理/减少动态跳过。中长作和多茬经验重算，当前snapshot保留，下轮p.xp更新为c.xp。时间、币价、升级曲线、解锁等级不动。新指定策略8×4分钟约1.34天，非实玩保证。新增farm-visit-test并纳入全部测试，详见FARM-V27-RELEASE.md。
+
+## V2.8 剩余成熟时间（当前）
+
+presentation.maturityTime统一按p.end-time(s,now)推导剩余秒、HH:MM:SS和成熟状态，田地与详情共用。菜地双行作物名/还剩倒计时，浇水单独标识；顶部最近成熟，详情距离成熟还剩/预计成熟，底部不再固定显示所选种子的初熟时长，种子铺说明播种后时间参考。仅app/presentation/style/index及验收文档变化，玩法模型和数值未动。缓存标识20261114d，农场专项和3种手机尺寸检查通过。详见FARM-V28-RELEASE.md。
