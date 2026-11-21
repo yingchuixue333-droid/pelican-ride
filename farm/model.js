@@ -48,6 +48,12 @@ export function applyRainPreviewStipend(state){
  state.rainPreviewStipend=true;
  return true;
 }
+export function claimPlumGift(state){
+ if(state.plumGiftClaimed||state.coins>1e9-10000)return false;
+ state.coins+=10000;
+ state.plumGiftClaimed=true;
+ return {kind:'gift',message:'已领取 10,000 金币'};
+}
 const stats=()=>Object.fromEntries(CROPS.map(c=>[c.id,{sown:0,harvest:0}]));
 export function newGame(now=Date.now()){let s={version:3,rev:0,at:now,coins:rain7Release?240:80,xp:0,plotCount:6,plots:Array(12).fill(null),soil:Array(12).fill(0),lastSeeds:Array(12).fill('radish'),stats:stats(),legacyUnlocked:[],legacyNote:false,orchard:newOrchard(now),nextSeed:null,surprise:{count:0,found:0}};for(let i=0;i<4;i++){let start=now-(i<2?crop('radish').seconds*1000:60000);s.plots[i]=makePlant(s,i,'radish',start);s.stats.radish.sown++;}return s;}
 const cropTerms=c=>({harvests:c.harvests,regrowSeconds:c.regrowSeconds,coins:c.coins,units:c.units||1,xp:c.xp});
@@ -78,6 +84,7 @@ function validateV2(raw){
  if(raw.economy===7){s.economy=7;s.seasonUnlocked=Array.isArray(raw.seasonUnlocked)?[...new Set(raw.seasonUnlocked.filter(id=>Object.hasOwn(RAIN7_CROPS,id)))]:[];}
  if(raw.fieldProgress!==undefined){if(!int(raw.fieldProgress?.misses,0,3))throw Error('变异记录不正确');s.fieldProgress={misses:raw.fieldProgress.misses};if(int(raw.fieldProgress.roll,0,0xffffffff))s.fieldProgress.roll=raw.fieldProgress.roll;}
  if(raw.rainPreviewStipend===true)s.rainPreviewStipend=true;
+ if(raw.plumGiftClaimed===true)s.plumGiftClaimed=true;
  for(let c of CROPS){let st=raw.stats?.[c.id]??(raw.version===2&&['nightwheat','starwumpkin'].includes(c.id)?{sown:0,harvest:0}:undefined);if(!st||!int(st.sown)||!int(st.harvest))throw Error('种植记录不正确');s.stats[c.id]={sown:st.sown,harvest:st.harvest};}
  if(!Array.isArray(raw.plots)||raw.plots.length!==12)throw Error('田地数量不正确');
  for(let i=0;i<12;i++){

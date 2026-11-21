@@ -1,12 +1,12 @@
 import {rain7Release} from './rain7-balance.js?v=20261123b';
 import {SEED_CATEGORIES,enableFieldProgress} from './preview-progression.js?v=20261123b';
 import {enableOrchardMarket,enableQuickFruit} from './orchard.js?v=20261123b';
-import {preferredLongSeed,applyRainPreviewStipend,soilLevels,enableRain7,plantTerms,threshold} from './model.js?v=20261123b';
+import {preferredLongSeed,applyRainPreviewStipend,soilLevels,enableRain7,plantTerms,threshold,claimPlumGift} from './model.js?v=20261123c';
 import {makeRainDemo} from './rain-demo.js?v=20261123b';
-import {createOrchardUI} from './orchard-ui.js?v=20261123b';
+import {createOrchardUI} from './orchard-ui.js?v=20261123c';
 import {TREE_KINDS,treeView,plantTree,harvestTree,careTree,graftTree} from './orchard.js?v=20261123b';
 import {plantArt} from './art.js?v=20261123b';
-import {KEY,OLD_KEY,CROPS,crop,SOILS,EXPANSIONS,formatTime,newGame,parse,levelOf,progress,unlocked,available,ready,growth,plant,water,harvest,expand,improve,uproot,refundFor,clearPlots,clearQuote,harvestAndResow,resowQuote,improveAll,improvementQuote,tendAll,tendingQuote,queueSeed} from './model.js?v=20261123b';
+import {KEY,OLD_KEY,CROPS,crop,SOILS,EXPANSIONS,formatTime,newGame,parse,levelOf,progress,unlocked,available,ready,growth,plant,water,harvest,expand,improve,uproot,refundFor,clearPlots,clearQuote,harvestAndResow,resowQuote,improveAll,improvementQuote,tendAll,tendingQuote,queueSeed} from './model.js?v=20261123c';
 import {createScene,drawIcon,POSITIONS,SCENE_HEIGHT,assetsReady} from './art.js?v=20261123b';
 import {bindPlotTaps} from './touch.js?v=20261123b';
 import {createAudio} from './audio.js?v=20261123b';
@@ -301,6 +301,21 @@ function renderOrchard(n){orchard.update(n);}
 $('nextSeedNote').onclick=()=>transact((s,n)=>[queueSeed(s,null,n)]);
 $('openOrchard').onclick=()=>$('orchardTab').click();
 renderUI();transact(s=>{let funded=preview&&applyRainPreviewStipend(s);if(rain7Release&&s.economy!==7&&lastRaw&&!memoryOnly)try{localStorage.setItem(KEY+'-before-rain7',lastRaw);}catch{}let updated=upgradeFarm(s);return funded||updated||!lastRaw?[{kind:'initial'}]:[];},{silent:true});orchard.observe();wake();
+async function redeemPlumGift(){
+ if(!rain7Release||!location.hash.startsWith('#gift='))return;
+ const token=location.hash.slice(6);
+ if(!/^[A-Za-z0-9_-]{32}$/.test(token))return;
+ const hash=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(token));
+ const hex=Array.from(new Uint8Array(hash),b=>b.toString(16).padStart(2,'0')).join('');
+ if(hex!=='8e794dbd22a241c7825c2458638fd9344af55afc9a12f980213d99b9aeea0855')return;
+ if(memoryOnly){toast('存档未能写入，领取链接仍可重试。');return;}
+ const claimed=await transact(s=>memoryOnly?[]:[claimPlumGift(s)].filter(Boolean));
+ if(memoryOnly){toast('存档未能写入，领取链接仍可重试。');return;}
+ if(!claimed)toast(state.plumGiftClaimed?'这份存档已领取 10,000 金币。':'余额接近上限，暂时无法领取。');
+ if(state.plumGiftClaimed&&lastRaw&&JSON.parse(lastRaw).plumGiftClaimed)history.replaceState(history.state,'',location.pathname+location.search);
+}
+redeemPlumGift().catch(()=>toast('领取未完成，请重新打开领取链接。'));
+
 if(new URLSearchParams(location.search).has('audit')){let badge=document.createElement('p');badge.id='auditBadge';badge.style='background:#f4dfb2;padding:10px;font-size:12px';badge.textContent='开发时钟：快进用于验收，不代表真人等待。';document.querySelector('header').after(badge);window.farmAudit={get state(){return structuredClone(state)},get renderStats(){return {...scene.stats,feedback:feedback.stats}},async advance(seconds){offset=Math.max(offset,state.at-Date.now())+Math.max(0,Math.min(86400,seconds))*1000;await transact((s,n)=>{s.at=n;return [{kind:'clock'}];},{silent:true});},async grow(cycles=1){for(let j=0;j<Math.min(cycles,40);j++){await transact((s,n)=>{let out=[];for(let i=0;i<s.plotCount;i++){let e=harvest(s,i,n);if(e)out.push(e);e=plant(s,i,selected,n);if(e)out.push(e);e=water(s,i,n);if(e)out.push(e);}return out;},{silent:true});await this.advance(28801);}},async expand(){return transact((s,n)=>[expand(s,n)].filter(Boolean));}};}
 
 if(preview){$('previewControls').hidden=false;for(let b of document.querySelectorAll('[data-fixture]'))b.onclick=async()=>{let hours=Number(b.dataset.fixture),base=Date.now(),fresh=newGame(base);fresh.coins=5000;fresh.xp=320;if(hours){fresh.orchard.trees=['apple','pear','peach'].map(id=>({id,born:base,collected:0,care:0}));fresh.at=base+hours*3600000;}offset=hours*3600000;observed=fresh.at;await transact(()=>{state=fresh;selected='radish';previewId='radish';try{localStorage.setItem(preferenceKey('windfarm-seed-v1'),'radish');}catch{}offset=hours*3600000;observed=fresh.at;return [{kind:'fixture'}];},{silent:true});orchard.reset();};$('previewAdvance').onclick=async()=>{offset=Math.max(offset,state.at-Date.now())+4*3600000;await transact((s,n)=>{s.at=n;return [{kind:'clock'}];},{silent:true});orchard.observe();};}

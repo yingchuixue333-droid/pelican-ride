@@ -1,6 +1,6 @@
 import {treeView,harvestFruit,harvestTree,observeOrchard,sellBasket,enableOrchardMarket} from './orchard.js?v=20261123b';
 import {exactCountdown} from './presentation.js?v=20261123b';
-import {createOrchardScene} from './orchard-scene.js?v=20261123b';
+import {createOrchardScene} from './orchard-scene.js?v=20261123c';
 export function bindOrchardTaps(root,action){let pending=null;const target=e=>e.target.closest?.('[data-orchard-action]');let down=e=>{pending=null;let b=target(e);if(b&&e.isPrimary!==false&&!(e.button>0))pending={b,id:e.pointerId,x:e.clientX,y:e.clientY,moved:false};},move=e=>{if(pending&&e.pointerId===pending.id&&Math.hypot(e.clientX-pending.x,e.clientY-pending.y)>10)pending.moved=true;},cancel=()=>pending=null,click=e=>{let b=target(e),p=pending;pending=null;if(b&&(e.detail===0||p&&p.b===b&&!p.moved))action(b);};let handlers={pointerdown:down,pointermove:move,pointercancel:cancel,click};for(let[k,v]of Object.entries(handlers))root.addEventListener(k,v,{passive:true});return {cancel,destroy(){for(let[k,v]of Object.entries(handlers))root.removeEventListener(k,v);}};}
 export function createOrchardUI({getState,now,transact,tone,reduced}){
  const $=id=>document.getElementById(id),panel=$('treeDetails'),scene=createOrchardScene($('orchardCanvas'));
