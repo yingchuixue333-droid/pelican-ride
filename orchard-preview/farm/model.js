@@ -1,9 +1,9 @@
 import {validate as oldValidate,levelOf as oldLevel,CROPS as OLD_CROPS} from './legacy.js?v=20261107d';
-export {CROPS,crop,EXPANSIONS,SOILS,formatTime} from './catalog.js?v=20261121a';
-import {newOrchard,validateOrchard} from './orchard.js?v=20261121a';
-import {CROPS,crop,EXPANSIONS,SOILS} from './catalog.js?v=20261121a';
+export {CROPS,crop,EXPANSIONS,SOILS,formatTime} from './catalog.js?v=20261121b';
+import {newOrchard,validateOrchard} from './orchard.js?v=20261121b';
+import {CROPS,crop,EXPANSIONS,SOILS} from './catalog.js?v=20261121b';
 const preview=typeof location!=='undefined'&&(new URLSearchParams(location.search).has('orchardPreview')||location.pathname.includes('/orchard-preview/'));
-export const KEY=preview?'windfarm-orchard-preview-v1':'windfarm-v2',OLD_KEY=preview?'windfarm-orchard-preview-legacy-v1':'windfarm-v1';
+export const KEY=preview?'windfarm-rain-preview-v1':'windfarm-v2',OLD_KEY=preview?'windfarm-rain-preview-legacy-v1':'windfarm-v1';
 export const REQUIREMENTS=[8,16,24,32,40,48,60,72,84,96,108,120];
 const LIMIT=160;
 const bounds=[0];for(let n of REQUIREMENTS)bounds.push(bounds.at(-1)+n);
