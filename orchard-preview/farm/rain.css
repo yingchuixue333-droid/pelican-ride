@@ -38,3 +38,40 @@ body:not(.orchard-mode) #app{padding-bottom:calc(var(--dock-height) + 90px)}
 .orchard-mode #treeBrowse button{flex:0 0 auto;min-width:52px;padding:7px 13px;background:#f7f2dfdf}
 .orchard-mode .next-fruit{left:auto;right:16px;top:122px;bottom:auto;padding:4px 10px;font-variant-numeric:tabular-nums}
 .orchard-mode .basket-row>span{background:#f5f0dcde;border-radius:12px;padding:1px 9px;letter-spacing:0;text-shadow:none;flex:none;width:auto}
+
+/* The selected seed sits immediately above the field. */
+.orchard-mode #fieldPlantBar,
+#controlDock #dockSeed,
+body:not(.orchard-mode) .intro,
+body:not(.orchard-mode) .farm-overview,
+body:not(.orchard-mode) .scene-caption,
+body:not(.orchard-mode) .quick-hint{display:none}
+.field-plant-bar{
+ margin:10px 0 8px;
+ padding:6px 9px;
+ color:#39482e;
+ background:#f2f1da;
+ border:1px solid #d8ddba;
+ border-radius:16px;
+}
+.field-seed{display:flex;align-items:center;gap:10px}
+.field-seed canvas{width:58px;height:58px;flex:none}
+.field-seed strong,.field-seed small{display:block}
+.field-seed strong{font-size:18px}
+.field-seed small{font-size:12px;color:#556443}
+.field-seed button,.seed-shortfall button{min-height:44px}
+.field-seed button{margin-left:auto;padding:8px 16px}
+.seed-shortfall{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:4px;padding:6px 3px 1px;border-top:1px solid #d6d9ba;font-size:13px}
+.seed-shortfall[hidden]{display:none}
+.seed-shortfall button{color:#355333;background:#e1ebcc;padding:5px 12px}
+body:not(.orchard-mode) .status{margin-block:6px}
+body:not(.orchard-mode) .plot.is-empty .label{background:none;box-shadow:none;color:#fff2c4;text-shadow:0 1px 3px #2b2113}
+body:not(.orchard-mode) .plot.is-empty .plot-name{font-size:20px}
+body:not(.orchard-mode) .plot.is-ready .label{background:#f4e6af;color:#3c4429}
+body:not(.orchard-mode) .plot.is-growing .plot-name,
+body:not(.orchard-mode) .plot.is-ready .plot-name,
+body:not(.orchard-mode) .plot .care-tag,
+body:not(.orchard-mode) .plot .mini-progress{display:none}
+body:not(.orchard-mode) .plot.is-ready .plot-timer{color:#3c4429;text-shadow:none}
+body:not(.orchard-mode) .plot.is-empty .label{border:0}
+body:not(.orchard-mode) .plot.is-locked .label{opacity:.72}

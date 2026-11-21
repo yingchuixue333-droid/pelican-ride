@@ -1,6 +1,6 @@
-import {TREE_KINDS,treeView,harvestFruit,harvestTree,plantTree,careTree,graftTree,observeOrchard} from './orchard.js?v=20261121d';
-import {createOrchardScene,fruitArt} from './orchard-scene.js?v=20261121d';
-import {exactCountdown} from './presentation.js?v=20261121d';
+import {TREE_KINDS,treeView,harvestFruit,harvestTree,plantTree,careTree,graftTree,observeOrchard} from './orchard.js?v=20261121e';
+import {createOrchardScene,fruitArt} from './orchard-scene.js?v=20261121e';
+import {exactCountdown} from './presentation.js?v=20261121e';
 export function bindOrchardTaps(root,action){let pending=null;const target=e=>e.target.closest?.('[data-orchard-action]');let down=e=>{pending=null;let b=target(e);if(b&&e.isPrimary!==false&&!(e.button>0))pending={b,id:e.pointerId,x:e.clientX,y:e.clientY,moved:false};},move=e=>{if(pending&&e.pointerId===pending.id&&Math.hypot(e.clientX-pending.x,e.clientY-pending.y)>10)pending.moved=true;},cancel=()=>pending=null,click=e=>{let b=target(e),p=pending;pending=null;if(b&&(e.detail===0||p&&p.b===b&&!p.moved))action(b);};let handlers={pointerdown:down,pointermove:move,pointercancel:cancel,click};for(let[k,v]of Object.entries(handlers))root.addEventListener(k,v,{passive:true});return {cancel,destroy(){for(let[k,v]of Object.entries(handlers))root.removeEventListener(k,v);}};}
 export function createOrchardUI({getState,now,transact,tone,reduced}){
  const $=id=>document.getElementById(id),panel=$('treeDetails'),scene=createOrchardScene($('orchardCanvas'));
@@ -26,7 +26,7 @@ export function createOrchardUI({getState,now,transact,tone,reduced}){
  $('treeDetailName').textContent=v?v.kind.name+' · 管理':'种一棵果树';$('treeDetailTime').textContent=v?(v.untilMax?'长到盛果期还要 '+exactCountdown(v.untilMax/1000):'已经长满，不用再升级树龄'):'这个果位永久保留，不占菜地';$('treeDetailYield').textContent=v?'可摘 '+v.stored+'份 / 最多4份\n下次结果还要 '+exactCountdown((v.next-n)/1000)+'\n每份 '+v.value+'金币'+(v.stage===3?'，另有原盛果加成':'')+' · 已培育增产'+v.tree.care*25+'%\n你的金币：'+s.coins:'';
  let ds=JSON.stringify([focus,v?.tree.id,v?.tree.care,s.coins,v?.tree.sample]);if(ds!==detailsSig){detailsSig=ds;let root=$('treeCareActions');root.replaceChildren();let button=(parent,text,disabled,fn)=>{let b=document.createElement('button');b.textContent=text;b.disabled=disabled;b.onclick=()=>transact((s,n)=>[fn(s,focus,n)].filter(Boolean));parent.append(b);};if(v){if(v.careCost!==null)button(root,'增加25%产量 · '+v.careCost+'金币',s.coins<v.careCost,(s,i,n)=>careTree(s,i,n));let graft=document.createElement('details');graft.className='graft-options';graft.innerHTML='<summary>更换这棵树的品种</summary><p>会花金币换树，树龄和培育保留。枝上熟果先自动收下。</p>';for(let k of TREE_KINDS.filter(k=>k.id!==v.tree.id))button(graft,'换成'+k.name+' · '+(k.cost?k.cost+'金币':'免费'),s.coins<k.cost,(s,i,n)=>graftTree(s,i,k.id,n));root.append(graft);}else for(let k of TREE_KINDS)button(root,'种下'+k.name+' · '+(k.cost?k.cost+'金币':'免费'),s.coins<k.cost,(s,i,n)=>plantTree(s,i,k.id,n));$('lastFruitSample').hidden=!v?.tree.sample;if(v?.tree.sample){let sample=v.tree.sample,c=$('sampleCanvas').getContext('2d');c.clearRect(0,0,140,100);fruitArt(c,sample.id,70,56,25,sample);$('sampleText').textContent='这份'+TREE_KINDS.find(k=>k.id===sample.id).name.replace('树','')+'已经采收，入账'+sample.coins+'金币。';}}
  }
- function render(t){if(active){showBasket();scene.render(views(),focus,t,reduced);}}
+ function render(t){if(active){scene.settle(t,reduced);showBasket();scene.render(views(),focus,t,reduced);}}
  document.addEventListener('visibilitychange',()=>{if(document.hidden){scene.clear();gesture.cancel();}else if(active)observe();});
  return {update,render,observe,get active(){return active;},get stats(){return scene.stats;},delay:()=>scene.delay(reduced),reset(){focus=0;lastSig='';detailsSig='';scene.clear();page('orchard');}};
 }
