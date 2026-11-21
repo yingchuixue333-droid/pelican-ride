@@ -28,3 +28,13 @@ body:not(.orchard-mode) #app{padding-bottom:calc(var(--dock-height) + 90px)}
 .tree-panel-body details p{margin:6px 0;font-size:14px;line-height:1.7}
 .graft-options button{display:block;width:100%;margin:8px 0}
 @media(max-width:370px){.orchard-mode .orchard-heading{top:69px}.orchard-mode #treeBrowse{max-width:315px}.tree-panel-head h2{font-size:18px}}
+
+/* Keep the scene open. Details stay in the management sheet. */
+.orchard-mode .orchard-heading{top:67px}
+.orchard-mode .orchard-heading h1,
+.orchard-mode #orchardSubtitle,
+.orchard-mode #orchardNote{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;padding:0;margin:0}
+.orchard-mode #treeBrowse{width:max-content;max-width:100%;margin:0}
+.orchard-mode #treeBrowse button{flex:0 0 auto;min-width:52px;padding:7px 13px;background:#f7f2dfdf}
+.orchard-mode .next-fruit{left:auto;right:16px;top:122px;bottom:auto;padding:4px 10px;font-variant-numeric:tabular-nums}
+.orchard-mode .basket-row>span{background:#f5f0dcde;border-radius:12px;padding:1px 9px;letter-spacing:0;text-shadow:none;flex:none;width:auto}

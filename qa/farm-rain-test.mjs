@@ -16,3 +16,21 @@ for(let id of ['apple','pear','peach'])for(let stage=0;stage<4;stage++){
  for(let f of fruitPositions(v))assert(f.x-f.r>0&&f.x+f.r<720&&f.y-f.r>0&&f.y+f.r<1200,`${id}/${stage} fruit stays visible`);
 }
 console.log('PASS complete portrait tree silhouettes, preserved sprite aspect and visible real fruit positions across all species/stages');
+
+const {preferredLongSeed,applyRainPreviewStipend,queueSeed}=await import('../farm/model.js');
+const existing=makeRainDemo(T);
+const priorBalance=existing.coins;
+assert(applyRainPreviewStipend(existing));
+assert.equal(existing.coins,priorBalance+30000);
+assert(!applyRainPreviewStipend(parse(JSON.stringify(existing))));
+assert.equal(preferredLongSeed(existing),'starwumpkin');
+assert.equal(preferredLongSeed(newGame(T)),'rice');
+globalThis.location=new URL('https://example.invalid/orchard-preview/');
+const {harvestAndResow}=await import('../farm/model.js?rain-preview-regression');
+delete globalThis.location;
+let automatic=makeRainDemo(T);
+assert.deepEqual(harvestAndResow(automatic,T).events.filter(e=>e.kind==='plant').map(e=>e.id),Array(6).fill('starwumpkin'));
+let manual=makeRainDemo(T);
+queueSeed(manual,'wheat',T);
+assert.deepEqual(harvestAndResow(manual,T).events.filter(e=>e.kind==='plant').map(e=>e.id),Array(6).fill('wheat'));
+console.log('PASS one-time preview funds survive reload and manual seed choice overrides longest first harvest');
