@@ -75,3 +75,29 @@ body:not(.orchard-mode) .plot .mini-progress{display:none}
 body:not(.orchard-mode) .plot.is-ready .plot-timer{color:#3c4429;text-shadow:none}
 body:not(.orchard-mode) .plot.is-empty .label{border:0}
 body:not(.orchard-mode) .plot.is-locked .label{opacity:.72}
+
+.orchard-mode #treeBrowse button{font-size:13px;white-space:nowrap;padding-inline:10px}
+.orchard-mode .basket-row #basketText{
+ position:relative;pointer-events:auto;min-height:44px;padding:6px 13px;
+ border:1px solid #e8ddad;border-radius:23px;color:#3d5136;background:#f9f1d7
+}
+#basketText::before{content:"";position:absolute;inset:-65px -10px 0}
+#sellBasket{width:100%;min-height:46px;margin:10px 0;color:#2f4929;background:#dce8c7}
+#sellBasket[hidden]{display:none}
+#seedCategoryTabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:4px 0 10px}
+#seedCategoryTabs button{min-height:44px;padding:4px;white-space:nowrap}
+#seedCategoryTabs button[aria-pressed=true]{background:#416c36;color:#fff7de;border-color:#416c36}
+#nextShopUnlock{font-size:13px;color:#626b49;margin:8px 0 12px}
+#seedSection>.shop-help,#seedSection>.section-title,#simpleFilters,#seedAdvanced,#moreSeeds{display:none!important}
+#seedSection #seeds{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;align-items:stretch}
+.seed-tile{min-width:0;display:grid;justify-items:center;gap:5px;padding:8px 3px;
+ background:#f4efd8;border:1px solid #d6ddba;border-radius:14px;color:#35482f;box-shadow:none}
+.seed-tile[aria-pressed=true]{background:#e4edce;border:2px solid #598254;padding:7px 2px}
+.seed-tile canvas{width:62px;height:62px}
+.seed-tile strong{font-size:14px;line-height:1.15}
+.seed-tile-values{width:100%;display:grid;grid-template-columns:1fr;line-height:1.35;font-size:11px;color:#41533b}
+.seed-tile-values>span{white-space:nowrap}
+body:not(.orchard-mode) .plot.tool-soil .plot-name{display:block;font-size:12px}
+
+#mutationHint{font-size:12px;color:#62486e;background:#eee2ee;border-radius:9px;padding:7px 9px;margin:0 0 10px}
+#mutationHint[hidden]{display:none}
