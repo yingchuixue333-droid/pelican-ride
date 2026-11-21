@@ -1,4 +1,4 @@
-import {crop} from './catalog.js?v=20261121e';
+import {crop} from './catalog.js?v=20261122a';
 const clamp=n=>Math.max(0,Math.min(1,n));
 export const smooth=(a,b,n)=>{let t=clamp((n-a)/(b-a));return t*t*(3-2*t);};
 export function growthProfile(id,v){

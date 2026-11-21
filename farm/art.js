@@ -1,8 +1,8 @@
-import {CROPS,crop,growth,ready} from './model.js?v=20261121e';
-import {growthProfile,frameDelay} from './growth.js?v=20261121e';
-import {sprite,images,assetsReady} from './assets.js?v=20261121e';
+import {CROPS,crop,growth,ready} from './model.js?v=20261122a';
+import {growthProfile,frameDelay} from './growth.js?v=20261122a';
+import {sprite,images,assetsReady} from './assets.js?v=20261122a';
 export {assetsReady};
-import {visualPhase} from './presentation.js?v=20261121e';
+import {visualPhase} from './presentation.js?v=20261122a';
 const INK='#40584b';
 function ellipse(c,x,y,rx,ry,fill,stroke=null){c.beginPath();c.ellipse(x,y,rx,ry,0,0,Math.PI*2);if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.lineWidth=2;c.strokeStyle=stroke;c.stroke();}}
 function path(c,points,fill,stroke=null){c.beginPath();for(let i=0;i<points.length;i++)c[i?'lineTo':'moveTo'](...points[i]);c.closePath();if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.lineWidth=2;c.strokeStyle=stroke;c.stroke();}}
@@ -144,10 +144,11 @@ function soilPath(c,x,y){
  c.bezierCurveTo(x-97,y+2,x-96,y-21,x-81,y-33);
  c.closePath();
 }
+const soilArtTier=(s,i)=>s.fieldProgress?Math.min(2,Math.floor((s.soil?.[i]||0)/3)):(s.soil?.[i]||0);
 function drawGround(c,s,w,h){
  c.clearRect(0,0,w,h);if(images.garden)c.drawImage(images.garden,0,0,w,h);else{c.fillStyle='#d3b175';c.fillRect(0,0,w,h);c.fillStyle='#78a359';c.fillRect(0,0,w,285);}
  for(let i=0;i<12;i++){
-  let{x,y}=POSITIONS[i],locked=i>=s.plotCount,soil=s.soil?.[i]||0,ground=SOIL_ART[soil],wet=!!s.plots[i]?.watered;
+  let{x,y}=POSITIONS[i],locked=i>=s.plotCount,soil=soilArtTier(s,i),ground=SOIL_ART[soil],wet=!!s.plots[i]?.watered;
   if(locked){ellipse(c,x,y+18,88,35,'#909b4b33');for(let j=-2;j<=2;j++){let yy=y+13+Math.sin(j*3)*17;leaf(c,x+j*30,yy,j*.35,.7);ellipse(c,x+j*34+11,yy+9,7,4,j%2?'#ba9d65':'#d8bc85','#9e8852');}continue;}
   c.save();
   ellipse(c,x+5,y+43,103,23,'#2d392b37');
@@ -198,7 +199,7 @@ export function createScene(canvas,{createCanvas=makeCanvas}={}){
   if(gc){c.clearRect(0,0,w,h);if(!layered)c.drawImage(ground,0,0,w,h);}
   if(!reduced)for(let j=0;j<8;j++){let xx=(j*101+t*7)%720;line(c,xx,919+Math.sin(j)*12,xx+15,919+Math.sin(j)*12,'#d7eee16a',1.5);}
   for(let i=0;i<12;i++){
-   let{x,y}=POSITIONS[i],p=s.plots[i],soil=s.soil?.[i]||0;if(i>=s.plotCount)continue;
+   let{x,y}=POSITIONS[i],p=s.plots[i],soil=soilArtTier(s,i);if(i>=s.plotCount)continue;
    if(selected===i){c.save();c.strokeStyle='#fff0a9';c.lineWidth=3;c.setLineDash([9,5]);soilPath(c,x,y);c.stroke();c.restore();}
    if(p){
     let v=visualPhase(s,p,now),bucket=Math.floor(v.progress*100),k=[p.id,p.cycle>1,bucket,v.phase,soil,p.watered,assetKey].join('|'),entry=plants.get(i);
@@ -213,7 +214,18 @@ export function createScene(canvas,{createCanvas=makeCanvas}={}){
    }else{plants.delete(i);for(let j=-1;j<=1;j++)ellipse(c,x+j*42,y+2,5,2,'#4b392a66');}
   }
   effects=effects.filter(e=>t-e.start<e.life);for(let e of effects){let a=Math.max(0,(t-e.start)/e.life);if(a>1||t<e.start)continue;let{x,y}=e;c.save();c.globalAlpha=1-a;
-   if(e.kind==='harvest'&&!reduced){let tx=x+Math.sin(a*Math.PI)*18,ty=y-a*52;harvestToken(c,e.id,tx,ty,.55*(1-a*.6));for(let j=0;j<5;j++)ellipse(c,x+Math.sin(j*2.4)*a*51,y-18-Math.cos(j*2.4)*a*25-a*25,2,2,'#f7dd83');}
+   if((e.kind==='harvest'||e.kind==='mutation')&&!reduced){
+    const mutant=e.kind==='mutation',tx=x+Math.sin(a*Math.PI)*18,ty=y-a*52;
+    c.save();
+    if(mutant)c.filter='hue-rotate(65deg) saturate(1.35)';
+    harvestToken(c,e.id,tx,ty,(mutant?.70:.55)*(1-a*.6));
+    c.restore();
+    for(let j=0;j<5;j++){
+     const px=x+Math.sin(j*2.4)*a*51,py=y-18-Math.cos(j*2.4)*a*25-a*25;
+     if(mutant)star(c,px,py,6,'#e5c4fc');
+     else ellipse(c,px,py,2,2,'#f7dd83');
+    }
+   }
    if(e.kind==='plant'&&!reduced)for(let j=-1;j<=1;j++)ellipse(c,x+j*33,y-70+Math.min(70,a*180),3,5,'#e6d39b','#8b6742');
    if(e.kind==='water'&&!reduced)for(let j=0;j<9;j++)ellipse(c,x-60+j*15,y-80+((a*140+j*9)%98),2,5,'#a9e0e0');
    if(e.kind==='soil'){c.strokeStyle='#f7df98';c.lineWidth=4;c.strokeRect(x-100-a*7,y-52-a*7,200+a*14,108+a*14);}
