@@ -1,3 +1,4 @@
+import {rain7Release,RAIN7_CROPS,RAIN7_EXPANSIONS} from './rain7-balance.js?v=20261123a';
 // All times are this game's design, not copied commercial game balance.
 const rows=[
  ['radish','樱桃萝卜',1,2,0,10,'短作','radish','#d66b6b'],
@@ -45,8 +46,14 @@ const rows=[
 ];
 const unlockLevels={nightwheat:5,starwumpkin:8,radish:1,wheat:1,lettuce:2,cabbage:3,carrot:2,berry:2,potato:3,spinach:4,tomato:4,corn:5,bean:5,apple:2,cucumber:6,pumpkin:6,onion:7,rice:1,pepper:8,pear:6,moon:8,garlic:9,eggplant:9,watermelon:3,peach:10,broccoli:10,sunflower:5,blueberry:11,orange:12,sweetpotato:7,mushroom:13,grape:14,banana:14,strawflower:15,pineapple:10,cherry:16,melon:12,asparagus:17,lemon:18,lotus:16,kiwi:20,lychee:24};
 const shortXp={radish:12,wheat:16,lettuce:20,cabbage:24,spinach:22,bean:26};
-export const CROPS=rows.map(([id,name,level,minutes,cost,coins,group,shape,color,harvests=1,regrow=0])=>({id,name,short:name.replace('樱桃萝卜','萝卜').replace('蜜糖南瓜','南瓜').replace('树',''),level:unlockLevels[id],seconds:minutes*60,minutes,cost,coins,xp:shortXp[id]??(group==='短作'?Math.max(1,Math.round(Math.sqrt(minutes)*.9)):Math.min(80,Math.round(24+Math.sqrt(group==='中作'?minutes:(minutes+(harvests-1)*regrow)/harvests)*1.7))),group,shape,color,harvests,regrowSeconds:regrow*60}));
+export const LEGACY_CROPS=rows.map(([id,name,level,minutes,cost,coins,group,shape,color,harvests=1,regrow=0])=>({id,name,short:name.replace('樱桃萝卜','萝卜').replace('蜜糖南瓜','南瓜').replace('树',''),level:unlockLevels[id],seconds:minutes*60,minutes,cost,coins,xp:shortXp[id]??(group==='短作'?Math.max(1,Math.round(Math.sqrt(minutes)*.9)):Math.min(80,Math.round(24+Math.sqrt(group==='中作'?minutes:(minutes+(harvests-1)*regrow)/harvests)*1.7))),group,shape,color,harvests,regrowSeconds:regrow*60}));
+export const CROPS=rain7Release?LEGACY_CROPS.map(old=>{
+ const row=RAIN7_CROPS[old.id];
+ if(!row)return old;
+ const [minutes,cost,units,coins,xp,level,harvests,regrow]=row;
+ return {...old,minutes,seconds:minutes*60,cost,units,coins,xp,level,harvests,regrowSeconds:regrow*60};
+}):LEGACY_CROPS;
 export const crop=id=>CROPS.find(c=>c.id===id);
-export const EXPANSIONS=[{level:3,cost:240,count:8},{level:6,cost:1800,count:10},{level:10,cost:6000,count:12}];
+export const EXPANSIONS=rain7Release?RAIN7_EXPANSIONS:[{level:3,cost:240,count:8},{level:6,cost:1800,count:10},{level:10,cost:6000,count:12}];
 export const SOILS=[{name:'普通田',level:1,cost:0,speed:1,bonus:1},{name:'肥沃田',level:5,cost:600,speed:.9,bonus:1.1},{name:'丰饶田',level:12,cost:1800,speed:.8,bonus:1.25}];
 export const formatTime=seconds=>{let n=Math.max(0,Math.ceil(seconds));if(n<60)return n+'秒';if(n<3600)return Math.ceil(n/60)+'分钟';let h=Math.floor(n/3600),m=Math.ceil((n%3600)/60);if(m===60){h++;m=0;}return h+'小时'+(m?m+'分':'');};

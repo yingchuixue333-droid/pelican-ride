@@ -1,0 +1,64 @@
+import assert from 'node:assert/strict';
+import {execFileSync} from 'node:child_process';
+
+const formerSave=execFileSync(process.execPath,['--input-type=module','-e',`
+ import {newGame,plant,harvest,threshold} from './farm/model.js';
+ import {enableFieldProgress} from './farm/preview-progression.js';
+ import {enableOrchardMarket,harvestTree} from './farm/orchard.js';
+ const s=newGame(1e9);
+ s.coins=35000; s.xp=threshold(22)+40; s.plotCount=12; s.rainPreviewStipend=true;
+ enableFieldProgress(s); enableOrchardMarket(s);
+ s.soil[4]=9;
+ plant(s,4,'blueberry',s.at);
+ harvest(s,4,s.plots[4].end);
+ harvestTree(s,0,s.at+48*3600000);
+ console.log(JSON.stringify(s));
+`],{encoding:'utf8'});
+
+globalThis.location=new URL('https://farm.test/');
+const suffix='?v=20261123a';
+const m=await import('../farm/model.js'+suffix);
+const {enableFieldProgress,harvestMutation}=await import('../farm/preview-progression.js'+suffix);
+const orchard=await import('../farm/orchard.js'+suffix);
+const raw=JSON.parse(formerSave);
+const save=m.parse(formerSave);
+assert.equal(m.enableRain7(save),true);
+assert.equal(m.enableRain7(save),false);
+assert.equal(m.levelOf(save.xp),22);
+for(const key of ['coins','soil','plotCount','orchard','rainPreviewStipend'])assert.deepEqual(save[key],raw[key]);
+assert.equal(save.plots[4].end,raw.plots[4].end);
+assert.equal(save.plots[4].remaining,raw.plots[4].remaining);
+assert.equal(save.plots[4].value,raw.plots[4].value);
+assert.equal(m.refundFor(save.plots[4]),Math.floor(raw.plots[4].paid*raw.plots[4].remaining/m.plantTerms(save.plots[4]).harvests));
+assert.deepEqual(m.parse(JSON.stringify(save)),save);
+assert.equal(m.threshold(60),32400);
+assert.equal(m.levelOf(1e9),60);
+assert.equal(m.CROPS.length,42);
+assert.deepEqual(m.EXPANSIONS.map(row=>row.cost),[900,3200,7600]);
+assert.deepEqual(m.soilLevels(save).map(row=>row.cost),[0,180,300,500,750,1050,1400,1800,2300,3000]);
+
+const now=2e9;
+const fresh=m.newGame(now);
+assert.equal(m.enableRain7(fresh),true);
+enableFieldProgress(fresh);
+orchard.enableOrchardMarket(fresh);
+assert.equal(m.preferredLongSeed(fresh),'rice');
+assert.equal(m.plant(fresh,4,'rice',now).cost,95);
+assert.equal(m.harvest(fresh,4,now+4*3600000).units,6);
+assert.equal(m.harvest(fresh,4,now+4*3600000),false);
+assert.equal(orchard.treeView(fresh,0,now+48*3600000).stored,4);
+const token=orchard.treeView(fresh,0,now+48*3600000).fruits[0].token;
+assert.equal(orchard.harvestFruit(fresh,0,token,now+48*3600000).basketValue,130);
+assert.equal(orchard.harvestFruit(fresh,0,token,now+48*3600000),false);
+assert.equal(orchard.sellBasket(fresh,now+48*3600000).coins,130);
+assert.equal(orchard.sellBasket(fresh,now+48*3600000),false);
+
+const mutation=m.newGame(now);
+m.enableRain7(mutation); enableFieldProgress(mutation);
+assert.equal(harvestMutation(mutation,'berry',()=>.119),true);
+for(let i=0;i<3;i++)assert.equal(harvestMutation(mutation,'tomato',()=>.12),false);
+assert.equal(harvestMutation(mutation,'radish',()=>0),false);
+const restored=m.parse(JSON.stringify(mutation));
+assert.equal(harvestMutation(restored,'pumpkin',()=>.99),true);
+assert.equal(restored.fieldProgress.misses,0);
+console.log('rain7 balance, legacy saves, mutation, and basket settlement passed');
