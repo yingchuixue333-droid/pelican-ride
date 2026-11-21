@@ -307,7 +307,11 @@ async function redeemPlumGift(){
  if(!/^[A-Za-z0-9_-]{32}$/.test(token))return;
  const hash=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(token));
  const hex=Array.from(new Uint8Array(hash),b=>b.toString(16).padStart(2,'0')).join('');
- if(hex!=='8e794dbd22a241c7825c2458638fd9344af55afc9a12f980213d99b9aeea0855')return;
+ const acceptedGiftHashes=[
+  '8e794dbd22a241c7825c2458638fd9344af55afc9a12f980213d99b9aeea0855',
+  '927c30b61fd392a37323ec3c3837977a57a0adb5c3d4993f84e6124af7cd32be',
+ ];
+ if(!acceptedGiftHashes.includes(hex))return;
  if(memoryOnly){toast('存档未能写入，领取链接仍可重试。');return;}
  const claimed=await transact(s=>memoryOnly?[]:[claimPlumGift(s)].filter(Boolean));
  if(memoryOnly){toast('存档未能写入，领取链接仍可重试。');return;}
