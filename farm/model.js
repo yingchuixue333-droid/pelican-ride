@@ -1,9 +1,9 @@
-import {rain7Release,RAIN7_CROPS,RAIN7_XP} from './rain7-balance.js?v=20261123a';
-import {FIELD_LEVELS,harvestMutation} from './preview-progression.js?v=20261123a';
+import {rain7Release,RAIN7_CROPS,RAIN7_XP} from './rain7-balance.js?v=20261123b';
+import {FIELD_LEVELS,harvestMutation} from './preview-progression.js?v=20261123b';
 import {validate as oldValidate,levelOf as oldLevel,CROPS as OLD_CROPS} from './legacy.js?v=20261107d';
-export {CROPS,crop,EXPANSIONS,SOILS,formatTime} from './catalog.js?v=20261123a';
-import {newOrchard,validateOrchard} from './orchard.js?v=20261123a';
-import {CROPS,crop,EXPANSIONS,SOILS,LEGACY_CROPS} from './catalog.js?v=20261123a';
+export {CROPS,crop,EXPANSIONS,SOILS,formatTime} from './catalog.js?v=20261123b';
+import {newOrchard,validateOrchard} from './orchard.js?v=20261123b';
+import {CROPS,crop,EXPANSIONS,SOILS,LEGACY_CROPS} from './catalog.js?v=20261123b';
 const preview=typeof location!=='undefined'&&(new URLSearchParams(location.search).has('orchardPreview')||location.pathname.includes('/orchard-preview/'));
 export const soilLevels=s=>s.fieldProgress?FIELD_LEVELS:SOILS;
 export const KEY=preview?'windfarm-rain-preview-v1':'windfarm-v2',OLD_KEY=preview?'windfarm-rain-preview-legacy-v1':'windfarm-v1';

@@ -1,4 +1,4 @@
-import {rain7Release,RAIN7_CROPS,RAIN7_EXPANSIONS} from './rain7-balance.js?v=20261123a';
+import {rain7Release,RAIN7_CROPS,RAIN7_EXPANSIONS} from './rain7-balance.js?v=20261123b';
 // All times are this game's design, not copied commercial game balance.
 const rows=[
  ['radish','樱桃萝卜',1,2,0,10,'短作','radish','#d66b6b'],

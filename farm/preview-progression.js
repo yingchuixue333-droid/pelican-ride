@@ -1,4 +1,4 @@
-import {rain7Release,RAIN7_FIELD_COST,RAIN7_FIELD_UNLOCK} from './rain7-balance.js?v=20261123a';
+import {rain7Release,RAIN7_FIELD_COST,RAIN7_FIELD_UNLOCK} from './rain7-balance.js?v=20261123b';
 export const SEED_CATEGORIES=[
  {id:'gold',label:'高金币',crops:['rice','watermelon','nightwheat','starwumpkin']},
  {id:'xp',label:'高经验',crops:['radish','wheat','lettuce','bean']},

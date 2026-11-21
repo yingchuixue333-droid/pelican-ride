@@ -16,7 +16,7 @@ const formerSave=execFileSync(process.execPath,['--input-type=module','-e',`
 `],{encoding:'utf8'});
 
 globalThis.location=new URL('https://farm.test/');
-const suffix='?v=20261123a';
+const suffix='?v=20261123b';
 const m=await import('../farm/model.js'+suffix);
 const {enableFieldProgress,harvestMutation}=await import('../farm/preview-progression.js'+suffix);
 const orchard=await import('../farm/orchard.js'+suffix);
@@ -62,3 +62,39 @@ const restored=m.parse(JSON.stringify(mutation));
 assert.equal(harvestMutation(restored,'pumpkin',()=>.99),true);
 assert.equal(restored.fieldProgress.misses,0);
 console.log('rain7 balance, legacy saves, mutation, and basket settlement passed');
+
+const hour=3600000, minute=60000;
+const quick=m.newGame(now);
+m.enableRain7(quick);
+orchard.enableOrchardMarket(quick);
+assert.equal(orchard.enableQuickFruit(quick,now),true);
+assert.equal(orchard.treeView(quick,0,now+15*minute-1).stored,0);
+assert.equal(orchard.treeView(quick,0,now+15*minute).stored,1);
+assert.equal(orchard.treeView(quick,0,now+hour+15*minute).stored,2);
+assert.equal(orchard.treeView(quick,0,now+9*hour).stored,4);
+assert.equal(orchard.enableQuickFruit(quick,now+9*hour),false);
+assert.deepEqual(m.parse(JSON.stringify(quick)),quick);
+
+const migrated=m.newGame(now);
+m.enableRain7(migrated);
+migrated.orchard.trees[0].care=3;
+orchard.enableOrchardMarket(migrated);
+assert.equal(orchard.treeRank(migrated.orchard.trees[0]).level,50);
+const later=now+15*hour;
+const peach=orchard.treeView(migrated,0,later);
+orchard.harvestFruit(migrated,0,peach.fruits[0].token,later);
+const beforeMarket=migrated.orchard.basketValue;
+const remaining=orchard.treeView(migrated,0,later).fruits.map(fruit=>fruit.token);
+assert.equal(orchard.enableQuickFruit(migrated,later),true);
+assert.equal(orchard.treeRank(migrated.orchard.trees[0]).level,1);
+assert.deepEqual(orchard.treeView(migrated,0,later).fruits.map(fruit=>fruit.token),remaining);
+assert.equal(migrated.orchard.basketValue,beforeMarket);
+const refreshed=m.parse(JSON.stringify(migrated));
+assert.equal(orchard.enableQuickFruit(refreshed,later),false);
+assert.equal(orchard.harvestFruit(refreshed,0,peach.fruits[0].token,later),false);
+const actualNew=orchard.treeView(refreshed,0,later).fruits[0].token;
+orchard.harvestFruit(refreshed,0,actualNew,later);
+assert.equal(orchard.treeRank(refreshed.orchard.trees[0]).level,2);
+assert.equal(orchard.enableQuickFruit(refreshed,later),false);
+assert.equal(orchard.treeRank(refreshed.orchard.trees[0]).level,2);
+console.log('quick fruit clocks, saved stock, and one-time peach rank migration passed');
