@@ -1,4 +1,4 @@
-import {crop,growth,ready,time,SOILS} from './model.js?v=20261114f';
+import {crop,growth,ready,time,soilLevels} from './model.js?v=20261122a';
 const nonFlowering=new Set(['radish','carrot','root','leaf','lotus','mushroom','wheat','corn']);
 export function visualPhase(s,p,now){
  if(!p)return {phase:-1,label:'空地',progress:0,established:false};
@@ -24,6 +24,6 @@ const dayFormat=new Intl.DateTimeFormat('zh-CN',{timeZone:'Asia/Shanghai',year:'
 const clockFormat=new Intl.DateTimeFormat('zh-CN',{timeZone:'Asia/Shanghai',hour:'2-digit',minute:'2-digit',hour12:false});
 export function readyMoment(end,now){let day=dayFormat.format(end),today=dayFormat.format(now),tomorrow=dayFormat.format(now+86400000);return (day===today?'今天':day===tomorrow?'明天':day)+' '+clockFormat.format(end)+'（北京时间）';}
 export function plotDetails(s,i,now,selected='radish'){
- now=time(s,now);let p=s.plots[i],c=crop(p?.id||selected),soil=SOILS[s.soil[i]],v=visualPhase(s,p,now),ripe=ready(s,p,now),clock=maturityTime(s,p,now);
+ now=time(s,now);let p=s.plots[i],c=crop(p?.id||selected),soil=soilLevels(s)[s.soil[i]],v=visualPhase(s,p,now),ripe=ready(s,p,now),clock=maturityTime(s,p,now);
  return {index:i,id:c.id,name:c.name,empty:!p,ripe,phase:v.label,progress:v.progress,countdown:ripe?'成熟可收':clock.countdown,countdownLabel:!p?'当前空田':ripe?'现在就能收':'距离成熟还剩',readyAt:p?(ripe?'已成熟，随时可收':'预计成熟：'+readyMoment(p.end,now)):'选好种子即可开始',cycles:p?'第'+p.cycle+'/'+c.harvests+'茬 · 还可收'+p.remaining+'次':'本品种共可收'+c.harvests+'次',value:p?p.value:Math.round(c.coins*soil.bonus),xp:p?p.xp:c.xp,soil:soil.name,soilEffect:soil.speed===1?'普通田 · 标准生长和售价':'下轮：生长时间减'+Math.round((1-soil.speed)*100)+'% · 售价加'+Math.round((soil.bonus-1)*100)+'%',action:!p?'plant':ripe?'harvest':p.watered?'wait':'water'};
 }

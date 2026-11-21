@@ -1,0 +1,26 @@
+import assert from 'node:assert/strict';
+import {newGame,parse} from '../farm/model.js';
+import {treeView,harvestTree,harvestFruit,observeOrchard,careTree,graftTree,fruitLook} from '../farm/orchard.js';
+import {fruitPositions,treeGeometry} from '../farm/orchard-scene.js';
+import {bindOrchardTaps} from '../farm/orchard-ui.js';
+const T=1800000000000,H=3600000;
+// New optional metadata never changes V3 timers or existing field state.
+let s=newGame(T),legacy=structuredClone(s);delete legacy.orchard.trees[0].fruits;let restored=parse(JSON.stringify(legacy));assert.equal(restored.orchard.trees[0].born,T);assert.deepEqual(restored.plots,legacy.plots);assert.deepEqual(restored,legacy);
+for(let hour of [0,6,24,48]){s=newGame(T);let raw=JSON.stringify(s),v=treeView(s,0,T+hour*H);assert.equal(v.stage,[0,6,24,48].indexOf(hour));assert.equal(v.fruits.length,Math.min(4,hour<6?0:1+Math.floor((hour-6)/4)));assert.equal(JSON.stringify(s),raw);assert(v.fruits.every(f=>Number.isFinite(f.size)));assert.equal(fruitPositions(v).length,v.stored);}
+// Out-of-order hand picking: exactly one portion; cap/appearance is stable over time and refresh.
+s=newGame(T);let t=T+48*H,v=treeView(s,0,t),fruits=v.fruits.map(f=>({...f})),before=s.coins;
+let picked=harvestFruit(s,0,fruits[2].token,t);assert(picked);assert.equal(treeView(s,0,t).stored,3);assert(!harvestFruit(s,0,fruits[2].token,t));assert.equal(s.coins,before+picked.coins);assert.deepEqual(treeView(s,0,t).fruits,fruits.filter((_,i)=>i!==2));s=parse(JSON.stringify(s));assert.deepEqual(treeView(s,0,t).fruits,fruits.filter((_,i)=>i!==2));assert.equal(treeView(s,0,t+4*H).stored,4);for(let f of treeView(s,0,t).fruits)assert(treeView(s,0,t+40*H).fruits.some(n=>n.token===f.token),'existing fruit never disappears while waiting');
+let old=treeView(s,0,t+40*H).fruits,again=treeView(parse(JSON.stringify(s)),0,t+40*H).fruits;assert.deepEqual(old,again);
+// Same total prices for four hand-picked portions vs the V3 bulk formula, for every care level/species.
+for(let id of ['apple','pear','peach'])for(let care=0;care<4;care++){s=newGame(T);s.orchard.trees[0].id=id;s.orchard.trees[0].care=care;let bulk=structuredClone(s),gain=harvestTree(bulk,0,t).coins,coins=0;for(let f of [...treeView(s,0,t).fruits].reverse())coins+=harvestFruit(s,0,f.token,t).coins;assert.equal(coins,gain);assert.equal(treeView(s,0,t).stored,0);assert(!harvestTree(s,0,t));assert.deepEqual(parse(JSON.stringify(s)),s);assert(s.orchard.trees[0].sample);}
+// Stale clicks after bulk, graft or refresh cannot create produce or money.
+s=newGame(T);s.coins=10000;v=treeView(s,0,t);let token=v.fruits[0].token;harvestTree(s,0,t);assert(!harvestFruit(s,0,token,t));let more=t+4*H;token=treeView(s,0,more).fruits[0].token;careTree(s,0,more);let born=s.orchard.trees[0].born;graftTree(s,0,'peach',more);assert.equal(s.orchard.trees[0].born,born);assert.equal(s.orchard.trees[0].care,1);assert(!harvestFruit(s,0,token,more));assert.equal(treeView(s,0,more).stored,0);assert.deepEqual(parse(JSON.stringify(s)),s);
+// Observation has no rewards and no invented/repeated changes. Stable specimen isn't rerolled.
+s=newGame(T);let balance=s.coins;assert.deepEqual(observeOrchard(s,T),[]);assert.equal(s.coins,balance);assert(observeOrchard(s,T+6*H).some(c=>c.text.includes('新挂上')));assert.deepEqual(observeOrchard(s,T+6*H),[]);let one=treeView(s,0,s.at).fruits[0];harvestFruit(s,0,one.token,s.at);let sample=structuredClone(s.orchard.trees[0].sample);observeOrchard(s,s.at);s=parse(JSON.stringify(s));assert.deepEqual(observeOrchard(s,s.at),[]);assert.deepEqual(s.orchard.trees[0].sample,sample);assert.deepEqual(fruitLook('apple',T,1),fruitLook('apple',T,1));
+for(let mutate of [v=>v.orchard.trees[0].fruits=[1,1],v=>v.orchard.trees[0].fruits=[999999],v=>v.orchard.trees[0].sample.coins=-1,v=>v.orchard.trees[0].sample.at=v.at+1,v=>v.orchard.trees[0].seen.stage=9]){let bad=structuredClone(s);mutate(bad);assert.throws(()=>parse(JSON.stringify(bad)));}
+// Release-only gesture respects swipes/cancel/scroll; keyboard remains usable.
+let handlers={},target={closest:()=>target},root={addEventListener:(k,f)=>handlers[k]=f,removeEventListener(){}},taps=0,gesture=bindOrchardTaps(root,()=>taps++),e=(x,y,extra={})=>({target,clientX:x,clientY:y,pointerId:1,button:0,detail:1,...extra});handlers.pointerdown(e(10,10));handlers.pointermove(e(10,100));handlers.click(e(10,100));assert.equal(taps,0);handlers.pointerdown(e(10,10));handlers.click(e(10,10));assert.equal(taps,1);handlers.pointerdown(e(10,10));handlers.pointercancel();handlers.click(e(10,10));assert.equal(taps,1);handlers.click(e(0,0,{detail:0}));assert.equal(taps,2);gesture.destroy();
+// Preview route owns every farm/legacy key. It cannot import the production localStorage automatically.
+globalThis.location={pathname:'/pelican-ride/orchard-preview/',search:''};let preview=await import('../farm/model.js?storage-isolation');assert.notEqual(preview.KEY,'windfarm-v2');assert.notEqual(preview.OLD_KEY,'windfarm-v1');delete globalThis.location;
+assert.notEqual(treeGeometry({stage:2,tree:{id:'pear'}}).w,treeGeometry({stage:2,tree:{id:'peach'}}).w);
+console.log('PASS orchard hand picking, stable inventory/appearances, all V3 prices, partial offline cap, graft/refresh idempotency, real return observations, samples, migration, gesture cancellation and isolated preview keys');
