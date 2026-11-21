@@ -21,4 +21,3 @@
 - [数值模拟原始结果](farm-balance-report.json)
 - 接续先读PROJECT.md。开发npm run dev；全部回归npm test；农场专项npm run test:farm。
 - V1自动迁移到V2独立数据键，旧键保留。进度只在当前浏览器，设置里可导出JSON。备份文件不公开提交。
-- 旧内容：fling.html、station.html、play.html。旧版本细节见各历史RELEASE文档。

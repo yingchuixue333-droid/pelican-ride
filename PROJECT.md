@@ -26,7 +26,6 @@
 - 仓库yingchuixue333-droid/pelican-ride，main，Pages自动发布。git push缺凭据时用GitHub连接器Git Data接口，expected_sha保护更新；先核实远端HEAD。
 - index.html → farm/app.js；catalog.js定义40品种、土壤与扩地；model.js独立规则/迁移/校验；art.js原创Canvas；touch.js不拦截滚动的轻点控制。
 - 新键windfarm-v2，旧键保留；legacy.js仅为V1迁移读取与历史检查。备份可读V1/V2。不把个人备份或浏览器数据提交到仓库。
-- 旧弹射fling.html、小站station.html、雪路play.html均保留原数据。
 
 ## 协作与检查
 
