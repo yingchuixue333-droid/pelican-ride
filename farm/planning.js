@@ -1,5 +1,5 @@
-import {CROPS,EXPANSIONS,SOILS} from './catalog.js?v=20261114f';
-import {levelOf,threshold,progress,unlocked,time,ready} from './model.js?v=20261114f';
+import {CROPS,EXPANSIONS,SOILS} from './catalog.js?v=20261121d';
+import {levelOf,threshold,progress,unlocked,time,ready} from './model.js?v=20261121d';
 export const PLANS=[{id:'any',label:'不限时间',min:0,max:Infinity,hint:'按自己的节奏选种'},{id:'quick',label:'玩几分钟',min:0,max:600,hint:'初熟不超过10分钟，适合短时种收'},{id:'hour',label:'1小时后回来',min:1800,max:3600,hint:'初熟30～60分钟，回来即可收；不枯萎'},{id:'sleep',label:'睡前种',min:14400,max:28800,hint:'初熟4～8小时；多茬仍需回来手动采收'}];
 export function cropComparison(c,{soil=0,watered=false}={}){let ground=SOILS[soil]||SOILS[0],speed=ground.speed*(watered?.75:1),first=Math.round(c.seconds*speed*1000)/1000,regrow=Math.round(c.regrowSeconds*speed*1000)/1000,seconds=first+(c.harvests-1)*regrow,value=Math.round(c.coins*ground.bonus),net=value*c.harvests-c.cost,xp=c.xp*c.harvests;return {first,regrow,total:seconds,value,net,xp,coinsPerHour:net*3600/seconds,xpPerHour:xp*3600/seconds,actions:c.harvests+1,coinsPerAction:net/(c.harvests+1)};}
 export const cropRole=c=>({'短作':'适合在线勤收，换取较高每小时收益','中作':'适合隔一阵回来，单次收成更足','长作':'适合离线前安排，回来一次收大份','再生':'一次播种，多次手动采收，省去重复播种','果树':'投入较高，连续多轮结果，适合长期留田'}[c.group]);

@@ -1,8 +1,8 @@
-import {CROPS,crop,growth,ready} from './model.js?v=20261114f';
-import {growthProfile,frameDelay} from './growth.js?v=20261114f';
-import {sprite,images,assetsReady} from './assets.js?v=20261114f';
+import {CROPS,crop,growth,ready} from './model.js?v=20261121d';
+import {growthProfile,frameDelay} from './growth.js?v=20261121d';
+import {sprite,images,assetsReady} from './assets.js?v=20261121d';
 export {assetsReady};
-import {visualPhase} from './presentation.js?v=20261114f';
+import {visualPhase} from './presentation.js?v=20261121d';
 const INK='#40584b';
 function ellipse(c,x,y,rx,ry,fill,stroke=null){c.beginPath();c.ellipse(x,y,rx,ry,0,0,Math.PI*2);if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.lineWidth=2;c.strokeStyle=stroke;c.stroke();}}
 function path(c,points,fill,stroke=null){c.beginPath();for(let i=0;i<points.length;i++)c[i?'lineTo':'moveTo'](...points[i]);c.closePath();if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.lineWidth=2;c.strokeStyle=stroke;c.stroke();}}
