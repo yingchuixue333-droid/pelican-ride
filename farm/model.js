@@ -1,7 +1,7 @@
 import {validate as oldValidate,levelOf as oldLevel,CROPS as OLD_CROPS} from './legacy.js?v=20261107d';
-export {CROPS,crop,EXPANSIONS,SOILS,formatTime} from './catalog.js?v=20261121d';
-import {newOrchard,validateOrchard} from './orchard.js?v=20261121d';
-import {CROPS,crop,EXPANSIONS,SOILS} from './catalog.js?v=20261121d';
+export {CROPS,crop,EXPANSIONS,SOILS,formatTime} from './catalog.js?v=20261121e';
+import {newOrchard,validateOrchard} from './orchard.js?v=20261121e';
+import {CROPS,crop,EXPANSIONS,SOILS} from './catalog.js?v=20261121e';
 const preview=typeof location!=='undefined'&&(new URLSearchParams(location.search).has('orchardPreview')||location.pathname.includes('/orchard-preview/'));
 export const KEY=preview?'windfarm-rain-preview-v1':'windfarm-v2',OLD_KEY=preview?'windfarm-rain-preview-legacy-v1':'windfarm-v1';
 export const REQUIREMENTS=[8,16,24,32,40,48,60,72,84,96,108,120];
@@ -41,7 +41,7 @@ export function uproot(s,i,now){let p=s.plots[i];if(i<0||i>=s.plotCount||!p)retu
 export function clearPlots(s,indices,now){let count=0,refund=0,harvestCoins=0,xp=0,levels=0;now=time(s,now);for(let i of new Set(indices)){if(!Number.isInteger(i)||i<0||i>=s.plotCount||!s.plots[i])continue;count++;if(ready(s,s.plots[i],now)){let e=harvest(s,i,now);harvestCoins+=e.coins;xp+=e.xp;levels+=e.levels;}if(s.plots[i]){let e=uproot(s,i,now);refund+=e.refund;}}return count?{kind:'clear',count,refund,harvestCoins,xp,levels,message:'已清空'+count+'块田 · 退种子费'+refund+'币'+(harvestCoins?' · 收菜'+harvestCoins+'币':'')+(levels?' · 升级奖励'+levels*25+'币':'')}:false;}
 export function clearQuote(s,indices,now){return clearPlots(structuredClone(s),indices,now);}
 // One explicit visit action: collect all mature plots first, then re-sow their own last seeds.
-export function harvestAndResow(s,now){let events=[],skipped=0;now=time(s,now);for(let i=0;i<s.plotCount;i++){let id=s.plots[i]?.id,e=harvest(s,i,now);if(e)events.push({...e,index:i,id});}let next=s.nextSeed||(preview?preferredLongSeed(s):null);for(let i=0;i<s.plotCount;i++){if(s.plots[i])continue;let id=next||s.lastSeeds[i],e=plant(s,i,id,now);if(e)events.push({...e,index:i,id});else skipped++;}return {events,skipped};}
+export function harvestAndResow(s,now){let events=[],skipped=0,shortfall=0;const next=s.nextSeed||(preview?preferredLongSeed(s):null);now=time(s,now);for(let i=0;i<s.plotCount;i++){let id=s.plots[i]?.id,e=harvest(s,i,now);if(e)events.push({...e,index:i,id});}for(let i=0;i<s.plotCount;i++){if(s.plots[i])continue;let id=next||s.lastSeeds[i],e=plant(s,i,id,now);if(e)events.push({...e,index:i,id});else{skipped++;shortfall+=crop(id)?.cost||0;}}return {events,skipped,shortfall:skipped?Math.max(0,shortfall-s.coins):0,seed:next};}
 export function resowQuote(s,now){let {events,skipped}=harvestAndResow(structuredClone(s),now);return {harvests:events.filter(e=>e.kind==='harvest').length,planted:events.filter(e=>e.kind==='plant').length,cost:events.reduce((n,e)=>n+(e.cost||0),0),coins:events.reduce((n,e)=>n+(e.coins||0),0),xp:events.reduce((n,e)=>n+(e.xp||0),0),levels:events.reduce((n,e)=>n+(e.levels||0),0),skipped};}
 export function improveAll(s,now){let eligible=[];for(let i=0;i<s.plotCount;i++){let soil=SOILS[s.soil[i]+1];if(soil&&levelOf(s.xp)>=soil.level)eligible.push({index:i,cost:soil.cost});}eligible.sort((a,b)=>a.cost-b.cost||a.index-b.index);let events=[];for(let item of eligible){let e=improve(s,item.index,now);if(e)events.push({...e,index:item.index});}return {events,eligible:eligible.length,skipped:eligible.length-events.length};}
 export function improvementQuote(s,now){let {events,eligible,skipped}=improveAll(structuredClone(s),now);return {count:events.length,cost:events.reduce((n,e)=>n+e.cost,0),eligible,skipped};}
@@ -66,4 +66,4 @@ export function parse(text){if(typeof text!=='string'||text.length>100000)throw 
 // Only future empty plots use this choice; existing crops and paid snapshots stay intact.
 export function queueSeed(s,id,now){if(id!==null&&!unlocked(s,id))return false;s.nextSeed=id;s.at=time(s,now);return {kind:'queue',message:id?'下一轮种'+crop(id).short+' · 当前作物继续生长':'恢复按每块田原品种续种'};}
 export function tendAll(s,now){let result=harvestAndResow(s,now);for(let i=0;i<s.plotCount;i++){let e=water(s,i,now);if(e)result.events.push({...e,index:i,id:s.plots[i].id});}return result;}
-export function tendingQuote(s,now){let {events,skipped}=tendAll(structuredClone(s),now);return {harvests:events.filter(e=>e.kind==='harvest').length,planted:events.filter(e=>e.kind==='plant').length,watered:events.filter(e=>e.kind==='water').length,cost:events.reduce((n,e)=>n+(e.cost||0),0),skipped};}
+export function tendingQuote(s,now){let {events,skipped,shortfall,seed}=tendAll(structuredClone(s),now);return {harvests:events.filter(e=>e.kind==='harvest').length,planted:events.filter(e=>e.kind==='plant').length,shortfall,seed,watered:events.filter(e=>e.kind==='water').length,cost:events.reduce((n,e)=>n+(e.cost||0),0),skipped};}
