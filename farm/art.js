@@ -1,11 +1,12 @@
-import {cropPicture,seasonArtReady,seasonCropsReady} from './season-sprites.js?v=20261122f';
+import {paintIrrigationFlow,paintIrrigationGround} from './irrigation-art.js';
+import {cropPicture,seasonArtReady,seasonCropsReady} from './season-sprites.js?v=20261122g';
 import {paintCrop,paintBed,bedOutline} from './field-paint.js';
 import {rain7Release} from './rain7-balance.js?v=20261123b';
-import {CROPS,crop,growth,ready} from './model.js?v=20261122f';
+import {CROPS,crop,growth,ready} from './model.js?v=20261122g';
 import {growthProfile,frameDelay} from './growth.js?v=20261122e';
 import {sprite,images,assetsReady as baseAssetsReady} from './assets.js?v=20261123b';
 export const assetsReady=Promise.all([baseAssetsReady,seasonArtReady]);
-import {visualPhase} from './presentation.js?v=20261122f';
+import {visualPhase} from './presentation.js?v=20261122g';
 const INK='#40584b';
 function ellipse(c,x,y,rx,ry,fill,stroke=null){c.beginPath();c.ellipse(x,y,rx,ry,0,0,Math.PI*2);if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.lineWidth=2;c.strokeStyle=stroke;c.stroke();}}
 function path(c,points,fill,stroke=null){c.beginPath();for(let i=0;i<points.length;i++)c[i?'lineTo':'moveTo'](...points[i]);c.closePath();if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.lineWidth=2;c.strokeStyle=stroke;c.stroke();}}
@@ -49,7 +50,7 @@ export function growingPlant(c,id,x,y,size,v,t=0){
 }
 export const SOIL_ART=[{soil:'#88532d',ridge:'#b17943',frame:'#ad773c',badge:'#e1bf7e'},{soil:'#67482c',ridge:'#94633a',frame:'#758444',badge:'#d4dfab'},{soil:'#493b28',ridge:'#795637',frame:'#b4925b',badge:'#f0d58a'}];
 export function drawIcon(canvas,id,variant=0){canvas.width=120;canvas.height=120;let c=canvas.getContext('2d');c.clearRect(0,0,120,120);if(!(rain7Release&&(cropPicture(c,id,60,108,4,.72)||paintCrop(c,id,60,105,4,.76)))&&!sprite(c,id,60,116,112,112))plantArt(c,id,60,crop(id).shape==='tree'?87:75,crop(id).shape==='tree'?.95:1.1,3,0);}
-export const POSITIONS=Array.from({length:12},(_,i)=>({x:142+(i%3)*218,y:345+Math.floor(i/3)*143}));
+export const POSITIONS=Array.from({length:12},(_,i)=>({x:142+(i%3)*218,y:309+Math.floor(i/3)*143}));
 export const SCENE_WIDTH=720,SCENE_HEIGHT=960;
 function round(c,x,y,w,h,r,fill,stroke){c.beginPath();c.roundRect(x,y,w,h,r);if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.strokeStyle=stroke;c.lineWidth=3;c.stroke();}}
 function paintedMelonLeaf(c,x,y,angle,scale){
@@ -199,10 +200,11 @@ function drawGround(c,s,w,h){
    ellipse(c,px,py,2+pebble%5,1.2+pebble%3*.45,pebble%2?'#896345b8':'#ad865bba');
   }
  }
+ if(rain7Release)paintIrrigationGround(c,POSITIONS);
 }
 const makeCanvas=()=>typeof document!=='undefined'?document.createElement('canvas'):typeof OffscreenCanvas!=='undefined'?new OffscreenCanvas(1,1):null;
 export function createScene(canvas,{createCanvas=makeCanvas}={}){
- const c=canvas.getContext('2d'),w=SCENE_WIDTH,h=SCENE_HEIGHT,ground=createCanvas(),gc=ground?.getContext('2d');let effects=[],groundKey='',plants=new Map(),stats={frames:0,groundBuilds:0,plantBuilds:0};
+ const c=canvas.getContext('2d'),w=SCENE_WIDTH,h=SCENE_HEIGHT,ground=createCanvas(),gc=ground?.getContext('2d');let effects=[],irrigation=null,groundKey='',plants=new Map(),stats={frames:0,groundBuilds:0,plantBuilds:0};
  const layered=!!(ground&&canvas.parentNode&&canvas.before);if(layered){ground.className='ground-layer';ground.setAttribute('aria-hidden','true');canvas.before(ground);}
  function resize(){let d=Math.min(2,globalThis.devicePixelRatio||1);canvas.width=w*d;canvas.height=h*d;c.setTransform(d,0,0,d,0,0);if(ground){ground.width=w*d;ground.height=h*d;gc.setTransform(d,0,0,d,0,0);}groundKey='';plants.clear();}
  function render(s,now,t,reduced=false,{selected=-1}={}){
@@ -225,6 +227,11 @@ export function createScene(canvas,{createCanvas=makeCanvas}={}){
     }
    }else{plants.delete(i);for(let j=-1;j<=1;j++)ellipse(c,x+j*42,y+2,5,2,'#4b392a66');}
   }
+  if(irrigation){
+   const age=t-irrigation.at;
+   if(age>=1.6)irrigation=null;
+   else paintIrrigationFlow(c,POSITIONS,irrigation.indices,Math.max(0,age),reduced);
+  }
   effects=effects.filter(e=>t-e.start<e.life);for(let e of effects){let a=Math.max(0,(t-e.start)/e.life);if(a>1||t<e.start)continue;let{x,y}=e;c.save();c.globalAlpha=1-a;
    if((e.kind==='harvest'||e.kind==='mutation')&&!reduced){
     const mutant=e.kind==='mutation',tx=x+Math.sin(a*Math.PI)*18,ty=y-a*52;
@@ -243,5 +250,5 @@ export function createScene(canvas,{createCanvas=makeCanvas}={}){
    if(e.kind==='soil'){c.strokeStyle='#f7df98';c.lineWidth=4;c.strokeRect(x-100-a*7,y-52-a*7,200+a*14,108+a*14);}
    c.font='bold 23px system-ui';c.textAlign='center';c.lineWidth=4;c.strokeStyle='#516338';c.strokeText(e.text,x,y-77-(reduced?0:a*38));c.fillStyle='#fff4cf';c.fillText(e.text,x,y-77-(reduced?0:a*38));c.restore();}
  }
- resize();return{resize,render,get stats(){return{...stats,cachedPlants:plants.size,layered};},delay(t,reduced=false,covered=false){return frameDelay(effects.some(e=>t-e.start<e.life),reduced,covered);},pop(i,text,kind,now,id=null,delay=0){let p=POSITIONS[i];if(p)effects.push({x:p.x,y:p.y,text,kind,id,start:performance.now()/1000+delay,life:.85});}};
+ resize();return{resize,render,get stats(){return{...stats,cachedPlants:plants.size,layered};},irrigate(indices,t){irrigation={indices,at:t};},delay(t,reduced=false,covered=false){return frameDelay(!!irrigation||effects.some(e=>t-e.start<e.life),reduced,covered);},pop(i,text,kind,now,id=null,delay=0){let p=POSITIONS[i];if(p)effects.push({x:p.x,y:p.y,text,kind,id,start:performance.now()/1000+delay,life:.85});}};
 }

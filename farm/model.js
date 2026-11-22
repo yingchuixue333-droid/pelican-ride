@@ -3,7 +3,7 @@ import {rain7Release,RAIN7_CROPS,RAIN7_XP} from './rain7-balance.js?v=20261123b'
 import {FIELD_LEVELS,harvestMutation} from './preview-progression.js?v=20261123b';
 import {validate as oldValidate,levelOf as oldLevel,CROPS as OLD_CROPS} from './legacy.js?v=20261107d';
 export {CROPS,crop,EXPANSIONS,SOILS,formatTime} from './catalog.js?v=20261122e';
-import {newOrchard,validateOrchard} from './orchard.js?v=20261122f';
+import {newOrchard,validateOrchard} from './orchard.js?v=20261122g';
 import {CROPS,crop,EXPANSIONS,SOILS,LEGACY_CROPS} from './catalog.js?v=20261122e';
 const newSeedIds=new Set(NEXT_CROPS.map(c=>c.id));
 const preview=typeof location!=='undefined'&&(new URLSearchParams(location.search).has('orchardPreview')||location.pathname.includes('/orchard-preview/'));
@@ -72,7 +72,63 @@ export function plant(s,i,id,now){let c=crop(id);if(!Number.isInteger(i)||i<0||i
  s.lastSeeds[i]=id;s.stats[id].sown++;s.at=now;
  return {kind:'plant',cost:paid,message:'种下'+c.short+(trial?' · 已使用试种包':paid?' · -'+paid+'币':' · 免费种子')};}
 export function water(s,i,now){let p=s.plots[i];if(i>=s.plotCount||!p||p.watered||ready(s,p,now))return false;now=time(s,now);p.watered=true;p.end=Math.max(now,p.end-p.duration*.25);s.at=now;return {kind:'water',message:'浇水完成 · 本茬生长时间减少25%'};}
-export function harvest(s,i,now){let p=s.plots[i];if(i>=s.plotCount||!ready(s,p,now))return false;now=time(s,now);let c=crop(p.id),bonus=0,special='';if(s.fieldProgress){if(harvestMutation(s,p.id)){bonus=Math.ceil(p.value*.5);special='变异丰收';}}else if(s.surprise){s.surprise.count++;let roll=s.surprise.count%4;if(roll===2||roll===0){bonus=Math.max(1,Math.round(p.value*(roll===0?.5:.2)));special=roll===0?'金穗丰收':'饱满好果';s.surprise.found++;}}let coins=p.value+bonus,xp=p.xp;s.coins+=coins;let levels=award(s,xp);s.stats[p.id].harvest++;let repeated=p.remaining>1;if(repeated){p.remaining--;p.cycle++;p.start=now;const terms=plantTerms(p);p.duration=terms.regrowSeconds*1000*soilLevels(s)[s.soil[i]].speed;p.end=now+p.duration;p.watered=false;p.value=Math.round(terms.coins*soilLevels(s)[s.soil[i]].bonus);p.xp=terms.xp;}else s.plots[i]=null;s.at=now;return {kind:'harvest',units:plantTerms(p).units,coins,xp,levels,repeated,bonus,special,message:(special?special+'！':'')+c.short+' +'+coins+'币 · +'+xp+'经验'+(repeated?' · 还可收'+p.remaining+'次':'')+(levels?' · 升级！':'')};}
+const HOUR=3600000;
+const FEED_RATES={coins:.05,xp:.1};
+
+export function irrigateFields(s,now){
+ const indices=[];
+ for(let i=0;i<s.plotCount;i++)if(water(s,i,now))indices.push(i);
+ return indices.length?{kind:'irrigation',indices,message:'浇了 '+indices.length+' 块，生长时间已缩短'}:false;
+}
+
+export function feedAmounts(plot){
+ return {coins:Math.round((plot?.value??0)*FEED_RATES.coins),xp:Math.round((plot?.xp??0)*FEED_RATES.xp)};
+}
+
+export function fieldYield(plot){
+ const added=feedAmounts(plot),choice=plot.fertilizer;
+ return {coins:plot.value+(choice==='coins'?added.coins:0),xp:plot.xp+(choice==='xp'?added.xp:0)};
+}
+
+export const canFertilize=(s,plot,n)=>!!plot&&plot.duration>=HOUR&&!plot.fertilizer&&!ready(s,plot,n);
+
+export function fertilizerQuote(s,indices,choice,now){
+ if(!Object.hasOwn(FEED_RATES,choice))return {indices:[],gain:0};
+ const open=[...new Set(indices)].filter(i=>Number.isInteger(i)&&i>=0&&i<s.plotCount&&canFertilize(s,s.plots[i],now)&&feedAmounts(s.plots[i])[choice]>0);
+ return {indices:open,gain:open.reduce((sum,i)=>sum+feedAmounts(s.plots[i])[choice],0)};
+}
+
+export function fertilizeFields(s,indices,choice,now){
+ const q=fertilizerQuote(s,indices,choice,now);
+ if(!q.indices.length)return false;
+ for(const i of q.indices)s.plots[i].fertilizer=choice;
+ s.at=time(s,now);
+ return {kind:'fertilize',...q,message:'已施肥 '+q.indices.length+' 块 · 预计多收 '+q.gain+(choice==='coins'?' 金币':' 经验')};
+}
+
+// A deterministic window tied to this particular planting and cycle survives refresh.
+export function fieldBugWindow(plot,index){
+ if(!plot||plot.duration<HOUR)return null;
+ const roll=(Math.imul(Math.floor(plot.start/1000),1103515245)^Math.imul(index+1,2654435761)^Math.imul(plot.cycle,12345))>>>0;
+ if(roll%32!==0)return null;
+ const start=plot.start+Math.floor(plot.duration*(.27+(roll%13)*.013));
+ return {start,end:start+20*60000};
+}
+export function fieldBug(s,index,now){
+ const plot=s.plots[index],n=time(s,now);
+ if(!plot||plot.bugCaught||ready(s,plot,n))return false;
+ const window=fieldBugWindow(plot,index);
+ return !!window&&n>=window.start&&n<window.end;
+}
+export function catchFieldBug(s,index,now){
+ if(!fieldBug(s,index,now))return false;
+ const xp=3;
+ s.plots[index].bugCaught=true;s.at=time(s,now);
+ award(s,xp);
+ return {kind:'bug',xp,message:'捉到一只小虫 · +'+xp+' 园艺经验'};
+}
+
+export function harvest(s,i,now){let p=s.plots[i];if(i>=s.plotCount||!ready(s,p,now))return false;now=time(s,now);let c=crop(p.id),bonus=0,special='';if(s.fieldProgress){if(harvestMutation(s,p.id)){bonus=Math.ceil(p.value*.5);special='变异丰收';}}else if(s.surprise){s.surprise.count++;let roll=s.surprise.count%4;if(roll===2||roll===0){bonus=Math.max(1,Math.round(p.value*(roll===0?.5:.2)));special=roll===0?'金穗丰收':'饱满好果';s.surprise.found++;}}const estimate=fieldYield(p),coins=estimate.coins+bonus,xp=estimate.xp;s.coins+=coins;let levels=award(s,xp);s.stats[p.id].harvest++;let repeated=p.remaining>1;if(repeated){p.remaining--;p.cycle++;p.start=now;const terms=plantTerms(p);p.duration=terms.regrowSeconds*1000*soilLevels(s)[s.soil[i]].speed;p.end=now+p.duration;p.watered=false;delete p.fertilizer;delete p.bugCaught;p.value=Math.round(terms.coins*soilLevels(s)[s.soil[i]].bonus);p.xp=terms.xp;}else s.plots[i]=null;s.at=now;return {kind:'harvest',units:plantTerms(p).units,coins,xp,levels,repeated,bonus,special,message:(special?special+'！':'')+c.short+' +'+coins+'币 · +'+xp+'经验'+(repeated?' · 还可收'+p.remaining+'次':'')+(levels?' · 升级！':'')};}
 export function expand(s,now){let e=EXPANSIONS[(s.plotCount-6)/2];if(!e||s.coins<e.cost||levelOf(s.xp)<e.level)return false;s.coins-=e.cost;s.plotCount=e.count;s.at=time(s,now);return {kind:'build',message:'新增两块田 · 现在有'+s.plotCount+'块'};}
 export function improve(s,i,now){if(i<0||i>=s.plotCount)return false;let soil=soilLevels(s)[s.soil[i]+1];if(!soil||levelOf(s.xp)<soil.level||s.coins<soil.cost)return false;s.coins-=soil.cost;s.soil[i]++;s.at=time(s,now);return {kind:'build',cost:soil.cost,message:'第'+(i+1)+'块升级为'+soil.name+' · 下次播种或结果时生效'};}
 export function refundFor(p){return p?Math.floor(p.paid*p.remaining/plantTerms(p).harvests):0;}
@@ -107,7 +163,9 @@ function validateV2(raw){
   const terms=p?.terms||(raw.economy===7?c:old);
   const validTerms=terms&&int(terms.harvests,1,12)&&int(terms.regrowSeconds,0,57600)&&(terms.harvests===1||terms.regrowSeconds>0)&&int(terms.coins,0,1000000)&&int(terms.xp,0,10000)&&int(terms.units??1,1,100);
   if(i>=s.plotCount||!c||!validTerms||!int(p.start,0,9e15)||!Number.isFinite(p.end)||p.end<p.start||p.end>p.start+57600000||!Number.isFinite(p.duration)||p.duration<1000||p.duration>57600000||typeof p.watered!=='boolean'||!int(p.paid)||!int(p.remaining,1,terms.harvests)||!int(p.cycle,1,terms.harvests)||p.cycle+p.remaining!==terms.harvests+1||!int(p.value,0,1000000)||!int(p.xp,0,10000))throw Error('植株数据不正确');
-  s.plots.push({id:p.id,start:p.start,end:p.end,duration:p.duration,watered:p.watered,paid:p.paid,remaining:p.remaining,cycle:p.cycle,value:p.value,xp:p.xp,...(rain7Release||p.terms?{terms:cropTerms(terms)}:{})});
+  if(p.fertilizer!==undefined&&(!Object.hasOwn(FEED_RATES,p.fertilizer)||p.duration<HOUR))throw Error('施肥记录不正确');
+  if(p.bugCaught!==undefined&&p.bugCaught!==true)throw Error('田间小虫记录不正确');
+  s.plots.push({id:p.id,start:p.start,end:p.end,duration:p.duration,watered:p.watered,paid:p.paid,remaining:p.remaining,cycle:p.cycle,value:p.value,xp:p.xp,...(p.fertilizer?{fertilizer:p.fertilizer}:{}),...(p.bugCaught?{bugCaught:true}:{}),...(rain7Release||p.terms?{terms:cropTerms(terms)}:{})});
  }
  if(raw.version===3&&(raw.orchard===undefined||raw.surprise===undefined||raw.nextSeed===undefined))throw Error('新版存档缺少成长记录');
  if(raw.nextSeed!==undefined&&raw.nextSeed!==null&&(!crop(raw.nextSeed)||!(raw.economy!==7&&rain7Release?(LEGACY_CROPS.find(c=>c.id===raw.nextSeed)?.level??Infinity)<=levelAt(oldBounds,s.xp)||s.legacyUnlocked.includes(raw.nextSeed):unlocked(s,raw.nextSeed))))throw Error('续种设置不正确');s.nextSeed=raw.nextSeed??null;

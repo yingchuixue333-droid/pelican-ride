@@ -1,29 +1,47 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#426d30"><meta name="description" content="风里农场：丰收季作物、果树与再生作物，按自己的节奏经营一片田。"><title>风里农场 · 轻松种收</title><link rel="stylesheet" href="farm/style.css?v=20261123b"><link rel="stylesheet" href="farm/orchard.css?v=20261123b"><link rel="preload" as="image" href="farm/rain-assets/garden.webp"><link rel="preload" as="image" href="farm/rain-assets/apple.webp"><link rel="preload" as="image" href="farm/rain-assets/items.webp"><link rel="stylesheet" href="farm/rain.css?v=20261123b"><link rel="stylesheet" href="farm/season.css?v=20261122f"></head><body>
+<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#426d30"><meta name="description" content="风里农场：丰收季作物、果树与再生作物，按自己的节奏经营一片田。"><title>风里农场 · 轻松种收</title><link rel="stylesheet" href="farm/style.css?v=20261123b"><link rel="stylesheet" href="farm/orchard.css?v=20261123b"><link rel="preload" as="image" href="farm/rain-assets/items.webp"><link rel="stylesheet" href="farm/rain.css?v=20261123b"><link rel="stylesheet" href="farm/season.css?v=20261122g"></head><body>
 <main id="app"><header><a class="brand" href="./" aria-label="风里农场首页"><span class="brandmark">✳</span><span>风里农场<small>THE LITTLE WIND FARM</small></span></a><div class="head-actions"><button id="sound" aria-pressed="false" aria-label="开启声音">♪</button><button id="shop">种子铺 <span id="cropCount">3/42</span></button><button id="settings" aria-expanded="false" aria-label="存档与说明">⋯</button></div></header><nav class="place-tabs" aria-label="逛逛农场"><button id="orchardTab" aria-pressed="false">果园</button><button id="fieldTab" aria-pressed="true">菜地</button></nav>
 <section class="intro"><div><p class="eyebrow">丰收季</p><h1>把日子，种进田里。</h1></div><span id="weather">微风 / 晴</span></section>
 <section id="orchardPage" aria-label="我的果园" hidden>
  <div id="orchardStage" class="orchard-stage">
   <canvas id="orchardCanvas" aria-hidden="true"></canvas><div id="orchardHits"></div>
-  <button id="basketText" type="button" aria-label="打开果篮，空篮" aria-haspopup="dialog" aria-expanded="false"><span id="basketBadge" hidden aria-hidden="true">0</span></button>
  </div>
+ <button id="basketText" type="button" aria-label="打开果篮，空篮" aria-haspopup="dialog" aria-expanded="false"><canvas id="basketCanvas" width="150" height="145" aria-hidden="true"></canvas><span id="basketBadge" hidden aria-hidden="true">0</span></button>
  <button id="treePanelBackdrop" class="tree-panel-backdrop" aria-label="关闭果园面板" hidden></button>
  <section id="treeDetails" class="tree-details" role="dialog" aria-modal="true" aria-labelledby="treeDetailName" hidden>
   <div class="tree-panel-head"><h2 id="treeDetailName"></h2><button id="closeTreeDetails" aria-label="关闭果园面板">关闭 ×</button></div>
   <div class="tree-panel-body">
    <p id="treeDetailYield"></p><p id="treeDetailTime"></p><p id="orchardBalance"></p>
-   <div id="fruitLots"></div><button id="plantOrchardTree" hidden></button>
+   <div id="fruitLots"></div><div id="orchardVarieties" hidden></div><button id="plantOrchardTree" hidden></button>
    <button id="sellBasket" type="button" hidden></button><button id="pickOrchardAll" type="button" hidden></button>
   </div>
  </section>
 </section><section class="status" aria-label="农场状态"><div class="money"><span class="coin">◈</span><strong id="coins">80</strong><small>金币</small></div><button class="level" id="goalShortcut" aria-label="查看升级与开田目标" aria-haspopup="dialog"><div><strong id="level">园艺 1 级</strong><span id="xpText">0 / 8</span></div><progress id="xp" value="0" max="8" aria-label="升级经验"></progress><small id="goalPeek"></small></button></section>
 <p id="storageWarning" role="status" hidden></p><div id="migrationNotice" class="migration-note" hidden><p>旧农场已迁移：等级、金币、土地和在种作物保留。旧鸟浴池、风车按原价折回金币，旧温室折为肥沃田。旧版已解锁品种继续可种。</p><button id="dismissMigration">知道了</button></div>
-<div class="workspace"><section class="garden-column" aria-label="种植区"><div class="scene-wrap"><canvas id="scene" aria-hidden="true"></canvas><div id="plots" aria-label="十二块田地"></div></div>
-<div id="controlDock" class="control-dock"><div class="tools"><button id="harvestAll" class="harvest">一键收菜</button><button id="waterAll">一键浇水</button><button id="fieldNext" type="button" hidden></button></div></div>
+<div class="workspace"><section class="garden-column" aria-label="种植区"><div class="scene-wrap"><canvas id="scene" aria-hidden="true"></canvas><div id="plots" aria-label="十二块田地"></div><div id="fieldBugs"></div><button id="waterGate" type="button" aria-label="打开水闸，灌溉可浇的田"><span aria-hidden="true">水闸</span></button></div>
+<div id="controlDock" class="control-dock">
+ <div id="fieldIdle"><p id="fieldNext"></p><button id="harvestAll" class="harvest" hidden>一键收菜</button></div>
+ <section id="plotStrip" aria-label="田地操作" hidden>
+  <p id="plotSummary"></p>
+  <div class="field-strip-actions">
+   <button id="plotPrimary"></button><button id="comparePlot">换种</button><button id="plotImprove">改良</button>
+   <button id="showPlotDetails">详情</button><button id="closeInspector" aria-label="关闭田地操作">×</button>
+  </div>
+ </section>
+</div>
 
 </section></div>
 
-<section id="plotInspector" class="plot-inspector" hidden aria-label="菜地详情"><div class="inspector-head"><canvas id="plotIcon" aria-hidden="true"></canvas><div><strong id="plotTitle"></strong><small id="plotPhase"></small></div><button id="closeInspector" aria-label="关闭菜地详情">×</button></div><div class="inspector-main"><div><small id="plotCountdownLabel" class="countdown-caption">距离成熟还剩</small><span id="plotCountdown"></span><small id="plotReadyAt"></small></div><button id="plotPrimary">浇水</button><span id="plotCareStatus" hidden></span></div><progress id="plotProgress" max="1" value="0" aria-label="所选作物生长进度"></progress><div class="inspector-meta"><span id="plotCycles"></span><span id="plotValue"></span></div><p id="plotGround"></p><p id="plotPlan"></p><button id="quickRadish" type="button" hidden>这块试种免费萝卜 · 5 分钟</button><div class="inspector-actions"><button id="comparePlot">换种子</button><button id="plotImprove">改良这块</button></div></section>
-<footer><span>风里农场 · 丰收季</span><span id="saveState">本机已保存</span></footer></main><dialog id="settingsSheet" class="seed-sheet" aria-label="存档与说明"><div class="sheet-content"><section id="preferences" class="drawer" hidden aria-label="存档与说明"><div class="section-title"><h2>把小农场带好</h2><button id="closeSettings" class="close" aria-label="关闭存档面板">×</button></div><p>进度只在当前设备的浏览器里。清理浏览器数据会丢失进度，请先导出备份；没有账号同步。旧版备份也能导入并迁移。</p><div class="backup-actions"><button id="export">导出备份</button><label class="button" for="import">导入备份<input type="file" id="import" accept="application/json,.json" hidden></label></div><div id="importPreview" hidden><p id="importSummary"></p><button id="confirmImport">确认替换当前农场</button><button id="cancelImport">取消</button></div><button id="adoptPreviewSave" hidden>读取这台设备的试玩存档</button><p id="backupMessage" role="status"></p><details><summary>种植与成长规则</summary><p>轻点田地查看生长、收菜、播种、换种和改良。单田设置优先于全田计划，多茬作物收完才换。改良从下一茬生效，浇水每茬一次并减去原用时的 25%。作物成熟后会等你收。</p><p>16 级送一包荷兰豆试种。园艺最高 60 级，田地最高 10 级，果树最高 100 级。采收作物直接获得金币；摘树上的果实先放到果篮，卖果时到账。</p><p>主动铲除会显示退款和确认；未收过退已付种子费，多茬按剩余茬数退。</p></details><a href="FARM-RAIN7-RELEASE.md">丰收季数值与存档说明 ↗</a></section></div></dialog><dialog id="manageSheet" class="seed-sheet next-sheet" aria-labelledby="manageTitle">
+
+<footer><span>风里农场 · 丰收季</span><span id="saveState">本机已保存</span></footer></main><dialog id="settingsSheet" class="seed-sheet" aria-label="存档与说明"><div class="sheet-content"><section id="preferences" class="drawer" hidden aria-label="存档与说明"><div class="section-title"><h2>把小农场带好</h2><button id="closeSettings" class="close" aria-label="关闭存档面板">×</button></div><p>进度只在当前设备的浏览器里。清理浏览器数据会丢失进度，请先导出备份；没有账号同步。旧版备份也能导入并迁移。</p><div class="backup-actions"><button id="export">导出备份</button><label class="button" for="import">导入备份<input type="file" id="import" accept="application/json,.json" hidden></label></div><div id="importPreview" hidden><p id="importSummary"></p><button id="confirmImport">确认替换当前农场</button><button id="cancelImport">取消</button></div><button id="adoptPreviewSave" hidden>读取这台设备的试玩存档</button><p id="backupMessage" role="status"></p><details><summary>种植与成长规则</summary><p>点田使用底栏，详情里可看准确成熟时间。点水闸集中浇水，已浇的长作可给当前一茬施肥。单田设置优先于全田计划，多茬作物收完才换。改良从下一茬生效，浇水每茬一次并减去原用时的 25%。作物成熟后会等你收。</p><p>16 级送一包荷兰豆试种。园艺最高 60 级，田地最高 10 级，果树最高 100 级。采收作物直接获得金币；摘树上的果实先放到果篮，卖果时到账。</p><p>主动铲除会显示退款和确认；未收过退已付种子费，多茬按剩余茬数退。</p></details><a href="FARM-RAIN7-RELEASE.md">丰收季数值与存档说明 ↗</a></section></div></dialog><dialog id="plotInspector" class="next-sheet" aria-labelledby="plotTitle"><div class="sheet-content"><div class="inspector-head"><canvas id="plotIcon" aria-hidden="true"></canvas><div><strong id="plotTitle"></strong><small id="plotPhase"></small></div><button data-close="plotInspector" aria-label="关闭菜地详情">×</button></div><div class="inspector-main"><div><small id="plotCountdownLabel" class="countdown-caption">距离成熟还剩</small><span id="plotCountdown"></span><small id="plotReadyAt"></small></div></div><progress id="plotProgress" max="1" value="0" aria-label="所选作物生长进度"></progress><div class="inspector-meta"><span id="plotCycles"></span><span id="plotValue"></span></div><p id="plotGround"></p><p id="plotPlan"></p><button id="quickRadish" type="button" hidden>这块试种免费萝卜 · 5 分钟</button></div></dialog>
+<dialog id="fertilizerSheet" class="next-sheet" aria-labelledby="fertilizerTitle">
+ <div class="sheet-heading"><h2 id="fertilizerTitle">本茬施肥</h2><button data-close="fertilizerSheet" aria-label="关闭施肥">×</button></div>
+ <div class="sheet-content">
+  <p id="fertilizerInfo"></p>
+  <label id="fertilizeScope"><input id="fertilizeBatch" type="checkbox"> 同时施给其他符合条件的长作</label>
+  <div class="fertilizer-actions"><button id="feedCoins"></button><button id="feedXp"></button></div>
+ </div>
+</dialog>
+<dialog id="manageSheet" class="seed-sheet next-sheet" aria-labelledby="manageTitle">
  <div class="sheet-heading"><h2 id="manageTitle">园艺成长</h2><button data-close="manageSheet" aria-label="关闭园艺成长">×</button></div>
  <div class="sheet-content">
   <p id="levelSummary"></p><p id="returnSummary"></p><p id="trialSummary"></p>
@@ -54,4 +72,4 @@
  <div id="improveBatch"><h3>批量改良</h3><p id="improveAllHint"></p><button id="improveAll">一键改良</button></div>
  <details id="clearSection"><summary>清理这块田</summary><p id="refundText"></p><button id="plotClear">铲除作物</button></details></div>
 </dialog>
-<div id="toast" role="status" aria-live="polite"></div><script>if(new URLSearchParams(location.search).has('audit')){function auditError(e){let p=document.createElement('pre');p.style='background:#f6d2bd;color:#713e25;padding:12px;white-space:pre-wrap';p.textContent='开发错误：'+(e.message||e.reason?.message||e.reason||'未知错误');document.body.prepend(p)}addEventListener('error',auditError);addEventListener('unhandledrejection',auditError)}</script><script type="module" src="farm/app.js?v=20261122f"></script></body></html>
+<div id="toast" role="status" aria-live="polite"></div><script>if(new URLSearchParams(location.search).has('audit')){function auditError(e){let p=document.createElement('pre');p.style='background:#f6d2bd;color:#713e25;padding:12px;white-space:pre-wrap';p.textContent='开发错误：'+(e.message||e.reason?.message||e.reason||'未知错误');document.body.prepend(p)}addEventListener('error',auditError);addEventListener('unhandledrejection',auditError)}</script><script type="module" src="farm/app.js?v=20261122g"></script></body></html>

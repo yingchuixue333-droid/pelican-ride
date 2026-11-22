@@ -1,4 +1,4 @@
-import {treePicture,fruitPicture} from './season-sprites.js?v=20261122f';
+import {treePicture,fruitPicture} from './season-sprites.js?v=20261122g';
 import {blade,fruitRound,glaze,oval,stroke} from './field-paint.js';
 
 const schemes={
@@ -21,7 +21,12 @@ const schemes={
   fruit:[[-84,-205],[-29,-285],[31,-246],[104,-205]],
  },
 };
-const roots=[{x:157,y:791,z:1.02},{x:356,y:1105,z:1.21},{x:552,y:784,z:1.0},{x:181,y:480,z:.78},{x:543,y:454,z:.75}];
+export const ORCHARD_HEIGHT=1700;
+const roots=[
+ {x:164,y:837,z:1.02},{x:198,y:1162,z:1.21},{x:542,y:836,z:1},
+ {x:159,y:500,z:.78},{x:545,y:485,z:.75},
+ {x:510,y:1151,z:1.02},{x:171,y:1502,z:1.10},
+];
 const stageSize=[.39,.68,.87,1];
 const matureSites={
  peach:[[.24,.52],[.49,.34],[.67,.55],[.82,.47]],
@@ -43,6 +48,25 @@ export function orchardFrame(index,view){
  const root=roots[index],id=view?.tree.id;
  const stage=view?.stage??0,style=schemes[id]||schemes.peach;
  return {...root,stage,scale:root.z*stageSize[stage],style,picture:orchardPicture(id,stage,root)};
+}
+export function paintOrchardBed(c,index,view){
+ const {x,y,z}=orchardFrame(index,view),w=77*z;
+ c.save();c.translate(x,y);
+ const rim=c.createRadialGradient(0,5,8,0,5,w);
+ rim.addColorStop(0,'#9b7a46c8');rim.addColorStop(.74,'#ac864d7b');rim.addColorStop(1,'#b5925600');
+ oval(c,0,7,w*1.16,31*z,rim,-.07);
+ c.beginPath();c.moveTo(-w,8);
+ c.bezierCurveTo(-w*.91,-13,-w*.59,-22,-w*.25,-22);
+ c.bezierCurveTo(-w*.03,-27,w*.56,-27,w*.83,-12);
+ c.bezierCurveTo(w*1.17,-3,w*.93,19,w*.61,25);
+ c.bezierCurveTo(w*.19,31,-w*.31,27,-w*.61,25);
+ c.bezierCurveTo(-w*.81,22,-w,19,-w,8);c.closePath();
+ c.fillStyle=glaze(c,0,4,w*2,47,['#8c693f','#b8935c','#d1ad71']);c.globalAlpha=.75;c.fill();c.clip();
+ for(let i=0;i<37;i++){
+  const x=((i*59)%173-86)*z,y=((i*41)%49-20)*z;
+  oval(c,x,y,.8+i%4*.42,.9+i%3*.35,i%3?'#e2c18e7e':'#624a3994',-.2);
+ }
+ c.restore();
 }
 export function branchFruitPoints(views){
  return views.flatMap((view,index)=>{
