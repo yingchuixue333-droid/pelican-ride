@@ -2,17 +2,17 @@ import {WATER_GATE} from './irrigation-art.js';
 import {rain7Release} from './rain7-balance.js?v=20261123b';
 import {SEED_CATEGORIES,enableFieldProgress} from './preview-progression.js?v=20261123b';
 import {NEXT_CROPS} from './next-crops.js';
-import {enableOrchardMarket,enableOrchardExpansion,enableFreeTreeSites,enableQuickFruit,treeView} from './orchard.js?v=20261122h';
+import {enableOrchardMarket,enableOrchardExpansion,enableFreeTreeSites,enableQuickFruit,treeView} from './orchard.js?v=20261122i';
 import {KEY,OLD_KEY,CROPS,crop,EXPANSIONS,formatTime,newGame,parse,levelOf,progress,
  unlocked,ready,plant,water,harvest,expand,improve,soilLevels,improvementQuote,improveAll,
  clearQuote,clearPlots,enableRain7,enableSeedTrial,mergeSeedTrial,hasTrial,plantPrice,
  plannedSeed,fieldSeed,seedChangeQuote,changeFieldSeed,followFarmSeed,collectField,collectFields,
- threshold,claimPlumGift,irrigateFields,canFertilize,feedAmounts,fieldActions,fertilizerQuote,fertilizeFields,fieldBug,catchFieldBug} from './model.js?v=20261122h';
-import {createScene,drawIcon,POSITIONS,SCENE_HEIGHT,assetsReady} from './art.js?v=20261122h';
+ threshold,claimPlumGift,irrigateFields,canFertilize,feedAmounts,fieldActions,fertilizerQuote,fertilizeFields,fieldBug,catchFieldBug} from './model.js?v=20261122i';
+import {createScene,drawIcon,POSITIONS,SCENE_HEIGHT,assetsReady} from './art.js?v=20261122i';
 import {bindPlotTaps} from './touch.js?v=20261123b';
 import {createAudio} from './audio.js?v=20261123b';
-import {plotDetails,exactCountdown,visualPhase} from './presentation.js?v=20261122h';
-import {createOrchardUI} from './orchard-ui.js?v=20261122h';
+import {plotDetails,exactCountdown,visualPhase} from './presentation.js?v=20261122i';
+import {createOrchardUI} from './orchard-ui.js?v=20261122i';
 
 const $=id=>document.getElementById(id);
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -156,6 +156,43 @@ function openWaterGate(){
 gate.onclick=openWaterGate;
 $('irrigateAll').onclick=openWaterGate;
 $('careAll').onclick=()=>openFertilizer(null);
+
+let idlePlanting=null,shortCropIndex=null,confirmingShortCrop=false;
+$('idlePlanting').onclick=()=>{
+ const option=idlePlanting;
+ if(!option)return;
+ if(option.review){showSeeds(option.index);return;}
+ shortCropIndex=option.index;
+ openSheet('shortCropSheet');
+ renderShortCrop();
+};
+function renderShortCrop(){
+ const index=shortCropIndex,plot=state.plots[index],previous=plannedSeed(state,index);
+ const prefix='第 '+(index+1)+' 块田';
+ $('shortCropInfo').textContent=plot?
+  prefix+'的'+crop(plot.id).short+'还剩 '+plot.remaining+' 茬，全部收完才换种。'+
+   (previous&&previous!=='radish'?' 这块田原定的'+crop(previous).short+'会改成萝卜。':''):
+  prefix+'现在空着，可以直接播种。';
+ $('confirmShortCrop').textContent=plot?'确认收完换萝卜':'免费播种';
+}
+$('confirmShortCrop').onclick=async()=>{
+ if(confirmingShortCrop)return;
+ const index=shortCropIndex,plot=state.plots[index],previous=plannedSeed(state,index);
+ confirmingShortCrop=true;$('confirmShortCrop').disabled=true;
+ try{
+  const done=await transact((s,n)=>{
+   if(index>=s.plotCount||JSON.stringify(s.plots[index])!==JSON.stringify(plot)||plannedSeed(s,index)!==previous){
+    toast('这块田刚有变化，请核对后再确认。');return [];
+   }
+   if(plot)return changeFieldSeed(s,index,'radish',false,n);
+   return [plant(s,index,'radish',n)].filter(Boolean);
+  });
+  if(done)$('shortCropSheet').close();
+ }finally{
+  confirmingShortCrop=false;$('confirmShortCrop').disabled=false;
+ }
+};
+
 
 $('showPlotDetails').onclick=()=>{openSheet('plotInspector');renderInspector(now());};
 function renderInspector(n){
@@ -406,6 +443,11 @@ function renderUI(){
  const actions=fieldActions(state,n),primary=actions.find(action=>action.count)?.id;
  $('fieldOptions').hidden=!primary;
  $('fieldNext').hidden=!!primary;
+ const shortField=state.plots.slice(0,state.plotCount).findIndex((plot,i)=>plot?.id==='radish'||plannedSeed(state,i)==='radish');
+ idlePlanting=firstEmpty!==null?{index:firstEmpty,review:false}:shortField>=0?{index:shortField,review:true}:earliest?{index:earliest.index,review:false}:null;
+ const planting=$('idlePlanting');
+ planting.hidden=!!primary||!idlePlanting;
+ if(!planting.hidden)planting.textContent=firstEmpty!==null?'种免费萝卜':shortField>=0?'换种计划':'安排短作';
  for(const {id,label,count} of actions){
   const button=$(id);
   button.hidden=!count;
@@ -416,13 +458,14 @@ function renderUI(){
  gate.classList.toggle('can-water',dry>0);
  gate.firstElementChild.textContent=dry?'开闸':'水闸';
  gate.setAttribute('aria-label',dry?'打开水闸，灌溉 '+dry+' 块田':'水闸，当前没有可浇的田');
- const text=earliest?'最早第 '+(earliest.index+1)+' 块 · '+formatTime((earliest.end-n)/1000)+'后可收':firstEmpty!==null?'第 '+(firstEmpty+1)+' 块空田 · 可以播种':'看看田里的作物';
+ const text=firstEmpty!==null?'第 '+(firstEmpty+1)+' 块空田':earliest?'最早第 '+(earliest.index+1)+' 块 · '+formatTime((earliest.end-n)/1000)+'后可收':'看看田里的作物';
  if($('fieldNext').textContent!==text)$('fieldNext').textContent=text;
  $('migrationNotice').hidden=!state.legacyNote;
  $('saveState').textContent=memoryOnly?'未能保存 · 请导出':'本机已保存';
  renderInspector(n);renderGoals(n);renderSeeds();orchard.update(n);
  if($('fieldDialog').open)renderImprovement(n);
  if($('fertilizerSheet').open)renderFertilizer(n);
+ if($('shortCropSheet').open)renderShortCrop();
 }
 
 $('settings').onclick=()=>{$('preferences').hidden=false;openSheet('settingsSheet');};

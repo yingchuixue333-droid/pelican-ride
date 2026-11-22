@@ -1,4 +1,4 @@
-import {treePicture,fruitPicture} from './season-sprites.js?v=20261122h';
+import {treePicture,fruitPicture} from './season-sprites.js?v=20261122i';
 import {blade,fruitRound,glaze,oval,stroke} from './field-paint.js';
 
 const schemes={
@@ -24,8 +24,8 @@ const schemes={
 export const ORCHARD_HEIGHT=1280;
 // Slots keep their save indices. Beds only map those indices onto the screen.
 export const ORCHARD_BEDS=[[0,2,1,5],[3,4,6]];
-const nearLeft={x:164,y:562,z:1.02},nearRight={x:552,y:555,z:1.01};
-const frontLeft={x:192,y:1039,z:1.18},frontRight={x:514,y:998,z:1.06};
+const nearLeft={x:164,y:500,z:1.02},nearRight={x:552,y:493,z:1.01};
+const frontLeft={x:192,y:867,z:1.18},frontRight={x:514,y:846,z:1.06};
 const roots=[nearLeft,frontLeft,nearRight,nearLeft,nearRight,frontRight,frontLeft];
 const stageSize=[.39,.68,.87,1];
 const matureSites={

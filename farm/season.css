@@ -122,6 +122,11 @@ body.orchard-mode #orchardStage{background:#cbbf83 url('./rain-assets/orchard-be
 #fertilizeScope input{width:18px;height:18px;accent-color:#537644}
 #controlDock #fieldIdle:not([hidden]){display:flex;gap:8px;align-items:center;min-height:37px;justify-content:space-between}
 #controlDock #fieldNext{margin:0;padding:0 4px;font-size:12px;color:#557049;line-height:1.35}
+#controlDock #idlePlanting{
+ flex:none;min-height:44px;padding:2px 11px;border-radius:9px;font-size:13px;font-weight:700;
+ background:#e7edcf;color:#315639;border-color:#a4b482;white-space:nowrap;
+}
+#shortCropSheet #confirmShortCrop{min-height:44px;width:100%}
 #fieldOptions:not([hidden]){display:flex;gap:5px;width:100%}
 #fieldOptions button{
  flex:1;min-height:44px;min-width:0;padding:2px 3px;font-size:12px;white-space:nowrap;

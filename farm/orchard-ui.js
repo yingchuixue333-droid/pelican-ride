@@ -1,7 +1,7 @@
-import {basketLots,harvestFruit,harvestTree,observeOrchard,orchardKind,ORCHARD_SITES,plantTree,sellBasket,treeView} from './orchard.js?v=20261122h';
-import {exactCountdown} from './presentation.js?v=20261122h';
-import {createSeasonOrchardScene} from './season-orchard-scene.js?v=20261122h';
-import {ORCHARD_BEDS,ORCHARD_HEIGHT,orchardFrame} from './orchard-paint.js?v=20261122h';
+import {basketLots,harvestFruit,harvestTree,observeOrchard,orchardKind,ORCHARD_SITES,plantTree,sellBasket,treeView} from './orchard.js?v=20261122i';
+import {exactCountdown} from './presentation.js?v=20261122i';
+import {createSeasonOrchardScene} from './season-orchard-scene.js?v=20261122i';
+import {ORCHARD_BEDS,ORCHARD_HEIGHT,orchardFrame} from './orchard-paint.js?v=20261122i';
 
 export function bindOrchardTaps(root,action){let pending=null;const target=e=>e.target.closest?.('[data-orchard-action]');let down=e=>{pending=null;let b=target(e);if(b&&e.isPrimary!==false&&!(e.button>0))pending={b,id:e.pointerId,x:e.clientX,y:e.clientY,moved:false};},move=e=>{if(pending&&e.pointerId===pending.id&&Math.hypot(e.clientX-pending.x,e.clientY-pending.y)>10)pending.moved=true;},cancel=()=>pending=null,click=e=>{let b=target(e),p=pending;pending=null;if(b&&(e.detail===0||p&&p.b===b&&!p.moved))action(b,e);};let handlers={pointerdown:down,pointermove:move,pointercancel:cancel,click};for(let[k,v]of Object.entries(handlers))root.addEventListener(k,v,{passive:true});return {cancel,destroy(){for(let[k,v]of Object.entries(handlers))root.removeEventListener(k,v);}};}
 const fruitName=id=>orchardKind(id).name.replace('树','');

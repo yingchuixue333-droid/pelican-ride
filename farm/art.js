@@ -1,12 +1,12 @@
 import {paintIrrigationFlow,paintIrrigationGround} from './irrigation-art.js';
-import {cropPicture,seasonArtReady,seasonCropsReady} from './season-sprites.js?v=20261122h';
+import {cropPicture,seasonArtReady,seasonCropsReady} from './season-sprites.js?v=20261122i';
 import {paintCrop,paintBed,bedOutline} from './field-paint.js';
 import {rain7Release} from './rain7-balance.js?v=20261123b';
-import {CROPS,crop,growth,ready} from './model.js?v=20261122h';
+import {CROPS,crop,growth,ready} from './model.js?v=20261122i';
 import {growthProfile,frameDelay} from './growth.js?v=20261122e';
 import {sprite,images,assetsReady as baseAssetsReady} from './assets.js?v=20261123b';
 export const assetsReady=Promise.all([baseAssetsReady,seasonArtReady]);
-import {visualPhase} from './presentation.js?v=20261122h';
+import {visualPhase} from './presentation.js?v=20261122i';
 const INK='#40584b';
 function ellipse(c,x,y,rx,ry,fill,stroke=null){c.beginPath();c.ellipse(x,y,rx,ry,0,0,Math.PI*2);if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.lineWidth=2;c.strokeStyle=stroke;c.stroke();}}
 function path(c,points,fill,stroke=null){c.beginPath();for(let i=0;i<points.length;i++)c[i?'lineTo':'moveTo'](...points[i]);c.closePath();if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.lineWidth=2;c.strokeStyle=stroke;c.stroke();}}
