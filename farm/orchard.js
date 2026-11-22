@@ -7,9 +7,22 @@ function fruitCount(at,first,interval,base=0){
  return base+Math.max(0,1+Math.floor((at-first)/interval));
 }
 export const TREE_KINDS=[{id:'apple',name:'苹果树',cost:0,fruit:140,color:'#d77359'},{id:'pear',name:'雪梨树',cost:600,fruit:200,color:'#d8c56b'},{id:'peach',name:'水蜜桃树',cost:1200,fruit:280,color:'#e69ca4'},{id:'plum',name:'李子树',cost:0,fruit:240,color:'#756294'}];
+const NEW_ORCHARD_TREES=[
+ {id:'persimmon',name:'柿子树',cost:750,fruit:112,color:'#e99a49'},
+ {id:'loquat',name:'枇杷树',cost:650,fruit:96,color:'#e6b34c'},
+];
+TREE_KINDS.push(...NEW_ORCHARD_TREES);
 export const CARE_COSTS=[600,1800,4200];
 export const newOrchard=now=>({trees:[{id:'apple',born:now,collected:0,care:0},null,null]});
 export const ORCHARD_SLOTS=['peach','plum','pear'];
+export const ORCHARD_SITES=[...ORCHARD_SLOTS,...NEW_ORCHARD_TREES.map(kind=>kind.id)];
+export const orchardKind=id=>TREE_KINDS.find(kind=>kind.id===id);
+export function enableOrchardExpansion(s){
+ const orchard=s.orchard;
+ if(!orchard.market||orchard.trees.length!==ORCHARD_SLOTS.length)return false;
+ orchard.trees.push(null,null);
+ return true;
+}
 export const TREE_MILESTONES=[10,25,50,75,100];
 const treeXpStep=level=>level<10?10:level<25?20:level<50?30:40;
 const treeXpThreshold=[0];
@@ -38,25 +51,37 @@ export function enableOrchardMarket(s){
  });
  return true;
 }
-function creditPicked(s,v,count,coins){
- if(s.orchard.market){
-  v.tree.xp=Math.min(treeXpThreshold.at(-1),(v.tree.xp||0)+count*10);
-  s.orchard.basketValue+=coins;
- }else s.coins+=coins;
- s.orchard.basketCount=(s.orchard.basketCount||0)+count;
- s.orchard.basketRecent=[...(s.orchard.basketRecent||[]),...Array(count).fill(v.tree.id)].slice(-3);
+// Earlier saves know only the total. Keep it as an explicitly unclassified lot.
+export function basketLots(orchard){
+ if(!orchard.market)return [];
+ return orchard.basketLots??(orchard.basketCount?[{id:null,count:orchard.basketCount,value:orchard.basketValue}]:[]);
 }
-export function sellBasket(s,now){
+function creditPicked(s,v,count,coins){
  const orchard=s.orchard;
- if(!orchard.market||!orchard.basketCount||!orchard.basketValue)return false;
- const count=orchard.basketCount,coins=orchard.basketValue;
- if(s.coins+coins>1e9)return false;
+ if(orchard.market){
+  v.tree.xp=Math.min(treeXpThreshold.at(-1),(v.tree.xp||0)+count*10);
+  const lots=orchard.basketLots??=basketLots(orchard);
+  const lot=lots.find(item=>item.id===v.tree.id);
+  if(lot){lot.count+=count;lot.value+=coins;}
+  else lots.push({id:v.tree.id,count,value:coins});
+  orchard.basketValue+=coins;
+ }else s.coins+=coins;
+ orchard.basketCount=(orchard.basketCount||0)+count;
+ orchard.basketRecent=[...(orchard.basketRecent||[]),...Array(count).fill(v.tree.id)].slice(-3);
+}
+// Undefined means every lot. Null is the historic aggregate, never a fruit ID.
+export function sellBasket(s,now,id=undefined){
+ const orchard=s.orchard,lots=basketLots(orchard);
+ const chosen=id===undefined?lots:lots.filter(item=>item.id===id);
+ const {count,value:coins}=chosen.reduce((sum,lot)=>({count:sum.count+lot.count,value:sum.value+lot.value}),{count:0,value:0});
+ if(!count||!coins||s.coins+coins>1e9)return false;
  s.coins+=coins;
  s.at=Math.max(s.at,now);
- orchard.basketCount=0;
- orchard.basketValue=0;
- orchard.basketRecent=[];
- return {kind:'basket-sale',coins,message:'卖出 '+count+' 颗果实 · +'+coins+' 金币'};
+ orchard.basketCount-=count;
+ orchard.basketValue-=coins;
+ orchard.basketLots=id===undefined?[]:lots.filter(item=>item.id!==id);
+ orchard.basketRecent=id===undefined?[]:(orchard.basketRecent||[]).filter(kind=>kind!==id);
+ return {kind:'basket-sale',count,coins,message:'卖出 '+count+' 颗果实 · +'+coins+' 金币'};
 }
 
 // Every branch token is one real stored portion, never decoration. Old trees need no timer reset.
@@ -97,10 +122,33 @@ function sample(tree,fruit,coins,at){tree.sample={id:tree.id,serial:fruit.serial
 export function harvestFruit(s,i,token,now){let v=treeView(s,i,now),f=v?.fruits.find(f=>f.token===token);if(!f)return false;let bonus=v.stage===3?Math.round(v.value*v.stored*.25)-Math.round(v.value*(v.stored-1)*.25):0,coins=v.value+bonus;v.tree.fruits=v.fruits.filter(p=>p.token!==token).map(p=>p.serial);v.tree.collected=v.total;const beforeXp=v.tree.xp||0;creditPicked(s,v,1,coins);s.at=Math.max(s.at,now);sample(v.tree,f,coins,s.at);return {kind:'orchard',index:i,fruit:f,coins:s.orchard.market?0:coins,basketValue:coins,treeXp:(v.tree.xp||0)-beforeXp,message:'亲手摘下一份'+v.kind.name.replace('树','')+' · 已入篮'};}
 // Recording an observation never creates rewards. Refreshing cannot repeat a return message.
 export function observeOrchard(s,now){let changes=[];s.orchard.trees.forEach((tree,i)=>{if(!tree)return;let v=treeView(s,i,now),seen=tree.seen,serials=v.fruits.map(f=>f.serial);if(seen&&seen.id===tree.id){if(v.stage>seen.stage)changes.push({index:i,text:v.kind.name+'长成了'+v.label});let fresh=serials.filter(n=>!seen.serials.includes(n));if(fresh.length)changes.push({index:i,text:v.kind.name+'新挂上了'+fresh.length+'份果实'});}tree.seen={id:tree.id,stage:v.stage,serials};});s.at=Math.max(s.at,now);return changes;}
-export function plantTree(s,i,id,now){let kind=TREE_KINDS.find(k=>k.id===id);if(!Number.isInteger(i)||i<0||i>2||s.orchard.trees[i]||!kind||s.coins<kind.cost)return false;let n=Math.max(s.at,now);s.coins-=kind.cost;s.orchard.trees[i]={id,born:n,collected:0,care:0};s.at=n;return {kind:'orchard',cost:kind.cost,message:'种下'+kind.name+' · 48小时自然进入盛果期'};}
+export function plantTree(s,i,id,now){
+ const orchard=s.orchard,kind=orchardKind(id);
+ if(!Number.isInteger(i)||i<0||i>=orchard.trees.length||orchard.trees[i]||!kind||s.coins<kind.cost)return false;
+ if(orchard.market&&ORCHARD_SITES[i]!==id)return false;
+ const n=Math.max(s.at,now),tree={id,born:n,collected:0,care:0};
+ if(orchard.market){tree.xp=0;tree.fruitStart=n+FIRST_FRUIT;tree.fruitBase=0;tree.fruits=[];}
+ s.coins-=kind.cost;
+ orchard.trees[i]=tree;
+ s.at=n;
+ return {kind:'orchard',cost:kind.cost,message:'种下'+kind.name+(orchard.market?' · 15 分钟后可摘第一颗':' · 48小时自然进入盛果期')};
+}
 export function harvestTree(s,i,now){let v=treeView(s,i,now);if(!v?.stored)return false;let bonus=v.stage===3?Math.round(v.coins*.25):0;creditPicked(s,v,v.stored,v.coins+bonus);v.tree.collected=v.total;v.tree.fruits=[];s.at=Math.max(s.at,now);sample(v.tree,v.fruits.at(-1),v.value+(v.stage===3?Math.round(v.value*.25):0),s.at);if(s.orchard.market)return {kind:'orchard',coins:0,message:v.kind.name+'收了 '+v.stored+' 颗 · 已入篮'};return {kind:'orchard',coins:v.coins+bonus,message:v.kind.name+'收了'+v.stored+'份 · +'+(v.coins+bonus)+'币'+(bonus?' · 盛果奖励+'+bonus:'')};}
 export function careTree(s,i,now){if(s.orchard.market)return false;let v=treeView(s,i,now);if(!v||v.careCost===null||s.coins<v.careCost)return false;s.coins-=v.careCost;v.tree.care++;s.at=Math.max(s.at,now);return {kind:'orchard',cost:v.careCost,message:'果树培育升级 · 每份基础产量再增25%'};}
-export function validateOrchard(raw,at){if(!raw||!Array.isArray(raw.trees)||raw.trees.length!==3)throw Error('果园数据不正确');if(raw.market===true&&(!Number.isSafeInteger(raw.basketValue)||raw.basketValue<0||raw.basketValue>Number.MAX_SAFE_INTEGER||((raw.basketCount||0)>0)!==(raw.basketValue>0)||raw.trees.some((tree,i)=>tree?.id!==ORCHARD_SLOTS[i])))throw Error('果篮交易记录不正确');if(raw.basketCount!==undefined&&(!Number.isSafeInteger(raw.basketCount)||raw.basketCount<0||raw.basketCount>1e9))throw Error('果篮记录不正确');if(raw.basketRecent!==undefined&&(!Array.isArray(raw.basketRecent)||raw.basketRecent.length>3||!raw.basketRecent.every(id=>TREE_KINDS.some(k=>k.id===id))))throw Error('果篮样本不正确');return {...(raw.market===true?{market:true,basketValue:raw.basketValue}:{}),...(raw.basketRecent===undefined?{}:{basketRecent:raw.basketRecent.slice()}),...(raw.basketCount===undefined?{}:{basketCount:raw.basketCount}),trees:raw.trees.map(t=>{if(t===null)return null;if(!t||!TREE_KINDS.some(k=>k.id===t.id)||!Number.isSafeInteger(t.born)||t.born<0||t.born>at||!Number.isSafeInteger(t.collected)||t.collected<0||!Number.isSafeInteger(t.care)||t.care<0||t.care>3)throw Error('果树记录不正确');let out={id:t.id,born:t.born,collected:t.collected,care:t.care};
+function validateLots(raw){
+ if(raw.basketLots===undefined)return {};
+ if(raw.market!==true||!Array.isArray(raw.basketLots)||raw.basketLots.length>ORCHARD_SITES.length+1)throw Error('果篮明细不正确');
+ const ids=new Set();
+ let count=0,value=0;
+ const basketLots=raw.basketLots.map(item=>{
+  if(!item||item.id!==null&&!orchardKind(item.id)||ids.has(item.id)||!Number.isSafeInteger(item.count)||item.count<=0||!Number.isSafeInteger(item.value)||item.value<=0)throw Error('果篮明细不正确');
+  ids.add(item.id);count+=item.count;value+=item.value;
+  return {id:item.id,count:item.count,value:item.value};
+ });
+ if(!Number.isSafeInteger(value)||count!==(raw.basketCount??0)||value!==raw.basketValue)throw Error('果篮明细与总价不符');
+ return {basketLots};
+}
+export function validateOrchard(raw,at){if(!raw||!Array.isArray(raw.trees)||!(raw.trees.length===3||raw.market===true&&raw.trees.length===5))throw Error('果园数据不正确');if(raw.market===true&&(!Number.isSafeInteger(raw.basketValue)||raw.basketValue<0||raw.basketValue>Number.MAX_SAFE_INTEGER||((raw.basketCount||0)>0)!==(raw.basketValue>0)||raw.trees.some((tree,i)=>i<3?tree?.id!==ORCHARD_SITES[i]:tree!==null&&tree?.id!==ORCHARD_SITES[i])))throw Error('果篮交易记录不正确');if(raw.basketCount!==undefined&&(!Number.isSafeInteger(raw.basketCount)||raw.basketCount<0||raw.basketCount>1e9))throw Error('果篮记录不正确');if(raw.basketRecent!==undefined&&(!Array.isArray(raw.basketRecent)||raw.basketRecent.length>3||!raw.basketRecent.every(id=>TREE_KINDS.some(k=>k.id===id))))throw Error('果篮样本不正确');return {...validateLots(raw),...(raw.market===true?{market:true,basketValue:raw.basketValue}:{}),...(raw.basketRecent===undefined?{}:{basketRecent:raw.basketRecent.slice()}),...(raw.basketCount===undefined?{}:{basketCount:raw.basketCount}),trees:raw.trees.map(t=>{if(t===null)return null;if(!t||!TREE_KINDS.some(k=>k.id===t.id)||!Number.isSafeInteger(t.born)||t.born<0||t.born>at||!Number.isSafeInteger(t.collected)||t.collected<0||!Number.isSafeInteger(t.care)||t.care<0||t.care>3)throw Error('果树记录不正确');let out={id:t.id,born:t.born,collected:t.collected,care:t.care};
 const quick=t.fruitStart!==undefined||t.fruitBase!==undefined;
 if(quick){
  if(!Number.isSafeInteger(t.fruitStart)||t.fruitStart<t.born||t.fruitStart>at+FRUIT_INTERVAL||!Number.isSafeInteger(t.fruitBase)||t.fruitBase<0||t.fruitBase>t.collected)throw Error('果实成熟时间不正确');

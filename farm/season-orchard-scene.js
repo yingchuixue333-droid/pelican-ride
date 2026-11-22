@@ -1,14 +1,16 @@
-import {seasonTreesReady,seasonArtReady} from './season-sprites.js';
-import {branchFruitPoints,orchardFrame,paintOrchardTree,orchardFruit,paintBasket} from './orchard-paint.js';
+import {seasonTreesReady,seasonArtReady} from './season-sprites.js?v=20261122f';
+import {branchFruitPoints,orchardFrame,paintOrchardTree,orchardFruit,paintBasket} from './orchard-paint.js?v=20261122f';
 
-const width=720,height=1280,basketX=596,basketY=1099;
+const width=720,height=1280;
+export const BASKET_POINT={x:616,y:1106};
+const {x:basketX,y:basketY}=BASKET_POINT;
 const garden=new Image();
 garden.src=new URL('./rain-assets/garden.webp',import.meta.url);
-const drawOrder=[0,2,1];
+const drawOrder=[3,4,0,2,1];
 
 export function createSeasonOrchardScene(canvas){
  const ctx=canvas.getContext('2d'),cache=[];
- let effects=[],recent=[];
+ let effects=[],recent=[],legacy=false;
  function layer(view,index,points){
   const frame=orchardFrame(index,view),fruits=points.filter(p=>p.index===index);
   const key=JSON.stringify([view.tree.id,view.stage,view.rank?.milestone,seasonTreesReady(),fruits.map(p=>p.token)]);
@@ -36,7 +38,7 @@ export function createSeasonOrchardScene(canvas){
    if(!reduced)ctx.rotate(Math.sin(t*.84+i*1.6)*.004);
    ctx.drawImage(board,x-frame.x,y-frame.y);ctx.restore();
   }
-  paintBasket(ctx,basketX,basketY,recent.slice(0,Math.max(0,recent.length-effects.length)));
+  paintBasket(ctx,basketX,basketY,recent.slice(0,Math.max(0,recent.length-effects.length)),legacy);
   for(const event of effects){
    const p=Math.min(1,(t-event.start)/.72);
    orchardFruit(ctx,event.id,event.x+(basketX-event.x)*p,event.y+(basketY-event.y)*p*p-Math.sin(p*Math.PI)*49,event.r*(1-p*.48),event);
@@ -47,7 +49,7 @@ export function createSeasonOrchardScene(canvas){
   delay:reduced=>reduced?500:effects.length?32:125,
   settle(t,reduced){effects=effects.filter(e=>!reduced&&t-e.start<.72);},
   pop(f,id){effects.push({...f,id,start:performance.now()/1000});},
-  setBasket(items){recent=items;},
+  setBasket(items,hasLegacy){recent=items;legacy=hasLegacy;},
   clear(){effects=[];},
  };
 }

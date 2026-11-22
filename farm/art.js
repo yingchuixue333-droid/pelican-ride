@@ -1,11 +1,11 @@
-import {cropPicture,seasonArtReady,seasonCropsReady} from './season-sprites.js';
+import {cropPicture,seasonArtReady,seasonCropsReady} from './season-sprites.js?v=20261122f';
 import {paintCrop,paintBed,bedOutline} from './field-paint.js';
 import {rain7Release} from './rain7-balance.js?v=20261123b';
-import {CROPS,crop,growth,ready} from './model.js?v=20261122e';
+import {CROPS,crop,growth,ready} from './model.js?v=20261122f';
 import {growthProfile,frameDelay} from './growth.js?v=20261122e';
 import {sprite,images,assetsReady as baseAssetsReady} from './assets.js?v=20261123b';
 export const assetsReady=Promise.all([baseAssetsReady,seasonArtReady]);
-import {visualPhase} from './presentation.js?v=20261122e';
+import {visualPhase} from './presentation.js?v=20261122f';
 const INK='#40584b';
 function ellipse(c,x,y,rx,ry,fill,stroke=null){c.beginPath();c.ellipse(x,y,rx,ry,0,0,Math.PI*2);if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.lineWidth=2;c.strokeStyle=stroke;c.stroke();}}
 function path(c,points,fill,stroke=null){c.beginPath();for(let i=0;i<points.length;i++)c[i?'lineTo':'moveTo'](...points[i]);c.closePath();if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.lineWidth=2;c.strokeStyle=stroke;c.stroke();}}
@@ -49,7 +49,7 @@ export function growingPlant(c,id,x,y,size,v,t=0){
 }
 export const SOIL_ART=[{soil:'#88532d',ridge:'#b17943',frame:'#ad773c',badge:'#e1bf7e'},{soil:'#67482c',ridge:'#94633a',frame:'#758444',badge:'#d4dfab'},{soil:'#493b28',ridge:'#795637',frame:'#b4925b',badge:'#f0d58a'}];
 export function drawIcon(canvas,id,variant=0){canvas.width=120;canvas.height=120;let c=canvas.getContext('2d');c.clearRect(0,0,120,120);if(!(rain7Release&&(cropPicture(c,id,60,108,4,.72)||paintCrop(c,id,60,105,4,.76)))&&!sprite(c,id,60,116,112,112))plantArt(c,id,60,crop(id).shape==='tree'?87:75,crop(id).shape==='tree'?.95:1.1,3,0);}
-export const POSITIONS=Array.from({length:12},(_,i)=>({x:142+(i%3)*218,y:382+Math.floor(i/3)*143}));
+export const POSITIONS=Array.from({length:12},(_,i)=>({x:142+(i%3)*218,y:345+Math.floor(i/3)*143}));
 export const SCENE_WIDTH=720,SCENE_HEIGHT=960;
 function round(c,x,y,w,h,r,fill,stroke){c.beginPath();c.roundRect(x,y,w,h,r);if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.strokeStyle=stroke;c.lineWidth=3;c.stroke();}}
 function paintedMelonLeaf(c,x,y,angle,scale){
@@ -157,7 +157,7 @@ function soilPath(c,x,y){
 }
 const soilArtTier=(s,i)=>s.fieldProgress?Math.min(2,Math.floor((s.soil?.[i]||0)/3)):(s.soil?.[i]||0);
 function drawGround(c,s,w,h){
- c.clearRect(0,0,w,h);if(images.garden)c.drawImage(images.garden,0,0,w,h);else{c.fillStyle='#d3b175';c.fillRect(0,0,w,h);c.fillStyle='#78a359';c.fillRect(0,0,w,285);}
+ c.clearRect(0,0,w,h);if(images.garden){const im=images.garden,trim=im.height*.046;c.drawImage(im,0,trim,im.width,im.height-trim,0,0,w,h);}else{c.fillStyle='#d3b175';c.fillRect(0,0,w,h);c.fillStyle='#78a359';c.fillRect(0,0,w,285);}
  for(let i=0;i<12;i++){
   let{x,y}=POSITIONS[i],locked=i>=s.plotCount,soil=soilArtTier(s,i),ground=SOIL_ART[soil],wet=!!s.plots[i]?.watered;
   if(locked){ellipse(c,x,y+18,88,35,'#909b4b33');for(let j=-2;j<=2;j++){let yy=y+13+Math.sin(j*3)*17;leaf(c,x+j*30,yy,j*.35,.7);ellipse(c,x+j*34+11,yy+9,7,4,j%2?'#ba9d65':'#d8bc85','#9e8852');}continue;}

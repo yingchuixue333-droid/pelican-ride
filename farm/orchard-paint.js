@@ -1,4 +1,4 @@
-import {treePicture,fruitPicture} from './season-sprites.js';
+import {treePicture,fruitPicture} from './season-sprites.js?v=20261122f';
 import {blade,fruitRound,glaze,oval,stroke} from './field-paint.js';
 
 const schemes={
@@ -21,14 +21,16 @@ const schemes={
   fruit:[[-84,-205],[-29,-285],[31,-246],[104,-205]],
  },
 };
-const roots=[{x:157,y:791,z:1.02},{x:356,y:1105,z:1.21},{x:552,y:784,z:1.0}];
+const roots=[{x:157,y:791,z:1.02},{x:356,y:1105,z:1.21},{x:552,y:784,z:1.0},{x:181,y:480,z:.78},{x:543,y:454,z:.75}];
 const stageSize=[.39,.68,.87,1];
 const matureSites={
  peach:[[.24,.52],[.49,.34],[.67,.55],[.82,.47]],
  plum:[[.22,.50],[.39,.37],[.62,.54],[.82,.45]],
  pear:[[.26,.52],[.46,.33],[.63,.44],[.78,.55]],
+ persimmon:[[.21,.47],[.41,.29],[.67,.39],[.82,.51]],
+ loquat:[[.22,.48],[.38,.32],[.60,.41],[.78,.49]],
 };
-const treeWidths={peach:[118,221,276,325],plum:[126,228,277,331],pear:[104,171,224,282]};
+const treeWidths={peach:[118,221,276,325],plum:[126,228,277,331],pear:[104,171,224,282],persimmon:[108,183,233,294],loquat:[102,171,218,268]};
 function orchardPicture(id,stage,root){
  const image=treePicture(id,stage);
  if(!image)return null;
@@ -89,6 +91,14 @@ export function orchardFruit(c,id,x,y,r,look={}){
   c.bezierCurveTo(-r*.45,-r*.42,-r*.47,-r*.86,-6,-r*.97);
   c.fillStyle=glaze(c,0,0,r*2,r*2,['#99762d','#deb95e','#fbdfa0']);c.fill();
   for(let i=0;i<12;i++)oval(c,((i*17)%23-11)*r*.06,((i*29)%23-7)*r*.058,1.2,.8,'#9e7c4670');
+ }else if(id==='persimmon'){
+  fruitRound(c,0,0,r*.98,r*.79,['#a84b22','#e78b39','#ffd484'],.04);
+  stroke(c,[r*.12,-r*.6],[r*.27,0],[r*.04,r*.65],'#a64e2659',1.3);
+  for(let i=0;i<4;i++)blade(c,0,-r*.6,r*.62,r*.23,i*1.37,['#55542f','#788545','#afad63']);
+ }else if(id==='loquat'){
+  fruitRound(c,0,0,r*.71,r*.94,['#a7662f','#e0a249','#ffe09c'],-.15);
+  oval(c,r*.13,r*.75,r*.14,r*.09,'#775035',-.1);
+  for(let i=0;i<7;i++)oval(c,((i*7)%13-6)*r*.078,((i*11)%15-5)*r*.07,.7,.55,'#a06b4057');
  }else if(id==='plum'){
   fruitRound(c,0,0,r*.84,r*1.02,['#4b304f','#795078','#c791a9'],-.17);
   stroke(c,[0,-r*.75],[r*.33,-r*.08],[r*.12,r*.79],'#472d505c',2);
@@ -174,14 +184,36 @@ export function paintOrchardTree(c,view,frame,fruits,t,reduced){
   blade(c,xx-4,yy-r*.81,r*.95,r*.29,-1.07,style.leaves);
  }
 }
-export function paintBasket(c,x,y,items){
- oval(c,x+9,y+17,57,14,'#4d382d48');
- stroke(c,[x-43,y-9],[x,y-105],[x+44,y-9],'#815438',11);
- stroke(c,[x-43,y-12],[x,y-108],[x+43,y-12],'#c49564',4);
- oval(c,x,y-14,52,17,glaze(c,x,y-14,100,42,['#694b36','#ac7850','#e0b07c']));
- for(const [i,id] of items.slice(-3).entries())orchardFruit(c,id,x+(i-1)*22,y-22-(i===1?7:0),13,{turn:(i-1)*.14});
- c.beginPath();c.moveTo(x-53,y-16);c.quadraticCurveTo(x,y+4,x+53,y-16);
- c.lineTo(x+37,y+19);c.quadraticCurveTo(x,y+39,x-37,y+19);c.closePath();
- c.fillStyle=glaze(c,x,y,108,46,['#98623f','#bc8655','#e5b882']);c.fill();
- for(let i=0;i<5;i++)stroke(c,[x-49+i*2.4,y-10+i*6],[x,y+9+i*6],[x+49-i*2.4,y-10+i*6],i%2?'#9b653f':'#dca16c',2.9);
+export function paintBasket(c,x,y,items,legacy){
+ oval(c,x+9,y+20,65,15,'#4d382d52');
+ // Handle and the shaded mouth sit behind the fruit.
+ stroke(c,[x-49,y-7],[x-10,y-130],[x+50,y-7],'#70492e',13);
+ stroke(c,[x-49,y-11],[x-10,y-130],[x+50,y-11],'#d0a46c',7);
+ for(let i=0;i<11;i++){
+  const k=i/10,u=1-k,hx=u*u*(x-49)+2*u*k*(x-10)+k*k*(x+50);
+  const hy=u*u*(y-11)+2*u*k*(y-130)+k*k*(y-11);
+  stroke(c,[hx-3,hy+1],[hx,hy-2],[hx+4,hy-1],'#8e6245',2.1);
+ }
+ oval(c,x,y-16,58,19,glaze(c,x,y-16,116,42,['#4c362b','#885c3d','#d9a578']));
+ oval(c,x,y-17,51,14,'#624634');
+ if(legacy)oval(c,x-3,y-24,37,10,glaze(c,x,y-25,62,26,['#6e7450','#a4a67b','#d7cb9b']),-.09);
+ const places=[[-30,-21],[25,-20],[-11,-30],[11,-20]];
+ for(const [i,id] of items.slice(-4).entries()){
+  const [dx,dy]=places[i];
+  orchardFruit(c,id,x+dx,y+dy,i%2?14:15,{turn:(i-1)*.12});
+ }
+ c.save();c.beginPath();c.moveTo(x-58,y-16);c.quadraticCurveTo(x,y+5,x+58,y-16);
+ c.lineTo(x+41,y+23);c.quadraticCurveTo(x,y+44,x-41,y+23);c.closePath();
+ c.fillStyle=glaze(c,x,y,116,56,['#805233','#ba8658','#e8b582']);c.fill();c.clip();
+ for(let row=0;row<7;row++){
+  const yy=y-15+row*7;
+  stroke(c,[x-60,yy],[x,yy+23],[x+60,yy],row%2?'#a16b46':'#dbaf7b',4);
+  for(let i=-6;i<=6;i++){
+   const xx=x+i*9+(row%2?4:0),lift=10*(1-Math.pow(i/7,2));
+   stroke(c,[xx-1,yy+lift-2],[xx+1,yy+lift+2],[xx,yy+lift+6],i%3?'#7b543b8c':'#f2c99ab0',1.55);
+  }
+ }
+ c.restore();
+ stroke(c,[x-59,y-17],[x,y+8],[x+59,y-17],'#e5b784',5);
+ stroke(c,[x-41,y+23],[x,y+39],[x+41,y+23],'#855638',5);
 }

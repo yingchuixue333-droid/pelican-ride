@@ -62,18 +62,54 @@ body:not(.orchard-mode) #app{padding-bottom:110px}
 .seed-decision .text-action{border:0;box-shadow:none;background:transparent;text-decoration:underline;width:100%}
 .catalog-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:8px}
 .catalog-grid .seed-tile:disabled{opacity:1}
-.orchard-mode #orchardPage .orchard-heading{top:62px;left:14px;right:14px}
-.orchard-mode #treeBrowse{max-width:none}
-.orchard-mode #treeBrowse button{min-height:44px;background:#faf2d9e8;color:#355333}
-.orchard-mode #treeBrowse small:empty{display:none}
 #orchardHits{position:absolute;inset:0;pointer-events:none}
 #orchardHits button{position:absolute;transform:translate(-50%,-50%);pointer-events:auto;background:transparent;box-shadow:none;border:0;padding:0;touch-action:pan-y}
 #orchardHits .fruit-touch{--fruit-size:44px;min-height:44px!important;z-index:2}
 #orchardHits .tree-touch{display:block;width:88px;height:80px;z-index:1;border-radius:18px}
 #orchardHits button::before,#orchardHits button::after{display:none}
 #orchardHits button:focus-visible{outline:2px solid #fff2af;outline-offset:-5px}
-#basketText::before{inset:-24px -9px 0}
 @media(max-width:600px){
  body:not(.orchard-mode) .scene-wrap{height:clamp(330px,calc(100dvh - 199px - env(safe-area-inset-bottom)),770px)}
  .next-sheet .sheet-heading{padding-inline:11px}
 }
+
+/* The woven basket is painted in the scene. This button shares its position. */
+#orchardStage #basketText{
+ position:absolute;z-index:7;transform:translate(-50%,-50%);width:82px;height:76px;
+ border:none;border-radius:40%;background:transparent;box-shadow:none;padding:0;
+ touch-action:manipulation;
+}
+#orchardStage #basketText::before{display:none}
+#orchardStage #basketText:focus-visible{outline:2px solid #fff1ad;outline-offset:0}
+#basketBadge{
+ position:absolute;top:7px;right:2px;min-width:23px;height:23px;padding:0 5px;
+ display:grid;place-items:center;border-radius:13px;background:#385c3d;color:#fff6db;
+ border:1px solid #f8e6a6;box-shadow:0 1px 4px #2d39274d;
+ font-size:12px;font-weight:750;font-variant-numeric:tabular-nums;
+}
+#basketBadge[hidden]{display:none}
+#orchardHits .tree-slot{
+ width:44px;height:44px;min-height:44px;border-radius:50%;color:#fff4d6;font-size:24px;
+ background:#49613d94;border:1px dashed #f4e5b296;text-shadow:0 1px 2px #314029;
+}
+#treeDetails #fruitLots:not([hidden]){display:grid;gap:6px;margin:10px 0 4px}
+#fruitLots>div{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid #ded8bc}
+#fruitLots strong,#fruitLots small{display:block}
+#fruitLots small{margin-top:3px;color:#4c6046;font-size:12px}
+#fruitLots button,#plantOrchardTree{min-height:44px}
+#orchardBalance{font-size:13px;font-variant-numeric:tabular-nums}
+#treeDetails #pickOrchardAll{margin-bottom:4px}
+#fieldNext{
+ background:#edf0d8;color:#315439;border:1px solid #c6cea3;font-size:14px;font-weight:700;
+}
+#plotCareStatus{
+ align-self:center;padding:6px 9px;border-radius:8px;background:#e3ead4;color:#395b41;font-size:13px;white-space:nowrap;
+}
+#quickRadish{min-height:40px;font-size:12px;text-decoration:underline;background:transparent;border-color:transparent;box-shadow:none;padding:1px 4px}
+#app .plot-inspector:not([hidden]){
+ position:fixed;z-index:23;top:max(62px,calc(54px + env(safe-area-inset-top)));left:50%;transform:translateX(-50%);
+ width:min(calc(100% - 16px),522px);background:#fbf2d9;border:1px solid #d6c485;
+ border-radius:15px;padding:9px 10px;box-shadow:0 4px 14px #3c462c30;
+}
+
+.orchard-mode #plotInspector{display:none}

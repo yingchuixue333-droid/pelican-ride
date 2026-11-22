@@ -1,17 +1,17 @@
 import {rain7Release} from './rain7-balance.js?v=20261123b';
 import {SEED_CATEGORIES,enableFieldProgress} from './preview-progression.js?v=20261123b';
 import {NEXT_CROPS} from './next-crops.js';
-import {enableOrchardMarket,enableQuickFruit,treeView} from './orchard.js?v=20261123b';
+import {enableOrchardMarket,enableOrchardExpansion,enableQuickFruit,treeView} from './orchard.js?v=20261122f';
 import {KEY,OLD_KEY,CROPS,crop,EXPANSIONS,formatTime,newGame,parse,levelOf,progress,
  unlocked,ready,plant,water,harvest,expand,improve,soilLevels,improvementQuote,improveAll,
  clearQuote,clearPlots,enableRain7,enableSeedTrial,mergeSeedTrial,hasTrial,plantPrice,
  plannedSeed,fieldSeed,seedChangeQuote,changeFieldSeed,followFarmSeed,collectField,collectFields,
- threshold,claimPlumGift} from './model.js?v=20261122e';
-import {createScene,drawIcon,POSITIONS,SCENE_HEIGHT,assetsReady} from './art.js?v=20261122e';
+ threshold,claimPlumGift} from './model.js?v=20261122f';
+import {createScene,drawIcon,POSITIONS,SCENE_HEIGHT,assetsReady} from './art.js?v=20261122f';
 import {bindPlotTaps} from './touch.js?v=20261123b';
 import {createAudio} from './audio.js?v=20261123b';
-import {plotDetails,exactCountdown,visualPhase} from './presentation.js?v=20261122e';
-import {createOrchardUI} from './orchard-ui.js?v=20261122e';
+import {plotDetails,exactCountdown,visualPhase} from './presentation.js?v=20261122f';
+import {createOrchardUI} from './orchard-ui.js?v=20261122f';
 
 const $=id=>document.getElementById(id);
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -44,8 +44,9 @@ function toast(message){
 function tone(kind){if(sound&&!document.hidden)soundscape.play(kind);}
 function upgradeFarm(target,n){
  const economy=enableRain7(target),fields=enableFieldProgress(target),market=enableOrchardMarket(target);
+ const expansion=rain7Release&&enableOrchardExpansion(target);
  const fruit=rain7Release&&enableQuickFruit(target,n),trial=enableSeedTrial(target);
- return economy||fields||market||fruit||trial;
+ return economy||fields||market||expansion||fruit||trial;
 }
 function pullLatest(){
  if(memoryOnly)return;
@@ -127,6 +128,14 @@ $('plotPrimary').onclick=()=>{
  });
  if(action==='water')transact((s,n)=>[water(s,index,n)].filter(Boolean));
 };
+$('quickRadish').onclick=()=>{
+ const i=selectedPlot;
+ if(i!==null)transact((s,n)=>[plant(s,i,'radish',n)].filter(Boolean));
+};
+$('fieldNext').onclick=()=>{
+ const i=Number($('fieldNext').dataset.plotIndex);
+ if(Number.isInteger(i)&&i>=0&&i<state.plotCount){selectedPlot=i;renderUI();wake();}
+};
 $('harvestAll').onclick=()=>transact((s,n)=>collectFields(s,Array.from({length:s.plotCount},(_,i)=>i),n));
 $('waterAll').onclick=()=>transact((s,n)=>Array.from({length:s.plotCount},(_,i)=>water(s,i,n)).filter(Boolean));
 
@@ -148,7 +157,11 @@ function renderInspector(n){
   (d.empty?'':' · 全部收完后换种'):'尚未设置换种计划';
  $('plotProgress').value=d.progress;
  $('plotPrimary').disabled=d.action==='wait'||d.empty&&state.coins<plantPrice(state,seed);
- $('plotPrimary').textContent={plant:'播种',harvest:'收获这块',water:'浇水 · 减时 25%',wait:'本茬已浇水'}[d.action];
+ $('plotPrimary').hidden=d.action==='wait';
+ $('plotCareStatus').hidden=d.action!=='wait';
+ $('plotCareStatus').textContent=d.action==='wait'?'本茬已浇':'';
+ $('plotPrimary').textContent={plant:'播种',harvest:'收获这块',water:'浇水 · 减时 25%',wait:''}[d.action];
+ $('quickRadish').hidden=!d.empty||seed==='radish'||state.plots.filter(p=>p?.id==='radish').length>=2;
  if(inspectorIcon!==d.id){drawIcon($('plotIcon'),d.id);inspectorIcon=d.id;}
 }
 let improveIndex=null;
@@ -271,7 +284,7 @@ function renderGoals(n){
  const p=progress(state),e=EXPANSIONS[(state.plotCount-6)/2];
  $('levelSummary').textContent=p.max?'园艺 60 级 · 已满级':'园艺 '+p.level+' 级 · 距下一级 '+(p.need-p.have)+' 经验 · 升级自动送 25 金币';
  const nextTimes=state.plots.slice(0,state.plotCount).filter(Boolean).map(plant=>({at:plant.end,name:crop(plant.id).short}));
- for(let i=0;i<3;i++){
+ for(let i=0;i<state.orchard.trees.length;i++){
   const v=treeView(state,i,n);
   if(v)nextTimes.push({at:v.stored?n:v.next,name:v.kind.name.replace('树','')});
  }
@@ -306,7 +319,7 @@ function renderUI(){
  $('xp').max=p.max?1:p.need;$('xp').value=p.max?1:p.have;
  $('goalPeek').textContent=target?target.short+' · Lv.'+target.level+' · 差 '+Math.max(0,threshold(target.level)-state.xp)+' 经验':'本季种子均已解锁';
  $('cropCount').textContent='已解锁 '+shopOffers().filter(c=>unlocked(state,c.id)).length;
- let ripe=0,dry=0;
+ let ripe=0,dry=0,earliest=null,firstEmpty=null;
  for(const [i,b] of plotButtons.entries()){
   const plot=state.plots[i],open=i<state.plotCount,mature=ready(state,plot,n);
   const phase=visualPhase(state,plot,n);
@@ -316,9 +329,19 @@ function renderUI(){
   b.firstElementChild.textContent=!open?'待开垦':mature?'可收':!plot?'+':'';
   if(open&&mature)ripe++;
   if(open&&plot&&!mature&&!plot.watered)dry++;
+  if(open&&plot&&!mature&&(!earliest||plot.end<earliest.end))earliest={index:i,end:plot.end};
+  if(open&&!plot&&firstEmpty===null)firstEmpty=i;
  }
  $('harvestAll').textContent='一键收菜'+(ripe?' · '+ripe:'');$('harvestAll').disabled=!ripe;
  $('waterAll').textContent='一键浇水'+(dry?' · '+dry:'');$('waterAll').disabled=!dry;
+ const waiting=!ripe&&!dry,index=earliest?.index??firstEmpty;
+ $('harvestAll').hidden=waiting;$('waterAll').hidden=waiting;
+ $('fieldNext').hidden=!waiting;
+ $('fieldNext').dataset.plotIndex=index??'';
+ if(waiting){
+  const text=earliest?'最早第 '+(index+1)+' 块 · '+formatTime((earliest.end-n)/1000)+'后可收':firstEmpty!==null?'第 '+(firstEmpty+1)+' 块空田 · 可以播种':'看看田里的作物';
+  if($('fieldNext').textContent!==text)$('fieldNext').textContent=text;
+ }
  $('migrationNotice').hidden=!state.legacyNote;
  $('saveState').textContent=memoryOnly?'未能保存 · 请导出':'本机已保存';
  renderInspector(n);renderGoals(n);renderSeeds();orchard.update(n);

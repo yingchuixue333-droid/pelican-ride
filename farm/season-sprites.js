@@ -1,5 +1,6 @@
 // Atlas coordinates are x, y, width and height, measured after alpha trimming.
 const trees={"peach":[[2,2,260,245],[2,362,404,282],[2,722,416,332]],"plum":[[422,2,273,214],[422,362,400,259],[422,722,416,311]],"pear":[[842,2,201,249],[842,362,288,281],[842,722,388,356]]};
+const hillside={"persimmon":[[2,2,326,316],[2,322,340,309],[2,642,291,316]],"loquat":[[346,2,266,316],[346,322,320,316],[346,642,282,316]]};
 const stages={"radish":[[2,2,191,150],[2,223,251,170],[2,444,251,209]],"rice":[[257,2,211,217],[257,223,237,217],[257,444,226,217]],"pumpkin":[[512,2,248,177],[512,223,251,100],[512,444,251,119]]};
 
 const extra={"snowpea":[2,2,204,180],"okra":[2,186,214,180],"tomato":[2,370,217,179],"romanesco":[223,2,217,154],"ginger":[223,186,217,167],"blueberry":[223,370,217,158],"dragonfruit":[444,2,217,180],"glasscorn":[444,186,217,165],"lettuce":[444,370,217,158]};
@@ -15,14 +16,16 @@ function load(key,file){
  });
 }
 export const seasonArtReady=Promise.all([
- load('trees','season-trees.webp'),load('stages','season-stages.webp'),load('extra','season-extra.webp'),load('fruits','items.webp'),
+ load('trees','season-trees.webp'),load('hillside','orchard-hillside.webp'),load('stages','season-stages.webp'),load('extra','season-extra.webp'),load('fruits','items.webp'),
 ]);
-export const seasonTreesReady=()=>!!sprites.trees;
+export const seasonTreesReady=()=>String(!!sprites.trees)+String(!!sprites.hillside);
 export const seasonCropsReady=()=>String(!!sprites.stages)+String(!!sprites.extra);
 
 export function treePicture(id,stage){
- const source=trees[id]?.[stage===3?2:stage===0?0:1];
- return source&&sprites.trees?{image:sprites.trees,source}:null;
+ const row=stage===3?2:stage===0?0:1;
+ const source=(hillside[id]??trees[id])?.[row];
+ const image=hillside[id]?sprites.hillside:sprites.trees;
+ return source&&image?{image,source}:null;
 }
 
 export function cropPicture(c,id,x,y,phase,scale=1){
