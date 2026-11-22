@@ -2,17 +2,17 @@ import {WATER_GATE} from './irrigation-art.js';
 import {rain7Release} from './rain7-balance.js?v=20261123b';
 import {SEED_CATEGORIES,enableFieldProgress} from './preview-progression.js?v=20261123b';
 import {NEXT_CROPS} from './next-crops.js';
-import {enableOrchardMarket,enableOrchardExpansion,enableFreeTreeSites,enableQuickFruit,treeView} from './orchard.js?v=20261122g';
+import {enableOrchardMarket,enableOrchardExpansion,enableFreeTreeSites,enableQuickFruit,treeView} from './orchard.js?v=20261122h';
 import {KEY,OLD_KEY,CROPS,crop,EXPANSIONS,formatTime,newGame,parse,levelOf,progress,
  unlocked,ready,plant,water,harvest,expand,improve,soilLevels,improvementQuote,improveAll,
  clearQuote,clearPlots,enableRain7,enableSeedTrial,mergeSeedTrial,hasTrial,plantPrice,
  plannedSeed,fieldSeed,seedChangeQuote,changeFieldSeed,followFarmSeed,collectField,collectFields,
- threshold,claimPlumGift,irrigateFields,canFertilize,feedAmounts,fertilizerQuote,fertilizeFields,fieldBug,catchFieldBug} from './model.js?v=20261122g';
-import {createScene,drawIcon,POSITIONS,SCENE_HEIGHT,assetsReady} from './art.js?v=20261122g';
+ threshold,claimPlumGift,irrigateFields,canFertilize,feedAmounts,fieldActions,fertilizerQuote,fertilizeFields,fieldBug,catchFieldBug} from './model.js?v=20261122h';
+import {createScene,drawIcon,POSITIONS,SCENE_HEIGHT,assetsReady} from './art.js?v=20261122h';
 import {bindPlotTaps} from './touch.js?v=20261123b';
 import {createAudio} from './audio.js?v=20261123b';
-import {plotDetails,exactCountdown,visualPhase} from './presentation.js?v=20261122g';
-import {createOrchardUI} from './orchard-ui.js?v=20261122g';
+import {plotDetails,exactCountdown,visualPhase} from './presentation.js?v=20261122h';
+import {createOrchardUI} from './orchard-ui.js?v=20261122h';
 
 const $=id=>document.getElementById(id);
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -130,8 +130,7 @@ $('plotPrimary').onclick=()=>{
  });
  if(action==='water')transact((s,n)=>[water(s,index,n)].filter(Boolean));
  if(action==='wait'&&canFertilize(state,state.plots[index],now())){
-  $('fertilizeBatch').checked=false;
-  openSheet('fertilizerSheet');renderFertilizer(now());
+  openFertilizer(index);
  }
 };
 $('quickRadish').onclick=()=>{
@@ -143,7 +142,7 @@ const gate=$('waterGate');
 let lastGatePress=-Infinity;
 gate.style.left=WATER_GATE.x/720*100+'%';
 gate.style.top=WATER_GATE.y/SCENE_HEIGHT*100+'%';
-gate.onclick=()=>{
+function openWaterGate(){
  const pressed=performance.now();
  if(pressed-lastGatePress<430)return;
  lastGatePress=pressed;
@@ -153,7 +152,10 @@ gate.onclick=()=>{
   scene.irrigate(event.indices,performance.now()/1000);
   return [event];
  });
-};
+}
+gate.onclick=openWaterGate;
+$('irrigateAll').onclick=openWaterGate;
+$('careAll').onclick=()=>openFertilizer(null);
 
 $('showPlotDetails').onclick=()=>{openSheet('plotInspector');renderInspector(now());};
 function renderInspector(n){
@@ -185,27 +187,40 @@ function renderInspector(n){
  if(inspectorIcon!==d.id){drawIcon($('plotIcon'),d.id);inspectorIcon=d.id;}
 }
 
+let fertilizerPlot=null;
+function openFertilizer(index){
+ fertilizerPlot=index;
+ $('fertilizeBatch').checked=false;
+ openSheet('fertilizerSheet');renderFertilizer(now());
+}
 function fertilizerIndices(){
- return $('fertilizeBatch').checked?Array.from({length:state.plotCount},(_,i)=>i):[selectedPlot];
+ return fertilizerPlot===null||$('fertilizeBatch').checked?Array.from({length:state.plotCount},(_,i)=>i):[fertilizerPlot];
 }
 const fertilizerButtons=[['feedCoins','coins','多金币','金币'],['feedXp','xp','多经验','经验']];
 function renderFertilizer(n){
- const plot=state.plots[selectedPlot],eligible=canFertilize(state,plot,n);
- $('fertilizerTitle').textContent='第 '+(selectedPlot+1)+' 块 · 本茬施肥';
- $('fertilizerInfo').textContent=eligible?'本茬只施一次。预计原收成 '+plot.value+' 金币 / '+plot.xp+' 经验，成熟时间不变。':'这块田当前不能施肥。';
- for(const [button,choice,label,unit] of fertilizerButtons){
-  const q=fertilizerQuote(state,fertilizerIndices(),choice,n);
-  $(button).textContent=label+' · +'+q.gain+' '+unit+($('fertilizeBatch').checked?' / '+q.indices.length+' 块':'');
+ const all=fertilizerPlot===null,plot=all?null:state.plots[fertilizerPlot];
+ const eligible=all||canFertilize(state,plot,n);
+ const indices=fertilizerIndices(),quotes=fertilizerButtons.map(([,choice])=>fertilizerQuote(state,indices,choice,n));
+ $('fertilizerTitle').textContent=all?'照料长作':'第 '+(fertilizerPlot+1)+' 块 · 本茬施肥';
+ $('fertilizeScope').hidden=all;
+ const count=new Set(quotes.flatMap(q=>q.indices)).size;
+ $('fertilizerInfo').textContent=all?(count?'现在能照料 '+count+' 块。每块本茬只施一次，成熟时间不变。':'现在没有可照料的田。'):
+  eligible?'本茬只施一次。预计原收成 '+plot.value+' 金币 / '+plot.xp+' 经验，成熟时间不变。':'这块田当前不能施肥。';
+ for(const [i,[button,,label,unit]] of fertilizerButtons.entries()){
+  const q=quotes[i];
+  $(button).textContent=label+' · +'+q.gain+' '+unit+(all||$('fertilizeBatch').checked?' / '+q.indices.length+' 块':'');
   $(button).disabled=!eligible||!q.gain;
  }
 }
 $('fertilizeBatch').onchange=()=>renderFertilizer(now());
 for(const [button,choice] of fertilizerButtons)$(button).onclick=async()=>{
- const indices=fertilizerIndices(),quote=fertilizerQuote(state,indices,choice,now());
+ const index=fertilizerPlot,indices=fertilizerIndices(),quote=fertilizerQuote(state,indices,choice,now());
  if(!quote.indices.length)return;
  const done=await transact((s,n)=>{
   const actual=fertilizerQuote(s,indices,choice,n);
-  if(!canFertilize(s,s.plots[selectedPlot],n)||JSON.stringify(actual)!==JSON.stringify(quote)){toast('田地状态已更新，请核对新的预计奖励。');return [];}
+  if((index!==null&&!canFertilize(s,s.plots[index],n))||JSON.stringify(actual)!==JSON.stringify(quote)){
+   toast('田地状态已更新，请核对新的预计奖励。');return [];
+  }
   return [fertilizeFields(s,indices,choice,n)].filter(Boolean);
  });
  if(done&&$('fertilizerSheet').open)$('fertilizerSheet').close();
@@ -376,7 +391,7 @@ function renderUI(){
  $('xp').max=p.max?1:p.need;$('xp').value=p.max?1:p.have;
  $('goalPeek').textContent=target?target.short+' · Lv.'+target.level+' · 差 '+Math.max(0,threshold(target.level)-state.xp)+' 经验':'本季种子均已解锁';
  $('cropCount').textContent='已解锁 '+shopOffers().filter(c=>unlocked(state,c.id)).length;
- let ripe=0,dry=0,earliest=null,firstEmpty=null;
+ let earliest=null,firstEmpty=null;
  for(const [i,b] of plotButtons.entries()){
   const plot=state.plots[i],open=i<state.plotCount,mature=ready(state,plot,n);
   const phase=visualPhase(state,plot,n);
@@ -384,18 +399,24 @@ function renderUI(){
   b.disabled=!open;
   b.setAttribute('aria-label','第 '+(i+1)+' 块田 · '+(!open?'待开垦':plot?crop(plot.id).short+' · '+phase.label:'空田'));
   b.firstElementChild.textContent=!open?'待开垦':mature?'可收':!plot?'+':'';
-  if(open&&mature)ripe++;
-  if(open&&plot&&!mature&&!plot.watered)dry++;
   if(open&&plot&&!mature&&(!earliest||plot.end<earliest.end))earliest={index:i,end:plot.end};
   if(open&&!plot&&firstEmpty===null)firstEmpty=i;
   bugButtons[i].hidden=!open||!fieldBug(state,i,n);
  }
- $('harvestAll').textContent='一键收菜 · '+ripe;
- $('harvestAll').hidden=!ripe;
+ const actions=fieldActions(state,n),primary=actions.find(action=>action.count)?.id;
+ $('fieldOptions').hidden=!primary;
+ $('fieldNext').hidden=!!primary;
+ for(const {id,label,count} of actions){
+  const button=$(id);
+  button.hidden=!count;
+  button.dataset.primary=String(id===primary);
+  if(count)button.textContent=label+' '+count+' 块';
+ }
+ const dry=actions[1].count;
  gate.classList.toggle('can-water',dry>0);
  gate.firstElementChild.textContent=dry?'开闸':'水闸';
  gate.setAttribute('aria-label',dry?'打开水闸，灌溉 '+dry+' 块田':'水闸，当前没有可浇的田');
- const text=ripe?'有 '+ripe+' 块田可以收获':earliest?'最早第 '+(earliest.index+1)+' 块 · '+formatTime((earliest.end-n)/1000)+'后可收':firstEmpty!==null?'第 '+(firstEmpty+1)+' 块空田 · 可以播种':'看看田里的作物';
+ const text=earliest?'最早第 '+(earliest.index+1)+' 块 · '+formatTime((earliest.end-n)/1000)+'后可收':firstEmpty!==null?'第 '+(firstEmpty+1)+' 块空田 · 可以播种':'看看田里的作物';
  if($('fieldNext').textContent!==text)$('fieldNext').textContent=text;
  $('migrationNotice').hidden=!state.legacyNote;
  $('saveState').textContent=memoryOnly?'未能保存 · 请导出':'本机已保存';

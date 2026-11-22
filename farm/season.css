@@ -90,8 +90,11 @@ body:not(.orchard-mode) #app{padding-bottom:110px}
 }
 #basketBadge[hidden]{display:none}
 #orchardHits .tree-slot{
- width:44px;height:44px;min-height:44px;border-radius:50%;color:#fff4d6;font-size:24px;
- background:#49613d94;border:1px dashed #f4e5b296;text-shadow:0 1px 2px #314029;
+ width:96px;height:56px;min-height:44px;border-radius:42%;color:#fff4d6;font-size:24px;
+}
+#orchardHits .tree-slot span{
+ display:grid;place-items:center;width:39px;height:38px;margin:auto;border-radius:50%;
+ background:#49613dce;border:1px solid #f4e7b4;text-shadow:0 1px 2px #314029;
 }
 #treeDetails #fruitLots:not([hidden]){display:grid;gap:6px;margin:10px 0 4px}
 #fruitLots>div{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid #ded8bc}
@@ -108,10 +111,10 @@ body:not(.orchard-mode) #app{padding-bottom:110px}
 
 body.orchard-mode #orchardPage{
  position:relative;
- height:max(100svh,min(132svh,calc(100vw * 2.80)));
- margin-bottom:68px;
+ height:100svh;
+ margin:0;
 }
-body.orchard-mode #orchardStage{background:#cbbf83 url('./rain-assets/orchard-soil.webp') center/100% 100% no-repeat}
+body.orchard-mode #orchardStage{background:#cbbf83 url('./rain-assets/orchard-beds.webp') center/100% 100% no-repeat}
 #orchardVarieties:not([hidden]),.fertilizer-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:8px 0}
 #orchardVarieties button,#fertilizerSheet button{min-height:44px}
 #orchardVarieties button[aria-pressed=true],.fertilizer-actions button:not(:disabled){background:#e0e8cb;color:#315239;border-color:#91a26e}
@@ -119,7 +122,27 @@ body.orchard-mode #orchardStage{background:#cbbf83 url('./rain-assets/orchard-so
 #fertilizeScope input{width:18px;height:18px;accent-color:#537644}
 #controlDock #fieldIdle:not([hidden]){display:flex;gap:8px;align-items:center;min-height:37px;justify-content:space-between}
 #controlDock #fieldNext{margin:0;padding:0 4px;font-size:12px;color:#557049;line-height:1.35}
-#controlDock #harvestAll{min-height:40px;padding:0 10px;background:#477650;color:#fff6df;font-size:13px}
+#fieldOptions:not([hidden]){display:flex;gap:5px;width:100%}
+#fieldOptions button{
+ flex:1;min-height:44px;min-width:0;padding:2px 3px;font-size:12px;white-space:nowrap;
+ border-radius:9px;background:#eef0d9;color:#375940;border-color:#bcbd94;
+}
+#fieldOptions button[data-primary="true"]{
+ flex:1.42;background:#487650;color:#fff7df;border-color:#3d6c45;font-size:15px;font-weight:750;
+}
+#orchardBeds{
+ display:flex;justify-content:space-between;align-items:flex-start;gap:7px;
+ position:absolute;top:calc(63px + env(safe-area-inset-top));left:14px;right:14px;z-index:10;
+ pointer-events:none;
+}
+#orchardBeds>div{display:flex;gap:4px;pointer-events:auto}
+#orchardBeds button{
+ pointer-events:auto;min-height:44px;min-width:58px;padding:3px 10px;border-radius:13px;
+ background:#f8efd8e8;color:#3c5e40;border-color:#d6cc9b;font-size:13px;font-weight:700;
+}
+#orchardBeds button[aria-pressed="true"],#orchardBeds #orchardPlantEntry{
+ background:#3f6949;color:#fff3d8;border-color:#d9d5ae;
+}
 #plotSummary{font-size:12px;line-height:1.2;margin:0 0 3px;color:#38573c;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .field-strip-actions{display:flex;gap:4px}
 .field-strip-actions button{min-height:44px;flex:1;min-width:44px;padding:0 3px;border-radius:9px;font-size:12px}

@@ -1,4 +1,4 @@
-import {treePicture,fruitPicture} from './season-sprites.js?v=20261122g';
+import {treePicture,fruitPicture} from './season-sprites.js?v=20261122h';
 import {blade,fruitRound,glaze,oval,stroke} from './field-paint.js';
 
 const schemes={
@@ -21,12 +21,12 @@ const schemes={
   fruit:[[-84,-205],[-29,-285],[31,-246],[104,-205]],
  },
 };
-export const ORCHARD_HEIGHT=1700;
-const roots=[
- {x:164,y:837,z:1.02},{x:198,y:1162,z:1.21},{x:542,y:836,z:1},
- {x:159,y:500,z:.78},{x:545,y:485,z:.75},
- {x:510,y:1151,z:1.02},{x:171,y:1502,z:1.10},
-];
+export const ORCHARD_HEIGHT=1280;
+// Slots keep their save indices. Beds only map those indices onto the screen.
+export const ORCHARD_BEDS=[[0,2,1,5],[3,4,6]];
+const nearLeft={x:164,y:562,z:1.02},nearRight={x:552,y:555,z:1.01};
+const frontLeft={x:192,y:1039,z:1.18},frontRight={x:514,y:998,z:1.06};
+const roots=[nearLeft,frontLeft,nearRight,nearLeft,nearRight,frontRight,frontLeft];
 const stageSize=[.39,.68,.87,1];
 const matureSites={
  peach:[[.24,.52],[.49,.34],[.67,.55],[.82,.47]],
@@ -49,22 +49,30 @@ export function orchardFrame(index,view){
  const stage=view?.stage??0,style=schemes[id]||schemes.peach;
  return {...root,stage,scale:root.z*stageSize[stage],style,picture:orchardPicture(id,stage,root)};
 }
+function bedShape(c,w,y){
+ c.beginPath();c.moveTo(-w,y+7);
+ c.bezierCurveTo(-w*.96,y-14,-w*.58,y-28,-w*.22,y-27);
+ c.bezierCurveTo(w*.07,y-31,w*.56,y-32,w*.85,y-15);
+ c.bezierCurveTo(w*1.08,y-9,w*.98,y+17,w*.69,y+23);
+ c.bezierCurveTo(w*.25,y+37,-w*.32,y+30,-w*.66,y+27);
+ c.bezierCurveTo(-w*.89,y+22,-w,y+17,-w,y+7);c.closePath();
+}
 export function paintOrchardBed(c,index,view){
- const {x,y,z}=orchardFrame(index,view),w=77*z;
+ const {x,y,z}=orchardFrame(index,view),w=101*z;
  c.save();c.translate(x,y);
- const rim=c.createRadialGradient(0,5,8,0,5,w);
- rim.addColorStop(0,'#9b7a46c8');rim.addColorStop(.74,'#ac864d7b');rim.addColorStop(1,'#b5925600');
- oval(c,0,7,w*1.16,31*z,rim,-.07);
- c.beginPath();c.moveTo(-w,8);
- c.bezierCurveTo(-w*.91,-13,-w*.59,-22,-w*.25,-22);
- c.bezierCurveTo(-w*.03,-27,w*.56,-27,w*.83,-12);
- c.bezierCurveTo(w*1.17,-3,w*.93,19,w*.61,25);
- c.bezierCurveTo(w*.19,31,-w*.31,27,-w*.61,25);
- c.bezierCurveTo(-w*.81,22,-w,19,-w,8);c.closePath();
- c.fillStyle=glaze(c,0,4,w*2,47,['#8c693f','#b8935c','#d1ad71']);c.globalAlpha=.75;c.fill();c.clip();
- for(let i=0;i<37;i++){
-  const x=((i*59)%173-86)*z,y=((i*41)%49-20)*z;
-  oval(c,x,y,.8+i%4*.42,.9+i%3*.35,i%3?'#e2c18e7e':'#624a3994',-.2);
+ oval(c,5,16,w*1.07,31*z,'#66503238',-.035);
+ bedShape(c,w,12*z);
+ c.fillStyle=glaze(c,0,13,w*2,45,['#67462c','#88603b','#ad8053']);c.fill();
+ bedShape(c,w,0);
+ c.fillStyle=glaze(c,0,4,w*2,58,['#84603a','#ac8252','#c7a46b']);c.fill();c.clip();
+ for(let row=0;row<3;row++){
+  const ry=8+row*9;
+  stroke(c,[-w*.87,ry+5],[-w*.22,ry-8],[w*.82,ry+3],'#684a344a',3.7);
+  stroke(c,[-w*.85,ry+1],[-w*.22,ry-12],[w*.8,ry],'#e4bd8455',2.4);
+ }
+ for(let i=0;i<49;i++){
+  const x=((i*59)%207-103)*z,y=((i*41)%55-25)*z;
+  oval(c,x,y,.8+i%4*.42,.9+i%3*.35,i%3?'#e2c18e81':'#624a398c',-.2);
  }
  c.restore();
 }

@@ -51,6 +51,32 @@ assert.equal(m.fertilizeFields(restored,[0],'xp',first).gain,xpQuote.gain);
 const next=structuredClone(restored.plots[0]);
 assert.equal(m.harvest(restored,0,next.end).xp,next.xp+xpQuote.gain);
 
+const dock=fresh();
+for(let i=0;i<12;i++){
+ assert(m.plant(dock,i,'orange',T));
+ if(i!==11)assert(m.water(dock,i,T));
+}
+assert(m.fertilizeFields(dock,[2,4],'xp',T));
+dock.plots[0].end=T;
+const actions=s=>m.fieldActions(s,T).map(({id,count})=>[id,count]);
+assert.deepEqual(actions(dock),[['harvestAll',1],['irrigateAll',1],['careAll',9]]);
+const fromBackup=m.parse(JSON.stringify(dock));
+const batch=Array.from({length:12},(_,i)=>i);
+const offer=m.fertilizerQuote(fromBackup,batch,'coins',T);
+assert.equal(offer.indices.length,9);
+assert.equal(offer.gain,offer.indices.reduce((sum,i)=>sum+Math.round(fromBackup.plots[i].value*.05),0));
+const timers=fromBackup.plots.map(p=>p.end);
+assert.equal(m.fertilizeFields(fromBackup,batch,'coins',T).gain,offer.gain);
+assert.deepEqual(fromBackup.plots.map(p=>p.end),timers);
+assert.equal(fromBackup.plots[2].fertilizer,'xp');
+assert.equal(m.fertilizeFields(m.parse(JSON.stringify(fromBackup)),batch,'xp',T),false);
+assert.deepEqual(actions(fromBackup),[['harvestAll',1],['irrigateAll',1],['careAll',0]]);
+assert(m.irrigateFields(fromBackup,T));
+assert.deepEqual(actions(fromBackup),[['harvestAll',1],['irrigateAll',0],['careAll',0]]);
+assert(m.harvest(fromBackup,0,T));
+assert.deepEqual(actions(fromBackup),[['harvestAll',0],['irrigateAll',1],['careAll',1]]);
+console.log('PASS dock priority counts and whole-field care excluding ripe and already fertilized plots');
+
 const bug=fresh();
 for(let i=0;i<100&&!bug.plots[0];i++){
  const tested=fresh();m.plant(tested,0,'orange',T+i*1000);

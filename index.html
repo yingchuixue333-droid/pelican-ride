@@ -1,7 +1,11 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#426d30"><meta name="description" content="风里农场：丰收季作物、果树与再生作物，按自己的节奏经营一片田。"><title>风里农场 · 轻松种收</title><link rel="stylesheet" href="farm/style.css?v=20261123b"><link rel="stylesheet" href="farm/orchard.css?v=20261123b"><link rel="preload" as="image" href="farm/rain-assets/items.webp"><link rel="stylesheet" href="farm/rain.css?v=20261123b"><link rel="stylesheet" href="farm/season.css?v=20261122g"></head><body>
+<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#426d30"><meta name="description" content="风里农场：丰收季作物、果树与再生作物，按自己的节奏经营一片田。"><title>风里农场 · 轻松种收</title><link rel="stylesheet" href="farm/style.css?v=20261123b"><link rel="stylesheet" href="farm/orchard.css?v=20261123b"><link rel="preload" as="image" href="farm/rain-assets/items.webp"><link rel="stylesheet" href="farm/rain.css?v=20261123b"><link rel="stylesheet" href="farm/season.css?v=20261122h"></head><body>
 <main id="app"><header><a class="brand" href="./" aria-label="风里农场首页"><span class="brandmark">✳</span><span>风里农场<small>THE LITTLE WIND FARM</small></span></a><div class="head-actions"><button id="sound" aria-pressed="false" aria-label="开启声音">♪</button><button id="shop">种子铺 <span id="cropCount">3/42</span></button><button id="settings" aria-expanded="false" aria-label="存档与说明">⋯</button></div></header><nav class="place-tabs" aria-label="逛逛农场"><button id="orchardTab" aria-pressed="false">果园</button><button id="fieldTab" aria-pressed="true">菜地</button></nav>
 <section class="intro"><div><p class="eyebrow">丰收季</p><h1>把日子，种进田里。</h1></div><span id="weather">微风 / 晴</span></section>
 <section id="orchardPage" aria-label="我的果园" hidden>
+ <nav id="orchardBeds" aria-label="切换树畦">
+  <div><button id="orchardNear" aria-pressed="true">近畦</button><button id="orchardFar" aria-pressed="false">里畦</button></div>
+  <button id="orchardPlantEntry" hidden>种树</button>
+ </nav>
  <div id="orchardStage" class="orchard-stage">
   <canvas id="orchardCanvas" aria-hidden="true"></canvas><div id="orchardHits"></div>
  </div>
@@ -19,7 +23,11 @@
 <p id="storageWarning" role="status" hidden></p><div id="migrationNotice" class="migration-note" hidden><p>旧农场已迁移：等级、金币、土地和在种作物保留。旧鸟浴池、风车按原价折回金币，旧温室折为肥沃田。旧版已解锁品种继续可种。</p><button id="dismissMigration">知道了</button></div>
 <div class="workspace"><section class="garden-column" aria-label="种植区"><div class="scene-wrap"><canvas id="scene" aria-hidden="true"></canvas><div id="plots" aria-label="十二块田地"></div><div id="fieldBugs"></div><button id="waterGate" type="button" aria-label="打开水闸，灌溉可浇的田"><span aria-hidden="true">水闸</span></button></div>
 <div id="controlDock" class="control-dock">
- <div id="fieldIdle"><p id="fieldNext"></p><button id="harvestAll" class="harvest" hidden>一键收菜</button></div>
+ <div id="fieldIdle">
+  <p id="fieldNext"></p><div id="fieldOptions" aria-label="当前可做的田间操作" hidden>
+   <button id="harvestAll" hidden></button><button id="irrigateAll" hidden></button><button id="careAll" hidden></button>
+  </div>
+ </div>
  <section id="plotStrip" aria-label="田地操作" hidden>
   <p id="plotSummary"></p>
   <div class="field-strip-actions">
@@ -72,4 +80,4 @@
  <div id="improveBatch"><h3>批量改良</h3><p id="improveAllHint"></p><button id="improveAll">一键改良</button></div>
  <details id="clearSection"><summary>清理这块田</summary><p id="refundText"></p><button id="plotClear">铲除作物</button></details></div>
 </dialog>
-<div id="toast" role="status" aria-live="polite"></div><script>if(new URLSearchParams(location.search).has('audit')){function auditError(e){let p=document.createElement('pre');p.style='background:#f6d2bd;color:#713e25;padding:12px;white-space:pre-wrap';p.textContent='开发错误：'+(e.message||e.reason?.message||e.reason||'未知错误');document.body.prepend(p)}addEventListener('error',auditError);addEventListener('unhandledrejection',auditError)}</script><script type="module" src="farm/app.js?v=20261122g"></script></body></html>
+<div id="toast" role="status" aria-live="polite"></div><script>if(new URLSearchParams(location.search).has('audit')){function auditError(e){let p=document.createElement('pre');p.style='background:#f6d2bd;color:#713e25;padding:12px;white-space:pre-wrap';p.textContent='开发错误：'+(e.message||e.reason?.message||e.reason||'未知错误');document.body.prepend(p)}addEventListener('error',auditError);addEventListener('unhandledrejection',auditError)}</script><script type="module" src="farm/app.js?v=20261122h"></script></body></html>

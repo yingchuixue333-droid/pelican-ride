@@ -3,7 +3,7 @@ import {rain7Release,RAIN7_CROPS,RAIN7_XP} from './rain7-balance.js?v=20261123b'
 import {FIELD_LEVELS,harvestMutation} from './preview-progression.js?v=20261123b';
 import {validate as oldValidate,levelOf as oldLevel,CROPS as OLD_CROPS} from './legacy.js?v=20261107d';
 export {CROPS,crop,EXPANSIONS,SOILS,formatTime} from './catalog.js?v=20261122e';
-import {newOrchard,validateOrchard} from './orchard.js?v=20261122g';
+import {newOrchard,validateOrchard} from './orchard.js?v=20261122h';
 import {CROPS,crop,EXPANSIONS,SOILS,LEGACY_CROPS} from './catalog.js?v=20261122e';
 const newSeedIds=new Set(NEXT_CROPS.map(c=>c.id));
 const preview=typeof location!=='undefined'&&(new URLSearchParams(location.search).has('orchardPreview')||location.pathname.includes('/orchard-preview/'));
@@ -91,6 +91,21 @@ export function fieldYield(plot){
 }
 
 export const canFertilize=(s,plot,n)=>!!plot&&plot.duration>=HOUR&&!plot.fertilizer&&!ready(s,plot,n);
+
+// The dock and its tests use the same ordered capabilities as the field model.
+export function fieldActions(s,now){
+ let ripe=0,dry=0,care=0;
+ for(const plot of s.plots.slice(0,s.plotCount)){
+  if(!plot)continue;
+  if(ready(s,plot,now)){ripe++;continue;}
+  if(!plot.watered)dry++;
+  if(canFertilize(s,plot,now)){
+   const gains=feedAmounts(plot);
+   if(gains.coins||gains.xp)care++;
+  }
+ }
+ return [{id:'harvestAll',label:'收获',count:ripe},{id:'irrigateAll',label:'开闸浇',count:dry},{id:'careAll',label:'照料',count:care}];
+}
 
 export function fertilizerQuote(s,indices,choice,now){
  if(!Object.hasOwn(FEED_RATES,choice))return {indices:[],gain:0};

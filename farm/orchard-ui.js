@@ -1,7 +1,7 @@
-import {basketLots,harvestFruit,harvestTree,observeOrchard,orchardKind,ORCHARD_SITES,plantTree,sellBasket,treeView} from './orchard.js?v=20261122g';
-import {exactCountdown} from './presentation.js?v=20261122g';
-import {createSeasonOrchardScene} from './season-orchard-scene.js?v=20261122g';
-import {ORCHARD_HEIGHT,orchardFrame} from './orchard-paint.js?v=20261122g';
+import {basketLots,harvestFruit,harvestTree,observeOrchard,orchardKind,ORCHARD_SITES,plantTree,sellBasket,treeView} from './orchard.js?v=20261122h';
+import {exactCountdown} from './presentation.js?v=20261122h';
+import {createSeasonOrchardScene} from './season-orchard-scene.js?v=20261122h';
+import {ORCHARD_BEDS,ORCHARD_HEIGHT,orchardFrame} from './orchard-paint.js?v=20261122h';
 
 export function bindOrchardTaps(root,action){let pending=null;const target=e=>e.target.closest?.('[data-orchard-action]');let down=e=>{pending=null;let b=target(e);if(b&&e.isPrimary!==false&&!(e.button>0))pending={b,id:e.pointerId,x:e.clientX,y:e.clientY,moved:false};},move=e=>{if(pending&&e.pointerId===pending.id&&Math.hypot(e.clientX-pending.x,e.clientY-pending.y)>10)pending.moved=true;},cancel=()=>pending=null,click=e=>{let b=target(e),p=pending;pending=null;if(b&&(e.detail===0||p&&p.b===b&&!p.moved))action(b,e);};let handlers={pointerdown:down,pointermove:move,pointercancel:cancel,click};for(let[k,v]of Object.entries(handlers))root.addEventListener(k,v,{passive:true});return {cancel,destroy(){for(let[k,v]of Object.entries(handlers))root.removeEventListener(k,v);}};}
 const fruitName=id=>orchardKind(id).name.replace('树','');
@@ -10,7 +10,27 @@ export function createOrchardUI({getState,now,transact,tone,reduced}){
  const $=id=>document.getElementById(id),panel=$('treeDetails'),basket=$('basketText');
  const scene=createSeasonOrchardScene($('orchardCanvas'),$('basketCanvas'));
  let active=false,focus=null,signature='',lotSignature='',wasFocused,variety=null,varietySignature='';
+ let bed=0;
+ try{bed=sessionStorage.getItem('windfarm-orchard-bed')==='1'?1:0;}catch{}
  const pending=new Set();
+ const activeSlots=()=>ORCHARD_BEDS[bed].filter(index=>index<getState().orchard.trees.length);
+ const empties=()=>ORCHARD_BEDS.flat().filter(i=>getState().orchard.trees[i]===null);
+ function switchBed(index){
+  if(index!==bed){
+   bed=index;gesture.cancel();
+   try{sessionStorage.setItem('windfarm-orchard-bed',String(index));}catch{}
+  }
+  if(active){update(now());render(performance.now()/1000);}
+ }
+ $('orchardNear').onclick=()=>switchBed(0);
+ $('orchardFar').onclick=()=>switchBed(1);
+ $('orchardPlantEntry').onclick=()=>{
+  const vacant=empties(),free=vacant.filter(i=>i>=ORCHARD_SITES.length);
+  const index=activeSlots().find(i=>free.includes(i))??free[0]??activeSlots().find(i=>vacant.includes(i))??vacant[0];
+  if(index===undefined)return;
+  switchBed(ORCHARD_BEDS.findIndex(group=>group.includes(index)));
+  show(true,index);
+ };
  const views=(s=getState(),n=now())=>s.orchard.trees.map((_,i)=>treeView(s,i,n));
  scene.ready.then(()=>{signature='';update(now());});
 
@@ -52,7 +72,7 @@ export function createOrchardUI({getState,now,transact,tone,reduced}){
   if(event.detail&&Number.isFinite(event.clientX)){
    const bounds=$('orchardStage').getBoundingClientRect();
    const distance=p=>Math.hypot(p.x/720*bounds.width+bounds.left-event.clientX,p.y/ORCHARD_HEIGHT*bounds.height+bounds.top-event.clientY);
-   const nearest=scene.points(views()).reduce((best,p)=>!best||distance(p)<distance(best)?p:best,null);
+   const nearest=scene.points(views(),activeSlots()).reduce((best,p)=>!best||distance(p)<distance(best)?p:best,null);
    if(nearest){i=nearest.index;token=nearest.token;}
   }
   const key=i+':'+token;
@@ -151,21 +171,25 @@ export function createOrchardUI({getState,now,transact,tone,reduced}){
   $('basketBadge').textContent=count>99?'99+':String(count);
   basket.setAttribute('aria-label',count?'打开果篮，'+count+' 颗果实':'打开果篮，空篮');
   updatePanel(s,vs,n,lots);
-  const sig=JSON.stringify(vs.map(tree=>tree&&[tree.tree.id,tree.stage,tree.fruits.map(f=>f.token)]));
+  $('orchardNear').setAttribute('aria-pressed',String(bed===0));
+  $('orchardFar').setAttribute('aria-pressed',String(bed===1));
+  $('orchardPlantEntry').hidden=!empties().length;
+  const indices=activeSlots();
+  const sig=bed+':'+JSON.stringify(vs.map(tree=>tree&&[tree.tree.id,tree.stage,tree.fruits.map(f=>f.token)]));
   if(sig===signature)return;
   signature=sig;
   const hits=$('orchardHits');hits.replaceChildren();
-  for(const [i,tree] of vs.entries()){
-   const frame=orchardFrame(i,tree),button=document.createElement('button');
+  for(const i of indices){
+   const tree=vs[i],frame=orchardFrame(i,tree),button=document.createElement('button');
    button.type='button';button.className=tree?'tree-touch':'tree-slot';
    button.dataset.orchardAction='tree';button.dataset.index=i;
    button.style.left=frame.x/720*100+'%';
    button.style.top=(frame.y-(tree?72*frame.z:12))/ORCHARD_HEIGHT*100+'%';
-   if(!tree)button.textContent='+';
+   if(!tree)button.innerHTML='<span aria-hidden="true">+</span>';
    button.setAttribute('aria-label',tree?'查看'+tree.kind.name:i<ORCHARD_SITES.length?'在空位种'+orchardKind(ORCHARD_SITES[i]).name:'选一种果树种在新树位');
    hits.append(button);
   }
-  for(const f of scene.points(vs)){
+  for(const f of scene.points(vs,indices)){
    const button=document.createElement('button');
    button.type='button';button.className='fruit-touch';button.dataset.orchardAction='fruit';
    button.dataset.index=f.index;button.dataset.token=f.token;
@@ -174,7 +198,7 @@ export function createOrchardUI({getState,now,transact,tone,reduced}){
    hits.append(button);
   }
  }
- function render(t){if(active){scene.render(views(),t,reduced);}}
+ function render(t){if(active){scene.render(views(),activeSlots(),t,reduced);}}
  document.addEventListener('visibilitychange',()=>{if(document.hidden)gesture.cancel();});
  return {update,render,observe,get active(){return active;},delay:()=>scene.delay(reduced)};
 }
