@@ -33,7 +33,7 @@ assert.equal(m.refundFor(save.plots[4]),Math.floor(raw.plots[4].paid*raw.plots[4
 assert.deepEqual(m.parse(JSON.stringify(save)),save);
 assert.equal(m.threshold(60),32400);
 assert.equal(m.levelOf(1e9),60);
-assert.equal(m.CROPS.length,42);
+assert.equal(m.CROPS.length,48);
 assert.deepEqual(m.EXPANSIONS.map(row=>row.cost),[900,3200,7600]);
 assert.deepEqual(m.soilLevels(save).map(row=>row.cost),[0,180,300,500,750,1050,1400,1800,2300,3000]);
 

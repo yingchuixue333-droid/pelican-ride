@@ -1,9 +1,11 @@
+import {NEXT_CROPS,TRIAL_SEED} from './next-crops.js';
 import {rain7Release,RAIN7_CROPS,RAIN7_XP} from './rain7-balance.js?v=20261123b';
 import {FIELD_LEVELS,harvestMutation} from './preview-progression.js?v=20261123b';
 import {validate as oldValidate,levelOf as oldLevel,CROPS as OLD_CROPS} from './legacy.js?v=20261107d';
-export {CROPS,crop,EXPANSIONS,SOILS,formatTime} from './catalog.js?v=20261123b';
+export {CROPS,crop,EXPANSIONS,SOILS,formatTime} from './catalog.js?v=20261122e';
 import {newOrchard,validateOrchard} from './orchard.js?v=20261123b';
-import {CROPS,crop,EXPANSIONS,SOILS,LEGACY_CROPS} from './catalog.js?v=20261123b';
+import {CROPS,crop,EXPANSIONS,SOILS,LEGACY_CROPS} from './catalog.js?v=20261122e';
+const newSeedIds=new Set(NEXT_CROPS.map(c=>c.id));
 const preview=typeof location!=='undefined'&&(new URLSearchParams(location.search).has('orchardPreview')||location.pathname.includes('/orchard-preview/'));
 export const soilLevels=s=>s.fieldProgress?FIELD_LEVELS:SOILS;
 export const KEY=preview?'windfarm-rain-preview-v1':'windfarm-v2',OLD_KEY=preview?'windfarm-rain-preview-legacy-v1':'windfarm-v1';
@@ -61,8 +63,14 @@ export const plantTerms=p=>p?.terms||cropTerms(crop(p.id));
 function makePlant(s,i,id,start){let c=crop(id),ground=soilLevels(s)[s.soil[i]],duration=c.seconds*1000*ground.speed;return {id,start,end:start+duration,duration,watered:false,paid:c.cost,remaining:c.harvests,cycle:1,value:Math.round(c.coins*ground.bonus),xp:c.xp,...(rain7Release?{terms:cropTerms(c)}:{})};}
 export const ready=(s,p,now)=>!!p&&time(s,now)>=p.end;
 export const growth=(s,p,now)=>p?Math.min(1,Math.max(0,1-(p.end-time(s,now))/p.duration)):0;
-function award(s,xp){let before=levelOf(s.xp);s.xp+=xp;let levels=levelOf(s.xp)-before;s.coins+=levels*25;return levels;}
-export function plant(s,i,id,now){let c=crop(id);if(!Number.isInteger(i)||i<0||i>=s.plotCount||s.plots[i]||!unlocked(s,id)||s.coins<c.cost)return false;now=time(s,now);s.coins-=c.cost;s.plots[i]=makePlant(s,i,id,now);s.lastSeeds[i]=id;s.stats[id].sown++;s.at=now;return {kind:'plant',cost:c.cost,message:'种下'+c.short+(c.cost?' · -'+c.cost+'币':' · 免费种子')};}
+function award(s,xp){let before=levelOf(s.xp);s.xp+=xp;let levels=levelOf(s.xp)-before;s.coins+=levels*25;enableSeedTrial(s);return levels;}
+export function plant(s,i,id,now){let c=crop(id);if(!Number.isInteger(i)||i<0||i>=s.plotCount||s.plots[i]||!unlocked(s,id)||s.coins<plantPrice(s,id))return false;now=time(s,now);
+ const paid=plantPrice(s,id),trial=hasTrial(s,id);
+ s.coins-=paid;
+ if(trial)s.seedTrial='used';
+ s.plots[i]=makePlant(s,i,id,now);s.plots[i].paid=paid;
+ s.lastSeeds[i]=id;s.stats[id].sown++;s.at=now;
+ return {kind:'plant',cost:paid,message:'种下'+c.short+(trial?' · 已使用试种包':paid?' · -'+paid+'币':' · 免费种子')};}
 export function water(s,i,now){let p=s.plots[i];if(i>=s.plotCount||!p||p.watered||ready(s,p,now))return false;now=time(s,now);p.watered=true;p.end=Math.max(now,p.end-p.duration*.25);s.at=now;return {kind:'water',message:'浇水完成 · 本茬生长时间减少25%'};}
 export function harvest(s,i,now){let p=s.plots[i];if(i>=s.plotCount||!ready(s,p,now))return false;now=time(s,now);let c=crop(p.id),bonus=0,special='';if(s.fieldProgress){if(harvestMutation(s,p.id)){bonus=Math.ceil(p.value*.5);special='变异丰收';}}else if(s.surprise){s.surprise.count++;let roll=s.surprise.count%4;if(roll===2||roll===0){bonus=Math.max(1,Math.round(p.value*(roll===0?.5:.2)));special=roll===0?'金穗丰收':'饱满好果';s.surprise.found++;}}let coins=p.value+bonus,xp=p.xp;s.coins+=coins;let levels=award(s,xp);s.stats[p.id].harvest++;let repeated=p.remaining>1;if(repeated){p.remaining--;p.cycle++;p.start=now;const terms=plantTerms(p);p.duration=terms.regrowSeconds*1000*soilLevels(s)[s.soil[i]].speed;p.end=now+p.duration;p.watered=false;p.value=Math.round(terms.coins*soilLevels(s)[s.soil[i]].bonus);p.xp=terms.xp;}else s.plots[i]=null;s.at=now;return {kind:'harvest',units:plantTerms(p).units,coins,xp,levels,repeated,bonus,special,message:(special?special+'！':'')+c.short+' +'+coins+'币 · +'+xp+'经验'+(repeated?' · 还可收'+p.remaining+'次':'')+(levels?' · 升级！':'')};}
 export function expand(s,now){let e=EXPANSIONS[(s.plotCount-6)/2];if(!e||s.coins<e.cost||levelOf(s.xp)<e.level)return false;s.coins-=e.cost;s.plotCount=e.count;s.at=time(s,now);return {kind:'build',message:'新增两块田 · 现在有'+s.plotCount+'块'};}
@@ -73,7 +81,7 @@ export function uproot(s,i,now){let p=s.plots[i];if(i<0||i>=s.plotCount||!p)retu
 export function clearPlots(s,indices,now){let count=0,refund=0,harvestCoins=0,xp=0,levels=0;now=time(s,now);for(let i of new Set(indices)){if(!Number.isInteger(i)||i<0||i>=s.plotCount||!s.plots[i])continue;count++;if(ready(s,s.plots[i],now)){let e=harvest(s,i,now);harvestCoins+=e.coins;xp+=e.xp;levels+=e.levels;}if(s.plots[i]){let e=uproot(s,i,now);refund+=e.refund;}}return count?{kind:'clear',count,refund,harvestCoins,xp,levels,message:'已清空'+count+'块田 · 退种子费'+refund+'币'+(harvestCoins?' · 收菜'+harvestCoins+'币':'')+(levels?' · 升级奖励'+levels*25+'币':'')}:false;}
 export function clearQuote(s,indices,now){return clearPlots(structuredClone(s),indices,now);}
 // One explicit visit action: collect all mature plots first, then re-sow their own last seeds.
-export function harvestAndResow(s,now){let events=[],skipped=0,shortfall=0;const next=s.nextSeed||(preview||rain7Release?preferredLongSeed(s):null);now=time(s,now);for(let i=0;i<s.plotCount;i++){let id=s.plots[i]?.id,e=harvest(s,i,now);if(e)events.push({...e,index:i,id});}for(let i=0;i<s.plotCount;i++){if(s.plots[i])continue;let id=next||s.lastSeeds[i],e=plant(s,i,id,now);if(e)events.push({...e,index:i,id});else{skipped++;shortfall+=crop(id)?.cost||0;}}return {events,skipped,shortfall:skipped?Math.max(0,shortfall-s.coins):0,seed:next};}
+export function harvestAndResow(s,now){let events=[],skipped=0,shortfall=0;const next=s.nextSeed||(preview||rain7Release?preferredLongSeed(s):null);now=time(s,now);for(let i=0;i<s.plotCount;i++){let id=s.plots[i]?.id,e=harvest(s,i,now);if(e)events.push({...e,index:i,id});}for(let i=0;i<s.plotCount;i++){if(s.plots[i])continue;let id=s.fieldSeeds?.[i]||next||s.lastSeeds[i],e=plant(s,i,id,now);if(e)events.push({...e,index:i,id});else{skipped++;shortfall+=crop(id)?.cost||0;}}return {events,skipped,shortfall:skipped?Math.max(0,shortfall-s.coins):0,seed:next};}
 export function resowQuote(s,now){let {events,skipped}=harvestAndResow(structuredClone(s),now);return {harvests:events.filter(e=>e.kind==='harvest').length,planted:events.filter(e=>e.kind==='plant').length,cost:events.reduce((n,e)=>n+(e.cost||0),0),coins:events.reduce((n,e)=>n+(e.coins||0),0),xp:events.reduce((n,e)=>n+(e.xp||0),0),levels:events.reduce((n,e)=>n+(e.levels||0),0),skipped};}
 export function improveAll(s,now){let eligible=[];for(let i=0;i<s.plotCount;i++){let soil=soilLevels(s)[s.soil[i]+1];if(soil&&levelOf(s.xp)>=soil.level)eligible.push({index:i,cost:soil.cost});}eligible.sort((a,b)=>a.cost-b.cost||a.index-b.index);let events=[];for(let item of eligible){let e=improve(s,item.index,now);if(e)events.push({...e,index:item.index});}return {events,eligible:eligible.length,skipped:eligible.length-events.length};}
 export function improvementQuote(s,now){let {events,eligible,skipped}=improveAll(structuredClone(s),now);return {count:events.length,cost:events.reduce((n,e)=>n+e.cost,0),eligible,skipped};}
@@ -85,7 +93,11 @@ function validateV2(raw){
  if(raw.fieldProgress!==undefined){if(!int(raw.fieldProgress?.misses,0,3))throw Error('变异记录不正确');s.fieldProgress={misses:raw.fieldProgress.misses};if(int(raw.fieldProgress.roll,0,0xffffffff))s.fieldProgress.roll=raw.fieldProgress.roll;}
  if(raw.rainPreviewStipend===true)s.rainPreviewStipend=true;
  if(raw.plumGiftClaimed===true)s.plumGiftClaimed=true;
- for(let c of CROPS){let st=raw.stats?.[c.id]??(raw.version===2&&['nightwheat','starwumpkin'].includes(c.id)?{sown:0,harvest:0}:undefined);if(!st||!int(st.sown)||!int(st.harvest))throw Error('种植记录不正确');s.stats[c.id]={sown:st.sown,harvest:st.harvest};}
+ if(raw.seedTrial!==undefined){
+  if(!['available','used'].includes(raw.seedTrial))throw Error('试种记录不正确');
+  s.seedTrial=raw.seedTrial;
+ }
+ for(let c of CROPS){let st=raw.stats?.[c.id]??(newSeedIds.has(c.id)||raw.version===2&&['nightwheat','starwumpkin'].includes(c.id)?{sown:0,harvest:0}:undefined);if(!st||!int(st.sown)||!int(st.harvest))throw Error('种植记录不正确');s.stats[c.id]={sown:st.sown,harvest:st.harvest};}
  if(!Array.isArray(raw.plots)||raw.plots.length!==12)throw Error('田地数量不正确');
  for(let i=0;i<12;i++){
   const p=raw.plots[i];
@@ -98,7 +110,11 @@ function validateV2(raw){
   s.plots.push({id:p.id,start:p.start,end:p.end,duration:p.duration,watered:p.watered,paid:p.paid,remaining:p.remaining,cycle:p.cycle,value:p.value,xp:p.xp,...(rain7Release||p.terms?{terms:cropTerms(terms)}:{})});
  }
  if(raw.version===3&&(raw.orchard===undefined||raw.surprise===undefined||raw.nextSeed===undefined))throw Error('新版存档缺少成长记录');
- if(raw.nextSeed!==undefined&&raw.nextSeed!==null&&(!crop(raw.nextSeed)||!(raw.economy!==7&&rain7Release?LEGACY_CROPS.find(c=>c.id===raw.nextSeed).level<=levelAt(oldBounds,s.xp)||s.legacyUnlocked.includes(raw.nextSeed):unlocked(s,raw.nextSeed))))throw Error('续种设置不正确');s.nextSeed=raw.nextSeed??null;
+ if(raw.nextSeed!==undefined&&raw.nextSeed!==null&&(!crop(raw.nextSeed)||!(raw.economy!==7&&rain7Release?(LEGACY_CROPS.find(c=>c.id===raw.nextSeed)?.level??Infinity)<=levelAt(oldBounds,s.xp)||s.legacyUnlocked.includes(raw.nextSeed):unlocked(s,raw.nextSeed))))throw Error('续种设置不正确');s.nextSeed=raw.nextSeed??null;
+ if(raw.fieldSeeds!==undefined){
+  if(!Array.isArray(raw.fieldSeeds)||raw.fieldSeeds.length!==12||raw.fieldSeeds.some(id=>id!==null&&!unlocked(s,id)))throw Error('单田换种记录不正确');
+  s.fieldSeeds=raw.fieldSeeds.slice();
+ }
  s.orchard=raw.orchard===undefined?newOrchard(s.at):validateOrchard(raw.orchard,s.at);
  if(raw.surprise!==undefined&&(!int(raw.surprise?.count)||!int(raw.surprise?.found)||raw.surprise.found>raw.surprise.count))throw Error('丰收记录不正确');s.surprise=raw.surprise?{count:raw.surprise.count,found:raw.surprise.found}:{count:0,found:0};
  return s;
@@ -111,3 +127,71 @@ export function parse(text){if(typeof text!=='string'||text.length>100000)throw 
 export function queueSeed(s,id,now){if(id!==null&&!unlocked(s,id))return false;s.nextSeed=id;s.at=time(s,now);return {kind:'queue',message:id?'下一轮种'+crop(id).short+' · 当前作物继续生长':'恢复按每块田原品种续种'};}
 export function tendAll(s,now){let result=harvestAndResow(s,now);for(let i=0;i<s.plotCount;i++){let e=water(s,i,now);if(e)result.events.push({...e,index:i,id:s.plots[i].id});}return result;}
 export function tendingQuote(s,now){let {events,skipped,shortfall,seed}=tendAll(structuredClone(s),now);return {harvests:events.filter(e=>e.kind==='harvest').length,planted:events.filter(e=>e.kind==='plant').length,shortfall,seed,watered:events.filter(e=>e.kind==='water').length,cost:events.reduce((n,e)=>n+(e.cost||0),0),skipped};}
+
+
+export function enableSeedTrial(state){
+ if(!rain7Release||state.seedTrial||levelOf(state.xp)<16)return false;
+ state.seedTrial='available';
+ return true;
+}
+
+export function mergeSeedTrial(incoming,current){
+ if(current.seedTrial==='used'||incoming.seedTrial==='used')incoming.seedTrial='used';
+ else if(current.seedTrial==='available')incoming.seedTrial='available';
+}
+
+export const hasTrial=(s,id)=>id===TRIAL_SEED&&s.seedTrial==='available';
+export const plantPrice=(s,id)=>hasTrial(s,id)?0:crop(id).cost;
+export const plannedSeed=(s,index)=>s.fieldSeeds?.[index]||s.nextSeed||null;
+export const fieldSeed=(s,index)=>plannedSeed(s,index)||s.lastSeeds[index]||'radish';
+
+export function seedChangeQuote(state,index,id,all){
+ if(!Number.isInteger(index)||index<0||index>=state.plotCount||!unlocked(state,id))return null;
+ const indices=all?Array.from({length:state.plotCount},(_,i)=>i).filter(i=>!state.fieldSeeds?.[i]):[index];
+ const empty=indices.filter(i=>!state.plots[i]);
+ const cost=crop(id).cost*(empty.length-(empty.length&&hasTrial(state,id)?1:0));
+ return {indices,empty,waiting:indices.length-empty.length,excluded:all?state.plotCount-indices.length:0,cost,missing:Math.max(0,cost-state.coins)};
+}
+
+export function changeFieldSeed(state,index,id,all,now){
+ const quote=seedChangeQuote(state,index,id,all);
+ if(!quote||quote.missing)return [];
+ if(all)state.nextSeed=id;
+ else{
+  state.fieldSeeds??=Array(12).fill(null);
+  state.fieldSeeds[index]=id;
+ }
+ state.at=time(state,now);
+ const events=[{kind:'queue',message:(all?'全田通用计划':'第'+(index+1)+'块田')+'已选'+crop(id).short}];
+ for(const i of quote.empty){
+  const event=plant(state,i,id,now);
+  events.push({...event,index:i,id});
+ }
+ return events;
+}
+
+export function followFarmSeed(state,index,now){
+ if(!state.fieldSeeds?.[index])return false;
+ state.fieldSeeds[index]=null;
+ state.at=time(state,now);
+ return {kind:'queue',message:'第'+(index+1)+'块田已恢复跟随全田'};
+}
+
+export function collectFields(state,indices,now){
+ const picked=[];
+ for(const index of indices){
+  const id=state.plots[index]?.id,event=harvest(state,index,now);
+  if(event)picked.push({...event,index,id});
+ }
+ const planted=[];
+ for(const event of picked){
+  const next=plannedSeed(state,event.index);
+  if(!next||event.repeated)continue;
+  const seed=plant(state,event.index,next,now);
+  if(seed)planted.push({...seed,index:event.index,id:next});
+  else event.unplanted=crop(next).short;
+ }
+ return [...picked,...planted];
+}
+
+export const collectField=(state,index,now)=>collectFields(state,[index],now);

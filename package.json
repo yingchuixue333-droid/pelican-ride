@@ -4,6 +4,6 @@
   "scripts": {
     "test": "npm run test:farm",
     "dev": "node scripts/serve.mjs",
-    "test:farm": "node qa/farm-test.mjs && node qa/farm-touch-test.mjs && node qa/farm-art-test.mjs && node qa/farm-month-sim.mjs && node qa/farm-presentation-test.mjs && node qa/farm-growth-test.mjs && node qa/farm-planning-test.mjs && node qa/farm-simple-test.mjs && node qa/farm-visit-test.mjs && node qa/farm-orchard-test.mjs"
+    "test:farm": "node qa/farm-test.mjs && node qa/farm-touch-test.mjs && node qa/farm-art-test.mjs && node qa/farm-month-sim.mjs && node qa/farm-presentation-test.mjs && node qa/farm-growth-test.mjs && node qa/farm-planning-test.mjs && node qa/farm-simple-test.mjs && node qa/farm-visit-test.mjs && node qa/farm-orchard-test.mjs && node qa/farm-rain7-test.mjs && node qa/farm-season-test.mjs"
   }
 }

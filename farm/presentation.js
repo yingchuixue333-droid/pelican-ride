@@ -1,5 +1,5 @@
-import {crop,growth,ready,time,soilLevels,plantTerms} from './model.js?v=20261123b';
-const nonFlowering=new Set(['radish','carrot','root','leaf','lotus','mushroom','wheat','corn']);
+import {crop,growth,ready,time,soilLevels,plantTerms} from './model.js?v=20261122e';
+const nonFlowering=new Set(['radish','carrot','root','leaf','lotus','mushroom','wheat','corn','ear','rhizome']);
 export function visualPhase(s,p,now){
  if(!p)return {phase:-1,label:'空地',progress:0,established:false};
  let c=crop(p.id),g=growth(s,p,now),established=p.cycle>1;
@@ -10,9 +10,11 @@ export function visualPhase(s,p,now){
  if(phase===2)label=nonFlowering.has(c.shape)?(c.shape==='leaf'?'叶丛舒展':c.shape==='wheat'||c.shape==='corn'?'抽穗':'逐渐长大'):'开花';
  if(phase===3)label=g<.84?(nonFlowering.has(c.shape)?'充实生长':'幼果生长'):'渐渐成熟';
  if(c.shape==='mushroom')label=['菌菇冒头','菌柄生长','菌盖展开','菌盖饱满','已成熟'][phase];
- if(c.shape==='wheat'||c.shape==='corn'){if(phase===1)label='拔节长高';if(phase===3)label=g<.84?'灌浆饱满':'渐渐成熟';}
+ if(['wheat','corn','ear'].includes(c.shape)){if(phase===1)label='拔节长高';if(phase===3)label=g<.84?'灌浆饱满':'渐渐成熟';}
  if(['radish','carrot','root'].includes(c.shape)&&phase===2)label='根部膨大';
  if(['flower','moon'].includes(c.shape)&&phase===3)label='花朵舒展';
+ if(c.id==='ginger'&&phase>=2)label='根茎膨大';
+ if(c.id==='romanesco'&&phase>=2)label='花球成塔';
  if(c.id==='asparagus'&&phase===2)label='新笋伸长';
  if(c.id==='asparagus'&&phase===3)label='笋茎充实';
  return {phase,label,progress:g,established};

@@ -1,0 +1,79 @@
+/* Season controls leave the illustrated ground and branches in view. */
+#app{--paper:#f8f2dc;--ink:#253e30;--line:#d6cfab}
+header .brand{font-size:17px}
+header .head-actions #shop{font-size:12px;line-height:1.25}
+#shop #cropCount{display:block;color:#5e6c44;font-size:10px}
+#goalShortcut{padding:3px 0;line-height:1.1}
+#goalShortcut #goalPeek{display:block;margin-top:4px;color:#4d6040;font-size:11px;text-align:left;font-weight:500}
+.status .money{flex:0 0 auto}
+#app .plot .label:empty{display:none}
+#app .plot .label{
+ top:auto;bottom:3%;width:auto;min-width:0;padding:2px 6px;border-radius:8px;
+ font-size:11px;line-height:1.15;font-weight:750;letter-spacing:.04em;
+}
+#app .plot.is-ready .label{border:1px solid #f2d993;background:#f9e7a9e8;color:#394626}
+#app .plot.is-empty .label{font-size:19px;color:#fff4c8}
+#app .plot.is-locked .label{background:none;color:#fff7d2;text-shadow:0 1px 2px #333}
+#app .plot.is-locked{opacity:1}
+body:not(.orchard-mode) #controlDock{
+ position:fixed;left:0;right:0;bottom:var(--field-nav,56px);margin:0 auto;width:min(100%,540px);
+ padding:4px 9px 5px;border-radius:14px 14px 0 0;background:#f8f0d9f7;
+}
+#controlDock .tools button{font-size:14px;border-radius:10px}
+#controlDock .tools .harvest:not(:disabled){background:#477650;color:#fff5df;border-color:#3b6a43}
+#controlDock .tools button:disabled{opacity:.58}
+body:not(.orchard-mode) #app{padding-bottom:110px}
+#app .plot-inspector{max-height:42svh}
+#plotGround:empty{display:none}
+#plotPlan{margin:3px 0 5px;color:#516348;font-size:12px}
+#app .inspector-actions{display:flex;gap:7px;margin:5px 0 0}
+#app .inspector-actions button{flex:1;min-height:44px}
+#plotPrimary{background:#477650;color:#fff5df}
+#app #plotReadyAt{font-size:11px}
+#app .next-sheet{background:#f8f2df;color:#253e30;border:1px solid #d5ceab;border-radius:19px 19px 0 0;max-width:540px}
+#app .scene-wrap{isolation:isolate}
+.next-sheet{
+ position:fixed;inset:auto 0 0;margin:0 auto;width:min(100%,540px);max-height:88dvh;
+ color:#253e30;background:#f8f2df;border:1px solid #d5ceab;
+}
+.next-sheet[open]{display:flex;flex-direction:column}
+.next-sheet .sheet-heading{display:flex;align-items:center;gap:8px;padding:8px 14px;border-bottom:1px solid #ded7b8}
+.next-sheet .sheet-heading h2{flex:1;font-size:17px;margin:0}
+.next-sheet .sheet-heading button{padding:0;width:44px;font-size:21px}
+.next-sheet .sheet-content h3{font-size:15px;margin:14px 0 5px}
+.next-sheet .sheet-content p{font-size:13px;line-height:1.55;margin:5px 0 10px}
+.next-sheet #dialogText{white-space:pre-line;font-size:14px}
+.next-sheet #dialogConfirm,.next-sheet #expandFields{background:#497451;color:#fff8e5}
+.next-sheet #improveBatch,.next-sheet #clearSection,.next-sheet #catalog{margin-top:16px;padding-top:10px;border-top:1px solid #ded7b8}
+.next-sheet #seedBalance{font-size:12px;white-space:nowrap}
+.seed-tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:9px}
+.seed-tabs button{min-height:44px;font-size:12px;padding:4px 8px}
+.seed-tabs button[aria-pressed=true]{background:#4a7549;color:#fff5dc;border-color:#426443}
+.next-sheet .seed-tile small{max-height:none;font-size:10px;line-height:1.4}
+.next-sheet .seed-tile{min-height:100px}
+.next-sheet .seed-tile canvas{height:52px;width:52px}
+.seed-decision{padding:9px 12px calc(9px + env(safe-area-inset-bottom));border-top:1px solid #d9cfac;background:#f3ecd1}
+.seed-decision>strong{font-size:13px}
+.seed-decision>p{margin:2px 0;font-size:12px}
+.seed-decision>p:empty{display:none}
+.seed-scopes{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding-top:5px}
+.seed-scopes button{width:100%;background:#e4ebd4;color:#2d5035}
+.seed-scopes p{min-height:32px;margin:3px 0;font-size:11px;line-height:1.45;white-space:pre-line}
+.seed-decision .text-action{border:0;box-shadow:none;background:transparent;text-decoration:underline;width:100%}
+.catalog-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:8px}
+.catalog-grid .seed-tile:disabled{opacity:1}
+.orchard-mode #orchardPage .orchard-heading{top:62px;left:14px;right:14px}
+.orchard-mode #treeBrowse{max-width:none}
+.orchard-mode #treeBrowse button{min-height:44px;background:#faf2d9e8;color:#355333}
+.orchard-mode #treeBrowse small:empty{display:none}
+#orchardHits{position:absolute;inset:0;pointer-events:none}
+#orchardHits button{position:absolute;transform:translate(-50%,-50%);pointer-events:auto;background:transparent;box-shadow:none;border:0;padding:0;touch-action:pan-y}
+#orchardHits .fruit-touch{--fruit-size:44px;min-height:44px!important;z-index:2}
+#orchardHits .tree-touch{display:block;width:88px;height:80px;z-index:1;border-radius:18px}
+#orchardHits button::before,#orchardHits button::after{display:none}
+#orchardHits button:focus-visible{outline:2px solid #fff2af;outline-offset:-5px}
+#basketText::before{inset:-24px -9px 0}
+@media(max-width:600px){
+ body:not(.orchard-mode) .scene-wrap{height:clamp(330px,calc(100dvh - 199px - env(safe-area-inset-bottom)),770px)}
+ .next-sheet .sheet-heading{padding-inline:11px}
+}

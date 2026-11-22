@@ -1,8 +1,11 @@
-import {CROPS,crop,growth,ready} from './model.js?v=20261123b';
-import {growthProfile,frameDelay} from './growth.js?v=20261123b';
-import {sprite,images,assetsReady} from './assets.js?v=20261123b';
-export {assetsReady};
-import {visualPhase} from './presentation.js?v=20261123b';
+import {cropPicture,seasonArtReady,seasonCropsReady} from './season-sprites.js';
+import {paintCrop,paintBed,bedOutline} from './field-paint.js';
+import {rain7Release} from './rain7-balance.js?v=20261123b';
+import {CROPS,crop,growth,ready} from './model.js?v=20261122e';
+import {growthProfile,frameDelay} from './growth.js?v=20261122e';
+import {sprite,images,assetsReady as baseAssetsReady} from './assets.js?v=20261123b';
+export const assetsReady=Promise.all([baseAssetsReady,seasonArtReady]);
+import {visualPhase} from './presentation.js?v=20261122e';
 const INK='#40584b';
 function ellipse(c,x,y,rx,ry,fill,stroke=null){c.beginPath();c.ellipse(x,y,rx,ry,0,0,Math.PI*2);if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.lineWidth=2;c.strokeStyle=stroke;c.stroke();}}
 function path(c,points,fill,stroke=null){c.beginPath();for(let i=0;i<points.length;i++)c[i?'lineTo':'moveTo'](...points[i]);c.closePath();if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.lineWidth=2;c.strokeStyle=stroke;c.stroke();}}
@@ -45,7 +48,7 @@ export function growingPlant(c,id,x,y,size,v,t=0){
  const expansion=v.phase===3&&!v.established?.86+.14*ripeness:1;plantArt(c,id,x,y,size*expansion,stage,0,t,visual);
 }
 export const SOIL_ART=[{soil:'#88532d',ridge:'#b17943',frame:'#ad773c',badge:'#e1bf7e'},{soil:'#67482c',ridge:'#94633a',frame:'#758444',badge:'#d4dfab'},{soil:'#493b28',ridge:'#795637',frame:'#b4925b',badge:'#f0d58a'}];
-export function drawIcon(canvas,id,variant=0){canvas.width=120;canvas.height=120;let c=canvas.getContext('2d');c.clearRect(0,0,120,120);if(!sprite(c,id,60,116,112,112))plantArt(c,id,60,crop(id).shape==='tree'?87:75,crop(id).shape==='tree'?.95:1.1,3,0);}
+export function drawIcon(canvas,id,variant=0){canvas.width=120;canvas.height=120;let c=canvas.getContext('2d');c.clearRect(0,0,120,120);if(!(rain7Release&&(cropPicture(c,id,60,108,4,.72)||paintCrop(c,id,60,105,4,.76)))&&!sprite(c,id,60,116,112,112))plantArt(c,id,60,crop(id).shape==='tree'?87:75,crop(id).shape==='tree'?.95:1.1,3,0);}
 export const POSITIONS=Array.from({length:12},(_,i)=>({x:142+(i%3)*218,y:382+Math.floor(i/3)*143}));
 export const SCENE_WIDTH=720,SCENE_HEIGHT=960;
 function round(c,x,y,w,h,r,fill,stroke){c.beginPath();c.roundRect(x,y,w,h,r);if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.strokeStyle=stroke;c.lineWidth=3;c.stroke();}}
@@ -115,6 +118,14 @@ function drawStarMelon(c,x,y,v){
 }
 
 export function drawPlant(c,id,x,y,v,t=0,soil=0,wet=false){
+ if(rain7Release){
+  if(cropPicture(c,id,x,y+18,v.phase)){
+   c.save();c.globalCompositeOperation='destination-over';
+   ellipse(c,x+3,y+18,v.phase===0?17:52,6,'#4c342c42');c.restore();
+   return;
+  }
+  if(paintCrop(c,id,x,y+17,v.phase))return;
+ }
  if(id==='starwumpkin'){drawStarMelon(c,x,y,v);return;}
  const p=growthProfile(id,v),scale=v.phase===0?Math.max(.36,p.scale):p.scale,w=p.width*scale*(v.phase>=3?1.08:1),h=p.height*scale,base=y+25;
  c.save();
@@ -150,6 +161,7 @@ function drawGround(c,s,w,h){
  for(let i=0;i<12;i++){
   let{x,y}=POSITIONS[i],locked=i>=s.plotCount,soil=soilArtTier(s,i),ground=SOIL_ART[soil],wet=!!s.plots[i]?.watered;
   if(locked){ellipse(c,x,y+18,88,35,'#909b4b33');for(let j=-2;j<=2;j++){let yy=y+13+Math.sin(j*3)*17;leaf(c,x+j*30,yy,j*.35,.7);ellipse(c,x+j*34+11,yy+9,7,4,j%2?'#ba9d65':'#d8bc85','#9e8852');}continue;}
+  if(rain7Release){paintBed(c,x,y,Math.floor(i/3),i,soil,wet);continue;}
   c.save();
   ellipse(c,x+5,y+43,103,23,'#2d392b37');
   ellipse(c,x+3,y+36,101,20,'#3c432842');
@@ -194,18 +206,18 @@ export function createScene(canvas,{createCanvas=makeCanvas}={}){
  const layered=!!(ground&&canvas.parentNode&&canvas.before);if(layered){ground.className='ground-layer';ground.setAttribute('aria-hidden','true');canvas.before(ground);}
  function resize(){let d=Math.min(2,globalThis.devicePixelRatio||1);canvas.width=w*d;canvas.height=h*d;c.setTransform(d,0,0,d,0,0);if(ground){ground.width=w*d;ground.height=h*d;gc.setTransform(d,0,0,d,0,0);}groundKey='';plants.clear();}
  function render(s,now,t,reduced=false,{selected=-1}={}){
-  stats.frames++;const assetKey=Object.keys(images).sort().join(',');const key=[!!images.garden,s.plotCount,s.soil?.join(','),s.plots.map(p=>!!p?.watered).join(',')].join('|');
+  stats.frames++;const assetKey=Object.keys(images).sort().join(',')+'|'+seasonCropsReady();const key=[!!images.garden,s.plotCount,s.soil?.join(','),s.plots.map(p=>!!p?.watered).join(',')].join('|');
   if(key!==groundKey||!gc){drawGround(gc||c,s,w,h);groundKey=key;stats.groundBuilds++;}
   if(gc){c.clearRect(0,0,w,h);if(!layered)c.drawImage(ground,0,0,w,h);}
   if(!reduced)for(let j=0;j<8;j++){let xx=(j*101+t*7)%720;line(c,xx,919+Math.sin(j)*12,xx+15,919+Math.sin(j)*12,'#d7eee16a',1.5);}
   for(let i=0;i<12;i++){
    let{x,y}=POSITIONS[i],p=s.plots[i],soil=soilArtTier(s,i);if(i>=s.plotCount)continue;
-   if(selected===i){c.save();c.strokeStyle='#fff0a9';c.lineWidth=3;c.setLineDash([9,5]);soilPath(c,x,y);c.stroke();c.restore();}
+   if(selected===i){c.save();c.strokeStyle='#fff0a9';c.lineWidth=3;c.setLineDash([9,5]);if(rain7Release)bedOutline(c,x,y,Math.floor(i/3)/3);else soilPath(c,x,y);c.stroke();c.restore();}
    if(p){
-    let v=visualPhase(s,p,now),bucket=Math.floor(v.progress*100),k=[p.id,p.cycle>1,bucket,v.phase,soil,p.watered,assetKey].join('|'),entry=plants.get(i);
+    let v=visualPhase(s,p,now),bucket=rain7Release?Math.floor(v.progress*12)*8:Math.floor(v.progress*100),k=[p.id,p.cycle>1,bucket,v.phase,soil,p.watered,assetKey].join('|'),entry=plants.get(i);
     if(!entry||entry.key!==k){let layer=entry?.canvas||createCanvas();if(layer){layer.width=440;layer.height=440;let pc=layer.getContext('2d');pc.setTransform(2,0,0,2,220,360);drawPlant(pc,p.id,0,0,{...v,progress:v.phase===4?1:bucket/100},0,soil,p.watered);entry={key:k,canvas:layer};plants.set(i,entry);stats.plantBuilds++;}}
     c.save();c.translate(x,y);if(!reduced)c.rotate(Math.sin(t*.9+i)*.003);if(entry)c.drawImage(entry.canvas,-110,-180,220,220);else drawPlant(c,p.id,0,0,v,0,soil,p.watered);c.restore();
-    if(v.phase===4&&!reduced){
+    if(!rain7Release&&v.phase===4&&!reduced){
      const twinkle=(1+Math.sin(t*2+i))/2;
      c.save();c.globalAlpha=.65+twinkle*.35;
      star(c,x+66,y-46,7+twinkle*3,'#fff3cb');
